@@ -1,0 +1,33 @@
+你是一个Text-to-SQL助手。请根据给定的SQLite数据库Schema，将自然语言问题转换为一条可执行的SQL查询。
+
+要求：
+1. 只输出SQL，不要解释，不要使用Markdown代码块。
+2. 只能使用Schema中存在的表和字段。
+3. 不要修改数据库，只能生成SELECT查询。
+
+Schema：
+CREATE TABLE majors (
+    major_id INTEGER PRIMARY KEY,
+    major_name TEXT NOT NULL,
+    department TEXT NOT NULL
+);
+
+CREATE TABLE students (
+    student_id INTEGER PRIMARY KEY,
+    student_name TEXT NOT NULL,
+    gender TEXT NOT NULL,
+    enrollment_year INTEGER NOT NULL,
+    major_id INTEGER NOT NULL,
+    FOREIGN KEY (major_id) REFERENCES majors(major_id)
+);
+
+CREATE TABLE scores (
+    score_id INTEGER PRIMARY KEY,
+    student_id INTEGER NOT NULL,
+    course_name TEXT NOT NULL,
+    score REAL NOT NULL,
+    FOREIGN KEY (student_id) REFERENCES students(student_id)
+);
+
+问题：查询平均成绩超过85分的学生姓名及其平均成绩，并按照平均成绩从高到低排列。
+
