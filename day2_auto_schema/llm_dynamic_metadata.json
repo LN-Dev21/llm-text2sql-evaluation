@@ -1,0 +1,15 @@
+{
+  "provider": "Zhipu AI",
+  "model": "glm-4.5-air",
+  "database_file": "D:\\SystemDir\\Desktop\\Research project\\Text-to-SQL System\\day1_minimal_demo\\student.db",
+  "question": "查询平均成绩超过85分的学生姓名及其平均成绩，并按照平均成绩从高到低排列。",
+  "schema_source": "automatically extracted from SQLite",
+  "thinking": "disabled",
+  "temperature": 0.0,
+  "max_tokens": 512,
+  "finish_reason": "stop",
+  "prompt_tokens": 223,
+  "completion_tokens": 47,
+  "total_tokens": 270,
+  "reasoning_length": 0
+}

@@ -1,0 +1,43 @@
+{
+  "question": "查询平均成绩超过85分的学生姓名及其平均成绩，并按照平均成绩从高到低排列。",
+  "llm_provider": "Zhipu GLM dynamic-schema pipeline",
+  "schema_source": "automatically extracted from SQLite",
+  "database_file": "D:\\SystemDir\\Desktop\\Research project\\Text-to-SQL System\\day1_minimal_demo\\student.db",
+  "sql_file": "D:\\SystemDir\\Desktop\\Research project\\Text-to-SQL System\\day2_auto_schema\\llm_generated_dynamic.sql",
+  "generated_sql": "SELECT s.student_name,\n       AVG(sc.score) AS average_score\nFROM students s\n    JOIN scores sc\n        ON s.student_id = sc.student_id\nGROUP BY s.student_id\nHAVING AVG(sc.score) > 85\nORDER BY average_score DESC;",
+  "execution_success": true,
+  "columns": [
+    "student_name",
+    "average_score"
+  ],
+  "rows": [
+    [
+      "王五",
+      93.0
+    ],
+    [
+      "张三",
+      90.0
+    ],
+    [
+      "赵六",
+      88.0
+    ]
+  ],
+  "expected_rows": [
+    [
+      "王五",
+      93.0
+    ],
+    [
+      "张三",
+      90.0
+    ],
+    [
+      "赵六",
+      88.0
+    ]
+  ],
+  "is_correct": true,
+  "error": null
+}
