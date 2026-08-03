@@ -1,0 +1,3 @@
+# Project-wide Python dependencies
+zai-sdk==0.2.3
+
