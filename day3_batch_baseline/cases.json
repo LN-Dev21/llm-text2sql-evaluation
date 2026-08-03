@@ -1,0 +1,63 @@
+[
+  {
+    "id": "q01",
+    "difficulty": "easy",
+    "question": "查询所有学生的学号和姓名，按照学号升序排列。",
+    "gold_sql": "SELECT student_id, student_name FROM students ORDER BY student_id ASC;"
+  },
+  {
+    "id": "q02",
+    "difficulty": "easy",
+    "question": "查询所有学生的学号、姓名和专业名称，按照学号升序排列。",
+    "gold_sql": "SELECT s.student_id, s.student_name, m.major_name FROM students AS s JOIN majors AS m ON s.major_id = m.major_id ORDER BY s.student_id ASC;"
+  },
+  {
+    "id": "q03",
+    "difficulty": "easy",
+    "question": "查询张三的所有课程名称和成绩，按照课程名称升序排列。",
+    "gold_sql": "SELECT sc.course_name, sc.score FROM students AS s JOIN scores AS sc ON s.student_id = sc.student_id WHERE s.student_name = '张三' ORDER BY sc.course_name ASC;"
+  },
+  {
+    "id": "q04",
+    "difficulty": "medium",
+    "question": "查询每名学生的学号、姓名和平均成绩，按照平均成绩降序排列；平均成绩相同时按照学号升序排列。",
+    "gold_sql": "SELECT s.student_id, s.student_name, AVG(sc.score) AS average_score FROM students AS s JOIN scores AS sc ON s.student_id = sc.student_id GROUP BY s.student_id, s.student_name ORDER BY average_score DESC, s.student_id ASC;"
+  },
+  {
+    "id": "q05",
+    "difficulty": "medium",
+    "question": "查询平均成绩超过85分的学生姓名及其平均成绩，按照平均成绩降序排列；平均成绩相同时按照学号升序排列。",
+    "gold_sql": "SELECT s.student_name, AVG(sc.score) AS average_score FROM students AS s JOIN scores AS sc ON s.student_id = sc.student_id GROUP BY s.student_id, s.student_name HAVING AVG(sc.score) > 85 ORDER BY average_score DESC, s.student_id ASC;"
+  },
+  {
+    "id": "q06",
+    "difficulty": "medium",
+    "question": "查询平均成绩最高的前3名学生的学号、姓名和平均成绩，按照平均成绩降序排列；平均成绩相同时按照学号升序排列。",
+    "gold_sql": "SELECT s.student_id, s.student_name, AVG(sc.score) AS average_score FROM students AS s JOIN scores AS sc ON s.student_id = sc.student_id GROUP BY s.student_id, s.student_name ORDER BY average_score DESC, s.student_id ASC LIMIT 3;"
+  },
+  {
+    "id": "q07",
+    "difficulty": "hard",
+    "question": "查询每个专业的专业名称和该专业所有学生课程成绩的平均分，按照平均分降序排列；平均分相同时按照专业编号升序排列。",
+    "gold_sql": "SELECT m.major_name, AVG(sc.score) AS average_score FROM majors AS m JOIN students AS s ON m.major_id = s.major_id JOIN scores AS sc ON s.student_id = sc.student_id GROUP BY m.major_id, m.major_name ORDER BY average_score DESC, m.major_id ASC;"
+  },
+  {
+    "id": "q08",
+    "difficulty": "medium",
+    "question": "查询每个专业的专业名称和学生人数，按照学生人数降序排列；人数相同时按照专业编号升序排列。",
+    "gold_sql": "SELECT m.major_name, COUNT(s.student_id) AS student_count FROM majors AS m LEFT JOIN students AS s ON m.major_id = s.major_id GROUP BY m.major_id, m.major_name ORDER BY student_count DESC, m.major_id ASC;"
+  },
+  {
+    "id": "q09",
+    "difficulty": "medium",
+    "question": "查询全校最高的一条课程成绩对应的学生姓名、课程名称和成绩；如果最高分并列，按照学号升序，只返回一条记录。",
+    "gold_sql": "SELECT s.student_name, sc.course_name, sc.score FROM students AS s JOIN scores AS sc ON s.student_id = sc.student_id ORDER BY sc.score DESC, s.student_id ASC LIMIT 1;"
+  },
+  {
+    "id": "q10",
+    "difficulty": "hard",
+    "question": "查询没有任何成绩记录的学生学号和姓名，按照学号升序排列。",
+    "gold_sql": "SELECT s.student_id, s.student_name FROM students AS s LEFT JOIN scores AS sc ON s.student_id = sc.student_id WHERE sc.score_id IS NULL ORDER BY s.student_id ASC;"
+  }
+]
+

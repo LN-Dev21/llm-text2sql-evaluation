@@ -1,0 +1,562 @@
+{
+  "experiment": "full-schema zero-shot local batch baseline",
+  "model": "glm-4.5-air",
+  "database_file": "D:\\SystemDir\\Desktop\\Research project\\Text-to-SQL System\\day1_minimal_demo\\student.db",
+  "schema_source": "automatically extracted from SQLite",
+  "gold_sql_sent_to_model": false,
+  "results": [
+    {
+      "id": "q01",
+      "difficulty": "easy",
+      "question": "查询所有学生的学号和姓名，按照学号升序排列。",
+      "generated_sql": "SELECT student_id, student_name FROM students ORDER BY student_id ASC;",
+      "gold_sql": "SELECT student_id, student_name FROM students ORDER BY student_id ASC;",
+      "execution_success": true,
+      "is_correct": true,
+      "predicted_columns": [
+        "student_id",
+        "student_name"
+      ],
+      "predicted_rows": [
+        [
+          1,
+          "张三"
+        ],
+        [
+          2,
+          "李四"
+        ],
+        [
+          3,
+          "王五"
+        ],
+        [
+          4,
+          "赵六"
+        ],
+        [
+          5,
+          "孙七"
+        ]
+      ],
+      "gold_columns": [
+        "student_id",
+        "student_name"
+      ],
+      "gold_rows": [
+        [
+          1,
+          "张三"
+        ],
+        [
+          2,
+          "李四"
+        ],
+        [
+          3,
+          "王五"
+        ],
+        [
+          4,
+          "赵六"
+        ],
+        [
+          5,
+          "孙七"
+        ]
+      ],
+      "error": null,
+      "latency_seconds": 1.106,
+      "finish_reason": "stop",
+      "prompt_tokens": 216,
+      "completion_tokens": 15,
+      "total_tokens": 231
+    },
+    {
+      "id": "q02",
+      "difficulty": "easy",
+      "question": "查询所有学生的学号、姓名和专业名称，按照学号升序排列。",
+      "generated_sql": "SELECT s.student_id, s.student_name, m.major_name FROM students s JOIN majors m ON s.major_id = m.major_id ORDER BY s.student_id ASC;",
+      "gold_sql": "SELECT s.student_id, s.student_name, m.major_name FROM students AS s JOIN majors AS m ON s.major_id = m.major_id ORDER BY s.student_id ASC;",
+      "execution_success": true,
+      "is_correct": true,
+      "predicted_columns": [
+        "student_id",
+        "student_name",
+        "major_name"
+      ],
+      "predicted_rows": [
+        [
+          1,
+          "张三",
+          "软件工程"
+        ],
+        [
+          2,
+          "李四",
+          "计算机科学与技术"
+        ],
+        [
+          3,
+          "王五",
+          "数据科学与大数据技术"
+        ],
+        [
+          4,
+          "赵六",
+          "软件工程"
+        ],
+        [
+          5,
+          "孙七",
+          "计算机科学与技术"
+        ]
+      ],
+      "gold_columns": [
+        "student_id",
+        "student_name",
+        "major_name"
+      ],
+      "gold_rows": [
+        [
+          1,
+          "张三",
+          "软件工程"
+        ],
+        [
+          2,
+          "李四",
+          "计算机科学与技术"
+        ],
+        [
+          3,
+          "王五",
+          "数据科学与大数据技术"
+        ],
+        [
+          4,
+          "赵六",
+          "软件工程"
+        ],
+        [
+          5,
+          "孙七",
+          "计算机科学与技术"
+        ]
+      ],
+      "error": null,
+      "latency_seconds": 1.276,
+      "finish_reason": "stop",
+      "prompt_tokens": 218,
+      "completion_tokens": 34,
+      "total_tokens": 252
+    },
+    {
+      "id": "q03",
+      "difficulty": "easy",
+      "question": "查询张三的所有课程名称和成绩，按照课程名称升序排列。",
+      "generated_sql": "SELECT course_name, score FROM scores WHERE student_id = (SELECT student_id FROM students WHERE student_name = '张三') ORDER BY course_name ASC;",
+      "gold_sql": "SELECT sc.course_name, sc.score FROM students AS s JOIN scores AS sc ON s.student_id = sc.student_id WHERE s.student_name = '张三' ORDER BY sc.course_name ASC;",
+      "execution_success": true,
+      "is_correct": true,
+      "predicted_columns": [
+        "course_name",
+        "score"
+      ],
+      "predicted_rows": [
+        [
+          "数据库原理",
+          92.0
+        ],
+        [
+          "数据结构",
+          88.0
+        ]
+      ],
+      "gold_columns": [
+        "course_name",
+        "score"
+      ],
+      "gold_rows": [
+        [
+          "数据库原理",
+          92.0
+        ],
+        [
+          "数据结构",
+          88.0
+        ]
+      ],
+      "error": null,
+      "latency_seconds": 1.124,
+      "finish_reason": "stop",
+      "prompt_tokens": 217,
+      "completion_tokens": 32,
+      "total_tokens": 249
+    },
+    {
+      "id": "q04",
+      "difficulty": "medium",
+      "question": "查询每名学生的学号、姓名和平均成绩，按照平均成绩降序排列；平均成绩相同时按照学号升序排列。",
+      "generated_sql": "SELECT s.student_id, s.student_name, AVG(sc.score) AS average_score FROM students s JOIN scores sc ON s.student_id = sc.student_id GROUP BY s.student_id, s.student_name ORDER BY average_score DESC, s.student_id ASC;",
+      "gold_sql": "SELECT s.student_id, s.student_name, AVG(sc.score) AS average_score FROM students AS s JOIN scores AS sc ON s.student_id = sc.student_id GROUP BY s.student_id, s.student_name ORDER BY average_score DESC, s.student_id ASC;",
+      "execution_success": true,
+      "is_correct": true,
+      "predicted_columns": [
+        "student_id",
+        "student_name",
+        "average_score"
+      ],
+      "predicted_rows": [
+        [
+          3,
+          "王五",
+          93.0
+        ],
+        [
+          1,
+          "张三",
+          90.0
+        ],
+        [
+          4,
+          "赵六",
+          88.0
+        ],
+        [
+          2,
+          "李四",
+          82.0
+        ],
+        [
+          5,
+          "孙七",
+          75.0
+        ]
+      ],
+      "gold_columns": [
+        "student_id",
+        "student_name",
+        "average_score"
+      ],
+      "gold_rows": [
+        [
+          3,
+          "王五",
+          93.0
+        ],
+        [
+          1,
+          "张三",
+          90.0
+        ],
+        [
+          4,
+          "赵六",
+          88.0
+        ],
+        [
+          2,
+          "李四",
+          82.0
+        ],
+        [
+          5,
+          "孙七",
+          75.0
+        ]
+      ],
+      "error": null,
+      "latency_seconds": 1.309,
+      "finish_reason": "stop",
+      "prompt_tokens": 231,
+      "completion_tokens": 51,
+      "total_tokens": 282
+    },
+    {
+      "id": "q05",
+      "difficulty": "medium",
+      "question": "查询平均成绩超过85分的学生姓名及其平均成绩，按照平均成绩降序排列；平均成绩相同时按照学号升序排列。",
+      "generated_sql": "SELECT s.student_name, AVG(sc.score) AS average_score\nFROM students s\nJOIN scores sc ON s.student_id = sc.student_id\nGROUP BY s.student_id, s.student_name\nHAVING AVG(sc.score) > 85\nORDER BY average_score DESC, s.student_id ASC;",
+      "gold_sql": "SELECT s.student_name, AVG(sc.score) AS average_score FROM students AS s JOIN scores AS sc ON s.student_id = sc.student_id GROUP BY s.student_id, s.student_name HAVING AVG(sc.score) > 85 ORDER BY average_score DESC, s.student_id ASC;",
+      "execution_success": true,
+      "is_correct": true,
+      "predicted_columns": [
+        "student_name",
+        "average_score"
+      ],
+      "predicted_rows": [
+        [
+          "王五",
+          93.0
+        ],
+        [
+          "张三",
+          90.0
+        ],
+        [
+          "赵六",
+          88.0
+        ]
+      ],
+      "gold_columns": [
+        "student_name",
+        "average_score"
+      ],
+      "gold_rows": [
+        [
+          "王五",
+          93.0
+        ],
+        [
+          "张三",
+          90.0
+        ],
+        [
+          "赵六",
+          88.0
+        ]
+      ],
+      "error": null,
+      "latency_seconds": 1.671,
+      "finish_reason": "stop",
+      "prompt_tokens": 231,
+      "completion_tokens": 61,
+      "total_tokens": 292
+    },
+    {
+      "id": "q06",
+      "difficulty": "medium",
+      "question": "查询平均成绩最高的前3名学生的学号、姓名和平均成绩，按照平均成绩降序排列；平均成绩相同时按照学号升序排列。",
+      "generated_sql": "SELECT s.student_id, s.student_name, AVG(sc.score) AS average_score\nFROM students s\nJOIN scores sc ON s.student_id = sc.student_id\nGROUP BY s.student_id, s.student_name\nORDER BY average_score DESC, s.student_id ASC\nLIMIT 3;",
+      "gold_sql": "SELECT s.student_id, s.student_name, AVG(sc.score) AS average_score FROM students AS s JOIN scores AS sc ON s.student_id = sc.student_id GROUP BY s.student_id, s.student_name ORDER BY average_score DESC, s.student_id ASC LIMIT 3;",
+      "execution_success": true,
+      "is_correct": true,
+      "predicted_columns": [
+        "student_id",
+        "student_name",
+        "average_score"
+      ],
+      "predicted_rows": [
+        [
+          3,
+          "王五",
+          93.0
+        ],
+        [
+          1,
+          "张三",
+          90.0
+        ],
+        [
+          4,
+          "赵六",
+          88.0
+        ]
+      ],
+      "gold_columns": [
+        "student_id",
+        "student_name",
+        "average_score"
+      ],
+      "gold_rows": [
+        [
+          3,
+          "王五",
+          93.0
+        ],
+        [
+          1,
+          "张三",
+          90.0
+        ],
+        [
+          4,
+          "赵六",
+          88.0
+        ]
+      ],
+      "error": null,
+      "latency_seconds": 1.54,
+      "finish_reason": "stop",
+      "prompt_tokens": 235,
+      "completion_tokens": 59,
+      "total_tokens": 294
+    },
+    {
+      "id": "q07",
+      "difficulty": "hard",
+      "question": "查询每个专业的专业名称和该专业所有学生课程成绩的平均分，按照平均分降序排列；平均分相同时按照专业编号升序排列。",
+      "generated_sql": "SELECT m.major_name, AVG(s.score) AS average_score FROM majors m JOIN students st ON m.major_id = st.major_id JOIN scores s ON st.student_id = s.student_id GROUP BY m.major_id, m.major_name ORDER BY average_score DESC, m.major_id ASC;",
+      "gold_sql": "SELECT m.major_name, AVG(sc.score) AS average_score FROM majors AS m JOIN students AS s ON m.major_id = s.major_id JOIN scores AS sc ON s.student_id = sc.student_id GROUP BY m.major_id, m.major_name ORDER BY average_score DESC, m.major_id ASC;",
+      "execution_success": true,
+      "is_correct": true,
+      "predicted_columns": [
+        "major_name",
+        "average_score"
+      ],
+      "predicted_rows": [
+        [
+          "数据科学与大数据技术",
+          93.0
+        ],
+        [
+          "软件工程",
+          89.0
+        ],
+        [
+          "计算机科学与技术",
+          78.5
+        ]
+      ],
+      "gold_columns": [
+        "major_name",
+        "average_score"
+      ],
+      "gold_rows": [
+        [
+          "数据科学与大数据技术",
+          93.0
+        ],
+        [
+          "软件工程",
+          89.0
+        ],
+        [
+          "计算机科学与技术",
+          78.5
+        ]
+      ],
+      "error": null,
+      "latency_seconds": 1.488,
+      "finish_reason": "stop",
+      "prompt_tokens": 234,
+      "completion_tokens": 58,
+      "total_tokens": 292
+    },
+    {
+      "id": "q08",
+      "difficulty": "medium",
+      "question": "查询每个专业的专业名称和学生人数，按照学生人数降序排列；人数相同时按照专业编号升序排列。",
+      "generated_sql": "SELECT m.major_name, COUNT(s.student_id) AS student_count FROM majors m LEFT JOIN students s ON m.major_id = s.major_id GROUP BY m.major_id, m.major_name ORDER BY student_count DESC, m.major_id ASC;",
+      "gold_sql": "SELECT m.major_name, COUNT(s.student_id) AS student_count FROM majors AS m LEFT JOIN students AS s ON m.major_id = s.major_id GROUP BY m.major_id, m.major_name ORDER BY student_count DESC, m.major_id ASC;",
+      "execution_success": true,
+      "is_correct": true,
+      "predicted_columns": [
+        "major_name",
+        "student_count"
+      ],
+      "predicted_rows": [
+        [
+          "软件工程",
+          2
+        ],
+        [
+          "计算机科学与技术",
+          2
+        ],
+        [
+          "数据科学与大数据技术",
+          1
+        ]
+      ],
+      "gold_columns": [
+        "major_name",
+        "student_count"
+      ],
+      "gold_rows": [
+        [
+          "软件工程",
+          2
+        ],
+        [
+          "计算机科学与技术",
+          2
+        ],
+        [
+          "数据科学与大数据技术",
+          1
+        ]
+      ],
+      "error": null,
+      "latency_seconds": 1.3,
+      "finish_reason": "stop",
+      "prompt_tokens": 226,
+      "completion_tokens": 49,
+      "total_tokens": 275
+    },
+    {
+      "id": "q09",
+      "difficulty": "medium",
+      "question": "查询全校最高的一条课程成绩对应的学生姓名、课程名称和成绩；如果最高分并列，按照学号升序，只返回一条记录。",
+      "generated_sql": "SELECT s.student_name, sc.course_name, sc.score FROM students s JOIN scores sc ON s.student_id = sc.student_id ORDER BY sc.score DESC, s.student_id ASC LIMIT 1;",
+      "gold_sql": "SELECT s.student_name, sc.course_name, sc.score FROM students AS s JOIN scores AS sc ON s.student_id = sc.student_id ORDER BY sc.score DESC, s.student_id ASC LIMIT 1;",
+      "execution_success": true,
+      "is_correct": true,
+      "predicted_columns": [
+        "student_name",
+        "course_name",
+        "score"
+      ],
+      "predicted_rows": [
+        [
+          "王五",
+          "数据库原理",
+          95.0
+        ]
+      ],
+      "gold_columns": [
+        "student_name",
+        "course_name",
+        "score"
+      ],
+      "gold_rows": [
+        [
+          "王五",
+          "数据库原理",
+          95.0
+        ]
+      ],
+      "error": null,
+      "latency_seconds": 1.197,
+      "finish_reason": "stop",
+      "prompt_tokens": 232,
+      "completion_tokens": 40,
+      "total_tokens": 272
+    },
+    {
+      "id": "q10",
+      "difficulty": "hard",
+      "question": "查询没有任何成绩记录的学生学号和姓名，按照学号升序排列。",
+      "generated_sql": "SELECT s.student_id, s.student_name FROM students s LEFT JOIN scores sc ON s.student_id = sc.student_id WHERE sc.score_id IS NULL ORDER BY s.student_id ASC;",
+      "gold_sql": "SELECT s.student_id, s.student_name FROM students AS s LEFT JOIN scores AS sc ON s.student_id = sc.student_id WHERE sc.score_id IS NULL ORDER BY s.student_id ASC;",
+      "execution_success": true,
+      "is_correct": true,
+      "predicted_columns": [
+        "student_id",
+        "student_name"
+      ],
+      "predicted_rows": [],
+      "gold_columns": [
+        "student_id",
+        "student_name"
+      ],
+      "gold_rows": [],
+      "error": null,
+      "latency_seconds": 2.7,
+      "finish_reason": "stop",
+      "prompt_tokens": 218,
+      "completion_tokens": 37,
+      "total_tokens": 255
+    }
+  ],
+  "summary": {
+    "dataset_size": 10,
+    "completed": 10,
+    "execution_success_count": 10,
+    "correct_count": 10,
+    "execution_success_rate": 1.0,
+    "execution_accuracy": 1.0,
+    "total_tokens": 2694
+  }
+}
