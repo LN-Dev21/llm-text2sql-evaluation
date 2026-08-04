@@ -1,0 +1,19 @@
+{
+  "evaluator_repository": "https://github.com/taoyds/test-suite-sql-eval",
+  "evaluator_file": "D:\\SystemDir\\Desktop\\Research project\\Text-to-SQL System\\third_party\\test-suite-sql-eval\\evaluation.py",
+  "database_root": "D:\\SystemDir\\Desktop\\Research project\\Text-to-SQL System\\data\\spider_data\\database",
+  "database_instance_counts": {
+    "academic": 1,
+    "imdb": 1,
+    "scholar": 1,
+    "yelp": 1
+  },
+  "uses_multiple_test_databases": false,
+  "keep_distinct": false,
+  "metric_label": "official evaluator on original single databases (not Test Suite Accuracy)",
+  "case_count": 150,
+  "gold_file": "D:\\SystemDir\\Desktop\\Research project\\Text-to-SQL System\\day10_heldout_evaluation\\heldout_full_schema_gold.txt",
+  "prediction_file": "D:\\SystemDir\\Desktop\\Research project\\Text-to-SQL System\\day10_heldout_evaluation\\heldout_full_schema_predictions.txt",
+  "output_file": "D:\\SystemDir\\Desktop\\Research project\\Text-to-SQL System\\day10_heldout_evaluation\\heldout_full_schema_official_single_db_output.txt",
+  "return_code": 0
+}

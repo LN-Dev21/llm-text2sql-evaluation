@@ -1,0 +1,150 @@
+SELECT homepage FROM journal WHERE name = 'PVLDB';
+SELECT homepage FROM conference WHERE name = 'VLDB';
+SELECT homepage FROM organization WHERE name = " University of Michigan " ;
+SELECT COUNT(*) FROM keyword;
+SELECT conference.name FROM conference JOIN publication ON conference.cid = publication.cid WHERE publication.title = ' Making database systems usable ';
+SELECT COUNT(*) FROM publication WHERE cid = (SELECT cid FROM conference WHERE name = 'VLDB');
+SELECT p.pid, p.title, c.citation_num FROM publication p JOIN journal j ON p.jid = j.jid WHERE j.name = 'PVLDB' ORDER BY p.pid;
+SELECT * FROM publication WHERE jid = (SELECT jid FROM journal WHERE name = 'PVLDB') AND year > 2000;
+SELECT COUNT(*) FROM publication WHERE cid = (SELECT cid FROM conference WHERE name = 'VLDB') AND year > 2000;
+SELECT SUM(p.citation_num) FROM publication p JOIN conference c ON p.cid = c.cid WHERE c.name = 'VLDB' AND p.year = 2005;
+SELECT author.name FROM author JOIN writes ON author.aid = writes.aid JOIN publication ON writes.pid = publication.pid WHERE publication.title = ' Making database systems usable ' ;
+SELECT keyword FROM keyword WHERE kid IN (SELECT kid FROM publication_keyword WHERE pid IN (SELECT pid FROM publication WHERE title = ' Making database systems usable '))
+SELECT COUNT(*) FROM keyword WHERE kid IN (SELECT kid FROM domain_keyword WHERE did IN (SELECT did FROM domain WHERE name = 'Databases'));
+SELECT year, SUM(citation_num) FROM publication WHERE jid = (SELECT jid FROM journal WHERE name = 'PVLDB') GROUP BY year;
+SELECT p.pid, p.title, p.citation_num FROM publication p JOIN conference c ON p.cid = c.cid WHERE c.name = 'VLDB' ORDER BY p.citation_num DESC LIMIT 1;
+SELECT COUNT(*) FROM publication p JOIN writes w ON p.pid = w.pid JOIN author a ON w.aid = a.aid WHERE a.name = ' H. V. Jagadish ' AND p.year > 2000;
+SELECT j.name FROM journal j JOIN publication p ON j.jid = p.jid JOIN writes w ON p.pid = w.pid JOIN author a ON w.aid = a.aid WHERE a.name = ' H. V. Jagadish '
+SELECT organization.name FROM organization JOIN domain_author ON organization.oid = domain_author.aid JOIN domain ON domain_author.did = domain.did WHERE domain.name = 'Databases' UNION SELECT organization.name FROM organization JOIN domain_conference ON organization.oid = domain_conference.cid JOIN domain ON domain_conference.did = domain.did WHERE domain.name = 'Databases' UNION SELECT organization.name FROM organization JOIN domain_journal ON organization.oid = domain_journal.jid JOIN domain ON domain_journal.did = domain.did WHERE domain.name = 'Databases' UNION SELECT organization.name FROM organization JOIN domain_publication ON organization.oid = domain_publication.pid JOIN domain ON domain_publication.did = domain.did WHERE domain.name = 'Databases';
+SELECT year, COUNT(pid) FROM publication JOIN writes ON publication.pid = writes.pid JOIN author ON writes.aid = author.aid WHERE name = ' H. V. Jagadish ' GROUP BY year;
+SELECT SUM(p.citation_num) FROM publication p JOIN writes w ON p.pid = w.pid JOIN author a ON w.aid = a.aid JOIN organization o ON a.oid = o.oid WHERE o.name = ' University of Michigan '
+SELECT author.name FROM author JOIN writes ON author.aid = writes.aid JOIN publication ON writes.pid = publication.pid JOIN journal ON publication.jid = journal.jid WHERE journal.name = 'PVLDB' AND publication.year = 2010;
+SELECT p.pid, p.title, p.year FROM publication p JOIN writes w ON p.pid = w.pid JOIN author a ON w.aid = a.aid WHERE a.name = 'H. V. Jagadish' AND p.jid IN (SELECT jid FROM journal WHERE name = 'PVLDB');
+SELECT author.name FROM author JOIN organization ON author.oid = organization.oid JOIN domain_author ON author.aid = domain_author.aid JOIN domain ON domain_author.did = domain.did WHERE domain.name = 'Databases' AND organization.name = 'University of Michigan';
+SELECT COUNT(*) FROM publication p JOIN publication_keyword pk ON p.pid = pk.pid JOIN keyword k ON pk.kid = k.kid WHERE p.cid = (SELECT cid FROM conference WHERE name = 'VLDB') AND k.keyword = ' Information Retrieval ';
+SELECT DISTINCT author.name FROM author JOIN writes ON author.aid = writes.aid JOIN publication ON writes.pid = publication.pid WHERE publication.cid = (SELECT cid FROM conference WHERE name = 'VLDB') AND publication.year BETWEEN 1996 AND 2001;
+SELECT DISTINCT author.name FROM author JOIN writes ON author.aid = writes.aid JOIN publication_keyword ON writes.pid = publication_keyword.pid JOIN keyword ON publication_keyword.kid = keyword.kid WHERE keyword.keyword = ' Relational Database ';
+SELECT COUNT(DISTINCT k.kid) FROM keyword k JOIN publication_keyword pk ON k.kid = pk.kid JOIN publication p ON pk.pid = p.pid JOIN writes w ON p.pid = w.pid JOIN author a ON w.aid = a.aid WHERE a.name = ' H. V. Jagadish ';
+SELECT p.pid, p.title, p.year, p.abstract, p.citation_num, p.reference_num FROM publication p JOIN conference c ON p.cid = c.cid WHERE c.name = 'VLDB' AND p.title LIKE '%University of Michigan%'
+SELECT COUNT(*) FROM publication p JOIN journal j ON p.jid = j.jid WHERE j.name = 'PVLDB' AND p.pid IN (SELECT pid FROM writes w JOIN author a ON w.aid = a.aid WHERE a.name = ' University of Michigan ');
+SELECT p.pid, p.title, p.year FROM publication p JOIN journal j ON p.jid = j.jid JOIN writes w ON p.pid = w.pid JOIN author a ON w.aid = a.aid JOIN organization o ON a.oid = o.oid WHERE j.name = 'PVLDB' AND p.year > 2000 AND o.name = 'University of Michigan';
+SELECT COUNT(*) FROM publication p JOIN writes w1 ON p.pid = w1.pid JOIN writes w2 ON p.pid = w2.pid JOIN author a1 ON w1.aid = a1.aid JOIN author a2 ON w2.aid = a2.aid WHERE a1.name = 'H. V. Jagadish' AND a2.name = 'Divesh Srivastava' AND p.year < 2000;
+SELECT keyword.keyword FROM keyword JOIN publication_keyword ON keyword.kid = publication_keyword.kid JOIN publication ON publication_keyword.pid = publication.pid JOIN journal ON publication.jid = journal.jid WHERE journal.name = 'PVLDB' GROUP BY keyword.keyword ORDER BY COUNT(publication_keyword.pid) DESC LIMIT 1;
+SELECT j.name FROM journal j JOIN publication p ON j.jid = p.jid JOIN writes w ON p.pid = w.pid JOIN author a ON w.aid = a.aid WHERE a.name = ' H. V. Jagadish ' GROUP BY j.jid HAVING COUNT(p.pid) > 10;
+SELECT j.name FROM journal j JOIN publication p ON j.jid = p.jid JOIN publication_keyword pk ON p.pid = pk.pid JOIN keyword k ON pk.kid = k.kid WHERE k.keyword = ' Relational Database ' GROUP BY j.jid, j.name HAVING COUNT(p.pid) > 60;
+SELECT a.name FROM author a JOIN writes w ON a.aid = w.aid JOIN publication p ON w.pid = p.pid JOIN organization o ON a.oid = o.oid WHERE o.name = 'University of Michigan' GROUP BY a.aid HAVING SUM(p.citation_num) > 5000;
+SELECT COUNT(DISTINCT a.aid) FROM author a JOIN writes w ON a.aid = w.aid JOIN publication p ON w.pid = p.pid JOIN cite c ON p.pid = c.citing JOIN publication p2 ON c.cited = p2.pid JOIN writes w2 ON p2.pid = w2.pid JOIN author a2 ON w2.aid = a2.aid WHERE a2.name = ' H. V. Jagadish ';
+SELECT k.keyword FROM keyword k JOIN publication_keyword pk ON k.kid = pk.kid JOIN publication p ON pk.pid = p.pid JOIN writes w ON p.pid = w.pid JOIN author a ON w.aid = a.aid WHERE a.name = ' H. V. Jagadish ' GROUP BY k.keyword HAVING COUNT(p.pid) > 10
+SELECT a.name FROM author a JOIN writes w ON a.aid = w.pid JOIN publication p ON w.pid = p.pid JOIN domain_publication dp ON p.pid = dp.pid JOIN domain d ON dp.did = d.did JOIN organization o ON a.oid = o.oid WHERE o.name = 'University of Michigan' AND d.name = 'Databases' AND p.citation_num > 5000;
+SELECT release_year FROM movie WHERE title = ' The Imitation Game ';
+SELECT nationality FROM actor WHERE name = 'Christoph Waltz' AND gender = 'F';
+SELECT * FROM actor WHERE birth_city = ' Tehran ';
+SELECT * FROM actor WHERE birth_year = 1984;
+SELECT birth_city FROM actor WHERE name = ' Kevin Spacey ';
+SELECT budget FROM movie WHERE title = 'Finding Nemo';
+SELECT COUNT(*) FROM movie WHERE release_year = 2013;
+SELECT * FROM actor WHERE birth_city = 'Austin' AND birth_year > 1980;
+SELECT * FROM actor WHERE gender = 'female' AND birth_city = 'Austin';
+SELECT COUNT(*) FROM actor WHERE birth_city = 'Los Angeles' AND birth_year > 2000;
+SELECT actor.name FROM actor JOIN cast ON actor.aid = cast.aid WHERE cast.role = 'Mr. Bean';
+SELECT COUNT(*) FROM actor WHERE gender = 'female' AND birth_city = 'New York City' AND birth_year > 1980;
+SELECT genre FROM genre JOIN classification ON genre.gid = classification.gid JOIN copyright ON classification.msid = copyright.msid JOIN movie ON copyright.msid = movie.mid WHERE movie.title = ' Jurassic Park ';
+SELECT movie.title FROM movie JOIN cast ON movie.mid = cast.msid JOIN actor ON cast.aid = actor.aid WHERE actor.name = ' Robin Wright ' AND movie.title IS NOT NULL;
+SELECT movie.title FROM movie JOIN copyright ON movie.mid = copyright.msid JOIN tags ON copyright.msid = tags.msid JOIN keyword ON tags.kid = keyword.kid WHERE keyword.keyword = 'nuclear weapons';
+SELECT tv_series.title FROM tv_series JOIN made_by ON tv_series.sid = made_by.msid JOIN producer ON made_by.pid = producer.pid WHERE producer.name = 'Shonda Rhimes';
+SELECT tv_series.title FROM tv_series JOIN directed_by ON tv_series.sid = directed_by.msid JOIN director ON directed_by.did = director.did WHERE director.name = ' Scott Foley '
+SELECT director.nationality FROM director JOIN directed_by ON director.did = directed_by.did JOIN copyright ON directed_by.msid = copyright.msid JOIN movie ON copyright.msid = movie.mid WHERE movie.title = 'The Past';
+SELECT COUNT(DISTINCT aid) FROM cast JOIN copyright ON cast.msid = copyright.msid JOIN movie ON copyright.id = movie.mid WHERE movie.title = ' Saving Private Ryan ';
+SELECT COUNT(*) FROM cast JOIN actor ON cast.aid = actor.aid WHERE actor.name = 'Shahab Hosseini';
+SELECT actor.name FROM actor JOIN cast ON actor.aid = cast.aid JOIN copyright ON cast.msid = copyright.msid JOIN movie ON copyright.msid = movie.mid WHERE movie.title = 'The Imitation Game' AND actor.name = 'Alan Turing';
+SELECT movie.title FROM movie JOIN copyright ON movie.mid = copyright.msid JOIN classification ON copyright.msid = classification.msid JOIN genre ON classification.gid = genre.gid WHERE movie.release_year = 2010 AND genre.genre = 'Sci-Fi'
+SELECT director.name FROM director JOIN directed_by ON director.did = directed_by.did JOIN copyright ON directed_by.msid = copyright.msid JOIN tv_series ON copyright.msid = tv_series.msid WHERE tv_series.title = ' House of Cards ' AND tv_series.release_year = 2013;
+SELECT a.name FROM actor a JOIN cast c ON a.aid = c.aid JOIN copyright co ON c.msid = co.msid JOIN movie m ON co.msid = m.mid WHERE a.nationality = 'Canada' AND m.title LIKE '%James Bond%'
+SELECT COUNT(*) FROM movie JOIN copyright ON movie.mid = copyright.msid JOIN cast ON copyright.msid = cast.msid JOIN actor ON cast.aid = actor.aid WHERE actor.name = 'Jennifer Aniston' AND movie.release_year > 2010;
+SELECT COUNT(*) FROM movie WHERE title LIKE '%Iraq war%' AND release_year = 2015;
+SELECT COUNT(*) FROM copyright JOIN directed_by ON copyright.msid = directed_by.msid JOIN director ON directed_by.did = director.did WHERE director.name = 'Quentin Tarantino' AND copyright.release_year > 2010;
+SELECT COUNT(DISTINCT a.aid) FROM actor a JOIN cast c ON a.aid = c.aid JOIN copyright co ON c.msid = co.msid JOIN movie m ON co.msid = m.mid WHERE a.nationality = 'China' AND m.title = 'Rush Hour 3';
+SELECT movie.release_year, COUNT(*) AS number_of_movies FROM movie JOIN cast ON movie.msid = cast.msid JOIN actor ON cast.aid = actor.aid WHERE actor.name = ' Brad Pitt ' GROUP BY movie.release_year;
+SELECT m.title, m.release_year FROM movie m JOIN directed_by db ON m.mid = db.msid JOIN director d ON db.did = d.did WHERE d.name = 'Jim Jarmusch' ORDER BY m.release_year DESC LIMIT 1;
+SELECT DISTINCT d.name FROM director d JOIN directed_by db ON d.did = db.did JOIN copyright c ON db.msid = c.msid JOIN cast ca ON c.msid = ca.msid JOIN actor a ON ca.aid = a.aid WHERE a.name = ' Kate Winslet '
+SELECT g.genre FROM genre g JOIN classification c ON g.gid = c.gid JOIN copyright co ON c.msid = co.msid JOIN directed_by d ON co.msid = d.msid JOIN director di ON d.did = di.did WHERE di.name = 'Asghar Farhadi' AND co.id IN (SELECT id FROM copyright WHERE msid IN (SELECT mid FROM movie));
+SELECT DISTINCT a.aid, a.name FROM actor a JOIN cast c ON a.aid = c.aid JOIN copyright co ON c.msid = co.msid JOIN cast c2 ON co.msid = c2.msid JOIN actor a2 ON c2.aid = a2.aid WHERE a2.name = 'Tom Hanks' AND a.aid != a2.aid;
+SELECT m.title, COUNT(c.gid) AS genre_count FROM movie m JOIN copyright c ON m.mid = c.msid JOIN classification cl ON c.msid = cl.msid GROUP BY m.mid, m.title ORDER BY genre_count DESC LIMIT 1;
+SELECT movie.title FROM movie JOIN copyright ON movie.mid = copyright.msid JOIN written_by ON copyright.msid = written_by.msid JOIN writer ON written_by.wid = writer.name JOIN made_by ON copyright.msid = made_by.msid JOIN producer ON made_by.pid = producer.name WHERE writer.name = 'Woody Allen' AND producer.name = 'Woody Allen';
+SELECT COUNT(DISTINCT a.aid) FROM actor a JOIN cast c ON a.aid = c.aid JOIN copyright co ON c.msid = co.msid JOIN directed_by d ON co.msid = d.msid JOIN director di ON d.did = di.did WHERE di.name = 'Jim Jarmusch' AND a.nationality = 'Iran'
+SELECT COUNT(*) FROM copyright JOIN directed_by ON copyright.msid = directed_by.msid JOIN director ON directed_by.did = director.did WHERE director.name = 'Quentin Tarantino' AND (copyright.release_year < 2002 OR copyright.release_year > 2010);
+SELECT p.name, COUNT(DISTINCT d.did) as num_directors FROM producer p JOIN made_by mb ON p.pid = mb.pid JOIN copyright c ON mb.msid = c.msid JOIN directed_by db ON c.msid = db.msid JOIN director d ON db.did = d.did GROUP BY p.pid, p.name ORDER BY num_directors DESC LIMIT 1;
+SELECT p.paperId, p.title FROM paper p JOIN paperKeyphrase pk ON p.paperId = pk.paperId JOIN keyphrase k ON pk.keyphraseId = k.keyphraseId WHERE k.keyphraseName = 'machine networks' OR k.keyphraseName = 'one shot learning';
+SELECT * FROM paper WHERE year < (SELECT MAX(year) FROM paper) - 1;
+SELECT p.title FROM paper p JOIN paperKeyphrase pk ON p.paperId = pk.paperId JOIN keyphrase k ON pk.keyphraseId = k.keyphraseId WHERE p.year >= 2006 AND k.keyphraseName LIKE '%juicing%' AND k.keyphraseName LIKE '%cancer%';
+SELECT COUNT(*) FROM paper p JOIN venue v ON p.venueId = v.venueId WHERE v.venueName = 'sigir';
+SELECT COUNT(*) FROM paper p JOIN venue v ON p.venueId = v.venueId WHERE v.venueName = 'ACL 2015'
+SELECT v.venueName FROM venue v JOIN paper p ON v.venueId = p.venueId JOIN writes w ON p.paperId = w.paperId JOIN author a ON w.authorId = a.authorId WHERE a.authorName = 'Daniella Coelho';
+SELECT p.numCitedBy FROM paper p JOIN writes w ON p.paperId = w.paperId JOIN author a ON w.authorId = a.authorId WHERE a.authorName = 'zachary tatlock';
+SELECT p.paperId, p.title FROM paper p JOIN venue v ON p.venueId = v.venueId WHERE v.venueName = 'ACL' AND p.year = 2016 AND p.title LIKE '%neural attention%'
+SELECT venue.venueName FROM venue JOIN paper ON venue.venueId = paper.venueId WHERE paper.title = 'Trophic Cascade';
+SELECT p.paperId, p.title FROM paper p JOIN paperKeyphrase pk ON p.paperId = pk.paperId JOIN keyphrase k ON pk.keyphraseId = k.keyphraseId WHERE k.keyphraseName = 'monte carlo simulation' AND p.year >= 2011;
+SELECT COUNT(*) FROM paper JOIN paperKeyphrase ON paper.paperId = paperKeyphrase.paperId JOIN keyphrase ON paperKeyphrase.keyphraseId = keyphrase.keyphraseId WHERE keyphrase.keyphraseName = 'convolutional neural networks' AND paper.year = (SELECT MAX(year) FROM paper);
+SELECT p.year, COUNT(*) as publication_count FROM paper p JOIN writes w ON p.paperId = w.paperId JOIN author a ON w.authorId = a.authorId WHERE a.authorName = 'jamie callan' GROUP BY p.year ORDER BY p.year;
+SELECT COUNT(*) FROM paper p JOIN writes w ON p.paperId = w.paperId JOIN author a ON w.authorId = a.authorId WHERE a.authorName = 'michael i. jordan' AND p.year = 2016;
+SELECT COUNT(DISTINCT authorId) FROM writes JOIN paper ON writes.paperId = paper.paperId JOIN venue ON paper.venueId = venue.venueId WHERE venue.venueName = 'sigcse' AND paper.year = 2010;
+SELECT d.datasetName FROM dataset d JOIN paperDataset pd ON d.datasetId = pd.datasetId JOIN paper p ON pd.paperId = p.paperId WHERE p.title LIKE '%semantic parsing%' OR p.title LIKE '%semantic%' AND p.title LIKE '%parsing%';
+SELECT d.datasetName FROM dataset d JOIN paperDataset pd ON d.datasetId = pd.datasetId JOIN paper p ON pd.paperId = p.paperId JOIN writes w ON p.paperId = w.paperId JOIN author a ON w.authorId = a.authorId WHERE a.authorName = 'jitendra malik';
+SELECT a.authorName, COUNT(p.paperId) AS count FROM author a JOIN writes w ON a.authorId = w.authorId JOIN paper p ON w.paperId = p.paperId JOIN venue v ON p.venueId = v.venueId WHERE v.venueName = 'ACL' GROUP BY a.authorName;
+SELECT journal.journalId, journal.journalName FROM paper JOIN paperKeyphrase ON paper.paperId = paperKeyphrase.paperId JOIN keyphrase ON paperKeyphrase.keyphraseId = keyphrase.keyphraseId JOIN journal ON paper.journalId = journal.journalId WHERE keyphrase.keyphraseName = 'Temporal Data';
+SELECT a.authorId, a.authorName FROM author a JOIN writes w ON a.authorId = w.authorId GROUP BY a.authorId, a.authorName HAVING COUNT(w.paperId) >= 5;
+SELECT COUNT(*) FROM paper p JOIN writes w ON p.paperId = w.paperId JOIN author a ON w.authorId = a.authorId JOIN venue v ON p.venueId = v.venueId WHERE a.authorName = 'David M. Blei' AND v.venueName = 'AISTATS';
+SELECT k.keyphraseName FROM keyphrase k JOIN paperKeyphrase pk ON k.keyphraseId = pk.keyphraseId JOIN paper p ON pk.paperId = p.paperId JOIN writes w ON p.paperId = w.paperId JOIN author a ON w.authorId = a.authorId WHERE a.authorName = 'Christof Dallermassl' AND p.year = 2000;
+SELECT p.year FROM paper p JOIN writes w ON p.paperId = w.paperId JOIN author a ON w.authorId = a.authorId WHERE a.authorName = 'ameet soni';
+SELECT year FROM paper WHERE paperId IN (SELECT paperId FROM writes WHERE authorId IN (SELECT authorId FROM author WHERE authorName = 'Ye Cao')) GROUP BY year ORDER BY COUNT(*) DESC LIMIT 1;
+SELECT COUNT(*) FROM paper p JOIN writes w ON p.paperId = w.paperId JOIN author a ON w.authorId = a.authorId WHERE a.authorName = 'Samuel Madden' AND p.venueId NOT IN (SELECT venueId FROM venue WHERE venueName = 'PVLDB');
+SELECT p.paperId, p.title FROM paper p JOIN venue v ON p.venueId = v.venueId JOIN paperKeyphrase pk ON p.paperId = pk.paperId JOIN keyphrase k ON pk.keyphraseId = k.keyphraseId WHERE v.venueName = 'acl' AND p.year = 2012 AND k.keyphraseName = 'Parsing';
+SELECT a.authorName FROM author a JOIN writes w ON a.authorId = w.authorId JOIN paper p ON w.paperId = p.paperId JOIN venue v ON p.venueId = v.venueId WHERE v.venueName = 'CVPR' AND p.year = 2007 GROUP BY a.authorId ORDER BY COUNT(p.paperId) DESC LIMIT 1;
+SELECT p.year, COUNT(c.citingPaperId) AS num_citations FROM paper p JOIN cite c ON p.paperId = c.citedPaperId JOIN writes w ON p.paperId = w.paperId JOIN author a ON w.authorId = a.authorId WHERE a.authorName = 'luke zettlemoyer' GROUP BY p.year;
+SELECT p.paperId, p.title FROM paper p JOIN venue v ON p.venueId = v.venueId WHERE v.venueName = 'CVPR' AND p.year = 2016 AND p.paperId IN (SELECT pd.paperId FROM paperDataset pd JOIN dataset d ON pd.datasetId = d.datasetId WHERE d.datasetName = 'RGB-D Object Dataset') AND p.paperId IN (SELECT pk.paperId FROM paperKeyphrase pk JOIN keyphrase k ON pk.keyphraseId = k.keyphraseId WHERE k.keyphraseName = 'Class consistent multi-modal fusion with binary features');
+SELECT title FROM paper WHERE title LIKE '%deep learning%' ORDER BY year ASC LIMIT 1;
+SELECT p.paperId, p.title, p.numCitedBy FROM paper p JOIN paperKeyphrase pk ON p.paperId = pk.paperId JOIN keyphrase k ON pk.keyphraseId = k.keyphraseId WHERE k.keyphraseName = 'parsing' ORDER BY p.numCitedBy DESC LIMIT 10;
+SELECT p.title, p.numCiting FROM paper p JOIN writes w ON p.paperId = w.paperId JOIN author a ON w.authorId = a.authorId WHERE a.authorName = 'Daniel A Reed' ORDER BY p.numCiting DESC LIMIT 1;
+SELECT DISTINCT a.authorName FROM author a JOIN writes w ON a.authorId = w.authorId JOIN paper p ON w.paperId = p.paperId JOIN paperKeyphrase pk ON p.paperId = pk.paperId JOIN keyphrase k ON pk.keyphraseId = k.keyphraseId WHERE k.keyphraseName = 'Bacterial Wilt' AND p.year = 2016;
+SELECT k.keyphraseName FROM keyphrase k JOIN paperKeyphrase pk ON k.keyphraseId = pk.keyphraseId JOIN paper p ON pk.paperId = p.paperId JOIN writes w ON p.paperId = w.paperId JOIN author a ON w.authorId = a.authorId WHERE a.authorName = 'dan klein' AND p.venueId IN (SELECT venueId FROM venue WHERE venueName = 'emnlp')
+SELECT COUNT(DISTINCT p.paperId) FROM paper p JOIN writes w ON p.paperId = w.paperId JOIN author a ON w.authorId = a.authorId WHERE a.authorName = 'Noah Smith' AND p.year >= 2009;
+SELECT keyphrase.keyphraseName FROM keyphrase JOIN paperKeyphrase ON keyphrase.keyphraseId = paperKeyphrase.keyphraseId JOIN paper ON paperKeyphrase.paperId = paper.paperId JOIN venue ON paper.venueId = venue.venueId WHERE venue.venueName = 'ACL' AND paper.year = 2014;
+SELECT paper.paperId, paper.title FROM paper JOIN writes ON paper.paperId = writes.paperId JOIN author ON writes.authorId = author.authorId WHERE author.authorName = 'Eric C. Kerrigan' AND paper.title = 'Liquid Automatica';
+SELECT p.title FROM paper p JOIN venue v ON p.venueId = v.venueId JOIN paperKeyphrase pk ON p.paperId = pk.paperId JOIN keyphrase k ON pk.keyphraseId = k.keyphraseId WHERE v.venueName = 'ACL' AND p.year = 2014 AND k.keyphraseName = 'Parsing' AND p.paperId IN (SELECT pd.paperId FROM paperDataset pd JOIN dataset d ON pd.datasetId = d.datasetId WHERE d.datasetName = 'Jeopardy! Questions');
+SELECT * FROM business WHERE rating > 4.5;
+SELECT DISTINCT state FROM business WHERE name = 'Whataburger';
+SELECT DISTINCT city FROM business WHERE name LIKE '%Taj Mahal%'
+SELECT review_count FROM business WHERE name = ' Acacia Cafe ';
+SELECT COUNT(DISTINCT city) FROM business WHERE name LIKE '%Panda Express%'
+SELECT full_address FROM business WHERE name = 'Walmart' AND city = 'Los Angeles'
+SELECT COUNT(*) FROM business WHERE name = 'Target' AND city = 'Los Angeles';
+SELECT AVG(rating) FROM review WHERE user_id = (SELECT user_id FROM user WHERE name = 'Michelle')
+SELECT COUNT(*) FROM business WHERE name = 'Starbucks' AND city = 'Dallas' AND state = 'Texas';
+SELECT COUNT(*) FROM business b JOIN category c ON b.business_id = c.business_id WHERE c.category_name = 'restaurant';
+SELECT DISTINCT city FROM business WHERE name = 'MGM Grand Buffet'
+SELECT * FROM business WHERE state = 'PA' AND name LIKE '%restaurant%' OR name LIKE '%Restaurant%' OR name LIKE '%RESTAURANT%';
+SELECT * FROM review WHERE user_id IN (SELECT user_id FROM user WHERE name = 'Patrick') AND rating > 4
+SELECT * FROM tip WHERE business_id IN (SELECT business_id FROM business WHERE name = ' Cafe Zinho ' AND state = 'Texas');
+SELECT COUNT(*) FROM review WHERE user_id = (SELECT user_id FROM user WHERE name = 'Niloofar') AND year = 2015
+SELECT COUNT(*) FROM tip WHERE user_id IN (SELECT user_id FROM user WHERE name = 'Michelle') AND year = 2010
+SELECT COUNT(*) FROM neighbourhood WHERE neighbourhood_name = ' Stone Meadows ' AND city = 'Madison';
+SELECT * FROM business WHERE city = 'Dallas' AND rating > 4.5 AND business_id IN (SELECT business_id FROM category WHERE category_name = 'Restaurants');
+SELECT DISTINCT city FROM business WHERE state = 'Texas' AND name = 'MGM Grand Buffet'
+SELECT COUNT(*) FROM business b JOIN category c ON b.business_id = c.business_id WHERE b.city = 'Pittsburgh' AND b.rating = 4.5 AND c.category_name = 'Restaurants'
+SELECT COUNT(*) FROM review r JOIN neighbourhood n ON r.business_id = n.business_id WHERE n.neighbourhood_name = ' South Summerlin '
+SELECT r.* FROM review r JOIN business b ON r.business_id = b.business_id JOIN category c ON b.business_id = c.business_id WHERE c.category_name = 'Pet Groomers' AND b.review_count > 100
+SELECT neighbourhood_name FROM neighbourhood JOIN business ON neighbourhood.business_id = business.business_id WHERE business.name = ' Flat Top Grill ' LIMIT 1;
+SELECT COUNT(DISTINCT user_id) FROM review WHERE business_id = (SELECT business_id FROM business WHERE name = 'Bistro Di Napoli') AND year = 2015;
+SELECT COUNT(*) FROM review WHERE business_id IN (SELECT business_id FROM business WHERE name = ' Cafe Zinho ' AND state = 'Texas')
+SELECT b.name, b.full_address, b.city, b.rating FROM business b JOIN category c ON b.business_id = c.business_id WHERE c.category_name = 'Seafood' AND b.city = 'Los Angeles'
+SELECT COUNT(*) FROM business b JOIN neighbourhood n ON b.business_id = n.business_id WHERE n.neighbourhood_name = 'Hazelwood' AND b.city = 'Dallas' AND EXISTS (SELECT 1 FROM category c WHERE c.business_id = b.business_id AND c.category_name = 'Restaurants');
+SELECT b.name, SUM(c.count) as total_checkins FROM business b JOIN checkin c ON b.business_id = c.business_id GROUP BY b.business_id ORDER BY total_checkins DESC LIMIT 1;
+SELECT COUNT(*) FROM business b JOIN category c ON b.business_id = c.business_id WHERE c.category_name = 'Egyptian' AND b.city = 'Edinburgh';
+SELECT b.name, COUNT(c.category_name) AS category_count FROM business b JOIN category c ON b.business_id = c.business_id GROUP BY b.business_id ORDER BY category_count DESC LIMIT 1;
+SELECT DISTINCT u.user_id, u.name FROM user u JOIN review r ON u.user_id = r.user_id JOIN category c ON r.business_id = c.business_id WHERE c.category_name = 'restaurant' AND r.year = 2010;
+SELECT b.name, b.rating, b.full_address FROM business b JOIN category c ON b.business_id = c.business_id WHERE c.category_name = 'Mexican' AND b.city = 'Dallas' AND b.rating >= 3.5;
+SELECT DISTINCT n.neighbourhood_name FROM neighbourhood n JOIN category c ON n.business_id = c.business_id WHERE c.category_name = 'Italian' AND b.city = 'Madison' AND b.state = 'WI'
+SELECT SUM(c.count) FROM checkin c JOIN business b ON c.business_id = b.business_id JOIN category cat ON b.business_id = cat.business_id WHERE cat.category_name = 'Moroccan' AND b.city = 'Los Angeles'
+SELECT SUM(c.count) FROM checkin c JOIN business b ON c.business_id = b.business_id JOIN category cat ON b.business_id = cat.business_id WHERE cat.category_name = 'Moroccan' AND b.city = 'Los Angeles' AND c.day = 'Friday'
+SELECT b.name, b.full_address, b.city, b.state FROM business b JOIN category c ON b.business_id = c.business_id JOIN neighbourhood n ON b.business_id = n.business_id WHERE c.category_name = 'Italian' AND n.neighbourhood_name = 'Meadowood' AND b.city = 'Madison'
+SELECT b.state, SUM(c.count) AS total_checkins FROM business b JOIN category c ON b.business_id = c.business_id JOIN checkin ch ON b.business_id = ch.business_id WHERE c.category_name = 'Italian Delis' AND ch.day = 'Sunday' GROUP BY b.state;

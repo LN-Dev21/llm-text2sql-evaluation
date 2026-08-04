@@ -1,0 +1,311 @@
+{
+  "input_file": "D:\\SystemDir\\Desktop\\Research project\\Text-to-SQL System\\day9_execution_feedback\\execution_feedback_results.json",
+  "case_count": 30,
+  "strict_correct_count": 22,
+  "strict_accuracy": 0.7333,
+  "column_permutation_aware_correct_count": 24,
+  "column_permutation_aware_single_database_accuracy": 0.8,
+  "important_note": "Column-permutation-aware comparison follows a key behavior of the official execution evaluator, but this still runs only the original SQLite database and is not official Test Suite Accuracy.",
+  "cases": [
+    {
+      "id": "spider_dev_0507",
+      "db_id": "student_transcripts_tracking",
+      "question": "what are all the addresses including line 1 and line 2?",
+      "generated_sql": "SELECT line_1, line_2 FROM Addresses;",
+      "gold_sql": "SELECT line_1 ,  line_2 FROM addresses",
+      "strict_result_match": true,
+      "column_permutation_aware_match": true,
+      "category": "strict_result_match"
+    },
+    {
+      "id": "spider_dev_0517",
+      "db_id": "student_transcripts_tracking",
+      "question": "How many departments offer any degree?",
+      "generated_sql": "SELECT COUNT(DISTINCT d.department_id) FROM Departments d JOIN Degree_Programs dp ON d.department_id = dp.department_id;",
+      "gold_sql": "SELECT count(DISTINCT department_id) FROM Degree_Programs",
+      "strict_result_match": true,
+      "column_permutation_aware_match": true,
+      "category": "strict_result_match"
+    },
+    {
+      "id": "spider_dev_0559",
+      "db_id": "student_transcripts_tracking",
+      "question": "Whose permanent address is different from his or her current address? List his or her first name.",
+      "generated_sql": "SELECT first_name FROM Students WHERE permanent_address_id != current_address_id;",
+      "gold_sql": "SELECT first_name FROM Students WHERE current_address_id != permanent_address_id",
+      "strict_result_match": true,
+      "column_permutation_aware_match": true,
+      "category": "strict_result_match"
+    },
+    {
+      "id": "spider_dev_0527",
+      "db_id": "student_transcripts_tracking",
+      "question": "List the section_name in reversed lexicographical order.",
+      "generated_sql": "SELECT section_name FROM Sections ORDER BY section_name DESC;",
+      "gold_sql": "SELECT section_name FROM Sections ORDER BY section_name DESC",
+      "strict_result_match": true,
+      "column_permutation_aware_match": true,
+      "category": "strict_result_match"
+    },
+    {
+      "id": "spider_dev_0521",
+      "db_id": "student_transcripts_tracking",
+      "question": "How many degrees does the engineering department offer?",
+      "generated_sql": "SELECT COUNT(*) FROM Degree_Programs WHERE department_id = (SELECT department_id FROM Departments WHERE department_name = 'engineering');",
+      "gold_sql": "SELECT count(*) FROM Departments AS T1 JOIN Degree_Programs AS T2 ON T1.department_id  =  T2.department_id WHERE T1.department_name  =  'engineer'",
+      "strict_result_match": true,
+      "column_permutation_aware_match": true,
+      "category": "strict_result_match"
+    },
+    {
+      "id": "spider_dev_0565",
+      "db_id": "student_transcripts_tracking",
+      "question": "When is the first transcript released? List the date and details.",
+      "generated_sql": "SELECT transcript_date, other_details FROM Transcripts ORDER BY transcript_date ASC LIMIT 1;",
+      "gold_sql": "SELECT transcript_date ,  other_details FROM Transcripts ORDER BY transcript_date ASC LIMIT 1",
+      "strict_result_match": true,
+      "column_permutation_aware_match": true,
+      "category": "strict_result_match"
+    },
+    {
+      "id": "spider_dev_0571",
+      "db_id": "student_transcripts_tracking",
+      "question": "How many times at most can a course enrollment result show in different transcripts? Also show the course enrollment id.",
+      "generated_sql": "SELECT student_course_id, COUNT(*) AS max_count FROM Transcript_Contents GROUP BY student_course_id ORDER BY max_count DESC, student_course_id ASC LIMIT 1;",
+      "gold_sql": "SELECT count(*) ,  student_course_id FROM Transcript_Contents GROUP BY student_course_id ORDER BY count(*) DESC LIMIT 1",
+      "strict_result_match": false,
+      "column_permutation_aware_match": true,
+      "category": "column_permutation_equivalent"
+    },
+    {
+      "id": "spider_dev_0537",
+      "db_id": "student_transcripts_tracking",
+      "question": "Find the kind of program which most number of students are enrolled in?",
+      "generated_sql": "SELECT dp.degree_summary_name, COUNT(DISTINCT se.student_id) AS student_count FROM Degree_Programs dp JOIN Student_Enrolment se ON dp.degree_program_id = se.degree_program_id GROUP BY dp.degree_summary_name ORDER BY student_count DESC LIMIT 1;",
+      "gold_sql": "SELECT T1.degree_summary_name FROM Degree_Programs AS T1 JOIN Student_Enrolment AS T2 ON T1.degree_program_id  =  T2.degree_program_id GROUP BY T1.degree_summary_name ORDER BY count(*) DESC LIMIT 1",
+      "strict_result_match": false,
+      "column_permutation_aware_match": false,
+      "category": "column_count_mismatch"
+    },
+    {
+      "id": "spider_dev_0551",
+      "db_id": "student_transcripts_tracking",
+      "question": "Show the date and id of the transcript with at least 2 course results.",
+      "generated_sql": "SELECT t.transcript_id, t.transcript_date FROM Transcripts t JOIN Transcript_Contents tc ON t.transcript_id = tc.transcript_id GROUP BY t.transcript_id HAVING COUNT(DISTINCT tc.student_course_id) >= 2;",
+      "gold_sql": "SELECT T2.transcript_date ,  T1.transcript_id FROM Transcript_Contents AS T1 JOIN Transcripts AS T2 ON T1.transcript_id  =  T2.transcript_id GROUP BY T1.transcript_id HAVING count(*)  >=  2",
+      "strict_result_match": false,
+      "column_permutation_aware_match": true,
+      "category": "column_permutation_equivalent"
+    },
+    {
+      "id": "spider_dev_0575",
+      "db_id": "student_transcripts_tracking",
+      "question": "Find the semester when both Master students and Bachelor students got enrolled in.",
+      "generated_sql": "SELECT DISTINCT s.semester_name\nFROM Semesters s\nJOIN Student_Enrolment se ON s.semester_id = se.semester_id\nJOIN Students st ON se.student_id = st.student_id\nWHERE st.student_id IN (\n    SELECT se1.student_id\n    FROM Student_Enrolment se1\n    JOIN Students st1 ON se1.student_id = st1.student_id\n    WHERE st1.first_name LIKE '%Master%'\n)\nAND st.student_id IN (\n    SELECT se2.student_id\n    FROM Student_Enrolment se2\n    JOIN Students st2 ON se2.student_id = st2.student_id\n    WHERE st2.first_name LIKE '%Bachelor%'\n);",
+      "gold_sql": "SELECT DISTINCT T2.semester_id FROM Degree_Programs AS T1 JOIN Student_Enrolment AS T2 ON T1.degree_program_id  =  T2.degree_program_id WHERE degree_summary_name  =  'Master' INTERSECT SELECT DISTINCT T2.semester_id FROM Degree_Programs AS T1 JOIN Student_Enrolment AS T2 ON T1.degree_program_id  =  T2.degree_program_id WHERE degree_summary_name  =  'Bachelor'",
+      "strict_result_match": false,
+      "column_permutation_aware_match": false,
+      "category": "row_count_mismatch"
+    },
+    {
+      "id": "spider_dev_0964",
+      "db_id": "dog_kennels",
+      "question": "What are the arriving date and the departing date of all the dogs?",
+      "generated_sql": "SELECT date_arrived, date_departed FROM Dogs;",
+      "gold_sql": "SELECT date_arrived ,  date_departed FROM Dogs",
+      "strict_result_match": true,
+      "column_permutation_aware_match": true,
+      "category": "strict_result_match"
+    },
+    {
+      "id": "spider_dev_0972",
+      "db_id": "dog_kennels",
+      "question": "Which owners live in the state whose name contains the substring 'North'? List his first name, last name and email.",
+      "generated_sql": "SELECT first_name, last_name, email_address FROM Owners WHERE state LIKE '%North%'",
+      "gold_sql": "SELECT first_name ,  last_name ,  email_address FROM Owners WHERE state LIKE '%North%'",
+      "strict_result_match": true,
+      "column_permutation_aware_match": true,
+      "category": "strict_result_match"
+    },
+    {
+      "id": "spider_dev_0992",
+      "db_id": "dog_kennels",
+      "question": "How much does the most expensive charge type costs?",
+      "generated_sql": "SELECT MAX(charge_amount) FROM Charges;",
+      "gold_sql": "SELECT max(charge_amount) FROM Charges",
+      "strict_result_match": true,
+      "column_permutation_aware_match": true,
+      "category": "strict_result_match"
+    },
+    {
+      "id": "spider_dev_0924",
+      "db_id": "dog_kennels",
+      "question": "Which dogs have not cost their owner more than 1000 for treatment ? List the dog names .",
+      "generated_sql": "SELECT d.name FROM Dogs d LEFT JOIN Treatments t ON d.dog_id = t.dog_id GROUP BY d.dog_id HAVING COALESCE(SUM(t.cost_of_treatment), 0) <= 1000;",
+      "gold_sql": "select name from dogs where dog_id not in ( select dog_id from treatments group by dog_id having sum(cost_of_treatment)  >  1000 )",
+      "strict_result_match": true,
+      "column_permutation_aware_match": true,
+      "category": "strict_result_match"
+    },
+    {
+      "id": "spider_dev_0982",
+      "db_id": "dog_kennels",
+      "question": "How many professionals did not operate any treatment on dogs?",
+      "generated_sql": "SELECT COUNT(*) FROM Professionals p WHERE NOT EXISTS (SELECT 1 FROM Treatments t WHERE t.professional_id = p.professional_id);",
+      "gold_sql": "SELECT count(*) FROM Professionals WHERE professional_id NOT IN ( SELECT professional_id FROM Treatments )",
+      "strict_result_match": true,
+      "column_permutation_aware_match": true,
+      "category": "strict_result_match"
+    },
+    {
+      "id": "spider_dev_0952",
+      "db_id": "dog_kennels",
+      "question": "List pairs of the owner's first name and the dogs's name.",
+      "generated_sql": "SELECT Owners.first_name, Dogs.name FROM Dogs JOIN Owners ON Dogs.owner_id = Owners.owner_id;",
+      "gold_sql": "SELECT T1.first_name ,  T2.name FROM Owners AS T1 JOIN Dogs AS T2 ON T1.owner_id  =  T2.owner_id",
+      "strict_result_match": true,
+      "column_permutation_aware_match": true,
+      "category": "strict_result_match"
+    },
+    {
+      "id": "spider_dev_0954",
+      "db_id": "dog_kennels",
+      "question": "List the names of the dogs of the rarest breed and the treatment dates of them.",
+      "generated_sql": "SELECT d.name, t.date_of_treatment FROM Dogs d JOIN Treatments t ON d.dog_id = t.dog_id JOIN Breeds b ON d.breed_code = b.breed_code WHERE b.breed_code IN (SELECT breed_code FROM Breeds GROUP BY breed_code ORDER BY COUNT(*) ASC LIMIT 1)",
+      "gold_sql": "SELECT T1.name ,  T2.date_of_treatment FROM Dogs AS T1 JOIN Treatments AS T2 ON T1.dog_id  =  T2.dog_id WHERE T1.breed_code  =  ( SELECT breed_code FROM Dogs GROUP BY breed_code ORDER BY count(*) ASC LIMIT 1 )",
+      "strict_result_match": false,
+      "column_permutation_aware_match": false,
+      "category": "result_value_mismatch"
+    },
+    {
+      "id": "spider_dev_0926",
+      "db_id": "dog_kennels",
+      "question": "Which first names are used for professionals or owners but are not used as dog names?",
+      "generated_sql": "SELECT DISTINCT first_name FROM Owners UNION SELECT first_name FROM Professionals EXCEPT SELECT name FROM Dogs;",
+      "gold_sql": "SELECT first_name FROM Professionals UNION SELECT first_name FROM Owners EXCEPT SELECT name FROM Dogs",
+      "strict_result_match": true,
+      "column_permutation_aware_match": true,
+      "category": "strict_result_match"
+    },
+    {
+      "id": "spider_dev_0934",
+      "db_id": "dog_kennels",
+      "question": "What is the name of the breed with the most dogs?",
+      "generated_sql": "SELECT b.breed_name FROM Breeds b JOIN Dogs d ON b.breed_code = d.breed_code GROUP BY b.breed_name ORDER BY COUNT(d.dog_id) DESC LIMIT 1;",
+      "gold_sql": "SELECT T1.breed_name FROM Breeds AS T1 JOIN Dogs AS T2 ON T1.breed_code  =  T2.breed_code GROUP BY T1.breed_name ORDER BY count(*) DESC LIMIT 1",
+      "strict_result_match": true,
+      "column_permutation_aware_match": true,
+      "category": "strict_result_match"
+    },
+    {
+      "id": "spider_dev_0940",
+      "db_id": "dog_kennels",
+      "question": "Which owner has paid the largest amount of money in total for their dogs? Show the owner id and zip code.",
+      "generated_sql": "SELECT o.owner_id, o.zip_code\nFROM Owners o\nJOIN Dogs d ON o.owner_id = d.owner_id\nJOIN Treatments t ON d.dog_id = t.dog_id\nGROUP BY o.owner_id, o.zip_code\nORDER BY SUM(t.cost_of_treatment) DESC\nLIMIT 1;",
+      "gold_sql": "SELECT T1.owner_id ,  T1.zip_code FROM Owners AS T1 JOIN Dogs AS T2 ON T1.owner_id  =  T2.owner_id JOIN Treatments AS T3 ON T2.dog_id  =  T3.dog_id GROUP BY T1.owner_id ORDER BY sum(T3.cost_of_treatment) DESC LIMIT 1",
+      "strict_result_match": true,
+      "column_permutation_aware_match": true,
+      "category": "strict_result_match"
+    },
+    {
+      "id": "spider_dev_0087",
+      "db_id": "car_1",
+      "question": "How many continents are there?",
+      "generated_sql": "SELECT COUNT(*) FROM continents;",
+      "gold_sql": "SELECT count(*) FROM CONTINENTS;",
+      "strict_result_match": true,
+      "column_permutation_aware_match": true,
+      "category": "strict_result_match"
+    },
+    {
+      "id": "spider_dev_0135",
+      "db_id": "car_1",
+      "question": "What is the average horsepower of the cars before 1980?",
+      "generated_sql": "SELECT AVG(Horsepower) FROM cars_data WHERE Year < 1980;",
+      "gold_sql": "SELECT avg(horsepower) FROM CARS_DATA WHERE YEAR  <  1980;",
+      "strict_result_match": true,
+      "column_permutation_aware_match": true,
+      "category": "strict_result_match"
+    },
+    {
+      "id": "spider_dev_0119",
+      "db_id": "car_1",
+      "question": "What is the smallest weight of the car produced with 8 cylinders on 1974 ?",
+      "generated_sql": "SELECT MIN(Weight) FROM cars_data WHERE Cylinders = 8 AND Year = 1974;",
+      "gold_sql": "select min(weight) from cars_data where cylinders  =  8 and year  =  1974",
+      "strict_result_match": true,
+      "column_permutation_aware_match": true,
+      "category": "strict_result_match"
+    },
+    {
+      "id": "spider_dev_0137",
+      "db_id": "car_1",
+      "question": "What is the average edispl of the cars of model volvo?",
+      "generated_sql": "SELECT AVG(c.Edispl) FROM cars_data c JOIN car_names cn ON c.Id = cn.MakeId JOIN model_list ml ON cn.Model = ml.Model WHERE ml.Model = 'volvo';",
+      "gold_sql": "SELECT avg(T2.edispl) FROM CAR_NAMES AS T1 JOIN CARS_DATA AS T2 ON T1.MakeId  =  T2.Id WHERE T1.Model  =  'volvo';",
+      "strict_result_match": true,
+      "column_permutation_aware_match": true,
+      "category": "strict_result_match"
+    },
+    {
+      "id": "spider_dev_0101",
+      "db_id": "car_1",
+      "question": "Find the make and production time of the cars that were produced in the earliest year?",
+      "generated_sql": "SELECT car_makers.Maker, cars_data.Year FROM cars_data JOIN car_names ON cars_data.Id = car_names.MakeId JOIN model_list ON car_names.Model = model_list.Model JOIN car_makers ON model_list.Maker = car_makers.Id ORDER BY cars_data.Year ASC LIMIT 1;",
+      "gold_sql": "SELECT T2.Make ,  T1.Year FROM CARS_DATA AS T1 JOIN CAR_NAMES AS T2 ON T1.Id  =  T2.MakeId WHERE T1.Year  =  (SELECT min(YEAR) FROM CARS_DATA);",
+      "strict_result_match": false,
+      "column_permutation_aware_match": false,
+      "category": "row_count_mismatch"
+    },
+    {
+      "id": "spider_dev_0109",
+      "db_id": "car_1",
+      "question": "How many car models are produced by each maker ? Only list the count and the maker full name .",
+      "generated_sql": "SELECT COUNT(ml.ModelId) AS count, cm.FullName AS maker_full_name FROM car_makers cm JOIN model_list ml ON cm.Id = ml.Maker GROUP BY cm.FullName;",
+      "gold_sql": "select count(*) ,  t2.fullname from model_list as t1 join car_makers as t2 on t1.maker  =  t2.id group by t2.id;",
+      "strict_result_match": true,
+      "column_permutation_aware_match": true,
+      "category": "strict_result_match"
+    },
+    {
+      "id": "spider_dev_0141",
+      "db_id": "car_1",
+      "question": "Which model has the most version(make) of cars?",
+      "generated_sql": "SELECT Model, COUNT(*) as version_count FROM car_names GROUP BY Model ORDER BY version_count DESC LIMIT 1;",
+      "gold_sql": "SELECT Model FROM CAR_NAMES GROUP BY Model ORDER BY count(*) DESC LIMIT 1;",
+      "strict_result_match": false,
+      "column_permutation_aware_match": false,
+      "category": "column_count_mismatch"
+    },
+    {
+      "id": "spider_dev_0105",
+      "db_id": "car_1",
+      "question": "How many car makers are there in each continents? List the continent name and the count.",
+      "generated_sql": "SELECT c.Continent, COUNT(cm.Id) AS count FROM car_makers cm JOIN countries co ON cm.Country = co.CountryId JOIN continents c ON co.Continent = c.ContId GROUP BY c.Continent;",
+      "gold_sql": "SELECT T1.Continent ,  count(*) FROM CONTINENTS AS T1 JOIN COUNTRIES AS T2 ON T1.ContId  =  T2.continent JOIN car_makers AS T3 ON T2.CountryId  =  T3.Country GROUP BY T1.Continent;",
+      "strict_result_match": true,
+      "column_permutation_aware_match": true,
+      "category": "strict_result_match"
+    },
+    {
+      "id": "spider_dev_0173",
+      "db_id": "car_1",
+      "question": "What are the name of the countries where there is not a single car maker?",
+      "generated_sql": "SELECT c.CountryName FROM countries c LEFT JOIN car_makers cm ON c.CountryId = cm.Country WHERE cm.Id IS NULL;",
+      "gold_sql": "SELECT CountryName FROM countries EXCEPT SELECT T1.CountryName FROM countries AS T1 JOIN CAR_MAKERS AS T2 ON T1.countryId  =  T2.Country;",
+      "strict_result_match": true,
+      "column_permutation_aware_match": true,
+      "category": "strict_result_match"
+    },
+    {
+      "id": "spider_dev_0177",
+      "db_id": "car_1",
+      "question": "What are the id and names of the countries which have more than 3 car makers or produce the 'fiat' model?",
+      "generated_sql": "SELECT c.CountryId, c.CountryName FROM countries c JOIN car_makers m ON c.CountryId = m.Country GROUP BY c.CountryId, c.CountryName HAVING COUNT(m.Id) > 3 OR EXISTS (SELECT 1 FROM car_names cn JOIN model_list ml ON cn.Model = ml.Model WHERE ml.Maker = m.Id AND cn.Make = 'fiat');",
+      "gold_sql": "SELECT T1.countryId ,  T1.CountryName FROM Countries AS T1 JOIN CAR_MAKERS AS T2 ON T1.CountryId  =  T2.Country GROUP BY T1.countryId HAVING count(*)  >  3 UNION SELECT T1.countryId ,  T1.CountryName FROM Countries AS T1 JOIN CAR_MAKERS AS T2 ON T1.CountryId  =  T2.Country JOIN MODEL_LIST AS T3 ON T2.Id  =  T3.Maker WHERE T3.Model  =  'fiat';",
+      "strict_result_match": false,
+      "column_permutation_aware_match": false,
+      "category": "row_count_mismatch"
+    }
+  ]
+}

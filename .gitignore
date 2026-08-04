@@ -31,3 +31,4 @@ __pycache__/
 .DS_Store
 Thumbs.db
 
+day8_hybrid_schema_linking/embedding_cache.json

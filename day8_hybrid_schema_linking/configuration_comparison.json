@@ -1,0 +1,120 @@
+{
+  "embedding_model": "embedding-3",
+  "embedding_dimensions": 512,
+  "gold_sql_used_for_per_case_scoring": false,
+  "gold_sql_used_for_dev_configuration_selection": true,
+  "methodological_note": "These 30 cases are used for development-time configuration selection; final model accuracy is an ablation result, not an unbiased held-out estimate.",
+  "selection_rule": "maximize complete gold-table coverage, then micro recall, then schema reduction, then prefer weight nearest 0.5",
+  "candidates": [
+    {
+      "top_k": 3,
+      "lexical_weight": 0.25,
+      "semantic_weight": 0.75,
+      "complete_coverage_count": 26,
+      "case_level_gold_table_coverage": 0.8667,
+      "micro_gold_table_recall": 0.9216,
+      "average_selected_table_count": 3.633,
+      "table_reduction_rate": 0.564,
+      "schema_character_reduction_rate": 0.575
+    },
+    {
+      "top_k": 3,
+      "lexical_weight": 0.5,
+      "semantic_weight": 0.5,
+      "complete_coverage_count": 26,
+      "case_level_gold_table_coverage": 0.8667,
+      "micro_gold_table_recall": 0.9216,
+      "average_selected_table_count": 3.633,
+      "table_reduction_rate": 0.564,
+      "schema_character_reduction_rate": 0.5658
+    },
+    {
+      "top_k": 3,
+      "lexical_weight": 0.75,
+      "semantic_weight": 0.25,
+      "complete_coverage_count": 26,
+      "case_level_gold_table_coverage": 0.8667,
+      "micro_gold_table_recall": 0.9216,
+      "average_selected_table_count": 3.667,
+      "table_reduction_rate": 0.56,
+      "schema_character_reduction_rate": 0.5574
+    },
+    {
+      "top_k": 4,
+      "lexical_weight": 0.25,
+      "semantic_weight": 0.75,
+      "complete_coverage_count": 29,
+      "case_level_gold_table_coverage": 0.9667,
+      "micro_gold_table_recall": 0.9804,
+      "average_selected_table_count": 4.5,
+      "table_reduction_rate": 0.46,
+      "schema_character_reduction_rate": 0.4659
+    },
+    {
+      "top_k": 4,
+      "lexical_weight": 0.5,
+      "semantic_weight": 0.5,
+      "complete_coverage_count": 29,
+      "case_level_gold_table_coverage": 0.9667,
+      "micro_gold_table_recall": 0.9804,
+      "average_selected_table_count": 4.4,
+      "table_reduction_rate": 0.472,
+      "schema_character_reduction_rate": 0.4664
+    },
+    {
+      "top_k": 4,
+      "lexical_weight": 0.75,
+      "semantic_weight": 0.25,
+      "complete_coverage_count": 29,
+      "case_level_gold_table_coverage": 0.9667,
+      "micro_gold_table_recall": 0.9804,
+      "average_selected_table_count": 4.467,
+      "table_reduction_rate": 0.464,
+      "schema_character_reduction_rate": 0.4586
+    },
+    {
+      "top_k": 5,
+      "lexical_weight": 0.25,
+      "semantic_weight": 0.75,
+      "complete_coverage_count": 29,
+      "case_level_gold_table_coverage": 0.9667,
+      "micro_gold_table_recall": 0.9804,
+      "average_selected_table_count": 5.567,
+      "table_reduction_rate": 0.332,
+      "schema_character_reduction_rate": 0.3511
+    },
+    {
+      "top_k": 5,
+      "lexical_weight": 0.5,
+      "semantic_weight": 0.5,
+      "complete_coverage_count": 29,
+      "case_level_gold_table_coverage": 0.9667,
+      "micro_gold_table_recall": 0.9804,
+      "average_selected_table_count": 5.6,
+      "table_reduction_rate": 0.328,
+      "schema_character_reduction_rate": 0.3338
+    },
+    {
+      "top_k": 5,
+      "lexical_weight": 0.75,
+      "semantic_weight": 0.25,
+      "complete_coverage_count": 29,
+      "case_level_gold_table_coverage": 0.9667,
+      "micro_gold_table_recall": 0.9804,
+      "average_selected_table_count": 5.467,
+      "table_reduction_rate": 0.344,
+      "schema_character_reduction_rate": 0.3491
+    }
+  ],
+  "chosen": {
+    "top_k": 4,
+    "lexical_weight": 0.5,
+    "semantic_weight": 0.5,
+    "complete_coverage_count": 29,
+    "case_level_gold_table_coverage": 0.9667,
+    "micro_gold_table_recall": 0.9804,
+    "average_selected_table_count": 4.4,
+    "table_reduction_rate": 0.472,
+    "schema_character_reduction_rate": 0.4664
+  }
+}

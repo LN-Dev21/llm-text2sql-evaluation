@@ -1,0 +1,805 @@
+{
+  "method": "lexical identifier matching + top-k seeds + foreign-key paths",
+  "top_k": 4,
+  "important_note": "Gold SQL is used only after selection to audit table coverage; it is never used by the selector or sent to the model.",
+  "case_count": 30,
+  "all_gold_tables_covered_case_count": 29,
+  "case_level_gold_table_coverage": 0.9667,
+  "gold_table_total": 51,
+  "covered_gold_table_total": 50,
+  "micro_gold_table_recall": 0.9804,
+  "average_full_table_count": 8.333,
+  "average_selected_table_count": 4.433,
+  "table_reduction_rate": 0.468,
+  "full_schema_character_total": 61800,
+  "selected_schema_character_total": 33365,
+  "schema_character_reduction_rate": 0.4601,
+  "cases": [
+    {
+      "id": "spider_dev_0507",
+      "db_id": "student_transcripts_tracking",
+      "gold_tables": [
+        "Addresses"
+      ],
+      "seed_tables": [
+        "Addresses",
+        "Students",
+        "Sections",
+        "Student_Enrolment"
+      ],
+      "selected_tables": [
+        "Addresses",
+        "Courses",
+        "Sections",
+        "Student_Enrolment",
+        "Student_Enrolment_Courses",
+        "Students"
+      ],
+      "missing_gold_tables": [],
+      "all_gold_tables_covered": true,
+      "full_table_count": 11,
+      "selected_table_count": 6,
+      "full_schema_character_count": 3069,
+      "selected_schema_character_count": 1869
+    },
+    {
+      "id": "spider_dev_0517",
+      "db_id": "student_transcripts_tracking",
+      "gold_tables": [
+        "Degree_Programs"
+      ],
+      "seed_tables": [
+        "Departments",
+        "Degree_Programs",
+        "Student_Enrolment",
+        "Students"
+      ],
+      "selected_tables": [
+        "Degree_Programs",
+        "Departments",
+        "Student_Enrolment",
+        "Students"
+      ],
+      "missing_gold_tables": [],
+      "all_gold_tables_covered": true,
+      "full_table_count": 11,
+      "selected_table_count": 4,
+      "full_schema_character_count": 3069,
+      "selected_schema_character_count": 1258
+    },
+    {
+      "id": "spider_dev_0559",
+      "db_id": "student_transcripts_tracking",
+      "gold_tables": [
+        "Students"
+      ],
+      "seed_tables": [
+        "Addresses",
+        "Students",
+        "Departments",
+        "Student_Enrolment"
+      ],
+      "selected_tables": [
+        "Addresses",
+        "Degree_Programs",
+        "Departments",
+        "Student_Enrolment",
+        "Students"
+      ],
+      "missing_gold_tables": [],
+      "all_gold_tables_covered": true,
+      "full_table_count": 11,
+      "selected_table_count": 5,
+      "full_schema_character_count": 3069,
+      "selected_schema_character_count": 1700
+    },
+    {
+      "id": "spider_dev_0527",
+      "db_id": "student_transcripts_tracking",
+      "gold_tables": [
+        "Sections"
+      ],
+      "seed_tables": [
+        "Sections",
+        "Semesters",
+        "Degree_Programs",
+        "Courses"
+      ],
+      "selected_tables": [
+        "Courses",
+        "Degree_Programs",
+        "Sections",
+        "Semesters",
+        "Student_Enrolment",
+        "Student_Enrolment_Courses"
+      ],
+      "missing_gold_tables": [],
+      "all_gold_tables_covered": true,
+      "full_table_count": 11,
+      "selected_table_count": 6,
+      "full_schema_character_count": 3069,
+      "selected_schema_character_count": 1490
+    },
+    {
+      "id": "spider_dev_0521",
+      "db_id": "student_transcripts_tracking",
+      "gold_tables": [
+        "Degree_Programs",
+        "Departments"
+      ],
+      "seed_tables": [
+        "Departments",
+        "Degree_Programs",
+        "Student_Enrolment",
+        "Student_Enrolment_Courses"
+      ],
+      "selected_tables": [
+        "Degree_Programs",
+        "Departments",
+        "Student_Enrolment",
+        "Student_Enrolment_Courses"
+      ],
+      "missing_gold_tables": [],
+      "all_gold_tables_covered": true,
+      "full_table_count": 11,
+      "selected_table_count": 4,
+      "full_schema_character_count": 3069,
+      "selected_schema_character_count": 1030
+    },
+    {
+      "id": "spider_dev_0565",
+      "db_id": "student_transcripts_tracking",
+      "gold_tables": [
+        "Transcripts"
+      ],
+      "seed_tables": [
+        "Transcripts",
+        "Transcript_Contents",
+        "Students",
+        "Departments"
+      ],
+      "selected_tables": [
+        "Degree_Programs",
+        "Departments",
+        "Student_Enrolment",
+        "Student_Enrolment_Courses",
+        "Students",
+        "Transcript_Contents",
+        "Transcripts"
+      ],
+      "missing_gold_tables": [],
+      "all_gold_tables_covered": true,
+      "full_table_count": 11,
+      "selected_table_count": 7,
+      "full_schema_character_count": 3069,
+      "selected_schema_character_count": 1920
+    },
+    {
+      "id": "spider_dev_0571",
+      "db_id": "student_transcripts_tracking",
+      "gold_tables": [
+        "Transcript_Contents"
+      ],
+      "seed_tables": [
+        "Transcripts",
+        "Courses",
+        "Transcript_Contents",
+        "Student_Enrolment_Courses"
+      ],
+      "selected_tables": [
+        "Courses",
+        "Student_Enrolment_Courses",
+        "Transcript_Contents",
+        "Transcripts"
+      ],
+      "missing_gold_tables": [],
+      "all_gold_tables_covered": true,
+      "full_table_count": 11,
+      "selected_table_count": 4,
+      "full_schema_character_count": 3069,
+      "selected_schema_character_count": 788
+    },
+    {
+      "id": "spider_dev_0537",
+      "db_id": "student_transcripts_tracking",
+      "gold_tables": [
+        "Degree_Programs",
+        "Student_Enrolment"
+      ],
+      "seed_tables": [
+        "Students",
+        "Student_Enrolment",
+        "Student_Enrolment_Courses",
+        "Degree_Programs"
+      ],
+      "selected_tables": [
+        "Degree_Programs",
+        "Student_Enrolment",
+        "Student_Enrolment_Courses",
+        "Students"
+      ],
+      "missing_gold_tables": [],
+      "all_gold_tables_covered": true,
+      "full_table_count": 11,
+      "selected_table_count": 4,
+      "full_schema_character_count": 3069,
+      "selected_schema_character_count": 1264
+    },
+    {
+      "id": "spider_dev_0551",
+      "db_id": "student_transcripts_tracking",
+      "gold_tables": [
+        "Transcript_Contents",
+        "Transcripts"
+      ],
+      "seed_tables": [
+        "Transcripts",
+        "Courses",
+        "Transcript_Contents",
+        "Student_Enrolment_Courses"
+      ],
+      "selected_tables": [
+        "Courses",
+        "Student_Enrolment_Courses",
+        "Transcript_Contents",
+        "Transcripts"
+      ],
+      "missing_gold_tables": [],
+      "all_gold_tables_covered": true,
+      "full_table_count": 11,
+      "selected_table_count": 4,
+      "full_schema_character_count": 3069,
+      "selected_schema_character_count": 788
+    },
+    {
+      "id": "spider_dev_0575",
+      "db_id": "student_transcripts_tracking",
+      "gold_tables": [
+        "Degree_Programs",
+        "Student_Enrolment"
+      ],
+      "seed_tables": [
+        "Semesters",
+        "Students",
+        "Student_Enrolment",
+        "Student_Enrolment_Courses"
+      ],
+      "selected_tables": [
+        "Semesters",
+        "Student_Enrolment",
+        "Student_Enrolment_Courses",
+        "Students"
+      ],
+      "missing_gold_tables": [
+        "Degree_Programs"
+      ],
+      "all_gold_tables_covered": false,
+      "full_table_count": 11,
+      "selected_table_count": 4,
+      "full_schema_character_count": 3069,
+      "selected_schema_character_count": 1186
+    },
+    {
+      "id": "spider_dev_0964",
+      "db_id": "dog_kennels",
+      "gold_tables": [
+        "Dogs"
+      ],
+      "seed_tables": [
+        "Dogs",
+        "Treatments",
+        "Professionals",
+        "Treatment_Types"
+      ],
+      "selected_tables": [
+        "Dogs",
+        "Professionals",
+        "Treatment_Types",
+        "Treatments"
+      ],
+      "missing_gold_tables": [],
+      "all_gold_tables_covered": true,
+      "full_table_count": 8,
+      "selected_table_count": 4,
+      "full_schema_character_count": 2162,
+      "selected_schema_character_count": 1323
+    },
+    {
+      "id": "spider_dev_0972",
+      "db_id": "dog_kennels",
+      "gold_tables": [
+        "Owners"
+      ],
+      "seed_tables": [
+        "Owners",
+        "Professionals",
+        "Treatments",
+        "Treatment_Types"
+      ],
+      "selected_tables": [
+        "Dogs",
+        "Owners",
+        "Professionals",
+        "Treatment_Types",
+        "Treatments"
+      ],
+      "missing_gold_tables": [],
+      "all_gold_tables_covered": true,
+      "full_table_count": 8,
+      "selected_table_count": 5,
+      "full_schema_character_count": 2162,
+      "selected_schema_character_count": 1732
+    },
+    {
+      "id": "spider_dev_0992",
+      "db_id": "dog_kennels",
+      "gold_tables": [
+        "Charges"
+      ],
+      "seed_tables": [
+        "Charges",
+        "Dogs",
+        "Treatments",
+        "Owners"
+      ],
+      "selected_tables": [
+        "Charges",
+        "Dogs",
+        "Owners",
+        "Treatments"
+      ],
+      "missing_gold_tables": [],
+      "all_gold_tables_covered": true,
+      "full_table_count": 8,
+      "selected_table_count": 4,
+      "full_schema_character_count": 2162,
+      "selected_schema_character_count": 1217
+    },
+    {
+      "id": "spider_dev_0924",
+      "db_id": "dog_kennels",
+      "gold_tables": [
+        "Dogs",
+        "Treatments"
+      ],
+      "seed_tables": [
+        "Dogs",
+        "Treatment_Types",
+        "Treatments",
+        "Owners"
+      ],
+      "selected_tables": [
+        "Dogs",
+        "Owners",
+        "Treatment_Types",
+        "Treatments"
+      ],
+      "missing_gold_tables": [],
+      "all_gold_tables_covered": true,
+      "full_table_count": 8,
+      "selected_table_count": 4,
+      "full_schema_character_count": 2162,
+      "selected_schema_character_count": 1308
+    },
+    {
+      "id": "spider_dev_0982",
+      "db_id": "dog_kennels",
+      "gold_tables": [
+        "Professionals",
+        "Treatments"
+      ],
+      "seed_tables": [
+        "Treatment_Types",
+        "Treatments",
+        "Professionals",
+        "Dogs"
+      ],
+      "selected_tables": [
+        "Dogs",
+        "Professionals",
+        "Treatment_Types",
+        "Treatments"
+      ],
+      "missing_gold_tables": [],
+      "all_gold_tables_covered": true,
+      "full_table_count": 8,
+      "selected_table_count": 4,
+      "full_schema_character_count": 2162,
+      "selected_schema_character_count": 1323
+    },
+    {
+      "id": "spider_dev_0952",
+      "db_id": "dog_kennels",
+      "gold_tables": [
+        "Dogs",
+        "Owners"
+      ],
+      "seed_tables": [
+        "Dogs",
+        "Owners",
+        "Professionals",
+        "Treatments"
+      ],
+      "selected_tables": [
+        "Dogs",
+        "Owners",
+        "Professionals",
+        "Treatments"
+      ],
+      "missing_gold_tables": [],
+      "all_gold_tables_covered": true,
+      "full_table_count": 8,
+      "selected_table_count": 4,
+      "full_schema_character_count": 2162,
+      "selected_schema_character_count": 1518
+    },
+    {
+      "id": "spider_dev_0954",
+      "db_id": "dog_kennels",
+      "gold_tables": [
+        "Dogs",
+        "Treatments"
+      ],
+      "seed_tables": [
+        "Breeds",
+        "Dogs",
+        "Treatment_Types",
+        "Treatments"
+      ],
+      "selected_tables": [
+        "Breeds",
+        "Dogs",
+        "Treatment_Types",
+        "Treatments"
+      ],
+      "missing_gold_tables": [],
+      "all_gold_tables_covered": true,
+      "full_table_count": 8,
+      "selected_table_count": 4,
+      "full_schema_character_count": 2162,
+      "selected_schema_character_count": 1052
+    },
+    {
+      "id": "spider_dev_0926",
+      "db_id": "dog_kennels",
+      "gold_tables": [
+        "Dogs",
+        "Owners",
+        "Professionals"
+      ],
+      "seed_tables": [
+        "Dogs",
+        "Owners",
+        "Professionals",
+        "Treatments"
+      ],
+      "selected_tables": [
+        "Dogs",
+        "Owners",
+        "Professionals",
+        "Treatments"
+      ],
+      "missing_gold_tables": [],
+      "all_gold_tables_covered": true,
+      "full_table_count": 8,
+      "selected_table_count": 4,
+      "full_schema_character_count": 2162,
+      "selected_schema_character_count": 1518
+    },
+    {
+      "id": "spider_dev_0934",
+      "db_id": "dog_kennels",
+      "gold_tables": [
+        "Breeds",
+        "Dogs"
+      ],
+      "seed_tables": [
+        "Breeds",
+        "Dogs",
+        "Treatments",
+        "Treatment_Types"
+      ],
+      "selected_tables": [
+        "Breeds",
+        "Dogs",
+        "Treatment_Types",
+        "Treatments"
+      ],
+      "missing_gold_tables": [],
+      "all_gold_tables_covered": true,
+      "full_table_count": 8,
+      "selected_table_count": 4,
+      "full_schema_character_count": 2162,
+      "selected_schema_character_count": 1052
+    },
+    {
+      "id": "spider_dev_0940",
+      "db_id": "dog_kennels",
+      "gold_tables": [
+        "Dogs",
+        "Owners",
+        "Treatments"
+      ],
+      "seed_tables": [
+        "Dogs",
+        "Owners",
+        "Charges",
+        "Treatments"
+      ],
+      "selected_tables": [
+        "Charges",
+        "Dogs",
+        "Owners",
+        "Treatments"
+      ],
+      "missing_gold_tables": [],
+      "all_gold_tables_covered": true,
+      "full_table_count": 8,
+      "selected_table_count": 4,
+      "full_schema_character_count": 2162,
+      "selected_schema_character_count": 1217
+    },
+    {
+      "id": "spider_dev_0087",
+      "db_id": "car_1",
+      "gold_tables": [
+        "continents"
+      ],
+      "seed_tables": [
+        "continents",
+        "countries",
+        "cars_data",
+        "model_list"
+      ],
+      "selected_tables": [
+        "car_makers",
+        "car_names",
+        "cars_data",
+        "continents",
+        "countries",
+        "model_list"
+      ],
+      "missing_gold_tables": [],
+      "all_gold_tables_covered": true,
+      "full_table_count": 6,
+      "selected_table_count": 6,
+      "full_schema_character_count": 949,
+      "selected_schema_character_count": 949
+    },
+    {
+      "id": "spider_dev_0135",
+      "db_id": "car_1",
+      "gold_tables": [
+        "cars_data"
+      ],
+      "seed_tables": [
+        "cars_data",
+        "car_names",
+        "car_makers",
+        "model_list"
+      ],
+      "selected_tables": [
+        "car_makers",
+        "car_names",
+        "cars_data",
+        "model_list"
+      ],
+      "missing_gold_tables": [],
+      "all_gold_tables_covered": true,
+      "full_table_count": 6,
+      "selected_table_count": 4,
+      "full_schema_character_count": 949,
+      "selected_schema_character_count": 642
+    },
+    {
+      "id": "spider_dev_0119",
+      "db_id": "car_1",
+      "gold_tables": [
+        "cars_data"
+      ],
+      "seed_tables": [
+        "cars_data",
+        "car_names",
+        "car_makers",
+        "model_list"
+      ],
+      "selected_tables": [
+        "car_makers",
+        "car_names",
+        "cars_data",
+        "model_list"
+      ],
+      "missing_gold_tables": [],
+      "all_gold_tables_covered": true,
+      "full_table_count": 6,
+      "selected_table_count": 4,
+      "full_schema_character_count": 949,
+      "selected_schema_character_count": 642
+    },
+    {
+      "id": "spider_dev_0137",
+      "db_id": "car_1",
+      "gold_tables": [
+        "car_names",
+        "cars_data"
+      ],
+      "seed_tables": [
+        "model_list",
+        "car_names",
+        "cars_data",
+        "car_makers"
+      ],
+      "selected_tables": [
+        "car_makers",
+        "car_names",
+        "cars_data",
+        "model_list"
+      ],
+      "missing_gold_tables": [],
+      "all_gold_tables_covered": true,
+      "full_table_count": 6,
+      "selected_table_count": 4,
+      "full_schema_character_count": 949,
+      "selected_schema_character_count": 642
+    },
+    {
+      "id": "spider_dev_0101",
+      "db_id": "car_1",
+      "gold_tables": [
+        "car_names",
+        "cars_data"
+      ],
+      "seed_tables": [
+        "car_names",
+        "car_makers",
+        "cars_data",
+        "model_list"
+      ],
+      "selected_tables": [
+        "car_makers",
+        "car_names",
+        "cars_data",
+        "model_list"
+      ],
+      "missing_gold_tables": [],
+      "all_gold_tables_covered": true,
+      "full_table_count": 6,
+      "selected_table_count": 4,
+      "full_schema_character_count": 949,
+      "selected_schema_character_count": 642
+    },
+    {
+      "id": "spider_dev_0109",
+      "db_id": "car_1",
+      "gold_tables": [
+        "car_makers",
+        "model_list"
+      ],
+      "seed_tables": [
+        "car_makers",
+        "model_list",
+        "car_names",
+        "countries"
+      ],
+      "selected_tables": [
+        "car_makers",
+        "car_names",
+        "countries",
+        "model_list"
+      ],
+      "missing_gold_tables": [],
+      "all_gold_tables_covered": true,
+      "full_table_count": 6,
+      "selected_table_count": 4,
+      "full_schema_character_count": 949,
+      "selected_schema_character_count": 568
+    },
+    {
+      "id": "spider_dev_0141",
+      "db_id": "car_1",
+      "gold_tables": [
+        "car_names"
+      ],
+      "seed_tables": [
+        "car_names",
+        "model_list",
+        "car_makers",
+        "cars_data"
+      ],
+      "selected_tables": [
+        "car_makers",
+        "car_names",
+        "cars_data",
+        "model_list"
+      ],
+      "missing_gold_tables": [],
+      "all_gold_tables_covered": true,
+      "full_table_count": 6,
+      "selected_table_count": 4,
+      "full_schema_character_count": 949,
+      "selected_schema_character_count": 642
+    },
+    {
+      "id": "spider_dev_0105",
+      "db_id": "car_1",
+      "gold_tables": [
+        "car_makers",
+        "continents",
+        "countries"
+      ],
+      "seed_tables": [
+        "continents",
+        "car_makers",
+        "car_names",
+        "countries"
+      ],
+      "selected_tables": [
+        "car_makers",
+        "car_names",
+        "continents",
+        "countries",
+        "model_list"
+      ],
+      "missing_gold_tables": [],
+      "all_gold_tables_covered": true,
+      "full_table_count": 6,
+      "selected_table_count": 5,
+      "full_schema_character_count": 949,
+      "selected_schema_character_count": 708
+    },
+    {
+      "id": "spider_dev_0173",
+      "db_id": "car_1",
+      "gold_tables": [
+        "car_makers",
+        "countries"
+      ],
+      "seed_tables": [
+        "car_makers",
+        "countries",
+        "car_names",
+        "cars_data"
+      ],
+      "selected_tables": [
+        "car_makers",
+        "car_names",
+        "cars_data",
+        "countries",
+        "model_list"
+      ],
+      "missing_gold_tables": [],
+      "all_gold_tables_covered": true,
+      "full_table_count": 6,
+      "selected_table_count": 5,
+      "full_schema_character_count": 949,
+      "selected_schema_character_count": 809
+    },
+    {
+      "id": "spider_dev_0177",
+      "db_id": "car_1",
+      "gold_tables": [
+        "car_makers",
+        "countries",
+        "model_list"
+      ],
+      "seed_tables": [
+        "car_makers",
+        "countries",
+        "model_list",
+        "car_names"
+      ],
+      "selected_tables": [
+        "car_makers",
+        "car_names",
+        "countries",
+        "model_list"
+      ],
+      "missing_gold_tables": [],
+      "all_gold_tables_covered": true,
+      "full_table_count": 6,
+      "selected_table_count": 4,
+      "full_schema_character_count": 949,
+      "selected_schema_character_count": 568
+    }
+  ]
+}

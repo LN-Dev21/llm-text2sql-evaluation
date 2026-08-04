@@ -118,12 +118,16 @@ def save_report(
     spider_root: Path,
     dataset_size: int,
     results: list[dict[str, Any]],
+    experiment_name: str = "Spider 1.0 multi-database full-schema zero-shot baseline",
+    schema_source: str = "automatically extracted from each SQLite database",
+    schema_selection_file: str | None = None,
 ) -> None:
     report = {
-        "experiment": "Spider 1.0 multi-database full-schema zero-shot baseline",
+        "experiment": experiment_name,
         "model": model,
         "spider_root": str(spider_root.resolve()),
-        "schema_source": "automatically extracted from each SQLite database",
+        "schema_source": schema_source,
+        "schema_selection_file": schema_selection_file,
         "gold_sql_sent_to_model": False,
         "metric_note": (
             "This is a local development-time row comparison, not official Spider "
@@ -144,6 +148,15 @@ def main() -> None:
     parser.add_argument("--output", type=Path, default=DEFAULT_OUTPUT)
     parser.add_argument("--limit", type=int)
     parser.add_argument("--resume", action="store_true")
+    parser.add_argument("--schema-selections", type=Path)
+    parser.add_argument(
+        "--experiment-name",
+        default="Spider 1.0 multi-database full-schema zero-shot baseline",
+    )
+    parser.add_argument(
+        "--schema-source-label",
+        help="写入结果元数据的Schema来源说明；未设置时按是否提供选择文件自动填写。",
+    )
     parser.add_argument(
         "--api-timeout",
         type=float,
@@ -171,6 +184,24 @@ def main() -> None:
     all_cases: list[dict[str, Any]] = subset["cases"]
     cases = all_cases[: args.limit] if args.limit else all_cases
     spider_root = args.spider_root.resolve()
+
+    selections_by_id: dict[str, dict[str, Any]] = {}
+    if args.schema_selections is not None:
+        if not args.schema_selections.is_file():
+            raise SystemExit(f"找不到Schema选择文件：{args.schema_selections}")
+        selection_report = json.loads(
+            args.schema_selections.read_text(encoding="utf-8")
+        )
+        selections_by_id = {
+            item["id"]: item for item in selection_report.get("cases", [])
+        }
+        missing_selections = [
+            case["id"] for case in cases if case["id"] not in selections_by_id
+        ]
+        if missing_selections:
+            raise SystemExit(
+                f"Schema选择文件缺少{len(missing_selections)}题：{missing_selections}"
+            )
 
     api_key = os.getenv("ZAI_API_KEY")
     if not api_key:
@@ -208,9 +239,18 @@ def main() -> None:
         db_path = database_path(spider_root, db_id)
         if not db_path.is_file():
             raise SystemExit(f"找不到数据库：{db_path}")
-        if db_id not in schema_cache:
-            schema_cache[db_id] = extract_schema(db_path)
-        prompt = build_prompt(schema_cache[db_id], case["question"])
+        selection = selections_by_id.get(case_id)
+        if selection is not None:
+            schema = selection["selected_schema"]
+            selected_tables = selection["selected_tables"]
+            schema_mode = "selected_schema"
+        else:
+            if db_id not in schema_cache:
+                schema_cache[db_id] = extract_schema(db_path)
+            schema = schema_cache[db_id]
+            selected_tables = None
+            schema_mode = "full_schema"
+        prompt = build_prompt(schema, case["question"])
 
         print(f"[{index}/{len(cases)}] {case_id} [{db_id}]: 调用 {model}...")
         started = time.perf_counter()
@@ -262,6 +302,10 @@ def main() -> None:
             "source_index": case["source_index"],
             "db_id": db_id,
             "question": case["question"],
+            "schema_mode": schema_mode,
+            "selected_tables": selected_tables,
+            "selected_table_count": len(selected_tables) if selected_tables else None,
+            "schema_character_count": len(schema),
             "generated_sql": generated_sql,
             "gold_sql": case["gold_sql"],
             "gold_order_matters": case["gold_order_matters"],
@@ -284,7 +328,27 @@ def main() -> None:
             for item in all_cases
             if item["id"] in results_by_id
         ]
-        save_report(args.output, model, spider_root, len(all_cases), ordered)
+        save_report(
+            args.output,
+            model,
+            spider_root,
+            len(all_cases),
+            ordered,
+            experiment_name=args.experiment_name,
+            schema_source=(
+                args.schema_source_label
+                or (
+                    "heuristic lexical schema linking"
+                    if selections_by_id
+                    else "automatically extracted full SQLite schema"
+                )
+            ),
+            schema_selection_file=(
+                str(args.schema_selections.resolve())
+                if args.schema_selections is not None
+                else None
+            ),
+        )
         label = "CORRECT" if is_correct else "WRONG"
         print(
             f"[{index}/{len(cases)}] {case_id}: {label}, "

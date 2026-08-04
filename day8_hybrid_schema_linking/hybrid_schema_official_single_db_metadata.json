@@ -1,0 +1,18 @@
+{
+  "evaluator_repository": "https://github.com/taoyds/test-suite-sql-eval",
+  "evaluator_file": "D:\\SystemDir\\Desktop\\Research project\\Text-to-SQL System\\third_party\\test-suite-sql-eval\\evaluation.py",
+  "database_root": "D:\\SystemDir\\Desktop\\Research project\\Text-to-SQL System\\data\\spider_data\\database",
+  "database_instance_counts": {
+    "car_1": 1,
+    "dog_kennels": 1,
+    "student_transcripts_tracking": 1
+  },
+  "uses_multiple_test_databases": false,
+  "keep_distinct": false,
+  "metric_label": "official evaluator on original single databases (not Test Suite Accuracy)",
+  "case_count": 30,
+  "gold_file": "D:\\SystemDir\\Desktop\\Research project\\Text-to-SQL System\\day8_hybrid_schema_linking\\hybrid_schema_gold.txt",
+  "prediction_file": "D:\\SystemDir\\Desktop\\Research project\\Text-to-SQL System\\day8_hybrid_schema_linking\\hybrid_schema_predictions.txt",
+  "output_file": "D:\\SystemDir\\Desktop\\Research project\\Text-to-SQL System\\day8_hybrid_schema_linking\\hybrid_schema_official_single_db_output.txt",
+  "return_code": 0
+}

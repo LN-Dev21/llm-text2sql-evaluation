@@ -1,0 +1,5171 @@
+{
+  "method": "lexical identifier matching + top-k seeds + foreign-key paths",
+  "top_k": 4,
+  "gold_sql_used_for_selection": false,
+  "case_count": 30,
+  "cases": [
+    {
+      "id": "spider_dev_0507",
+      "db_id": "student_transcripts_tracking",
+      "question": "what are all the addresses including line 1 and line 2?",
+      "seed_tables": [
+        "Addresses",
+        "Students",
+        "Sections",
+        "Student_Enrolment"
+      ],
+      "selected_tables": [
+        "Addresses",
+        "Courses",
+        "Sections",
+        "Student_Enrolment",
+        "Student_Enrolment_Courses",
+        "Students"
+      ],
+      "selected_schema": "CREATE TABLE Addresses (\n    address_id INTEGER PRIMARY KEY,\n    line_1 VARCHAR(255),\n    line_2 VARCHAR(255),\n    line_3 VARCHAR(255),\n    city VARCHAR(255),\n    zip_postcode VARCHAR(20),\n    state_province_county VARCHAR(255),\n    country VARCHAR(255),\n    other_address_details VARCHAR(255)\n);\n\nCREATE TABLE Courses (\n    course_id INTEGER PRIMARY KEY,\n    course_name VARCHAR(255),\n    course_description VARCHAR(255),\n    other_details VARCHAR(255)\n);\n\nCREATE TABLE Sections (\n    section_id INTEGER PRIMARY KEY,\n    course_id INTEGER NOT NULL,\n    section_name VARCHAR(255),\n    section_description VARCHAR(255),\n    other_details VARCHAR(255),\n    FOREIGN KEY (course_id) REFERENCES Courses(course_id)\n);\n\nCREATE TABLE Student_Enrolment (\n    student_enrolment_id INTEGER PRIMARY KEY,\n    degree_program_id INTEGER NOT NULL,\n    semester_id INTEGER NOT NULL,\n    student_id INTEGER NOT NULL,\n    other_details VARCHAR(255),\n    FOREIGN KEY (student_id) REFERENCES Students(student_id)\n);\n\nCREATE TABLE Student_Enrolment_Courses (\n    student_course_id INTEGER PRIMARY KEY,\n    course_id INTEGER NOT NULL,\n    student_enrolment_id INTEGER NOT NULL,\n    FOREIGN KEY (student_enrolment_id) REFERENCES Student_Enrolment(student_enrolment_id),\n    FOREIGN KEY (course_id) REFERENCES Courses(course_id)\n);\n\nCREATE TABLE Students (\n    student_id INTEGER PRIMARY KEY,\n    current_address_id INTEGER NOT NULL,\n    permanent_address_id INTEGER NOT NULL,\n    first_name VARCHAR(80),\n    middle_name VARCHAR(40),\n    last_name VARCHAR(40),\n    cell_mobile_number VARCHAR(40),\n    email_address VARCHAR(40),\n    ssn VARCHAR(40),\n    date_first_registered DATETIME,\n    date_left DATETIME,\n    other_student_details VARCHAR(255),\n    FOREIGN KEY (permanent_address_id) REFERENCES Addresses(address_id),\n    FOREIGN KEY (current_address_id) REFERENCES Addresses(address_id)\n);",
+      "ranked_tables": [
+        {
+          "table": "Addresses",
+          "score": 100.0,
+          "table_score": 100.0,
+          "top_columns": [
+            {
+              "column": "address_id",
+              "score": 100.0
+            },
+            {
+              "column": "line_1",
+              "score": 100.0
+            },
+            {
+              "column": "line_2",
+              "score": 100.0
+            }
+          ]
+        },
+        {
+          "table": "Students",
+          "score": 57.12,
+          "table_score": 37.5,
+          "top_columns": [
+            {
+              "column": "current_address_id",
+              "score": 77.75
+            },
+            {
+              "column": "permanent_address_id",
+              "score": 74.385
+            },
+            {
+              "column": "email_address",
+              "score": 73.286
+            }
+          ]
+        },
+        {
+          "table": "Sections",
+          "score": 37.5,
+          "table_score": 37.5,
+          "top_columns": [
+            {
+              "column": "section_description",
+              "score": 37.5
+            },
+            {
+              "column": "section_id",
+              "score": 37.5
+            },
+            {
+              "column": "section_name",
+              "score": 37.5
+            }
+          ]
+        },
+        {
+          "table": "Student_Enrolment",
+          "score": 36.146,
+          "table_score": 35.417,
+          "top_columns": [
+            {
+              "column": "student_id",
+              "score": 37.5
+            },
+            {
+              "column": "student_enrolment_id",
+              "score": 35.417
+            },
+            {
+              "column": "degree_program_id",
+              "score": 30.22
+            }
+          ]
+        },
+        {
+          "table": "Departments",
+          "score": 35.294,
+          "table_score": 35.294,
+          "top_columns": [
+            {
+              "column": "department_description",
+              "score": 35.294
+            },
+            {
+              "column": "department_id",
+              "score": 35.294
+            },
+            {
+              "column": "department_name",
+              "score": 35.294
+            }
+          ]
+        },
+        {
+          "table": "Student_Enrolment_Courses",
+          "score": 34.877,
+          "table_score": 34.722,
+          "top_columns": [
+            {
+              "column": "student_enrolment_id",
+              "score": 35.417
+            },
+            {
+              "column": "student_course_id",
+              "score": 34.135
+            },
+            {
+              "column": "course_id",
+              "score": 30.769
+            }
+          ]
+        },
+        {
+          "table": "Degree_Programs",
+          "score": 33.791,
+          "table_score": 30.22,
+          "top_columns": [
+            {
+              "column": "degree_summary_description",
+              "score": 37.363
+            },
+            {
+              "column": "degree_summary_name",
+              "score": 37.363
+            },
+            {
+              "column": "department_id",
+              "score": 35.294
+            }
+          ]
+        },
+        {
+          "table": "Transcript_Contents",
+          "score": 33.67,
+          "table_score": 33.971,
+          "top_columns": [
+            {
+              "column": "student_course_id",
+              "score": 34.135
+            },
+            {
+              "column": "transcript_id",
+              "score": 31.579
+            }
+          ]
+        },
+        {
+          "table": "Transcripts",
+          "score": 32.416,
+          "table_score": 31.579,
+          "top_columns": [
+            {
+              "column": "transcript_date",
+              "score": 33.971
+            },
+            {
+              "column": "transcript_id",
+              "score": 31.579
+            },
+            {
+              "column": "other_details",
+              "score": 22.222
+            }
+          ]
+        },
+        {
+          "table": "Courses",
+          "score": 32.051,
+          "table_score": 33.333,
+          "top_columns": [
+            {
+              "column": "course_description",
+              "score": 30.769
+            },
+            {
+              "column": "course_id",
+              "score": 30.769
+            },
+            {
+              "column": "course_name",
+              "score": 30.769
+            }
+          ]
+        },
+        {
+          "table": "Semesters",
+          "score": 26.667,
+          "table_score": 26.667,
+          "top_columns": [
+            {
+              "column": "semester_description",
+              "score": 26.667
+            },
+            {
+              "column": "semester_id",
+              "score": 26.667
+            },
+            {
+              "column": "semester_name",
+              "score": 26.667
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "spider_dev_0517",
+      "db_id": "student_transcripts_tracking",
+      "question": "How many departments offer any degree?",
+      "seed_tables": [
+        "Departments",
+        "Degree_Programs",
+        "Student_Enrolment",
+        "Students"
+      ],
+      "selected_tables": [
+        "Degree_Programs",
+        "Departments",
+        "Student_Enrolment",
+        "Students"
+      ],
+      "selected_schema": "CREATE TABLE Degree_Programs (\n    degree_program_id INTEGER PRIMARY KEY,\n    department_id INTEGER NOT NULL,\n    degree_summary_name VARCHAR(255),\n    degree_summary_description VARCHAR(255),\n    other_details VARCHAR(255),\n    FOREIGN KEY (department_id) REFERENCES Departments(department_id)\n);\n\nCREATE TABLE Departments (\n    department_id INTEGER PRIMARY KEY,\n    department_name VARCHAR(255),\n    department_description VARCHAR(255),\n    other_details VARCHAR(255)\n);\n\nCREATE TABLE Student_Enrolment (\n    student_enrolment_id INTEGER PRIMARY KEY,\n    degree_program_id INTEGER NOT NULL,\n    semester_id INTEGER NOT NULL,\n    student_id INTEGER NOT NULL,\n    other_details VARCHAR(255),\n    FOREIGN KEY (student_id) REFERENCES Students(student_id),\n    FOREIGN KEY (degree_program_id) REFERENCES Degree_Programs(degree_program_id)\n);\n\nCREATE TABLE Students (\n    student_id INTEGER PRIMARY KEY,\n    current_address_id INTEGER NOT NULL,\n    permanent_address_id INTEGER NOT NULL,\n    first_name VARCHAR(80),\n    middle_name VARCHAR(40),\n    last_name VARCHAR(40),\n    cell_mobile_number VARCHAR(40),\n    email_address VARCHAR(40),\n    ssn VARCHAR(40),\n    date_first_registered DATETIME,\n    date_left DATETIME,\n    other_student_details VARCHAR(255)\n);",
+      "ranked_tables": [
+        {
+          "table": "Departments",
+          "score": 100.0,
+          "table_score": 100.0,
+          "top_columns": [
+            {
+              "column": "department_description",
+              "score": 100.0
+            },
+            {
+              "column": "department_id",
+              "score": 100.0
+            },
+            {
+              "column": "department_name",
+              "score": 100.0
+            }
+          ]
+        },
+        {
+          "table": "Degree_Programs",
+          "score": 84.821,
+          "table_score": 76.647,
+          "top_columns": [
+            {
+              "column": "department_id",
+              "score": 100.0
+            },
+            {
+              "column": "degree_program_id",
+              "score": 76.647
+            },
+            {
+              "column": "degree_summary_description",
+              "score": 70.765
+            }
+          ]
+        },
+        {
+          "table": "Student_Enrolment",
+          "score": 63.381,
+          "table_score": 55.108,
+          "top_columns": [
+            {
+              "column": "degree_program_id",
+              "score": 76.647
+            },
+            {
+              "column": "other_details",
+              "score": 60.0
+            },
+            {
+              "column": "student_enrolment_id",
+              "score": 55.108
+            }
+          ]
+        },
+        {
+          "table": "Students",
+          "score": 50.688,
+          "table_score": 47.059,
+          "top_columns": [
+            {
+              "column": "permanent_address_id",
+              "score": 54.656
+            },
+            {
+              "column": "other_student_details",
+              "score": 53.529
+            },
+            {
+              "column": "date_first_registered",
+              "score": 49.048
+            }
+          ]
+        },
+        {
+          "table": "Student_Enrolment_Courses",
+          "score": 50.581,
+          "table_score": 50.072,
+          "top_columns": [
+            {
+              "column": "student_enrolment_id",
+              "score": 55.108
+            },
+            {
+              "column": "student_course_id",
+              "score": 41.711
+            },
+            {
+              "column": "course_id",
+              "score": 36.364
+            }
+          ]
+        },
+        {
+          "table": "Semesters",
+          "score": 49.889,
+          "table_score": 44.444,
+          "top_columns": [
+            {
+              "column": "other_details",
+              "score": 60.0
+            },
+            {
+              "column": "semester_description",
+              "score": 44.444
+            },
+            {
+              "column": "semester_id",
+              "score": 44.444
+            }
+          ]
+        },
+        {
+          "table": "Addresses",
+          "score": 48.577,
+          "table_score": 46.154,
+          "top_columns": [
+            {
+              "column": "other_address_details",
+              "score": 53.077
+            },
+            {
+              "column": "address_id",
+              "score": 46.154
+            },
+            {
+              "column": "country",
+              "score": 33.333
+            }
+          ]
+        },
+        {
+          "table": "Courses",
+          "score": 46.455,
+          "table_score": 40.0,
+          "top_columns": [
+            {
+              "column": "other_details",
+              "score": 60.0
+            },
+            {
+              "column": "course_description",
+              "score": 36.364
+            },
+            {
+              "column": "course_id",
+              "score": 36.364
+            }
+          ]
+        },
+        {
+          "table": "Sections",
+          "score": 44.102,
+          "table_score": 35.294,
+          "top_columns": [
+            {
+              "column": "other_details",
+              "score": 60.0
+            },
+            {
+              "column": "course_id",
+              "score": 36.364
+            },
+            {
+              "column": "section_description",
+              "score": 35.294
+            }
+          ]
+        },
+        {
+          "table": "Transcripts",
+          "score": 42.536,
+          "table_score": 30.0,
+          "top_columns": [
+            {
+              "column": "other_details",
+              "score": 60.0
+            },
+            {
+              "column": "transcript_date",
+              "score": 43.571
+            },
+            {
+              "column": "transcript_id",
+              "score": 30.0
+            }
+          ]
+        },
+        {
+          "table": "Transcript_Contents",
+          "score": 38.364,
+          "table_score": 38.529,
+          "top_columns": [
+            {
+              "column": "student_course_id",
+              "score": 41.711
+            },
+            {
+              "column": "transcript_id",
+              "score": 30.0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "spider_dev_0559",
+      "db_id": "student_transcripts_tracking",
+      "question": "Whose permanent address is different from his or her current address? List his or her first name.",
+      "seed_tables": [
+        "Addresses",
+        "Students",
+        "Departments",
+        "Student_Enrolment"
+      ],
+      "selected_tables": [
+        "Addresses",
+        "Degree_Programs",
+        "Departments",
+        "Student_Enrolment",
+        "Students"
+      ],
+      "selected_schema": "CREATE TABLE Addresses (\n    address_id INTEGER PRIMARY KEY,\n    line_1 VARCHAR(255),\n    line_2 VARCHAR(255),\n    line_3 VARCHAR(255),\n    city VARCHAR(255),\n    zip_postcode VARCHAR(20),\n    state_province_county VARCHAR(255),\n    country VARCHAR(255),\n    other_address_details VARCHAR(255)\n);\n\nCREATE TABLE Degree_Programs (\n    degree_program_id INTEGER PRIMARY KEY,\n    department_id INTEGER NOT NULL,\n    degree_summary_name VARCHAR(255),\n    degree_summary_description VARCHAR(255),\n    other_details VARCHAR(255),\n    FOREIGN KEY (department_id) REFERENCES Departments(department_id)\n);\n\nCREATE TABLE Departments (\n    department_id INTEGER PRIMARY KEY,\n    department_name VARCHAR(255),\n    department_description VARCHAR(255),\n    other_details VARCHAR(255)\n);\n\nCREATE TABLE Student_Enrolment (\n    student_enrolment_id INTEGER PRIMARY KEY,\n    degree_program_id INTEGER NOT NULL,\n    semester_id INTEGER NOT NULL,\n    student_id INTEGER NOT NULL,\n    other_details VARCHAR(255),\n    FOREIGN KEY (student_id) REFERENCES Students(student_id),\n    FOREIGN KEY (degree_program_id) REFERENCES Degree_Programs(degree_program_id)\n);\n\nCREATE TABLE Students (\n    student_id INTEGER PRIMARY KEY,\n    current_address_id INTEGER NOT NULL,\n    permanent_address_id INTEGER NOT NULL,\n    first_name VARCHAR(80),\n    middle_name VARCHAR(40),\n    last_name VARCHAR(40),\n    cell_mobile_number VARCHAR(40),\n    email_address VARCHAR(40),\n    ssn VARCHAR(40),\n    date_first_registered DATETIME,\n    date_left DATETIME,\n    other_student_details VARCHAR(255),\n    FOREIGN KEY (permanent_address_id) REFERENCES Addresses(address_id),\n    FOREIGN KEY (current_address_id) REFERENCES Addresses(address_id)\n);",
+      "ranked_tables": [
+        {
+          "table": "Addresses",
+          "score": 99.475,
+          "table_score": 100.0,
+          "top_columns": [
+            {
+              "column": "address_id",
+              "score": 100.0
+            },
+            {
+              "column": "other_address_details",
+              "score": 96.5
+            },
+            {
+              "column": "country",
+              "score": 57.143
+            }
+          ]
+        },
+        {
+          "table": "Students",
+          "score": 78.571,
+          "table_score": 57.143,
+          "top_columns": [
+            {
+              "column": "current_address_id",
+              "score": 100.0
+            },
+            {
+              "column": "first_name",
+              "score": 100.0
+            },
+            {
+              "column": "permanent_address_id",
+              "score": 100.0
+            }
+          ]
+        },
+        {
+          "table": "Departments",
+          "score": 67.303,
+          "table_score": 63.158,
+          "top_columns": [
+            {
+              "column": "other_details",
+              "score": 75.0
+            },
+            {
+              "column": "department_description",
+              "score": 63.158
+            },
+            {
+              "column": "department_id",
+              "score": 63.158
+            }
+          ]
+        },
+        {
+          "table": "Student_Enrolment",
+          "score": 66.488,
+          "table_score": 61.905,
+          "top_columns": [
+            {
+              "column": "other_details",
+              "score": 75.0
+            },
+            {
+              "column": "student_enrolment_id",
+              "score": 61.905
+            },
+            {
+              "column": "student_id",
+              "score": 57.143
+            }
+          ]
+        },
+        {
+          "table": "Courses",
+          "score": 60.481,
+          "table_score": 50.0,
+          "top_columns": [
+            {
+              "column": "other_details",
+              "score": 75.0
+            },
+            {
+              "column": "course_description",
+              "score": 61.538
+            },
+            {
+              "column": "course_id",
+              "score": 61.538
+            }
+          ]
+        },
+        {
+          "table": "Student_Enrolment_Courses",
+          "score": 59.866,
+          "table_score": 57.937,
+          "top_columns": [
+            {
+              "column": "student_enrolment_id",
+              "score": 61.905
+            },
+            {
+              "column": "course_id",
+              "score": 61.538
+            },
+            {
+              "column": "student_course_id",
+              "score": 59.341
+            }
+          ]
+        },
+        {
+          "table": "Degree_Programs",
+          "score": 58.432,
+          "table_score": 45.417,
+          "top_columns": [
+            {
+              "column": "other_details",
+              "score": 75.0
+            },
+            {
+              "column": "department_id",
+              "score": 63.158
+            },
+            {
+              "column": "degree_program_id",
+              "score": 45.417
+            }
+          ]
+        },
+        {
+          "table": "Semesters",
+          "score": 56.838,
+          "table_score": 47.059,
+          "top_columns": [
+            {
+              "column": "other_details",
+              "score": 75.0
+            },
+            {
+              "column": "semester_description",
+              "score": 47.059
+            },
+            {
+              "column": "semester_id",
+              "score": 47.059
+            }
+          ]
+        },
+        {
+          "table": "Transcripts",
+          "score": 53.618,
+          "table_score": 42.105,
+          "top_columns": [
+            {
+              "column": "other_details",
+              "score": 75.0
+            },
+            {
+              "column": "transcript_id",
+              "score": 42.105
+            },
+            {
+              "column": "transcript_date",
+              "score": 39.234
+            }
+          ]
+        },
+        {
+          "table": "Sections",
+          "score": 52.147,
+          "table_score": 33.333,
+          "top_columns": [
+            {
+              "column": "other_details",
+              "score": 75.0
+            },
+            {
+              "column": "course_id",
+              "score": 61.538
+            },
+            {
+              "column": "section_description",
+              "score": 33.333
+            }
+          ]
+        },
+        {
+          "table": "Transcript_Contents",
+          "score": 51.897,
+          "table_score": 49.624,
+          "top_columns": [
+            {
+              "column": "student_course_id",
+              "score": 59.341
+            },
+            {
+              "column": "transcript_id",
+              "score": 42.105
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "spider_dev_0527",
+      "db_id": "student_transcripts_tracking",
+      "question": "List the section_name in reversed lexicographical order.",
+      "seed_tables": [
+        "Sections",
+        "Semesters",
+        "Degree_Programs",
+        "Courses"
+      ],
+      "selected_tables": [
+        "Courses",
+        "Degree_Programs",
+        "Sections",
+        "Semesters",
+        "Student_Enrolment",
+        "Student_Enrolment_Courses"
+      ],
+      "selected_schema": "CREATE TABLE Courses (\n    course_id INTEGER PRIMARY KEY,\n    course_name VARCHAR(255),\n    course_description VARCHAR(255),\n    other_details VARCHAR(255)\n);\n\nCREATE TABLE Degree_Programs (\n    degree_program_id INTEGER PRIMARY KEY,\n    department_id INTEGER NOT NULL,\n    degree_summary_name VARCHAR(255),\n    degree_summary_description VARCHAR(255),\n    other_details VARCHAR(255)\n);\n\nCREATE TABLE Sections (\n    section_id INTEGER PRIMARY KEY,\n    course_id INTEGER NOT NULL,\n    section_name VARCHAR(255),\n    section_description VARCHAR(255),\n    other_details VARCHAR(255),\n    FOREIGN KEY (course_id) REFERENCES Courses(course_id)\n);\n\nCREATE TABLE Semesters (\n    semester_id INTEGER PRIMARY KEY,\n    semester_name VARCHAR(255),\n    semester_description VARCHAR(255),\n    other_details VARCHAR(255)\n);\n\nCREATE TABLE Student_Enrolment (\n    student_enrolment_id INTEGER PRIMARY KEY,\n    degree_program_id INTEGER NOT NULL,\n    semester_id INTEGER NOT NULL,\n    student_id INTEGER NOT NULL,\n    other_details VARCHAR(255),\n    FOREIGN KEY (semester_id) REFERENCES Semesters(semester_id),\n    FOREIGN KEY (degree_program_id) REFERENCES Degree_Programs(degree_program_id)\n);\n\nCREATE TABLE Student_Enrolment_Courses (\n    student_course_id INTEGER PRIMARY KEY,\n    course_id INTEGER NOT NULL,\n    student_enrolment_id INTEGER NOT NULL,\n    FOREIGN KEY (student_enrolment_id) REFERENCES Student_Enrolment(student_enrolment_id),\n    FOREIGN KEY (course_id) REFERENCES Courses(course_id)\n);",
+      "ranked_tables": [
+        {
+          "table": "Sections",
+          "score": 100.0,
+          "table_score": 100.0,
+          "top_columns": [
+            {
+              "column": "section_description",
+              "score": 100.0
+            },
+            {
+              "column": "section_id",
+              "score": 100.0
+            },
+            {
+              "column": "section_name",
+              "score": 100.0
+            }
+          ]
+        },
+        {
+          "table": "Semesters",
+          "score": 53.5,
+          "table_score": 50.0,
+          "top_columns": [
+            {
+              "column": "other_details",
+              "score": 60.0
+            },
+            {
+              "column": "semester_description",
+              "score": 50.0
+            },
+            {
+              "column": "semester_id",
+              "score": 50.0
+            }
+          ]
+        },
+        {
+          "table": "Degree_Programs",
+          "score": 50.545,
+          "table_score": 45.455,
+          "top_columns": [
+            {
+              "column": "other_details",
+              "score": 60.0
+            },
+            {
+              "column": "degree_program_id",
+              "score": 45.455
+            },
+            {
+              "column": "department_id",
+              "score": 40.0
+            }
+          ]
+        },
+        {
+          "table": "Courses",
+          "score": 49.182,
+          "table_score": 40.0,
+          "top_columns": [
+            {
+              "column": "other_details",
+              "score": 60.0
+            },
+            {
+              "column": "course_description",
+              "score": 54.545
+            },
+            {
+              "column": "course_id",
+              "score": 54.545
+            }
+          ]
+        },
+        {
+          "table": "Student_Enrolment",
+          "score": 48.589,
+          "table_score": 40.179,
+          "top_columns": [
+            {
+              "column": "other_details",
+              "score": 60.0
+            },
+            {
+              "column": "semester_id",
+              "score": 50.0
+            },
+            {
+              "column": "degree_program_id",
+              "score": 45.455
+            }
+          ]
+        },
+        {
+          "table": "Departments",
+          "score": 47.0,
+          "table_score": 40.0,
+          "top_columns": [
+            {
+              "column": "other_details",
+              "score": 60.0
+            },
+            {
+              "column": "department_description",
+              "score": 40.0
+            },
+            {
+              "column": "department_id",
+              "score": 40.0
+            }
+          ]
+        },
+        {
+          "table": "Students",
+          "score": 46.651,
+          "table_score": 42.857,
+          "top_columns": [
+            {
+              "column": "other_student_details",
+              "score": 51.429
+            },
+            {
+              "column": "date_first_registered",
+              "score": 48.148
+            },
+            {
+              "column": "student_id",
+              "score": 42.857
+            }
+          ]
+        },
+        {
+          "table": "Student_Enrolment_Courses",
+          "score": 46.456,
+          "table_score": 40.119,
+          "top_columns": [
+            {
+              "column": "course_id",
+              "score": 54.545
+            },
+            {
+              "column": "student_course_id",
+              "score": 48.701
+            },
+            {
+              "column": "student_enrolment_id",
+              "score": 40.179
+            }
+          ]
+        },
+        {
+          "table": "Transcripts",
+          "score": 44.627,
+          "table_score": 35.294,
+          "top_columns": [
+            {
+              "column": "other_details",
+              "score": 60.0
+            },
+            {
+              "column": "transcript_date",
+              "score": 39.869
+            },
+            {
+              "column": "transcript_id",
+              "score": 35.294
+            }
+          ]
+        },
+        {
+          "table": "Addresses",
+          "score": 43.929,
+          "table_score": 40.0,
+          "top_columns": [
+            {
+              "column": "other_address_details",
+              "score": 50.0
+            },
+            {
+              "column": "country",
+              "score": 42.857
+            },
+            {
+              "column": "address_id",
+              "score": 40.0
+            }
+          ]
+        },
+        {
+          "table": "Transcript_Contents",
+          "score": 41.877,
+          "table_score": 39.076,
+          "top_columns": [
+            {
+              "column": "student_course_id",
+              "score": 48.701
+            },
+            {
+              "column": "transcript_id",
+              "score": 35.294
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "spider_dev_0521",
+      "db_id": "student_transcripts_tracking",
+      "question": "How many degrees does the engineering department offer?",
+      "seed_tables": [
+        "Departments",
+        "Degree_Programs",
+        "Student_Enrolment",
+        "Student_Enrolment_Courses"
+      ],
+      "selected_tables": [
+        "Degree_Programs",
+        "Departments",
+        "Student_Enrolment",
+        "Student_Enrolment_Courses"
+      ],
+      "selected_schema": "CREATE TABLE Degree_Programs (\n    degree_program_id INTEGER PRIMARY KEY,\n    department_id INTEGER NOT NULL,\n    degree_summary_name VARCHAR(255),\n    degree_summary_description VARCHAR(255),\n    other_details VARCHAR(255),\n    FOREIGN KEY (department_id) REFERENCES Departments(department_id)\n);\n\nCREATE TABLE Departments (\n    department_id INTEGER PRIMARY KEY,\n    department_name VARCHAR(255),\n    department_description VARCHAR(255),\n    other_details VARCHAR(255)\n);\n\nCREATE TABLE Student_Enrolment (\n    student_enrolment_id INTEGER PRIMARY KEY,\n    degree_program_id INTEGER NOT NULL,\n    semester_id INTEGER NOT NULL,\n    student_id INTEGER NOT NULL,\n    other_details VARCHAR(255),\n    FOREIGN KEY (degree_program_id) REFERENCES Degree_Programs(degree_program_id)\n);\n\nCREATE TABLE Student_Enrolment_Courses (\n    student_course_id INTEGER PRIMARY KEY,\n    course_id INTEGER NOT NULL,\n    student_enrolment_id INTEGER NOT NULL,\n    FOREIGN KEY (student_enrolment_id) REFERENCES Student_Enrolment(student_enrolment_id)\n);",
+      "ranked_tables": [
+        {
+          "table": "Departments",
+          "score": 100.0,
+          "table_score": 100.0,
+          "top_columns": [
+            {
+              "column": "department_description",
+              "score": 100.0
+            },
+            {
+              "column": "department_id",
+              "score": 100.0
+            },
+            {
+              "column": "department_name",
+              "score": 100.0
+            }
+          ]
+        },
+        {
+          "table": "Degree_Programs",
+          "score": 84.821,
+          "table_score": 76.647,
+          "top_columns": [
+            {
+              "column": "department_id",
+              "score": 100.0
+            },
+            {
+              "column": "degree_program_id",
+              "score": 76.647
+            },
+            {
+              "column": "degree_summary_description",
+              "score": 70.765
+            }
+          ]
+        },
+        {
+          "table": "Student_Enrolment",
+          "score": 63.381,
+          "table_score": 55.108,
+          "top_columns": [
+            {
+              "column": "degree_program_id",
+              "score": 76.647
+            },
+            {
+              "column": "other_details",
+              "score": 60.0
+            },
+            {
+              "column": "student_enrolment_id",
+              "score": 55.108
+            }
+          ]
+        },
+        {
+          "table": "Student_Enrolment_Courses",
+          "score": 51.187,
+          "table_score": 50.072,
+          "top_columns": [
+            {
+              "column": "student_enrolment_id",
+              "score": 55.108
+            },
+            {
+              "column": "student_course_id",
+              "score": 45.752
+            },
+            {
+              "column": "course_id",
+              "score": 44.444
+            }
+          ]
+        },
+        {
+          "table": "Students",
+          "score": 50.688,
+          "table_score": 47.059,
+          "top_columns": [
+            {
+              "column": "permanent_address_id",
+              "score": 54.656
+            },
+            {
+              "column": "other_student_details",
+              "score": 53.529
+            },
+            {
+              "column": "date_first_registered",
+              "score": 49.048
+            }
+          ]
+        },
+        {
+          "table": "Semesters",
+          "score": 49.889,
+          "table_score": 44.444,
+          "top_columns": [
+            {
+              "column": "other_details",
+              "score": 60.0
+            },
+            {
+              "column": "semester_description",
+              "score": 44.444
+            },
+            {
+              "column": "semester_id",
+              "score": 44.444
+            }
+          ]
+        },
+        {
+          "table": "Addresses",
+          "score": 48.577,
+          "table_score": 46.154,
+          "top_columns": [
+            {
+              "column": "other_address_details",
+              "score": 53.077
+            },
+            {
+              "column": "address_id",
+              "score": 46.154
+            },
+            {
+              "column": "state_province_county",
+              "score": 33.788
+            }
+          ]
+        },
+        {
+          "table": "Courses",
+          "score": 47.667,
+          "table_score": 40.0,
+          "top_columns": [
+            {
+              "column": "other_details",
+              "score": 60.0
+            },
+            {
+              "column": "course_description",
+              "score": 44.444
+            },
+            {
+              "column": "course_id",
+              "score": 44.444
+            }
+          ]
+        },
+        {
+          "table": "Sections",
+          "score": 45.314,
+          "table_score": 35.294,
+          "top_columns": [
+            {
+              "column": "other_details",
+              "score": 60.0
+            },
+            {
+              "column": "course_id",
+              "score": 44.444
+            },
+            {
+              "column": "section_description",
+              "score": 35.294
+            }
+          ]
+        },
+        {
+          "table": "Transcripts",
+          "score": 42.536,
+          "table_score": 30.0,
+          "top_columns": [
+            {
+              "column": "other_details",
+              "score": 60.0
+            },
+            {
+              "column": "transcript_date",
+              "score": 43.571
+            },
+            {
+              "column": "transcript_id",
+              "score": 30.0
+            }
+          ]
+        },
+        {
+          "table": "Transcript_Contents",
+          "score": 39.778,
+          "table_score": 38.529,
+          "top_columns": [
+            {
+              "column": "student_course_id",
+              "score": 45.752
+            },
+            {
+              "column": "transcript_id",
+              "score": 30.0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "spider_dev_0565",
+      "db_id": "student_transcripts_tracking",
+      "question": "When is the first transcript released? List the date and details.",
+      "seed_tables": [
+        "Transcripts",
+        "Transcript_Contents",
+        "Students",
+        "Departments"
+      ],
+      "selected_tables": [
+        "Degree_Programs",
+        "Departments",
+        "Student_Enrolment",
+        "Student_Enrolment_Courses",
+        "Students",
+        "Transcript_Contents",
+        "Transcripts"
+      ],
+      "selected_schema": "CREATE TABLE Degree_Programs (\n    degree_program_id INTEGER PRIMARY KEY,\n    department_id INTEGER NOT NULL,\n    degree_summary_name VARCHAR(255),\n    degree_summary_description VARCHAR(255),\n    other_details VARCHAR(255),\n    FOREIGN KEY (department_id) REFERENCES Departments(department_id)\n);\n\nCREATE TABLE Departments (\n    department_id INTEGER PRIMARY KEY,\n    department_name VARCHAR(255),\n    department_description VARCHAR(255),\n    other_details VARCHAR(255)\n);\n\nCREATE TABLE Student_Enrolment (\n    student_enrolment_id INTEGER PRIMARY KEY,\n    degree_program_id INTEGER NOT NULL,\n    semester_id INTEGER NOT NULL,\n    student_id INTEGER NOT NULL,\n    other_details VARCHAR(255),\n    FOREIGN KEY (student_id) REFERENCES Students(student_id),\n    FOREIGN KEY (degree_program_id) REFERENCES Degree_Programs(degree_program_id)\n);\n\nCREATE TABLE Student_Enrolment_Courses (\n    student_course_id INTEGER PRIMARY KEY,\n    course_id INTEGER NOT NULL,\n    student_enrolment_id INTEGER NOT NULL,\n    FOREIGN KEY (student_enrolment_id) REFERENCES Student_Enrolment(student_enrolment_id)\n);\n\nCREATE TABLE Students (\n    student_id INTEGER PRIMARY KEY,\n    current_address_id INTEGER NOT NULL,\n    permanent_address_id INTEGER NOT NULL,\n    first_name VARCHAR(80),\n    middle_name VARCHAR(40),\n    last_name VARCHAR(40),\n    cell_mobile_number VARCHAR(40),\n    email_address VARCHAR(40),\n    ssn VARCHAR(40),\n    date_first_registered DATETIME,\n    date_left DATETIME,\n    other_student_details VARCHAR(255)\n);\n\nCREATE TABLE Transcript_Contents (\n    student_course_id INTEGER NOT NULL,\n    transcript_id INTEGER NOT NULL,\n    FOREIGN KEY (transcript_id) REFERENCES Transcripts(transcript_id),\n    FOREIGN KEY (student_course_id) REFERENCES Student_Enrolment_Courses(student_course_id)\n);\n\nCREATE TABLE Transcripts (\n    transcript_id INTEGER PRIMARY KEY,\n    transcript_date DATETIME,\n    other_details VARCHAR(255)\n);",
+      "ranked_tables": [
+        {
+          "table": "Transcripts",
+          "score": 100.0,
+          "table_score": 100.0,
+          "top_columns": [
+            {
+              "column": "transcript_date",
+              "score": 100.0
+            },
+            {
+              "column": "transcript_id",
+              "score": 100.0
+            },
+            {
+              "column": "other_details",
+              "score": 44.444
+            }
+          ]
+        },
+        {
+          "table": "Transcript_Contents",
+          "score": 79.532,
+          "table_score": 77.182,
+          "top_columns": [
+            {
+              "column": "transcript_id",
+              "score": 100.0
+            },
+            {
+              "column": "student_course_id",
+              "score": 39.61
+            }
+          ]
+        },
+        {
+          "table": "Students",
+          "score": 67.76,
+          "table_score": 36.364,
+          "top_columns": [
+            {
+              "column": "first_name",
+              "score": 100.0
+            },
+            {
+              "column": "date_first_registered",
+              "score": 97.185
+            },
+            {
+              "column": "date_left",
+              "score": 81.222
+            }
+          ]
+        },
+        {
+          "table": "Departments",
+          "score": 57.143,
+          "table_score": 57.143,
+          "top_columns": [
+            {
+              "column": "department_description",
+              "score": 57.143
+            },
+            {
+              "column": "department_id",
+              "score": 57.143
+            },
+            {
+              "column": "department_name",
+              "score": 57.143
+            }
+          ]
+        },
+        {
+          "table": "Semesters",
+          "score": 50.0,
+          "table_score": 50.0,
+          "top_columns": [
+            {
+              "column": "semester_description",
+              "score": 50.0
+            },
+            {
+              "column": "semester_id",
+              "score": 50.0
+            },
+            {
+              "column": "semester_name",
+              "score": 50.0
+            }
+          ]
+        },
+        {
+          "table": "Degree_Programs",
+          "score": 44.048,
+          "table_score": 34.762,
+          "top_columns": [
+            {
+              "column": "department_id",
+              "score": 57.143
+            },
+            {
+              "column": "other_details",
+              "score": 44.444
+            },
+            {
+              "column": "degree_program_id",
+              "score": 34.762
+            }
+          ]
+        },
+        {
+          "table": "Student_Enrolment",
+          "score": 42.081,
+          "table_score": 35.829,
+          "top_columns": [
+            {
+              "column": "semester_id",
+              "score": 50.0
+            },
+            {
+              "column": "other_details",
+              "score": 44.444
+            },
+            {
+              "column": "student_id",
+              "score": 36.364
+            }
+          ]
+        },
+        {
+          "table": "Courses",
+          "score": 41.984,
+          "table_score": 40.0,
+          "top_columns": [
+            {
+              "column": "other_details",
+              "score": 44.444
+            },
+            {
+              "column": "course_description",
+              "score": 42.857
+            },
+            {
+              "column": "course_id",
+              "score": 42.857
+            }
+          ]
+        },
+        {
+          "table": "Addresses",
+          "score": 41.889,
+          "table_score": 40.0,
+          "top_columns": [
+            {
+              "column": "city",
+              "score": 44.444
+            },
+            {
+              "column": "other_address_details",
+              "score": 42.222
+            },
+            {
+              "column": "state_province_county",
+              "score": 41.667
+            }
+          ]
+        },
+        {
+          "table": "Sections",
+          "score": 39.631,
+          "table_score": 35.294,
+          "top_columns": [
+            {
+              "column": "other_details",
+              "score": 44.444
+            },
+            {
+              "column": "course_id",
+              "score": 42.857
+            },
+            {
+              "column": "section_description",
+              "score": 35.294
+            }
+          ]
+        },
+        {
+          "table": "Student_Enrolment_Courses",
+          "score": 39.551,
+          "table_score": 37.219,
+          "top_columns": [
+            {
+              "column": "course_id",
+              "score": 42.857
+            },
+            {
+              "column": "student_course_id",
+              "score": 39.61
+            },
+            {
+              "column": "student_enrolment_id",
+              "score": 35.829
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "spider_dev_0571",
+      "db_id": "student_transcripts_tracking",
+      "question": "How many times at most can a course enrollment result show in different transcripts? Also show the course enrollment id.",
+      "seed_tables": [
+        "Transcripts",
+        "Courses",
+        "Transcript_Contents",
+        "Student_Enrolment_Courses"
+      ],
+      "selected_tables": [
+        "Courses",
+        "Student_Enrolment_Courses",
+        "Transcript_Contents",
+        "Transcripts"
+      ],
+      "selected_schema": "CREATE TABLE Courses (\n    course_id INTEGER PRIMARY KEY,\n    course_name VARCHAR(255),\n    course_description VARCHAR(255),\n    other_details VARCHAR(255)\n);\n\nCREATE TABLE Student_Enrolment_Courses (\n    student_course_id INTEGER PRIMARY KEY,\n    course_id INTEGER NOT NULL,\n    student_enrolment_id INTEGER NOT NULL,\n    FOREIGN KEY (course_id) REFERENCES Courses(course_id)\n);\n\nCREATE TABLE Transcript_Contents (\n    student_course_id INTEGER NOT NULL,\n    transcript_id INTEGER NOT NULL,\n    FOREIGN KEY (transcript_id) REFERENCES Transcripts(transcript_id),\n    FOREIGN KEY (student_course_id) REFERENCES Student_Enrolment_Courses(student_course_id)\n);\n\nCREATE TABLE Transcripts (\n    transcript_id INTEGER PRIMARY KEY,\n    transcript_date DATETIME,\n    other_details VARCHAR(255)\n);",
+      "ranked_tables": [
+        {
+          "table": "Transcripts",
+          "score": 97.6,
+          "table_score": 100.0,
+          "top_columns": [
+            {
+              "column": "transcript_id",
+              "score": 100.0
+            },
+            {
+              "column": "transcript_date",
+              "score": 84.0
+            },
+            {
+              "column": "other_details",
+              "score": 44.444
+            }
+          ]
+        },
+        {
+          "table": "Courses",
+          "score": 95.455,
+          "table_score": 90.909,
+          "top_columns": [
+            {
+              "column": "course_description",
+              "score": 100.0
+            },
+            {
+              "column": "course_id",
+              "score": 100.0
+            },
+            {
+              "column": "course_name",
+              "score": 100.0
+            }
+          ]
+        },
+        {
+          "table": "Transcript_Contents",
+          "score": 88.865,
+          "table_score": 82.529,
+          "top_columns": [
+            {
+              "column": "transcript_id",
+              "score": 100.0
+            },
+            {
+              "column": "student_course_id",
+              "score": 84.0
+            }
+          ]
+        },
+        {
+          "table": "Student_Enrolment_Courses",
+          "score": 86.874,
+          "table_score": 78.549,
+          "top_columns": [
+            {
+              "column": "course_id",
+              "score": 100.0
+            },
+            {
+              "column": "student_course_id",
+              "score": 84.0
+            },
+            {
+              "column": "student_enrolment_id",
+              "score": 72.368
+            }
+          ]
+        },
+        {
+          "table": "Student_Enrolment",
+          "score": 69.013,
+          "table_score": 72.368,
+          "top_columns": [
+            {
+              "column": "student_enrolment_id",
+              "score": 72.368
+            },
+            {
+              "column": "semester_id",
+              "score": 50.0
+            },
+            {
+              "column": "student_id",
+              "score": 50.0
+            }
+          ]
+        },
+        {
+          "table": "Departments",
+          "score": 63.158,
+          "table_score": 63.158,
+          "top_columns": [
+            {
+              "column": "department_description",
+              "score": 63.158
+            },
+            {
+              "column": "department_id",
+              "score": 63.158
+            },
+            {
+              "column": "department_name",
+              "score": 63.158
+            }
+          ]
+        },
+        {
+          "table": "Sections",
+          "score": 61.667,
+          "table_score": 40.0,
+          "top_columns": [
+            {
+              "column": "course_id",
+              "score": 100.0
+            },
+            {
+              "column": "other_details",
+              "score": 44.444
+            },
+            {
+              "column": "section_description",
+              "score": 40.0
+            }
+          ]
+        },
+        {
+          "table": "Students",
+          "score": 52.311,
+          "table_score": 50.0,
+          "top_columns": [
+            {
+              "column": "permanent_address_id",
+              "score": 54.656
+            },
+            {
+              "column": "first_name",
+              "score": 54.545
+            },
+            {
+              "column": "current_address_id",
+              "score": 53.846
+            }
+          ]
+        },
+        {
+          "table": "Addresses",
+          "score": 51.538,
+          "table_score": 46.154,
+          "top_columns": [
+            {
+              "column": "country",
+              "score": 61.538
+            },
+            {
+              "column": "address_id",
+              "score": 46.154
+            },
+            {
+              "column": "other_address_details",
+              "score": 45.299
+            }
+          ]
+        },
+        {
+          "table": "Degree_Programs",
+          "score": 50.929,
+          "table_score": 44.314,
+          "top_columns": [
+            {
+              "column": "department_id",
+              "score": 63.158
+            },
+            {
+              "column": "other_details",
+              "score": 44.444
+            },
+            {
+              "column": "degree_program_id",
+              "score": 44.314
+            }
+          ]
+        },
+        {
+          "table": "Semesters",
+          "score": 50.0,
+          "table_score": 50.0,
+          "top_columns": [
+            {
+              "column": "semester_description",
+              "score": 50.0
+            },
+            {
+              "column": "semester_id",
+              "score": 50.0
+            },
+            {
+              "column": "semester_name",
+              "score": 50.0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "spider_dev_0537",
+      "db_id": "student_transcripts_tracking",
+      "question": "Find the kind of program which most number of students are enrolled in?",
+      "seed_tables": [
+        "Students",
+        "Student_Enrolment",
+        "Student_Enrolment_Courses",
+        "Degree_Programs"
+      ],
+      "selected_tables": [
+        "Degree_Programs",
+        "Student_Enrolment",
+        "Student_Enrolment_Courses",
+        "Students"
+      ],
+      "selected_schema": "CREATE TABLE Degree_Programs (\n    degree_program_id INTEGER PRIMARY KEY,\n    department_id INTEGER NOT NULL,\n    degree_summary_name VARCHAR(255),\n    degree_summary_description VARCHAR(255),\n    other_details VARCHAR(255)\n);\n\nCREATE TABLE Student_Enrolment (\n    student_enrolment_id INTEGER PRIMARY KEY,\n    degree_program_id INTEGER NOT NULL,\n    semester_id INTEGER NOT NULL,\n    student_id INTEGER NOT NULL,\n    other_details VARCHAR(255),\n    FOREIGN KEY (student_id) REFERENCES Students(student_id),\n    FOREIGN KEY (degree_program_id) REFERENCES Degree_Programs(degree_program_id)\n);\n\nCREATE TABLE Student_Enrolment_Courses (\n    student_course_id INTEGER PRIMARY KEY,\n    course_id INTEGER NOT NULL,\n    student_enrolment_id INTEGER NOT NULL,\n    FOREIGN KEY (student_enrolment_id) REFERENCES Student_Enrolment(student_enrolment_id)\n);\n\nCREATE TABLE Students (\n    student_id INTEGER PRIMARY KEY,\n    current_address_id INTEGER NOT NULL,\n    permanent_address_id INTEGER NOT NULL,\n    first_name VARCHAR(80),\n    middle_name VARCHAR(40),\n    last_name VARCHAR(40),\n    cell_mobile_number VARCHAR(40),\n    email_address VARCHAR(40),\n    ssn VARCHAR(40),\n    date_first_registered DATETIME,\n    date_left DATETIME,\n    other_student_details VARCHAR(255)\n);",
+      "ranked_tables": [
+        {
+          "table": "Students",
+          "score": 97.183,
+          "table_score": 100.0,
+          "top_columns": [
+            {
+              "column": "student_id",
+              "score": 100.0
+            },
+            {
+              "column": "other_student_details",
+              "score": 81.222
+            },
+            {
+              "column": "last_name",
+              "score": 50.0
+            }
+          ]
+        },
+        {
+          "table": "Student_Enrolment",
+          "score": 96.291,
+          "table_score": 94.294,
+          "top_columns": [
+            {
+              "column": "student_id",
+              "score": 100.0
+            },
+            {
+              "column": "student_enrolment_id",
+              "score": 94.294
+            },
+            {
+              "column": "degree_program_id",
+              "score": 80.429
+            }
+          ]
+        },
+        {
+          "table": "Student_Enrolment_Courses",
+          "score": 83.692,
+          "table_score": 77.678,
+          "top_columns": [
+            {
+              "column": "student_enrolment_id",
+              "score": 94.294
+            },
+            {
+              "column": "student_course_id",
+              "score": 79.0
+            },
+            {
+              "column": "course_id",
+              "score": 40.0
+            }
+          ]
+        },
+        {
+          "table": "Degree_Programs",
+          "score": 75.423,
+          "table_score": 80.429,
+          "top_columns": [
+            {
+              "column": "degree_program_id",
+              "score": 80.429
+            },
+            {
+              "column": "department_id",
+              "score": 47.059
+            },
+            {
+              "column": "other_details",
+              "score": 44.444
+            }
+          ]
+        },
+        {
+          "table": "Transcript_Contents",
+          "score": 56.053,
+          "table_score": 46.218,
+          "top_columns": [
+            {
+              "column": "student_course_id",
+              "score": 79.0
+            },
+            {
+              "column": "transcript_id",
+              "score": 35.294
+            }
+          ]
+        },
+        {
+          "table": "Semesters",
+          "score": 50.0,
+          "table_score": 50.0,
+          "top_columns": [
+            {
+              "column": "semester_description",
+              "score": 50.0
+            },
+            {
+              "column": "semester_id",
+              "score": 50.0
+            },
+            {
+              "column": "semester_name",
+              "score": 50.0
+            }
+          ]
+        },
+        {
+          "table": "Departments",
+          "score": 47.059,
+          "table_score": 47.059,
+          "top_columns": [
+            {
+              "column": "department_description",
+              "score": 47.059
+            },
+            {
+              "column": "department_id",
+              "score": 47.059
+            },
+            {
+              "column": "department_name",
+              "score": 47.059
+            }
+          ]
+        },
+        {
+          "table": "Courses",
+          "score": 43.778,
+          "table_score": 44.444,
+          "top_columns": [
+            {
+              "column": "other_details",
+              "score": 44.444
+            },
+            {
+              "column": "course_description",
+              "score": 40.0
+            },
+            {
+              "column": "course_id",
+              "score": 40.0
+            }
+          ]
+        },
+        {
+          "table": "Sections",
+          "score": 43.413,
+          "table_score": 42.857,
+          "top_columns": [
+            {
+              "column": "other_details",
+              "score": 44.444
+            },
+            {
+              "column": "section_description",
+              "score": 42.857
+            },
+            {
+              "column": "section_id",
+              "score": 42.857
+            }
+          ]
+        },
+        {
+          "table": "Transcripts",
+          "score": 38.577,
+          "table_score": 35.294,
+          "top_columns": [
+            {
+              "column": "other_details",
+              "score": 44.444
+            },
+            {
+              "column": "transcript_date",
+              "score": 35.829
+            },
+            {
+              "column": "transcript_id",
+              "score": 35.294
+            }
+          ]
+        },
+        {
+          "table": "Addresses",
+          "score": 36.599,
+          "table_score": 28.571,
+          "top_columns": [
+            {
+              "column": "state_province_county",
+              "score": 45.385
+            },
+            {
+              "column": "country",
+              "score": 42.857
+            },
+            {
+              "column": "zip_postcode",
+              "score": 40.952
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "spider_dev_0551",
+      "db_id": "student_transcripts_tracking",
+      "question": "Show the date and id of the transcript with at least 2 course results.",
+      "seed_tables": [
+        "Transcripts",
+        "Courses",
+        "Transcript_Contents",
+        "Student_Enrolment_Courses"
+      ],
+      "selected_tables": [
+        "Courses",
+        "Student_Enrolment_Courses",
+        "Transcript_Contents",
+        "Transcripts"
+      ],
+      "selected_schema": "CREATE TABLE Courses (\n    course_id INTEGER PRIMARY KEY,\n    course_name VARCHAR(255),\n    course_description VARCHAR(255),\n    other_details VARCHAR(255)\n);\n\nCREATE TABLE Student_Enrolment_Courses (\n    student_course_id INTEGER PRIMARY KEY,\n    course_id INTEGER NOT NULL,\n    student_enrolment_id INTEGER NOT NULL,\n    FOREIGN KEY (course_id) REFERENCES Courses(course_id)\n);\n\nCREATE TABLE Transcript_Contents (\n    student_course_id INTEGER NOT NULL,\n    transcript_id INTEGER NOT NULL,\n    FOREIGN KEY (transcript_id) REFERENCES Transcripts(transcript_id),\n    FOREIGN KEY (student_course_id) REFERENCES Student_Enrolment_Courses(student_course_id)\n);\n\nCREATE TABLE Transcripts (\n    transcript_id INTEGER PRIMARY KEY,\n    transcript_date DATETIME,\n    other_details VARCHAR(255)\n);",
+      "ranked_tables": [
+        {
+          "table": "Transcripts",
+          "score": 100.0,
+          "table_score": 100.0,
+          "top_columns": [
+            {
+              "column": "transcript_date",
+              "score": 100.0
+            },
+            {
+              "column": "transcript_id",
+              "score": 100.0
+            },
+            {
+              "column": "other_details",
+              "score": 44.444
+            }
+          ]
+        },
+        {
+          "table": "Courses",
+          "score": 95.455,
+          "table_score": 90.909,
+          "top_columns": [
+            {
+              "column": "course_description",
+              "score": 100.0
+            },
+            {
+              "column": "course_id",
+              "score": 100.0
+            },
+            {
+              "column": "course_name",
+              "score": 100.0
+            }
+          ]
+        },
+        {
+          "table": "Transcript_Contents",
+          "score": 88.35,
+          "table_score": 82.077,
+          "top_columns": [
+            {
+              "column": "transcript_id",
+              "score": 100.0
+            },
+            {
+              "column": "student_course_id",
+              "score": 82.077
+            }
+          ]
+        },
+        {
+          "table": "Student_Enrolment_Courses",
+          "score": 77.298,
+          "table_score": 59.973,
+          "top_columns": [
+            {
+              "column": "course_id",
+              "score": 100.0
+            },
+            {
+              "column": "student_course_id",
+              "score": 82.077
+            },
+            {
+              "column": "student_enrolment_id",
+              "score": 44.505
+            }
+          ]
+        },
+        {
+          "table": "Students",
+          "score": 68.727,
+          "table_score": 46.154,
+          "top_columns": [
+            {
+              "column": "date_left",
+              "score": 92.333
+            },
+            {
+              "column": "last_name",
+              "score": 88.889
+            },
+            {
+              "column": "date_first_registered",
+              "score": 74.182
+            }
+          ]
+        },
+        {
+          "table": "Addresses",
+          "score": 60.735,
+          "table_score": 46.154,
+          "top_columns": [
+            {
+              "column": "line_2",
+              "score": 81.222
+            },
+            {
+              "column": "country",
+              "score": 61.538
+            },
+            {
+              "column": "state_province_county",
+              "score": 50.0
+            }
+          ]
+        },
+        {
+          "table": "Sections",
+          "score": 59.314,
+          "table_score": 35.294,
+          "top_columns": [
+            {
+              "column": "course_id",
+              "score": 100.0
+            },
+            {
+              "column": "other_details",
+              "score": 44.444
+            },
+            {
+              "column": "section_description",
+              "score": 35.294
+            }
+          ]
+        },
+        {
+          "table": "Departments",
+          "score": 57.143,
+          "table_score": 57.143,
+          "top_columns": [
+            {
+              "column": "department_description",
+              "score": 57.143
+            },
+            {
+              "column": "department_id",
+              "score": 57.143
+            },
+            {
+              "column": "department_name",
+              "score": 57.143
+            }
+          ]
+        },
+        {
+          "table": "Semesters",
+          "score": 46.154,
+          "table_score": 46.154,
+          "top_columns": [
+            {
+              "column": "semester_description",
+              "score": 46.154
+            },
+            {
+              "column": "semester_id",
+              "score": 46.154
+            },
+            {
+              "column": "semester_name",
+              "score": 46.154
+            }
+          ]
+        },
+        {
+          "table": "Student_Enrolment",
+          "score": 45.33,
+          "table_score": 44.505,
+          "top_columns": [
+            {
+              "column": "semester_id",
+              "score": 46.154
+            },
+            {
+              "column": "student_id",
+              "score": 46.154
+            },
+            {
+              "column": "student_enrolment_id",
+              "score": 44.505
+            }
+          ]
+        },
+        {
+          "table": "Degree_Programs",
+          "score": 44.359,
+          "table_score": 35.385,
+          "top_columns": [
+            {
+              "column": "department_id",
+              "score": 57.143
+            },
+            {
+              "column": "other_details",
+              "score": 44.444
+            },
+            {
+              "column": "degree_program_id",
+              "score": 35.385
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "spider_dev_0575",
+      "db_id": "student_transcripts_tracking",
+      "question": "Find the semester when both Master students and Bachelor students got enrolled in.",
+      "seed_tables": [
+        "Semesters",
+        "Students",
+        "Student_Enrolment",
+        "Student_Enrolment_Courses"
+      ],
+      "selected_tables": [
+        "Semesters",
+        "Student_Enrolment",
+        "Student_Enrolment_Courses",
+        "Students"
+      ],
+      "selected_schema": "CREATE TABLE Semesters (\n    semester_id INTEGER PRIMARY KEY,\n    semester_name VARCHAR(255),\n    semester_description VARCHAR(255),\n    other_details VARCHAR(255)\n);\n\nCREATE TABLE Student_Enrolment (\n    student_enrolment_id INTEGER PRIMARY KEY,\n    degree_program_id INTEGER NOT NULL,\n    semester_id INTEGER NOT NULL,\n    student_id INTEGER NOT NULL,\n    other_details VARCHAR(255),\n    FOREIGN KEY (student_id) REFERENCES Students(student_id),\n    FOREIGN KEY (semester_id) REFERENCES Semesters(semester_id)\n);\n\nCREATE TABLE Student_Enrolment_Courses (\n    student_course_id INTEGER PRIMARY KEY,\n    course_id INTEGER NOT NULL,\n    student_enrolment_id INTEGER NOT NULL,\n    FOREIGN KEY (student_enrolment_id) REFERENCES Student_Enrolment(student_enrolment_id)\n);\n\nCREATE TABLE Students (\n    student_id INTEGER PRIMARY KEY,\n    current_address_id INTEGER NOT NULL,\n    permanent_address_id INTEGER NOT NULL,\n    first_name VARCHAR(80),\n    middle_name VARCHAR(40),\n    last_name VARCHAR(40),\n    cell_mobile_number VARCHAR(40),\n    email_address VARCHAR(40),\n    ssn VARCHAR(40),\n    date_first_registered DATETIME,\n    date_left DATETIME,\n    other_student_details VARCHAR(255)\n);",
+      "ranked_tables": [
+        {
+          "table": "Semesters",
+          "score": 100.0,
+          "table_score": 100.0,
+          "top_columns": [
+            {
+              "column": "semester_description",
+              "score": 100.0
+            },
+            {
+              "column": "semester_id",
+              "score": 100.0
+            },
+            {
+              "column": "semester_name",
+              "score": 100.0
+            }
+          ]
+        },
+        {
+          "table": "Students",
+          "score": 98.85,
+          "table_score": 100.0,
+          "top_columns": [
+            {
+              "column": "student_id",
+              "score": 100.0
+            },
+            {
+              "column": "other_student_details",
+              "score": 92.333
+            },
+            {
+              "column": "last_name",
+              "score": 60.0
+            }
+          ]
+        },
+        {
+          "table": "Student_Enrolment",
+          "score": 97.147,
+          "table_score": 94.294,
+          "top_columns": [
+            {
+              "column": "semester_id",
+              "score": 100.0
+            },
+            {
+              "column": "student_id",
+              "score": 100.0
+            },
+            {
+              "column": "student_enrolment_id",
+              "score": 94.294
+            }
+          ]
+        },
+        {
+          "table": "Student_Enrolment_Courses",
+          "score": 84.191,
+          "table_score": 78.247,
+          "top_columns": [
+            {
+              "column": "student_enrolment_id",
+              "score": 94.294
+            },
+            {
+              "column": "student_course_id",
+              "score": 80.429
+            },
+            {
+              "column": "course_id",
+              "score": 42.857
+            }
+          ]
+        },
+        {
+          "table": "Transcript_Contents",
+          "score": 57.436,
+          "table_score": 47.321,
+          "top_columns": [
+            {
+              "column": "student_course_id",
+              "score": 80.429
+            },
+            {
+              "column": "transcript_id",
+              "score": 37.5
+            }
+          ]
+        },
+        {
+          "table": "Departments",
+          "score": 53.922,
+          "table_score": 47.059,
+          "top_columns": [
+            {
+              "column": "other_details",
+              "score": 66.667
+            },
+            {
+              "column": "department_description",
+              "score": 47.059
+            },
+            {
+              "column": "department_id",
+              "score": 47.059
+            }
+          ]
+        },
+        {
+          "table": "Courses",
+          "score": 52.839,
+          "table_score": 46.154,
+          "top_columns": [
+            {
+              "column": "other_details",
+              "score": 66.667
+            },
+            {
+              "column": "course_description",
+              "score": 42.857
+            },
+            {
+              "column": "course_id",
+              "score": 42.857
+            }
+          ]
+        },
+        {
+          "table": "Sections",
+          "score": 51.19,
+          "table_score": 42.857,
+          "top_columns": [
+            {
+              "column": "other_details",
+              "score": 66.667
+            },
+            {
+              "column": "course_id",
+              "score": 42.857
+            },
+            {
+              "column": "section_description",
+              "score": 42.857
+            }
+          ]
+        },
+        {
+          "table": "Transcripts",
+          "score": 49.396,
+          "table_score": 37.5,
+          "top_columns": [
+            {
+              "column": "other_details",
+              "score": 66.667
+            },
+            {
+              "column": "transcript_date",
+              "score": 48.75
+            },
+            {
+              "column": "transcript_id",
+              "score": 37.5
+            }
+          ]
+        },
+        {
+          "table": "Degree_Programs",
+          "score": 47.773,
+          "table_score": 34.762,
+          "top_columns": [
+            {
+              "column": "other_details",
+              "score": 66.667
+            },
+            {
+              "column": "department_id",
+              "score": 47.059
+            },
+            {
+              "column": "degree_summary_description",
+              "score": 44.505
+            }
+          ]
+        },
+        {
+          "table": "Addresses",
+          "score": 39.346,
+          "table_score": 30.769,
+          "top_columns": [
+            {
+              "column": "other_address_details",
+              "score": 48.718
+            },
+            {
+              "column": "state_province_county",
+              "score": 46.066
+            },
+            {
+              "column": "country",
+              "score": 42.857
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "spider_dev_0964",
+      "db_id": "dog_kennels",
+      "question": "What are the arriving date and the departing date of all the dogs?",
+      "seed_tables": [
+        "Dogs",
+        "Treatments",
+        "Professionals",
+        "Treatment_Types"
+      ],
+      "selected_tables": [
+        "Dogs",
+        "Professionals",
+        "Treatment_Types",
+        "Treatments"
+      ],
+      "selected_schema": "CREATE TABLE Dogs (\n    dog_id INTEGER PRIMARY KEY,\n    owner_id INTEGER NOT NULL,\n    abandoned_yn VARCHAR(1),\n    breed_code VARCHAR(10) NOT NULL,\n    size_code VARCHAR(10) NOT NULL,\n    name VARCHAR(50),\n    age VARCHAR(20),\n    date_of_birth DATETIME,\n    gender VARCHAR(1),\n    weight VARCHAR(20),\n    date_arrived DATETIME,\n    date_adopted DATETIME,\n    date_departed DATETIME\n);\n\nCREATE TABLE Professionals (\n    professional_id INTEGER PRIMARY KEY,\n    role_code VARCHAR(10) NOT NULL,\n    first_name VARCHAR(50),\n    street VARCHAR(50),\n    city VARCHAR(50),\n    state VARCHAR(20),\n    zip_code VARCHAR(20),\n    last_name VARCHAR(50),\n    email_address VARCHAR(50),\n    home_phone VARCHAR(20),\n    cell_number VARCHAR(20)\n);\n\nCREATE TABLE Treatment_Types (\n    treatment_type_code VARCHAR(10) PRIMARY KEY,\n    treatment_type_description VARCHAR(80)\n);\n\nCREATE TABLE Treatments (\n    treatment_id INTEGER PRIMARY KEY,\n    dog_id INTEGER NOT NULL,\n    professional_id INTEGER NOT NULL,\n    treatment_type_code VARCHAR(10) NOT NULL,\n    date_of_treatment DATETIME,\n    cost_of_treatment DECIMAL(19,4),\n    FOREIGN KEY (dog_id) REFERENCES Dogs(dog_id),\n    FOREIGN KEY (professional_id) REFERENCES Professionals(professional_id),\n    FOREIGN KEY (treatment_type_code) REFERENCES Treatment_Types(treatment_type_code)\n);",
+      "ranked_tables": [
+        {
+          "table": "Dogs",
+          "score": 99.144,
+          "table_score": 100.0,
+          "top_columns": [
+            {
+              "column": "dog_id",
+              "score": 100.0
+            },
+            {
+              "column": "date_departed",
+              "score": 94.294
+            },
+            {
+              "column": "date_arrived",
+              "score": 92.333
+            }
+          ]
+        },
+        {
+          "table": "Treatments",
+          "score": 70.388,
+          "table_score": 46.154,
+          "top_columns": [
+            {
+              "column": "dog_id",
+              "score": 100.0
+            },
+            {
+              "column": "date_of_treatment",
+              "score": 82.077
+            },
+            {
+              "column": "treatment_id",
+              "score": 46.154
+            }
+          ]
+        },
+        {
+          "table": "Professionals",
+          "score": 49.881,
+          "table_score": 38.095,
+          "top_columns": [
+            {
+              "column": "state",
+              "score": 66.667
+            },
+            {
+              "column": "last_name",
+              "score": 50.0
+            },
+            {
+              "column": "street",
+              "score": 40.0
+            }
+          ]
+        },
+        {
+          "table": "Treatment_Types",
+          "score": 46.154,
+          "table_score": 46.154,
+          "top_columns": [
+            {
+              "column": "treatment_type_code",
+              "score": 46.154
+            },
+            {
+              "column": "treatment_type_description",
+              "score": 46.154
+            }
+          ]
+        },
+        {
+          "table": "Owners",
+          "score": 45.119,
+          "table_score": 28.571,
+          "top_columns": [
+            {
+              "column": "state",
+              "score": 66.667
+            },
+            {
+              "column": "last_name",
+              "score": 50.0
+            },
+            {
+              "column": "street",
+              "score": 40.0
+            }
+          ]
+        },
+        {
+          "table": "Charges",
+          "score": 42.857,
+          "table_score": 42.857,
+          "top_columns": [
+            {
+              "column": "charge_id",
+              "score": 42.857
+            },
+            {
+              "column": "charge_type",
+              "score": 42.857
+            },
+            {
+              "column": "charge_amount",
+              "score": 41.429
+            }
+          ]
+        },
+        {
+          "table": "Breeds",
+          "score": 25.0,
+          "table_score": 25.0,
+          "top_columns": [
+            {
+              "column": "breed_code",
+              "score": 25.0
+            },
+            {
+              "column": "breed_name",
+              "score": 25.0
+            }
+          ]
+        },
+        {
+          "table": "Sizes",
+          "score": 25.0,
+          "table_score": 25.0,
+          "top_columns": [
+            {
+              "column": "size_code",
+              "score": 25.0
+            },
+            {
+              "column": "size_description",
+              "score": 25.0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "spider_dev_0972",
+      "db_id": "dog_kennels",
+      "question": "Which owners live in the state whose name contains the substring 'North'? List his first name, last name and email.",
+      "seed_tables": [
+        "Owners",
+        "Professionals",
+        "Treatments",
+        "Treatment_Types"
+      ],
+      "selected_tables": [
+        "Dogs",
+        "Owners",
+        "Professionals",
+        "Treatment_Types",
+        "Treatments"
+      ],
+      "selected_schema": "CREATE TABLE Dogs (\n    dog_id INTEGER PRIMARY KEY,\n    owner_id INTEGER NOT NULL,\n    abandoned_yn VARCHAR(1),\n    breed_code VARCHAR(10) NOT NULL,\n    size_code VARCHAR(10) NOT NULL,\n    name VARCHAR(50),\n    age VARCHAR(20),\n    date_of_birth DATETIME,\n    gender VARCHAR(1),\n    weight VARCHAR(20),\n    date_arrived DATETIME,\n    date_adopted DATETIME,\n    date_departed DATETIME,\n    FOREIGN KEY (owner_id) REFERENCES Owners(owner_id),\n    FOREIGN KEY (owner_id) REFERENCES Owners(owner_id)\n);\n\nCREATE TABLE Owners (\n    owner_id INTEGER PRIMARY KEY,\n    first_name VARCHAR(50),\n    last_name VARCHAR(50),\n    street VARCHAR(50),\n    city VARCHAR(50),\n    state VARCHAR(20),\n    zip_code VARCHAR(20),\n    email_address VARCHAR(50),\n    home_phone VARCHAR(20),\n    cell_number VARCHAR(20)\n);\n\nCREATE TABLE Professionals (\n    professional_id INTEGER PRIMARY KEY,\n    role_code VARCHAR(10) NOT NULL,\n    first_name VARCHAR(50),\n    street VARCHAR(50),\n    city VARCHAR(50),\n    state VARCHAR(20),\n    zip_code VARCHAR(20),\n    last_name VARCHAR(50),\n    email_address VARCHAR(50),\n    home_phone VARCHAR(20),\n    cell_number VARCHAR(20)\n);\n\nCREATE TABLE Treatment_Types (\n    treatment_type_code VARCHAR(10) PRIMARY KEY,\n    treatment_type_description VARCHAR(80)\n);\n\nCREATE TABLE Treatments (\n    treatment_id INTEGER PRIMARY KEY,\n    dog_id INTEGER NOT NULL,\n    professional_id INTEGER NOT NULL,\n    treatment_type_code VARCHAR(10) NOT NULL,\n    date_of_treatment DATETIME,\n    cost_of_treatment DECIMAL(19,4),\n    FOREIGN KEY (dog_id) REFERENCES Dogs(dog_id),\n    FOREIGN KEY (professional_id) REFERENCES Professionals(professional_id),\n    FOREIGN KEY (treatment_type_code) REFERENCES Treatment_Types(treatment_type_code)\n);",
+      "ranked_tables": [
+        {
+          "table": "Owners",
+          "score": 100.0,
+          "table_score": 100.0,
+          "top_columns": [
+            {
+              "column": "first_name",
+              "score": 100.0
+            },
+            {
+              "column": "last_name",
+              "score": 100.0
+            },
+            {
+              "column": "owner_id",
+              "score": 100.0
+            }
+          ]
+        },
+        {
+          "table": "Professionals",
+          "score": 69.048,
+          "table_score": 38.095,
+          "top_columns": [
+            {
+              "column": "first_name",
+              "score": 100.0
+            },
+            {
+              "column": "last_name",
+              "score": 100.0
+            },
+            {
+              "column": "state",
+              "score": 100.0
+            }
+          ]
+        },
+        {
+          "table": "Treatments",
+          "score": 58.81,
+          "table_score": 57.143,
+          "top_columns": [
+            {
+              "column": "date_of_treatment",
+              "score": 61.905
+            },
+            {
+              "column": "treatment_id",
+              "score": 57.143
+            },
+            {
+              "column": "treatment_type_code",
+              "score": 57.143
+            }
+          ]
+        },
+        {
+          "table": "Treatment_Types",
+          "score": 57.143,
+          "table_score": 57.143,
+          "top_columns": [
+            {
+              "column": "treatment_type_code",
+              "score": 57.143
+            },
+            {
+              "column": "treatment_type_description",
+              "score": 57.143
+            }
+          ]
+        },
+        {
+          "table": "Dogs",
+          "score": 57.0,
+          "table_score": 25.0,
+          "top_columns": [
+            {
+              "column": "owner_id",
+              "score": 100.0
+            },
+            {
+              "column": "date_of_birth",
+              "score": 63.333
+            },
+            {
+              "column": "date_arrived",
+              "score": 60.606
+            }
+          ]
+        },
+        {
+          "table": "Sizes",
+          "score": 50.0,
+          "table_score": 50.0,
+          "top_columns": [
+            {
+              "column": "size_code",
+              "score": 50.0
+            },
+            {
+              "column": "size_description",
+              "score": 50.0
+            }
+          ]
+        },
+        {
+          "table": "Charges",
+          "score": 38.077,
+          "table_score": 36.364,
+          "top_columns": [
+            {
+              "column": "charge_amount",
+              "score": 41.259
+            },
+            {
+              "column": "charge_id",
+              "score": 36.364
+            },
+            {
+              "column": "charge_type",
+              "score": 36.364
+            }
+          ]
+        },
+        {
+          "table": "Breeds",
+          "score": 28.571,
+          "table_score": 28.571,
+          "top_columns": [
+            {
+              "column": "breed_code",
+              "score": 28.571
+            },
+            {
+              "column": "breed_name",
+              "score": 28.571
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "spider_dev_0992",
+      "db_id": "dog_kennels",
+      "question": "How much does the most expensive charge type costs?",
+      "seed_tables": [
+        "Charges",
+        "Dogs",
+        "Treatments",
+        "Owners"
+      ],
+      "selected_tables": [
+        "Charges",
+        "Dogs",
+        "Owners",
+        "Treatments"
+      ],
+      "selected_schema": "CREATE TABLE Charges (\n    charge_id INTEGER PRIMARY KEY,\n    charge_type VARCHAR(10),\n    charge_amount DECIMAL(19,4)\n);\n\nCREATE TABLE Dogs (\n    dog_id INTEGER PRIMARY KEY,\n    owner_id INTEGER NOT NULL,\n    abandoned_yn VARCHAR(1),\n    breed_code VARCHAR(10) NOT NULL,\n    size_code VARCHAR(10) NOT NULL,\n    name VARCHAR(50),\n    age VARCHAR(20),\n    date_of_birth DATETIME,\n    gender VARCHAR(1),\n    weight VARCHAR(20),\n    date_arrived DATETIME,\n    date_adopted DATETIME,\n    date_departed DATETIME,\n    FOREIGN KEY (owner_id) REFERENCES Owners(owner_id),\n    FOREIGN KEY (owner_id) REFERENCES Owners(owner_id)\n);\n\nCREATE TABLE Owners (\n    owner_id INTEGER PRIMARY KEY,\n    first_name VARCHAR(50),\n    last_name VARCHAR(50),\n    street VARCHAR(50),\n    city VARCHAR(50),\n    state VARCHAR(20),\n    zip_code VARCHAR(20),\n    email_address VARCHAR(50),\n    home_phone VARCHAR(20),\n    cell_number VARCHAR(20)\n);\n\nCREATE TABLE Treatments (\n    treatment_id INTEGER PRIMARY KEY,\n    dog_id INTEGER NOT NULL,\n    professional_id INTEGER NOT NULL,\n    treatment_type_code VARCHAR(10) NOT NULL,\n    date_of_treatment DATETIME,\n    cost_of_treatment DECIMAL(19,4),\n    FOREIGN KEY (dog_id) REFERENCES Dogs(dog_id)\n);",
+      "ranked_tables": [
+        {
+          "table": "Charges",
+          "score": 100.0,
+          "table_score": 100.0,
+          "top_columns": [
+            {
+              "column": "charge_id",
+              "score": 100.0
+            },
+            {
+              "column": "charge_type",
+              "score": 100.0
+            },
+            {
+              "column": "charge_amount",
+              "score": 89.0
+            }
+          ]
+        },
+        {
+          "table": "Dogs",
+          "score": 66.667,
+          "table_score": 66.667,
+          "top_columns": [
+            {
+              "column": "age",
+              "score": 66.667
+            },
+            {
+              "column": "dog_id",
+              "score": 66.667
+            },
+            {
+              "column": "date_adopted",
+              "score": 58.571
+            }
+          ]
+        },
+        {
+          "table": "Treatments",
+          "score": 53.15,
+          "table_score": 33.333,
+          "top_columns": [
+            {
+              "column": "cost_of_treatment",
+              "score": 75.667
+            },
+            {
+              "column": "dog_id",
+              "score": 66.667
+            },
+            {
+              "column": "date_of_treatment",
+              "score": 45.238
+            }
+          ]
+        },
+        {
+          "table": "Owners",
+          "score": 51.25,
+          "table_score": 50.0,
+          "top_columns": [
+            {
+              "column": "home_phone",
+              "score": 53.571
+            },
+            {
+              "column": "city",
+              "score": 50.0
+            },
+            {
+              "column": "last_name",
+              "score": 50.0
+            }
+          ]
+        },
+        {
+          "table": "Professionals",
+          "score": 47.083,
+          "table_score": 38.095,
+          "top_columns": [
+            {
+              "column": "role_code",
+              "score": 57.143
+            },
+            {
+              "column": "home_phone",
+              "score": 53.571
+            },
+            {
+              "column": "city",
+              "score": 50.0
+            }
+          ]
+        },
+        {
+          "table": "Sizes",
+          "score": 46.154,
+          "table_score": 46.154,
+          "top_columns": [
+            {
+              "column": "size_code",
+              "score": 46.154
+            },
+            {
+              "column": "size_description",
+              "score": 46.154
+            }
+          ]
+        },
+        {
+          "table": "Breeds",
+          "score": 36.364,
+          "table_score": 36.364,
+          "top_columns": [
+            {
+              "column": "breed_code",
+              "score": 36.364
+            },
+            {
+              "column": "breed_name",
+              "score": 36.364
+            }
+          ]
+        },
+        {
+          "table": "Treatment_Types",
+          "score": 33.333,
+          "table_score": 33.333,
+          "top_columns": [
+            {
+              "column": "treatment_type_code",
+              "score": 33.333
+            },
+            {
+              "column": "treatment_type_description",
+              "score": 33.333
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "spider_dev_0924",
+      "db_id": "dog_kennels",
+      "question": "Which dogs have not cost their owner more than 1000 for treatment ? List the dog names .",
+      "seed_tables": [
+        "Dogs",
+        "Treatment_Types",
+        "Treatments",
+        "Owners"
+      ],
+      "selected_tables": [
+        "Dogs",
+        "Owners",
+        "Treatment_Types",
+        "Treatments"
+      ],
+      "selected_schema": "CREATE TABLE Dogs (\n    dog_id INTEGER PRIMARY KEY,\n    owner_id INTEGER NOT NULL,\n    abandoned_yn VARCHAR(1),\n    breed_code VARCHAR(10) NOT NULL,\n    size_code VARCHAR(10) NOT NULL,\n    name VARCHAR(50),\n    age VARCHAR(20),\n    date_of_birth DATETIME,\n    gender VARCHAR(1),\n    weight VARCHAR(20),\n    date_arrived DATETIME,\n    date_adopted DATETIME,\n    date_departed DATETIME,\n    FOREIGN KEY (owner_id) REFERENCES Owners(owner_id),\n    FOREIGN KEY (owner_id) REFERENCES Owners(owner_id)\n);\n\nCREATE TABLE Owners (\n    owner_id INTEGER PRIMARY KEY,\n    first_name VARCHAR(50),\n    last_name VARCHAR(50),\n    street VARCHAR(50),\n    city VARCHAR(50),\n    state VARCHAR(20),\n    zip_code VARCHAR(20),\n    email_address VARCHAR(50),\n    home_phone VARCHAR(20),\n    cell_number VARCHAR(20)\n);\n\nCREATE TABLE Treatment_Types (\n    treatment_type_code VARCHAR(10) PRIMARY KEY,\n    treatment_type_description VARCHAR(80)\n);\n\nCREATE TABLE Treatments (\n    treatment_id INTEGER PRIMARY KEY,\n    dog_id INTEGER NOT NULL,\n    professional_id INTEGER NOT NULL,\n    treatment_type_code VARCHAR(10) NOT NULL,\n    date_of_treatment DATETIME,\n    cost_of_treatment DECIMAL(19,4),\n    FOREIGN KEY (dog_id) REFERENCES Dogs(dog_id),\n    FOREIGN KEY (treatment_type_code) REFERENCES Treatment_Types(treatment_type_code)\n);",
+      "ranked_tables": [
+        {
+          "table": "Dogs",
+          "score": 100.0,
+          "table_score": 100.0,
+          "top_columns": [
+            {
+              "column": "dog_id",
+              "score": 100.0
+            },
+            {
+              "column": "owner_id",
+              "score": 100.0
+            },
+            {
+              "column": "gender",
+              "score": 54.545
+            }
+          ]
+        },
+        {
+          "table": "Treatment_Types",
+          "score": 100.0,
+          "table_score": 100.0,
+          "top_columns": [
+            {
+              "column": "treatment_type_code",
+              "score": 100.0
+            },
+            {
+              "column": "treatment_type_description",
+              "score": 100.0
+            }
+          ]
+        },
+        {
+          "table": "Treatments",
+          "score": 100.0,
+          "table_score": 100.0,
+          "top_columns": [
+            {
+              "column": "cost_of_treatment",
+              "score": 100.0
+            },
+            {
+              "column": "dog_id",
+              "score": 100.0
+            },
+            {
+              "column": "treatment_id",
+              "score": 100.0
+            }
+          ]
+        },
+        {
+          "table": "Owners",
+          "score": 95.0,
+          "table_score": 100.0,
+          "top_columns": [
+            {
+              "column": "owner_id",
+              "score": 100.0
+            },
+            {
+              "column": "street",
+              "score": 66.667
+            },
+            {
+              "column": "state",
+              "score": 57.143
+            }
+          ]
+        },
+        {
+          "table": "Professionals",
+          "score": 46.19,
+          "table_score": 28.571,
+          "top_columns": [
+            {
+              "column": "street",
+              "score": 66.667
+            },
+            {
+              "column": "state",
+              "score": 57.143
+            },
+            {
+              "column": "home_phone",
+              "score": 55.0
+            }
+          ]
+        },
+        {
+          "table": "Breeds",
+          "score": 44.444,
+          "table_score": 44.444,
+          "top_columns": [
+            {
+              "column": "breed_code",
+              "score": 44.444
+            },
+            {
+              "column": "breed_name",
+              "score": 44.444
+            }
+          ]
+        },
+        {
+          "table": "Charges",
+          "score": 42.333,
+          "table_score": 40.0,
+          "top_columns": [
+            {
+              "column": "charge_amount",
+              "score": 46.667
+            },
+            {
+              "column": "charge_id",
+              "score": 40.0
+            },
+            {
+              "column": "charge_type",
+              "score": 40.0
+            }
+          ]
+        },
+        {
+          "table": "Sizes",
+          "score": 25.0,
+          "table_score": 25.0,
+          "top_columns": [
+            {
+              "column": "size_code",
+              "score": 25.0
+            },
+            {
+              "column": "size_description",
+              "score": 25.0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "spider_dev_0982",
+      "db_id": "dog_kennels",
+      "question": "How many professionals did not operate any treatment on dogs?",
+      "seed_tables": [
+        "Treatment_Types",
+        "Treatments",
+        "Professionals",
+        "Dogs"
+      ],
+      "selected_tables": [
+        "Dogs",
+        "Professionals",
+        "Treatment_Types",
+        "Treatments"
+      ],
+      "selected_schema": "CREATE TABLE Dogs (\n    dog_id INTEGER PRIMARY KEY,\n    owner_id INTEGER NOT NULL,\n    abandoned_yn VARCHAR(1),\n    breed_code VARCHAR(10) NOT NULL,\n    size_code VARCHAR(10) NOT NULL,\n    name VARCHAR(50),\n    age VARCHAR(20),\n    date_of_birth DATETIME,\n    gender VARCHAR(1),\n    weight VARCHAR(20),\n    date_arrived DATETIME,\n    date_adopted DATETIME,\n    date_departed DATETIME\n);\n\nCREATE TABLE Professionals (\n    professional_id INTEGER PRIMARY KEY,\n    role_code VARCHAR(10) NOT NULL,\n    first_name VARCHAR(50),\n    street VARCHAR(50),\n    city VARCHAR(50),\n    state VARCHAR(20),\n    zip_code VARCHAR(20),\n    last_name VARCHAR(50),\n    email_address VARCHAR(50),\n    home_phone VARCHAR(20),\n    cell_number VARCHAR(20)\n);\n\nCREATE TABLE Treatment_Types (\n    treatment_type_code VARCHAR(10) PRIMARY KEY,\n    treatment_type_description VARCHAR(80)\n);\n\nCREATE TABLE Treatments (\n    treatment_id INTEGER PRIMARY KEY,\n    dog_id INTEGER NOT NULL,\n    professional_id INTEGER NOT NULL,\n    treatment_type_code VARCHAR(10) NOT NULL,\n    date_of_treatment DATETIME,\n    cost_of_treatment DECIMAL(19,4),\n    FOREIGN KEY (dog_id) REFERENCES Dogs(dog_id),\n    FOREIGN KEY (professional_id) REFERENCES Professionals(professional_id),\n    FOREIGN KEY (treatment_type_code) REFERENCES Treatment_Types(treatment_type_code)\n);",
+      "ranked_tables": [
+        {
+          "table": "Treatment_Types",
+          "score": 100.0,
+          "table_score": 100.0,
+          "top_columns": [
+            {
+              "column": "treatment_type_code",
+              "score": 100.0
+            },
+            {
+              "column": "treatment_type_description",
+              "score": 100.0
+            }
+          ]
+        },
+        {
+          "table": "Treatments",
+          "score": 100.0,
+          "table_score": 100.0,
+          "top_columns": [
+            {
+              "column": "dog_id",
+              "score": 100.0
+            },
+            {
+              "column": "professional_id",
+              "score": 100.0
+            },
+            {
+              "column": "treatment_id",
+              "score": 100.0
+            }
+          ]
+        },
+        {
+          "table": "Professionals",
+          "score": 95.0,
+          "table_score": 100.0,
+          "top_columns": [
+            {
+              "column": "professional_id",
+              "score": 100.0
+            },
+            {
+              "column": "street",
+              "score": 66.667
+            },
+            {
+              "column": "state",
+              "score": 57.143
+            }
+          ]
+        },
+        {
+          "table": "Dogs",
+          "score": 93.377,
+          "table_score": 100.0,
+          "top_columns": [
+            {
+              "column": "dog_id",
+              "score": 100.0
+            },
+            {
+              "column": "date_adopted",
+              "score": 55.844
+            },
+            {
+              "column": "date_departed",
+              "score": 53.939
+            }
+          ]
+        },
+        {
+          "table": "Owners",
+          "score": 56.905,
+          "table_score": 50.0,
+          "top_columns": [
+            {
+              "column": "street",
+              "score": 66.667
+            },
+            {
+              "column": "state",
+              "score": 57.143
+            },
+            {
+              "column": "owner_id",
+              "score": 50.0
+            }
+          ]
+        },
+        {
+          "table": "Breeds",
+          "score": 42.857,
+          "table_score": 42.857,
+          "top_columns": [
+            {
+              "column": "breed_code",
+              "score": 42.857
+            },
+            {
+              "column": "breed_name",
+              "score": 42.857
+            }
+          ]
+        },
+        {
+          "table": "Charges",
+          "score": 34.718,
+          "table_score": 30.769,
+          "top_columns": [
+            {
+              "column": "charge_amount",
+              "score": 42.051
+            },
+            {
+              "column": "charge_id",
+              "score": 30.769
+            },
+            {
+              "column": "charge_type",
+              "score": 30.769
+            }
+          ]
+        },
+        {
+          "table": "Sizes",
+          "score": 28.571,
+          "table_score": 28.571,
+          "top_columns": [
+            {
+              "column": "size_code",
+              "score": 28.571
+            },
+            {
+              "column": "size_description",
+              "score": 28.571
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "spider_dev_0952",
+      "db_id": "dog_kennels",
+      "question": "List pairs of the owner's first name and the dogs's name.",
+      "seed_tables": [
+        "Dogs",
+        "Owners",
+        "Professionals",
+        "Treatments"
+      ],
+      "selected_tables": [
+        "Dogs",
+        "Owners",
+        "Professionals",
+        "Treatments"
+      ],
+      "selected_schema": "CREATE TABLE Dogs (\n    dog_id INTEGER PRIMARY KEY,\n    owner_id INTEGER NOT NULL,\n    abandoned_yn VARCHAR(1),\n    breed_code VARCHAR(10) NOT NULL,\n    size_code VARCHAR(10) NOT NULL,\n    name VARCHAR(50),\n    age VARCHAR(20),\n    date_of_birth DATETIME,\n    gender VARCHAR(1),\n    weight VARCHAR(20),\n    date_arrived DATETIME,\n    date_adopted DATETIME,\n    date_departed DATETIME,\n    FOREIGN KEY (owner_id) REFERENCES Owners(owner_id),\n    FOREIGN KEY (owner_id) REFERENCES Owners(owner_id)\n);\n\nCREATE TABLE Owners (\n    owner_id INTEGER PRIMARY KEY,\n    first_name VARCHAR(50),\n    last_name VARCHAR(50),\n    street VARCHAR(50),\n    city VARCHAR(50),\n    state VARCHAR(20),\n    zip_code VARCHAR(20),\n    email_address VARCHAR(50),\n    home_phone VARCHAR(20),\n    cell_number VARCHAR(20)\n);\n\nCREATE TABLE Professionals (\n    professional_id INTEGER PRIMARY KEY,\n    role_code VARCHAR(10) NOT NULL,\n    first_name VARCHAR(50),\n    street VARCHAR(50),\n    city VARCHAR(50),\n    state VARCHAR(20),\n    zip_code VARCHAR(20),\n    last_name VARCHAR(50),\n    email_address VARCHAR(50),\n    home_phone VARCHAR(20),\n    cell_number VARCHAR(20)\n);\n\nCREATE TABLE Treatments (\n    treatment_id INTEGER PRIMARY KEY,\n    dog_id INTEGER NOT NULL,\n    professional_id INTEGER NOT NULL,\n    treatment_type_code VARCHAR(10) NOT NULL,\n    date_of_treatment DATETIME,\n    cost_of_treatment DECIMAL(19,4),\n    FOREIGN KEY (dog_id) REFERENCES Dogs(dog_id),\n    FOREIGN KEY (professional_id) REFERENCES Professionals(professional_id)\n);",
+      "ranked_tables": [
+        {
+          "table": "Dogs",
+          "score": 100.0,
+          "table_score": 100.0,
+          "top_columns": [
+            {
+              "column": "dog_id",
+              "score": 100.0
+            },
+            {
+              "column": "owner_id",
+              "score": 100.0
+            },
+            {
+              "column": "gender",
+              "score": 54.545
+            }
+          ]
+        },
+        {
+          "table": "Owners",
+          "score": 100.0,
+          "table_score": 100.0,
+          "top_columns": [
+            {
+              "column": "first_name",
+              "score": 100.0
+            },
+            {
+              "column": "owner_id",
+              "score": 100.0
+            },
+            {
+              "column": "home_phone",
+              "score": 52.222
+            }
+          ]
+        },
+        {
+          "table": "Professionals",
+          "score": 55.333,
+          "table_score": 25.0,
+          "top_columns": [
+            {
+              "column": "first_name",
+              "score": 100.0
+            },
+            {
+              "column": "home_phone",
+              "score": 52.222
+            },
+            {
+              "column": "city",
+              "score": 44.444
+            }
+          ]
+        },
+        {
+          "table": "Treatments",
+          "score": 54.762,
+          "table_score": 28.571,
+          "top_columns": [
+            {
+              "column": "dog_id",
+              "score": 100.0
+            },
+            {
+              "column": "cost_of_treatment",
+              "score": 36.508
+            },
+            {
+              "column": "date_of_treatment",
+              "score": 28.571
+            }
+          ]
+        },
+        {
+          "table": "Charges",
+          "score": 40.0,
+          "table_score": 40.0,
+          "top_columns": [
+            {
+              "column": "charge_id",
+              "score": 40.0
+            },
+            {
+              "column": "charge_type",
+              "score": 40.0
+            },
+            {
+              "column": "charge_amount",
+              "score": 38.182
+            }
+          ]
+        },
+        {
+          "table": "Sizes",
+          "score": 40.0,
+          "table_score": 40.0,
+          "top_columns": [
+            {
+              "column": "size_code",
+              "score": 40.0
+            },
+            {
+              "column": "size_description",
+              "score": 40.0
+            }
+          ]
+        },
+        {
+          "table": "Treatment_Types",
+          "score": 28.571,
+          "table_score": 28.571,
+          "top_columns": [
+            {
+              "column": "treatment_type_code",
+              "score": 28.571
+            },
+            {
+              "column": "treatment_type_description",
+              "score": 28.571
+            }
+          ]
+        },
+        {
+          "table": "Breeds",
+          "score": 25.0,
+          "table_score": 25.0,
+          "top_columns": [
+            {
+              "column": "breed_code",
+              "score": 25.0
+            },
+            {
+              "column": "breed_name",
+              "score": 25.0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "spider_dev_0954",
+      "db_id": "dog_kennels",
+      "question": "List the names of the dogs of the rarest breed and the treatment dates of them.",
+      "seed_tables": [
+        "Breeds",
+        "Dogs",
+        "Treatment_Types",
+        "Treatments"
+      ],
+      "selected_tables": [
+        "Breeds",
+        "Dogs",
+        "Treatment_Types",
+        "Treatments"
+      ],
+      "selected_schema": "CREATE TABLE Breeds (\n    breed_code VARCHAR(10) PRIMARY KEY,\n    breed_name VARCHAR(80)\n);\n\nCREATE TABLE Dogs (\n    dog_id INTEGER PRIMARY KEY,\n    owner_id INTEGER NOT NULL,\n    abandoned_yn VARCHAR(1),\n    breed_code VARCHAR(10) NOT NULL,\n    size_code VARCHAR(10) NOT NULL,\n    name VARCHAR(50),\n    age VARCHAR(20),\n    date_of_birth DATETIME,\n    gender VARCHAR(1),\n    weight VARCHAR(20),\n    date_arrived DATETIME,\n    date_adopted DATETIME,\n    date_departed DATETIME,\n    FOREIGN KEY (breed_code) REFERENCES Breeds(breed_code)\n);\n\nCREATE TABLE Treatment_Types (\n    treatment_type_code VARCHAR(10) PRIMARY KEY,\n    treatment_type_description VARCHAR(80)\n);\n\nCREATE TABLE Treatments (\n    treatment_id INTEGER PRIMARY KEY,\n    dog_id INTEGER NOT NULL,\n    professional_id INTEGER NOT NULL,\n    treatment_type_code VARCHAR(10) NOT NULL,\n    date_of_treatment DATETIME,\n    cost_of_treatment DECIMAL(19,4),\n    FOREIGN KEY (dog_id) REFERENCES Dogs(dog_id),\n    FOREIGN KEY (treatment_type_code) REFERENCES Treatment_Types(treatment_type_code)\n);",
+      "ranked_tables": [
+        {
+          "table": "Breeds",
+          "score": 100.0,
+          "table_score": 100.0,
+          "top_columns": [
+            {
+              "column": "breed_code",
+              "score": 100.0
+            },
+            {
+              "column": "breed_name",
+              "score": 100.0
+            }
+          ]
+        },
+        {
+          "table": "Dogs",
+          "score": 100.0,
+          "table_score": 100.0,
+          "top_columns": [
+            {
+              "column": "breed_code",
+              "score": 100.0
+            },
+            {
+              "column": "dog_id",
+              "score": 100.0
+            },
+            {
+              "column": "date_departed",
+              "score": 92.333
+            }
+          ]
+        },
+        {
+          "table": "Treatment_Types",
+          "score": 100.0,
+          "table_score": 100.0,
+          "top_columns": [
+            {
+              "column": "treatment_type_code",
+              "score": 100.0
+            },
+            {
+              "column": "treatment_type_description",
+              "score": 100.0
+            }
+          ]
+        },
+        {
+          "table": "Treatments",
+          "score": 100.0,
+          "table_score": 100.0,
+          "top_columns": [
+            {
+              "column": "date_of_treatment",
+              "score": 100.0
+            },
+            {
+              "column": "dog_id",
+              "score": 100.0
+            },
+            {
+              "column": "treatment_id",
+              "score": 100.0
+            }
+          ]
+        },
+        {
+          "table": "Charges",
+          "score": 50.583,
+          "table_score": 50.0,
+          "top_columns": [
+            {
+              "column": "charge_amount",
+              "score": 51.667
+            },
+            {
+              "column": "charge_id",
+              "score": 50.0
+            },
+            {
+              "column": "charge_type",
+              "score": 50.0
+            }
+          ]
+        },
+        {
+          "table": "Professionals",
+          "score": 50.0,
+          "table_score": 33.333,
+          "top_columns": [
+            {
+              "column": "state",
+              "score": 66.667
+            },
+            {
+              "column": "street",
+              "score": 66.667
+            },
+            {
+              "column": "last_name",
+              "score": 60.0
+            }
+          ]
+        },
+        {
+          "table": "Owners",
+          "score": 45.833,
+          "table_score": 25.0,
+          "top_columns": [
+            {
+              "column": "state",
+              "score": 66.667
+            },
+            {
+              "column": "street",
+              "score": 66.667
+            },
+            {
+              "column": "last_name",
+              "score": 60.0
+            }
+          ]
+        },
+        {
+          "table": "Sizes",
+          "score": 25.0,
+          "table_score": 25.0,
+          "top_columns": [
+            {
+              "column": "size_code",
+              "score": 25.0
+            },
+            {
+              "column": "size_description",
+              "score": 25.0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "spider_dev_0926",
+      "db_id": "dog_kennels",
+      "question": "Which first names are used for professionals or owners but are not used as dog names?",
+      "seed_tables": [
+        "Dogs",
+        "Owners",
+        "Professionals",
+        "Treatments"
+      ],
+      "selected_tables": [
+        "Dogs",
+        "Owners",
+        "Professionals",
+        "Treatments"
+      ],
+      "selected_schema": "CREATE TABLE Dogs (\n    dog_id INTEGER PRIMARY KEY,\n    owner_id INTEGER NOT NULL,\n    abandoned_yn VARCHAR(1),\n    breed_code VARCHAR(10) NOT NULL,\n    size_code VARCHAR(10) NOT NULL,\n    name VARCHAR(50),\n    age VARCHAR(20),\n    date_of_birth DATETIME,\n    gender VARCHAR(1),\n    weight VARCHAR(20),\n    date_arrived DATETIME,\n    date_adopted DATETIME,\n    date_departed DATETIME,\n    FOREIGN KEY (owner_id) REFERENCES Owners(owner_id),\n    FOREIGN KEY (owner_id) REFERENCES Owners(owner_id)\n);\n\nCREATE TABLE Owners (\n    owner_id INTEGER PRIMARY KEY,\n    first_name VARCHAR(50),\n    last_name VARCHAR(50),\n    street VARCHAR(50),\n    city VARCHAR(50),\n    state VARCHAR(20),\n    zip_code VARCHAR(20),\n    email_address VARCHAR(50),\n    home_phone VARCHAR(20),\n    cell_number VARCHAR(20)\n);\n\nCREATE TABLE Professionals (\n    professional_id INTEGER PRIMARY KEY,\n    role_code VARCHAR(10) NOT NULL,\n    first_name VARCHAR(50),\n    street VARCHAR(50),\n    city VARCHAR(50),\n    state VARCHAR(20),\n    zip_code VARCHAR(20),\n    last_name VARCHAR(50),\n    email_address VARCHAR(50),\n    home_phone VARCHAR(20),\n    cell_number VARCHAR(20)\n);\n\nCREATE TABLE Treatments (\n    treatment_id INTEGER PRIMARY KEY,\n    dog_id INTEGER NOT NULL,\n    professional_id INTEGER NOT NULL,\n    treatment_type_code VARCHAR(10) NOT NULL,\n    date_of_treatment DATETIME,\n    cost_of_treatment DECIMAL(19,4),\n    FOREIGN KEY (dog_id) REFERENCES Dogs(dog_id),\n    FOREIGN KEY (professional_id) REFERENCES Professionals(professional_id)\n);",
+      "ranked_tables": [
+        {
+          "table": "Dogs",
+          "score": 100.0,
+          "table_score": 100.0,
+          "top_columns": [
+            {
+              "column": "dog_id",
+              "score": 100.0
+            },
+            {
+              "column": "owner_id",
+              "score": 100.0
+            },
+            {
+              "column": "gender",
+              "score": 54.545
+            }
+          ]
+        },
+        {
+          "table": "Owners",
+          "score": 100.0,
+          "table_score": 100.0,
+          "top_columns": [
+            {
+              "column": "first_name",
+              "score": 100.0
+            },
+            {
+              "column": "owner_id",
+              "score": 100.0
+            },
+            {
+              "column": "home_phone",
+              "score": 52.222
+            }
+          ]
+        },
+        {
+          "table": "Professionals",
+          "score": 100.0,
+          "table_score": 100.0,
+          "top_columns": [
+            {
+              "column": "first_name",
+              "score": 100.0
+            },
+            {
+              "column": "professional_id",
+              "score": 100.0
+            },
+            {
+              "column": "home_phone",
+              "score": 52.222
+            }
+          ]
+        },
+        {
+          "table": "Treatments",
+          "score": 66.667,
+          "table_score": 33.333,
+          "top_columns": [
+            {
+              "column": "dog_id",
+              "score": 100.0
+            },
+            {
+              "column": "professional_id",
+              "score": 100.0
+            },
+            {
+              "column": "cost_of_treatment",
+              "score": 45.238
+            }
+          ]
+        },
+        {
+          "table": "Sizes",
+          "score": 50.0,
+          "table_score": 50.0,
+          "top_columns": [
+            {
+              "column": "size_code",
+              "score": 50.0
+            },
+            {
+              "column": "size_description",
+              "score": 50.0
+            }
+          ]
+        },
+        {
+          "table": "Breeds",
+          "score": 44.444,
+          "table_score": 44.444,
+          "top_columns": [
+            {
+              "column": "breed_code",
+              "score": 44.444
+            },
+            {
+              "column": "breed_name",
+              "score": 44.444
+            }
+          ]
+        },
+        {
+          "table": "Treatment_Types",
+          "score": 33.333,
+          "table_score": 33.333,
+          "top_columns": [
+            {
+              "column": "treatment_type_code",
+              "score": 33.333
+            },
+            {
+              "column": "treatment_type_description",
+              "score": 33.333
+            }
+          ]
+        },
+        {
+          "table": "Charges",
+          "score": 26.111,
+          "table_score": 22.222,
+          "top_columns": [
+            {
+              "column": "charge_amount",
+              "score": 33.333
+            },
+            {
+              "column": "charge_id",
+              "score": 22.222
+            },
+            {
+              "column": "charge_type",
+              "score": 22.222
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "spider_dev_0934",
+      "db_id": "dog_kennels",
+      "question": "What is the name of the breed with the most dogs?",
+      "seed_tables": [
+        "Breeds",
+        "Dogs",
+        "Treatments",
+        "Treatment_Types"
+      ],
+      "selected_tables": [
+        "Breeds",
+        "Dogs",
+        "Treatment_Types",
+        "Treatments"
+      ],
+      "selected_schema": "CREATE TABLE Breeds (\n    breed_code VARCHAR(10) PRIMARY KEY,\n    breed_name VARCHAR(80)\n);\n\nCREATE TABLE Dogs (\n    dog_id INTEGER PRIMARY KEY,\n    owner_id INTEGER NOT NULL,\n    abandoned_yn VARCHAR(1),\n    breed_code VARCHAR(10) NOT NULL,\n    size_code VARCHAR(10) NOT NULL,\n    name VARCHAR(50),\n    age VARCHAR(20),\n    date_of_birth DATETIME,\n    gender VARCHAR(1),\n    weight VARCHAR(20),\n    date_arrived DATETIME,\n    date_adopted DATETIME,\n    date_departed DATETIME,\n    FOREIGN KEY (breed_code) REFERENCES Breeds(breed_code)\n);\n\nCREATE TABLE Treatment_Types (\n    treatment_type_code VARCHAR(10) PRIMARY KEY,\n    treatment_type_description VARCHAR(80)\n);\n\nCREATE TABLE Treatments (\n    treatment_id INTEGER PRIMARY KEY,\n    dog_id INTEGER NOT NULL,\n    professional_id INTEGER NOT NULL,\n    treatment_type_code VARCHAR(10) NOT NULL,\n    date_of_treatment DATETIME,\n    cost_of_treatment DECIMAL(19,4),\n    FOREIGN KEY (dog_id) REFERENCES Dogs(dog_id),\n    FOREIGN KEY (treatment_type_code) REFERENCES Treatment_Types(treatment_type_code)\n);",
+      "ranked_tables": [
+        {
+          "table": "Breeds",
+          "score": 100.0,
+          "table_score": 100.0,
+          "top_columns": [
+            {
+              "column": "breed_code",
+              "score": 100.0
+            },
+            {
+              "column": "breed_name",
+              "score": 100.0
+            }
+          ]
+        },
+        {
+          "table": "Dogs",
+          "score": 100.0,
+          "table_score": 100.0,
+          "top_columns": [
+            {
+              "column": "breed_code",
+              "score": 100.0
+            },
+            {
+              "column": "dog_id",
+              "score": 100.0
+            },
+            {
+              "column": "date_arrived",
+              "score": 39.286
+            }
+          ]
+        },
+        {
+          "table": "Treatments",
+          "score": 65.268,
+          "table_score": 42.857,
+          "top_columns": [
+            {
+              "column": "dog_id",
+              "score": 100.0
+            },
+            {
+              "column": "cost_of_treatment",
+              "score": 58.929
+            },
+            {
+              "column": "treatment_id",
+              "score": 42.857
+            }
+          ]
+        },
+        {
+          "table": "Treatment_Types",
+          "score": 42.857,
+          "table_score": 42.857,
+          "top_columns": [
+            {
+              "column": "treatment_type_code",
+              "score": 42.857
+            },
+            {
+              "column": "treatment_type_description",
+              "score": 42.857
+            }
+          ]
+        },
+        {
+          "table": "Charges",
+          "score": 40.5,
+          "table_score": 36.364,
+          "top_columns": [
+            {
+              "column": "charge_amount",
+              "score": 48.182
+            },
+            {
+              "column": "charge_id",
+              "score": 36.364
+            },
+            {
+              "column": "charge_type",
+              "score": 36.364
+            }
+          ]
+        },
+        {
+          "table": "Owners",
+          "score": 39.091,
+          "table_score": 25.0,
+          "top_columns": [
+            {
+              "column": "street",
+              "score": 54.545
+            },
+            {
+              "column": "last_name",
+              "score": 50.0
+            },
+            {
+              "column": "first_name",
+              "score": 44.444
+            }
+          ]
+        },
+        {
+          "table": "Professionals",
+          "score": 39.091,
+          "table_score": 25.0,
+          "top_columns": [
+            {
+              "column": "street",
+              "score": 54.545
+            },
+            {
+              "column": "last_name",
+              "score": 50.0
+            },
+            {
+              "column": "first_name",
+              "score": 44.444
+            }
+          ]
+        },
+        {
+          "table": "Sizes",
+          "score": 25.0,
+          "table_score": 25.0,
+          "top_columns": [
+            {
+              "column": "size_code",
+              "score": 25.0
+            },
+            {
+              "column": "size_description",
+              "score": 25.0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "spider_dev_0940",
+      "db_id": "dog_kennels",
+      "question": "Which owner has paid the largest amount of money in total for their dogs? Show the owner id and zip code.",
+      "seed_tables": [
+        "Dogs",
+        "Owners",
+        "Charges",
+        "Treatments"
+      ],
+      "selected_tables": [
+        "Charges",
+        "Dogs",
+        "Owners",
+        "Treatments"
+      ],
+      "selected_schema": "CREATE TABLE Charges (\n    charge_id INTEGER PRIMARY KEY,\n    charge_type VARCHAR(10),\n    charge_amount DECIMAL(19,4)\n);\n\nCREATE TABLE Dogs (\n    dog_id INTEGER PRIMARY KEY,\n    owner_id INTEGER NOT NULL,\n    abandoned_yn VARCHAR(1),\n    breed_code VARCHAR(10) NOT NULL,\n    size_code VARCHAR(10) NOT NULL,\n    name VARCHAR(50),\n    age VARCHAR(20),\n    date_of_birth DATETIME,\n    gender VARCHAR(1),\n    weight VARCHAR(20),\n    date_arrived DATETIME,\n    date_adopted DATETIME,\n    date_departed DATETIME,\n    FOREIGN KEY (owner_id) REFERENCES Owners(owner_id),\n    FOREIGN KEY (owner_id) REFERENCES Owners(owner_id)\n);\n\nCREATE TABLE Owners (\n    owner_id INTEGER PRIMARY KEY,\n    first_name VARCHAR(50),\n    last_name VARCHAR(50),\n    street VARCHAR(50),\n    city VARCHAR(50),\n    state VARCHAR(20),\n    zip_code VARCHAR(20),\n    email_address VARCHAR(50),\n    home_phone VARCHAR(20),\n    cell_number VARCHAR(20)\n);\n\nCREATE TABLE Treatments (\n    treatment_id INTEGER PRIMARY KEY,\n    dog_id INTEGER NOT NULL,\n    professional_id INTEGER NOT NULL,\n    treatment_type_code VARCHAR(10) NOT NULL,\n    date_of_treatment DATETIME,\n    cost_of_treatment DECIMAL(19,4),\n    FOREIGN KEY (dog_id) REFERENCES Dogs(dog_id)\n);",
+      "ranked_tables": [
+        {
+          "table": "Dogs",
+          "score": 100.0,
+          "table_score": 100.0,
+          "top_columns": [
+            {
+              "column": "dog_id",
+              "score": 100.0
+            },
+            {
+              "column": "owner_id",
+              "score": 100.0
+            },
+            {
+              "column": "age",
+              "score": 60.0
+            }
+          ]
+        },
+        {
+          "table": "Owners",
+          "score": 100.0,
+          "table_score": 100.0,
+          "top_columns": [
+            {
+              "column": "owner_id",
+              "score": 100.0
+            },
+            {
+              "column": "zip_code",
+              "score": 100.0
+            },
+            {
+              "column": "last_name",
+              "score": 72.727
+            }
+          ]
+        },
+        {
+          "table": "Charges",
+          "score": 71.419,
+          "table_score": 61.538,
+          "top_columns": [
+            {
+              "column": "charge_amount",
+              "score": 89.769
+            },
+            {
+              "column": "charge_id",
+              "score": 61.538
+            },
+            {
+              "column": "charge_type",
+              "score": 61.538
+            }
+          ]
+        },
+        {
+          "table": "Treatments",
+          "score": 69.667,
+          "table_score": 53.333,
+          "top_columns": [
+            {
+              "column": "dog_id",
+              "score": 100.0
+            },
+            {
+              "column": "treatment_id",
+              "score": 53.333
+            },
+            {
+              "column": "treatment_type_code",
+              "score": 53.333
+            }
+          ]
+        },
+        {
+          "table": "Professionals",
+          "score": 63.556,
+          "table_score": 35.294,
+          "top_columns": [
+            {
+              "column": "zip_code",
+              "score": 100.0
+            },
+            {
+              "column": "last_name",
+              "score": 72.727
+            },
+            {
+              "column": "home_phone",
+              "score": 52.222
+            }
+          ]
+        },
+        {
+          "table": "Treatment_Types",
+          "score": 53.333,
+          "table_score": 53.333,
+          "top_columns": [
+            {
+              "column": "treatment_type_code",
+              "score": 53.333
+            },
+            {
+              "column": "treatment_type_description",
+              "score": 53.333
+            }
+          ]
+        },
+        {
+          "table": "Breeds",
+          "score": 33.333,
+          "table_score": 33.333,
+          "top_columns": [
+            {
+              "column": "breed_code",
+              "score": 33.333
+            },
+            {
+              "column": "breed_name",
+              "score": 33.333
+            }
+          ]
+        },
+        {
+          "table": "Sizes",
+          "score": 28.571,
+          "table_score": 28.571,
+          "top_columns": [
+            {
+              "column": "size_code",
+              "score": 28.571
+            },
+            {
+              "column": "size_description",
+              "score": 28.571
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "spider_dev_0087",
+      "db_id": "car_1",
+      "question": "How many continents are there?",
+      "seed_tables": [
+        "continents",
+        "countries",
+        "cars_data",
+        "model_list"
+      ],
+      "selected_tables": [
+        "car_makers",
+        "car_names",
+        "cars_data",
+        "continents",
+        "countries",
+        "model_list"
+      ],
+      "selected_schema": "CREATE TABLE car_makers (\n    Id INTEGER PRIMARY KEY,\n    Maker TEXT,\n    FullName TEXT,\n    Country TEXT,\n    FOREIGN KEY (Country) REFERENCES countries(CountryId)\n);\n\nCREATE TABLE car_names (\n    MakeId INTEGER PRIMARY KEY,\n    Model TEXT,\n    Make TEXT,\n    FOREIGN KEY (Model) REFERENCES model_list(Model)\n);\n\nCREATE TABLE cars_data (\n    Id INTEGER PRIMARY KEY,\n    MPG TEXT,\n    Cylinders INTEGER,\n    Edispl REAL,\n    Horsepower TEXT,\n    Weight INTEGER,\n    Accelerate REAL,\n    Year INTEGER,\n    FOREIGN KEY (Id) REFERENCES car_names(MakeId)\n);\n\nCREATE TABLE continents (\n    ContId INTEGER PRIMARY KEY,\n    Continent TEXT\n);\n\nCREATE TABLE countries (\n    CountryId INTEGER PRIMARY KEY,\n    CountryName TEXT,\n    Continent INTEGER,\n    FOREIGN KEY (Continent) REFERENCES continents(ContId)\n);\n\nCREATE TABLE model_list (\n    ModelId INTEGER PRIMARY KEY,\n    Maker INTEGER,\n    Model TEXT,\n    FOREIGN KEY (Maker) REFERENCES car_makers(Id)\n);",
+      "ranked_tables": [
+        {
+          "table": "continents",
+          "score": 94.231,
+          "table_score": 100.0,
+          "top_columns": [
+            {
+              "column": "Continent",
+              "score": 100.0
+            },
+            {
+              "column": "ContId",
+              "score": 61.538
+            }
+          ]
+        },
+        {
+          "table": "countries",
+          "score": 67.5,
+          "table_score": 50.0,
+          "top_columns": [
+            {
+              "column": "Continent",
+              "score": 100.0
+            },
+            {
+              "column": "CountryId",
+              "score": 50.0
+            },
+            {
+              "column": "CountryName",
+              "score": 50.0
+            }
+          ]
+        },
+        {
+          "table": "cars_data",
+          "score": 29.22,
+          "table_score": 16.026,
+          "top_columns": [
+            {
+              "column": "Cylinders",
+              "score": 47.059
+            },
+            {
+              "column": "Accelerate",
+              "score": 31.579
+            },
+            {
+              "column": "Weight",
+              "score": 26.667
+            }
+          ]
+        },
+        {
+          "table": "model_list",
+          "score": 28.571,
+          "table_score": 28.571,
+          "top_columns": [
+            {
+              "column": "Model",
+              "score": 28.571
+            },
+            {
+              "column": "ModelId",
+              "score": 28.571
+            },
+            {
+              "column": "Maker",
+              "score": 14.286
+            }
+          ]
+        },
+        {
+          "table": "car_makers",
+          "score": 27.965,
+          "table_score": 15.476,
+          "top_columns": [
+            {
+              "column": "Country",
+              "score": 50.0
+            },
+            {
+              "column": "Id",
+              "score": 18.182
+            },
+            {
+              "column": "Maker",
+              "score": 14.286
+            }
+          ]
+        },
+        {
+          "table": "car_names",
+          "score": 20.641,
+          "table_score": 16.667,
+          "top_columns": [
+            {
+              "column": "Model",
+              "score": 28.571
+            },
+            {
+              "column": "Make",
+              "score": 15.385
+            },
+            {
+              "column": "MakeId",
+              "score": 15.385
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "spider_dev_0135",
+      "db_id": "car_1",
+      "question": "What is the average horsepower of the cars before 1980?",
+      "seed_tables": [
+        "cars_data",
+        "car_names",
+        "car_makers",
+        "model_list"
+      ],
+      "selected_tables": [
+        "car_makers",
+        "car_names",
+        "cars_data",
+        "model_list"
+      ],
+      "selected_schema": "CREATE TABLE car_makers (\n    Id INTEGER PRIMARY KEY,\n    Maker TEXT,\n    FullName TEXT,\n    Country TEXT\n);\n\nCREATE TABLE car_names (\n    MakeId INTEGER PRIMARY KEY,\n    Model TEXT,\n    Make TEXT,\n    FOREIGN KEY (Model) REFERENCES model_list(Model)\n);\n\nCREATE TABLE cars_data (\n    Id INTEGER PRIMARY KEY,\n    MPG TEXT,\n    Cylinders INTEGER,\n    Edispl REAL,\n    Horsepower TEXT,\n    Weight INTEGER,\n    Accelerate REAL,\n    Year INTEGER,\n    FOREIGN KEY (Id) REFERENCES car_names(MakeId)\n);\n\nCREATE TABLE model_list (\n    ModelId INTEGER PRIMARY KEY,\n    Maker INTEGER,\n    Model TEXT,\n    FOREIGN KEY (Maker) REFERENCES car_makers(Id)\n);",
+      "ranked_tables": [
+        {
+          "table": "cars_data",
+          "score": 82.414,
+          "table_score": 77.182,
+          "top_columns": [
+            {
+              "column": "Horsepower",
+              "score": 100.0
+            },
+            {
+              "column": "Accelerate",
+              "score": 58.824
+            },
+            {
+              "column": "Year",
+              "score": 57.143
+            }
+          ]
+        },
+        {
+          "table": "car_names",
+          "score": 68.182,
+          "table_score": 100.0,
+          "top_columns": [
+            {
+              "column": "Make",
+              "score": 36.364
+            },
+            {
+              "column": "MakeId",
+              "score": 36.364
+            },
+            {
+              "column": "Model",
+              "score": 36.364
+            }
+          ]
+        },
+        {
+          "table": "car_makers",
+          "score": 65.5,
+          "table_score": 84.0,
+          "top_columns": [
+            {
+              "column": "Maker",
+              "score": 50.0
+            },
+            {
+              "column": "Country",
+              "score": 40.0
+            },
+            {
+              "column": "FullName",
+              "score": 20.0
+            }
+          ]
+        },
+        {
+          "table": "model_list",
+          "score": 41.136,
+          "table_score": 36.364,
+          "top_columns": [
+            {
+              "column": "Maker",
+              "score": 50.0
+            },
+            {
+              "column": "Model",
+              "score": 36.364
+            },
+            {
+              "column": "ModelId",
+              "score": 36.364
+            }
+          ]
+        },
+        {
+          "table": "countries",
+          "score": 40.0,
+          "table_score": 40.0,
+          "top_columns": [
+            {
+              "column": "CountryId",
+              "score": 40.0
+            },
+            {
+              "column": "CountryName",
+              "score": 40.0
+            },
+            {
+              "column": "Continent",
+              "score": 26.667
+            }
+          ]
+        },
+        {
+          "table": "continents",
+          "score": 27.333,
+          "table_score": 26.667,
+          "top_columns": [
+            {
+              "column": "ContId",
+              "score": 28.571
+            },
+            {
+              "column": "Continent",
+              "score": 26.667
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "spider_dev_0119",
+      "db_id": "car_1",
+      "question": "What is the smallest weight of the car produced with 8 cylinders on 1974 ?",
+      "seed_tables": [
+        "cars_data",
+        "car_names",
+        "car_makers",
+        "model_list"
+      ],
+      "selected_tables": [
+        "car_makers",
+        "car_names",
+        "cars_data",
+        "model_list"
+      ],
+      "selected_schema": "CREATE TABLE car_makers (\n    Id INTEGER PRIMARY KEY,\n    Maker TEXT,\n    FullName TEXT,\n    Country TEXT\n);\n\nCREATE TABLE car_names (\n    MakeId INTEGER PRIMARY KEY,\n    Model TEXT,\n    Make TEXT,\n    FOREIGN KEY (Model) REFERENCES model_list(Model)\n);\n\nCREATE TABLE cars_data (\n    Id INTEGER PRIMARY KEY,\n    MPG TEXT,\n    Cylinders INTEGER,\n    Edispl REAL,\n    Horsepower TEXT,\n    Weight INTEGER,\n    Accelerate REAL,\n    Year INTEGER,\n    FOREIGN KEY (Id) REFERENCES car_names(MakeId)\n);\n\nCREATE TABLE model_list (\n    ModelId INTEGER PRIMARY KEY,\n    Maker INTEGER,\n    Model TEXT,\n    FOREIGN KEY (Maker) REFERENCES car_makers(Id)\n);",
+      "ranked_tables": [
+        {
+          "table": "cars_data",
+          "score": 87.833,
+          "table_score": 75.667,
+          "top_columns": [
+            {
+              "column": "Cylinders",
+              "score": 100.0
+            },
+            {
+              "column": "Weight",
+              "score": 100.0
+            },
+            {
+              "column": "Year",
+              "score": 57.143
+            }
+          ]
+        },
+        {
+          "table": "car_names",
+          "score": 75.0,
+          "table_score": 100.0,
+          "top_columns": [
+            {
+              "column": "Make",
+              "score": 50.0
+            },
+            {
+              "column": "MakeId",
+              "score": 50.0
+            },
+            {
+              "column": "Model",
+              "score": 46.154
+            }
+          ]
+        },
+        {
+          "table": "car_makers",
+          "score": 65.5,
+          "table_score": 84.0,
+          "top_columns": [
+            {
+              "column": "Maker",
+              "score": 50.0
+            },
+            {
+              "column": "Country",
+              "score": 40.0
+            },
+            {
+              "column": "Id",
+              "score": 40.0
+            }
+          ]
+        },
+        {
+          "table": "model_list",
+          "score": 47.5,
+          "table_score": 46.154,
+          "top_columns": [
+            {
+              "column": "Maker",
+              "score": 50.0
+            },
+            {
+              "column": "Model",
+              "score": 46.154
+            },
+            {
+              "column": "ModelId",
+              "score": 46.154
+            }
+          ]
+        },
+        {
+          "table": "continents",
+          "score": 45.0,
+          "table_score": 47.059,
+          "top_columns": [
+            {
+              "column": "Continent",
+              "score": 47.059
+            },
+            {
+              "column": "ContId",
+              "score": 33.333
+            }
+          ]
+        },
+        {
+          "table": "countries",
+          "score": 42.471,
+          "table_score": 40.0,
+          "top_columns": [
+            {
+              "column": "Continent",
+              "score": 47.059
+            },
+            {
+              "column": "CountryId",
+              "score": 40.0
+            },
+            {
+              "column": "CountryName",
+              "score": 40.0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "spider_dev_0137",
+      "db_id": "car_1",
+      "question": "What is the average edispl of the cars of model volvo?",
+      "seed_tables": [
+        "model_list",
+        "car_names",
+        "cars_data",
+        "car_makers"
+      ],
+      "selected_tables": [
+        "car_makers",
+        "car_names",
+        "cars_data",
+        "model_list"
+      ],
+      "selected_schema": "CREATE TABLE car_makers (\n    Id INTEGER PRIMARY KEY,\n    Maker TEXT,\n    FullName TEXT,\n    Country TEXT\n);\n\nCREATE TABLE car_names (\n    MakeId INTEGER PRIMARY KEY,\n    Model TEXT,\n    Make TEXT,\n    FOREIGN KEY (Model) REFERENCES model_list(Model)\n);\n\nCREATE TABLE cars_data (\n    Id INTEGER PRIMARY KEY,\n    MPG TEXT,\n    Cylinders INTEGER,\n    Edispl REAL,\n    Horsepower TEXT,\n    Weight INTEGER,\n    Accelerate REAL,\n    Year INTEGER,\n    FOREIGN KEY (Id) REFERENCES car_names(MakeId)\n);\n\nCREATE TABLE model_list (\n    ModelId INTEGER PRIMARY KEY,\n    Maker INTEGER,\n    Model TEXT,\n    FOREIGN KEY (Maker) REFERENCES car_makers(Id)\n);",
+      "ranked_tables": [
+        {
+          "table": "model_list",
+          "score": 100.0,
+          "table_score": 100.0,
+          "top_columns": [
+            {
+              "column": "Model",
+              "score": 100.0
+            },
+            {
+              "column": "ModelId",
+              "score": 100.0
+            },
+            {
+              "column": "Maker",
+              "score": 50.0
+            }
+          ]
+        },
+        {
+          "table": "car_names",
+          "score": 91.667,
+          "table_score": 100.0,
+          "top_columns": [
+            {
+              "column": "Model",
+              "score": 100.0
+            },
+            {
+              "column": "Make",
+              "score": 44.444
+            },
+            {
+              "column": "MakeId",
+              "score": 44.444
+            }
+          ]
+        },
+        {
+          "table": "cars_data",
+          "score": 82.414,
+          "table_score": 77.182,
+          "top_columns": [
+            {
+              "column": "Edispl",
+              "score": 100.0
+            },
+            {
+              "column": "Accelerate",
+              "score": 58.824
+            },
+            {
+              "column": "Year",
+              "score": 57.143
+            }
+          ]
+        },
+        {
+          "table": "car_makers",
+          "score": 65.5,
+          "table_score": 84.0,
+          "top_columns": [
+            {
+              "column": "Maker",
+              "score": 50.0
+            },
+            {
+              "column": "Country",
+              "score": 40.0
+            },
+            {
+              "column": "Id",
+              "score": 28.571
+            }
+          ]
+        },
+        {
+          "table": "countries",
+          "score": 40.0,
+          "table_score": 40.0,
+          "top_columns": [
+            {
+              "column": "CountryId",
+              "score": 40.0
+            },
+            {
+              "column": "CountryName",
+              "score": 40.0
+            },
+            {
+              "column": "Continent",
+              "score": 28.571
+            }
+          ]
+        },
+        {
+          "table": "continents",
+          "score": 28.571,
+          "table_score": 28.571,
+          "top_columns": [
+            {
+              "column": "ContId",
+              "score": 28.571
+            },
+            {
+              "column": "Continent",
+              "score": 28.571
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "spider_dev_0101",
+      "db_id": "car_1",
+      "question": "Find the make and production time of the cars that were produced in the earliest year?",
+      "seed_tables": [
+        "car_names",
+        "car_makers",
+        "cars_data",
+        "model_list"
+      ],
+      "selected_tables": [
+        "car_makers",
+        "car_names",
+        "cars_data",
+        "model_list"
+      ],
+      "selected_schema": "CREATE TABLE car_makers (\n    Id INTEGER PRIMARY KEY,\n    Maker TEXT,\n    FullName TEXT,\n    Country TEXT\n);\n\nCREATE TABLE car_names (\n    MakeId INTEGER PRIMARY KEY,\n    Model TEXT,\n    Make TEXT,\n    FOREIGN KEY (Model) REFERENCES model_list(Model)\n);\n\nCREATE TABLE cars_data (\n    Id INTEGER PRIMARY KEY,\n    MPG TEXT,\n    Cylinders INTEGER,\n    Edispl REAL,\n    Horsepower TEXT,\n    Weight INTEGER,\n    Accelerate REAL,\n    Year INTEGER,\n    FOREIGN KEY (Id) REFERENCES car_names(MakeId)\n);\n\nCREATE TABLE model_list (\n    ModelId INTEGER PRIMARY KEY,\n    Maker INTEGER,\n    Model TEXT,\n    FOREIGN KEY (Maker) REFERENCES car_makers(Id)\n);",
+      "ranked_tables": [
+        {
+          "table": "car_names",
+          "score": 100.0,
+          "table_score": 100.0,
+          "top_columns": [
+            {
+              "column": "Make",
+              "score": 100.0
+            },
+            {
+              "column": "MakeId",
+              "score": 100.0
+            },
+            {
+              "column": "Model",
+              "score": 46.154
+            }
+          ]
+        },
+        {
+          "table": "car_makers",
+          "score": 87.111,
+          "table_score": 100.0,
+          "top_columns": [
+            {
+              "column": "Maker",
+              "score": 88.889
+            },
+            {
+              "column": "Country",
+              "score": 40.0
+            },
+            {
+              "column": "Id",
+              "score": 33.333
+            }
+          ]
+        },
+        {
+          "table": "cars_data",
+          "score": 80.333,
+          "table_score": 75.667,
+          "top_columns": [
+            {
+              "column": "Year",
+              "score": 100.0
+            },
+            {
+              "column": "Cylinders",
+              "score": 50.0
+            },
+            {
+              "column": "Accelerate",
+              "score": 44.444
+            }
+          ]
+        },
+        {
+          "table": "model_list",
+          "score": 61.111,
+          "table_score": 46.154,
+          "top_columns": [
+            {
+              "column": "Maker",
+              "score": 88.889
+            },
+            {
+              "column": "Model",
+              "score": 46.154
+            },
+            {
+              "column": "ModelId",
+              "score": 46.154
+            }
+          ]
+        },
+        {
+          "table": "continents",
+          "score": 45.659,
+          "table_score": 46.154,
+          "top_columns": [
+            {
+              "column": "Continent",
+              "score": 46.154
+            },
+            {
+              "column": "ContId",
+              "score": 42.857
+            }
+          ]
+        },
+        {
+          "table": "countries",
+          "score": 42.154,
+          "table_score": 40.0,
+          "top_columns": [
+            {
+              "column": "Continent",
+              "score": 46.154
+            },
+            {
+              "column": "CountryId",
+              "score": 40.0
+            },
+            {
+              "column": "CountryName",
+              "score": 40.0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "spider_dev_0109",
+      "db_id": "car_1",
+      "question": "How many car models are produced by each maker ? Only list the count and the maker full name .",
+      "seed_tables": [
+        "car_makers",
+        "model_list",
+        "car_names",
+        "countries"
+      ],
+      "selected_tables": [
+        "car_makers",
+        "car_names",
+        "countries",
+        "model_list"
+      ],
+      "selected_schema": "CREATE TABLE car_makers (\n    Id INTEGER PRIMARY KEY,\n    Maker TEXT,\n    FullName TEXT,\n    Country TEXT,\n    FOREIGN KEY (Country) REFERENCES countries(CountryId)\n);\n\nCREATE TABLE car_names (\n    MakeId INTEGER PRIMARY KEY,\n    Model TEXT,\n    Make TEXT,\n    FOREIGN KEY (Model) REFERENCES model_list(Model)\n);\n\nCREATE TABLE countries (\n    CountryId INTEGER PRIMARY KEY,\n    CountryName TEXT,\n    Continent INTEGER\n);\n\nCREATE TABLE model_list (\n    ModelId INTEGER PRIMARY KEY,\n    Maker INTEGER,\n    Model TEXT,\n    FOREIGN KEY (Maker) REFERENCES car_makers(Id)\n);",
+      "ranked_tables": [
+        {
+          "table": "car_makers",
+          "score": 100.0,
+          "table_score": 100.0,
+          "top_columns": [
+            {
+              "column": "FullName",
+              "score": 100.0
+            },
+            {
+              "column": "Maker",
+              "score": 100.0
+            },
+            {
+              "column": "Country",
+              "score": 83.333
+            }
+          ]
+        },
+        {
+          "table": "model_list",
+          "score": 100.0,
+          "table_score": 100.0,
+          "top_columns": [
+            {
+              "column": "Maker",
+              "score": 100.0
+            },
+            {
+              "column": "Model",
+              "score": 100.0
+            },
+            {
+              "column": "ModelId",
+              "score": 100.0
+            }
+          ]
+        },
+        {
+          "table": "car_names",
+          "score": 98.333,
+          "table_score": 100.0,
+          "top_columns": [
+            {
+              "column": "Model",
+              "score": 100.0
+            },
+            {
+              "column": "Make",
+              "score": 88.889
+            },
+            {
+              "column": "MakeId",
+              "score": 88.889
+            }
+          ]
+        },
+        {
+          "table": "countries",
+          "score": 83.333,
+          "table_score": 83.333,
+          "top_columns": [
+            {
+              "column": "CountryId",
+              "score": 83.333
+            },
+            {
+              "column": "CountryName",
+              "score": 83.333
+            },
+            {
+              "column": "Continent",
+              "score": 57.143
+            }
+          ]
+        },
+        {
+          "table": "continents",
+          "score": 68.254,
+          "table_score": 57.143,
+          "top_columns": [
+            {
+              "column": "ContId",
+              "score": 88.889
+            },
+            {
+              "column": "Continent",
+              "score": 57.143
+            }
+          ]
+        },
+        {
+          "table": "cars_data",
+          "score": 62.643,
+          "table_score": 73.286,
+          "top_columns": [
+            {
+              "column": "Year",
+              "score": 57.143
+            },
+            {
+              "column": "Accelerate",
+              "score": 40.0
+            },
+            {
+              "column": "Cylinders",
+              "score": 36.364
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "spider_dev_0141",
+      "db_id": "car_1",
+      "question": "Which model has the most version(make) of cars?",
+      "seed_tables": [
+        "car_names",
+        "model_list",
+        "car_makers",
+        "cars_data"
+      ],
+      "selected_tables": [
+        "car_makers",
+        "car_names",
+        "cars_data",
+        "model_list"
+      ],
+      "selected_schema": "CREATE TABLE car_makers (\n    Id INTEGER PRIMARY KEY,\n    Maker TEXT,\n    FullName TEXT,\n    Country TEXT\n);\n\nCREATE TABLE car_names (\n    MakeId INTEGER PRIMARY KEY,\n    Model TEXT,\n    Make TEXT,\n    FOREIGN KEY (Model) REFERENCES model_list(Model)\n);\n\nCREATE TABLE cars_data (\n    Id INTEGER PRIMARY KEY,\n    MPG TEXT,\n    Cylinders INTEGER,\n    Edispl REAL,\n    Horsepower TEXT,\n    Weight INTEGER,\n    Accelerate REAL,\n    Year INTEGER,\n    FOREIGN KEY (Id) REFERENCES car_names(MakeId)\n);\n\nCREATE TABLE model_list (\n    ModelId INTEGER PRIMARY KEY,\n    Maker INTEGER,\n    Model TEXT,\n    FOREIGN KEY (Maker) REFERENCES car_makers(Id)\n);",
+      "ranked_tables": [
+        {
+          "table": "car_names",
+          "score": 100.0,
+          "table_score": 100.0,
+          "top_columns": [
+            {
+              "column": "Make",
+              "score": 100.0
+            },
+            {
+              "column": "MakeId",
+              "score": 100.0
+            },
+            {
+              "column": "Model",
+              "score": 100.0
+            }
+          ]
+        },
+        {
+          "table": "model_list",
+          "score": 100.0,
+          "table_score": 100.0,
+          "top_columns": [
+            {
+              "column": "Model",
+              "score": 100.0
+            },
+            {
+              "column": "ModelId",
+              "score": 100.0
+            },
+            {
+              "column": "Maker",
+              "score": 88.889
+            }
+          ]
+        },
+        {
+          "table": "car_makers",
+          "score": 87.111,
+          "table_score": 100.0,
+          "top_columns": [
+            {
+              "column": "Maker",
+              "score": 88.889
+            },
+            {
+              "column": "Country",
+              "score": 40.0
+            },
+            {
+              "column": "Id",
+              "score": 28.571
+            }
+          ]
+        },
+        {
+          "table": "cars_data",
+          "score": 62.097,
+          "table_score": 73.286,
+          "top_columns": [
+            {
+              "column": "Year",
+              "score": 57.143
+            },
+            {
+              "column": "Cylinders",
+              "score": 36.364
+            },
+            {
+              "column": "Edispl",
+              "score": 36.364
+            }
+          ]
+        },
+        {
+          "table": "countries",
+          "score": 40.0,
+          "table_score": 40.0,
+          "top_columns": [
+            {
+              "column": "CountryId",
+              "score": 40.0
+            },
+            {
+              "column": "CountryName",
+              "score": 40.0
+            },
+            {
+              "column": "Continent",
+              "score": 30.769
+            }
+          ]
+        },
+        {
+          "table": "continents",
+          "score": 37.5,
+          "table_score": 30.769,
+          "top_columns": [
+            {
+              "column": "ContId",
+              "score": 50.0
+            },
+            {
+              "column": "Continent",
+              "score": 30.769
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "spider_dev_0105",
+      "db_id": "car_1",
+      "question": "How many car makers are there in each continents? List the continent name and the count.",
+      "seed_tables": [
+        "continents",
+        "car_makers",
+        "car_names",
+        "countries"
+      ],
+      "selected_tables": [
+        "car_makers",
+        "car_names",
+        "continents",
+        "countries",
+        "model_list"
+      ],
+      "selected_schema": "CREATE TABLE car_makers (\n    Id INTEGER PRIMARY KEY,\n    Maker TEXT,\n    FullName TEXT,\n    Country TEXT,\n    FOREIGN KEY (Country) REFERENCES countries(CountryId)\n);\n\nCREATE TABLE car_names (\n    MakeId INTEGER PRIMARY KEY,\n    Model TEXT,\n    Make TEXT,\n    FOREIGN KEY (Model) REFERENCES model_list(Model)\n);\n\nCREATE TABLE continents (\n    ContId INTEGER PRIMARY KEY,\n    Continent TEXT\n);\n\nCREATE TABLE countries (\n    CountryId INTEGER PRIMARY KEY,\n    CountryName TEXT,\n    Continent INTEGER,\n    FOREIGN KEY (Continent) REFERENCES continents(ContId)\n);\n\nCREATE TABLE model_list (\n    ModelId INTEGER PRIMARY KEY,\n    Maker INTEGER,\n    Model TEXT,\n    FOREIGN KEY (Maker) REFERENCES car_makers(Id)\n);",
+      "ranked_tables": [
+        {
+          "table": "continents",
+          "score": 98.333,
+          "table_score": 100.0,
+          "top_columns": [
+            {
+              "column": "Continent",
+              "score": 100.0
+            },
+            {
+              "column": "ContId",
+              "score": 88.889
+            }
+          ]
+        },
+        {
+          "table": "car_makers",
+          "score": 97.5,
+          "table_score": 100.0,
+          "top_columns": [
+            {
+              "column": "Maker",
+              "score": 100.0
+            },
+            {
+              "column": "Country",
+              "score": 83.333
+            },
+            {
+              "column": "FullName",
+              "score": 22.222
+            }
+          ]
+        },
+        {
+          "table": "car_names",
+          "score": 94.444,
+          "table_score": 100.0,
+          "top_columns": [
+            {
+              "column": "Make",
+              "score": 88.889
+            },
+            {
+              "column": "MakeId",
+              "score": 88.889
+            },
+            {
+              "column": "Model",
+              "score": 40.0
+            }
+          ]
+        },
+        {
+          "table": "countries",
+          "score": 89.167,
+          "table_score": 83.333,
+          "top_columns": [
+            {
+              "column": "Continent",
+              "score": 100.0
+            },
+            {
+              "column": "CountryId",
+              "score": 83.333
+            },
+            {
+              "column": "CountryName",
+              "score": 83.333
+            }
+          ]
+        },
+        {
+          "table": "cars_data",
+          "score": 63.702,
+          "table_score": 73.286,
+          "top_columns": [
+            {
+              "column": "Year",
+              "score": 57.143
+            },
+            {
+              "column": "Cylinders",
+              "score": 47.059
+            },
+            {
+              "column": "Accelerate",
+              "score": 40.0
+            }
+          ]
+        },
+        {
+          "table": "model_list",
+          "score": 61.0,
+          "table_score": 40.0,
+          "top_columns": [
+            {
+              "column": "Maker",
+              "score": 100.0
+            },
+            {
+              "column": "Model",
+              "score": 40.0
+            },
+            {
+              "column": "ModelId",
+              "score": 40.0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "spider_dev_0173",
+      "db_id": "car_1",
+      "question": "What are the name of the countries where there is not a single car maker?",
+      "seed_tables": [
+        "car_makers",
+        "countries",
+        "car_names",
+        "cars_data"
+      ],
+      "selected_tables": [
+        "car_makers",
+        "car_names",
+        "cars_data",
+        "countries",
+        "model_list"
+      ],
+      "selected_schema": "CREATE TABLE car_makers (\n    Id INTEGER PRIMARY KEY,\n    Maker TEXT,\n    FullName TEXT,\n    Country TEXT,\n    FOREIGN KEY (Country) REFERENCES countries(CountryId)\n);\n\nCREATE TABLE car_names (\n    MakeId INTEGER PRIMARY KEY,\n    Model TEXT,\n    Make TEXT,\n    FOREIGN KEY (Model) REFERENCES model_list(Model)\n);\n\nCREATE TABLE cars_data (\n    Id INTEGER PRIMARY KEY,\n    MPG TEXT,\n    Cylinders INTEGER,\n    Edispl REAL,\n    Horsepower TEXT,\n    Weight INTEGER,\n    Accelerate REAL,\n    Year INTEGER,\n    FOREIGN KEY (Id) REFERENCES car_names(MakeId)\n);\n\nCREATE TABLE countries (\n    CountryId INTEGER PRIMARY KEY,\n    CountryName TEXT,\n    Continent INTEGER\n);\n\nCREATE TABLE model_list (\n    ModelId INTEGER PRIMARY KEY,\n    Maker INTEGER,\n    Model TEXT,\n    FOREIGN KEY (Maker) REFERENCES car_makers(Id)\n);",
+      "ranked_tables": [
+        {
+          "table": "car_makers",
+          "score": 100.0,
+          "table_score": 100.0,
+          "top_columns": [
+            {
+              "column": "Country",
+              "score": 100.0
+            },
+            {
+              "column": "Maker",
+              "score": 100.0
+            },
+            {
+              "column": "Id",
+              "score": 25.0
+            }
+          ]
+        },
+        {
+          "table": "countries",
+          "score": 100.0,
+          "table_score": 100.0,
+          "top_columns": [
+            {
+              "column": "CountryId",
+              "score": 100.0
+            },
+            {
+              "column": "CountryName",
+              "score": 100.0
+            },
+            {
+              "column": "Continent",
+              "score": 50.0
+            }
+          ]
+        },
+        {
+          "table": "car_names",
+          "score": 94.444,
+          "table_score": 100.0,
+          "top_columns": [
+            {
+              "column": "Make",
+              "score": 88.889
+            },
+            {
+              "column": "MakeId",
+              "score": 88.889
+            },
+            {
+              "column": "Model",
+              "score": 40.0
+            }
+          ]
+        },
+        {
+          "table": "cars_data",
+          "score": 63.071,
+          "table_score": 73.286,
+          "top_columns": [
+            {
+              "column": "Year",
+              "score": 57.143
+            },
+            {
+              "column": "Cylinders",
+              "score": 42.857
+            },
+            {
+              "column": "Accelerate",
+              "score": 40.0
+            }
+          ]
+        },
+        {
+          "table": "model_list",
+          "score": 61.0,
+          "table_score": 40.0,
+          "top_columns": [
+            {
+              "column": "Maker",
+              "score": 100.0
+            },
+            {
+              "column": "Model",
+              "score": 40.0
+            },
+            {
+              "column": "ModelId",
+              "score": 40.0
+            }
+          ]
+        },
+        {
+          "table": "continents",
+          "score": 57.955,
+          "table_score": 50.0,
+          "top_columns": [
+            {
+              "column": "ContId",
+              "score": 72.727
+            },
+            {
+              "column": "Continent",
+              "score": 50.0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "spider_dev_0177",
+      "db_id": "car_1",
+      "question": "What are the id and names of the countries which have more than 3 car makers or produce the 'fiat' model?",
+      "seed_tables": [
+        "car_makers",
+        "countries",
+        "model_list",
+        "car_names"
+      ],
+      "selected_tables": [
+        "car_makers",
+        "car_names",
+        "countries",
+        "model_list"
+      ],
+      "selected_schema": "CREATE TABLE car_makers (\n    Id INTEGER PRIMARY KEY,\n    Maker TEXT,\n    FullName TEXT,\n    Country TEXT,\n    FOREIGN KEY (Country) REFERENCES countries(CountryId)\n);\n\nCREATE TABLE car_names (\n    MakeId INTEGER PRIMARY KEY,\n    Model TEXT,\n    Make TEXT,\n    FOREIGN KEY (Model) REFERENCES model_list(Model)\n);\n\nCREATE TABLE countries (\n    CountryId INTEGER PRIMARY KEY,\n    CountryName TEXT,\n    Continent INTEGER\n);\n\nCREATE TABLE model_list (\n    ModelId INTEGER PRIMARY KEY,\n    Maker INTEGER,\n    Model TEXT,\n    FOREIGN KEY (Maker) REFERENCES car_makers(Id)\n);",
+      "ranked_tables": [
+        {
+          "table": "car_makers",
+          "score": 100.0,
+          "table_score": 100.0,
+          "top_columns": [
+            {
+              "column": "Country",
+              "score": 100.0
+            },
+            {
+              "column": "Maker",
+              "score": 100.0
+            },
+            {
+              "column": "Id",
+              "score": 33.333
+            }
+          ]
+        },
+        {
+          "table": "countries",
+          "score": 100.0,
+          "table_score": 100.0,
+          "top_columns": [
+            {
+              "column": "CountryId",
+              "score": 100.0
+            },
+            {
+              "column": "CountryName",
+              "score": 100.0
+            },
+            {
+              "column": "Continent",
+              "score": 50.0
+            }
+          ]
+        },
+        {
+          "table": "model_list",
+          "score": 100.0,
+          "table_score": 100.0,
+          "top_columns": [
+            {
+              "column": "Maker",
+              "score": 100.0
+            },
+            {
+              "column": "Model",
+              "score": 100.0
+            },
+            {
+              "column": "ModelId",
+              "score": 100.0
+            }
+          ]
+        },
+        {
+          "table": "car_names",
+          "score": 98.333,
+          "table_score": 100.0,
+          "top_columns": [
+            {
+              "column": "Model",
+              "score": 100.0
+            },
+            {
+              "column": "Make",
+              "score": 88.889
+            },
+            {
+              "column": "MakeId",
+              "score": 88.889
+            }
+          ]
+        },
+        {
+          "table": "cars_data",
+          "score": 68.429,
+          "table_score": 84.0,
+          "top_columns": [
+            {
+              "column": "Year",
+              "score": 57.143
+            },
+            {
+              "column": "Horsepower",
+              "score": 42.857
+            },
+            {
+              "column": "Accelerate",
+              "score": 40.0
+            }
+          ]
+        },
+        {
+          "table": "continents",
+          "score": 57.955,
+          "table_score": 50.0,
+          "top_columns": [
+            {
+              "column": "ContId",
+              "score": 72.727
+            },
+            {
+              "column": "Continent",
+              "score": 50.0
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

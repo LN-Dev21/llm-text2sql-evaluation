@@ -1,0 +1,4443 @@
+{
+  "method": "lexical identifier matching + top-k seeds + foreign-key paths",
+  "top_k": 4,
+  "important_note": "Gold SQL is used only after selection to audit table coverage; it is never used by the selector or sent to the model.",
+  "case_count": 150,
+  "all_gold_tables_covered_case_count": 78,
+  "case_level_gold_table_coverage": 0.52,
+  "gold_table_total": 431,
+  "covered_gold_table_total": 317,
+  "micro_gold_table_recall": 0.7355,
+  "average_full_table_count": 12.047,
+  "average_selected_table_count": 5.38,
+  "table_reduction_rate": 0.5534,
+  "full_schema_character_total": 282513,
+  "selected_schema_character_total": 129747,
+  "schema_character_reduction_rate": 0.5407,
+  "cases": [
+    {
+      "id": "spider_train_others_1244",
+      "db_id": "academic",
+      "gold_tables": [
+        "journal"
+      ],
+      "seed_tables": [
+        "journal",
+        "conference",
+        "author",
+        "organization"
+      ],
+      "selected_tables": [
+        "author",
+        "conference",
+        "journal",
+        "organization",
+        "publication",
+        "writes"
+      ],
+      "missing_gold_tables": [],
+      "all_gold_tables_covered": true,
+      "full_table_count": 15,
+      "selected_table_count": 6,
+      "full_schema_character_count": 2196,
+      "selected_schema_character_count": 823
+    },
+    {
+      "id": "spider_train_others_1250",
+      "db_id": "academic",
+      "gold_tables": [
+        "conference"
+      ],
+      "seed_tables": [
+        "conference",
+        "journal",
+        "author",
+        "organization"
+      ],
+      "selected_tables": [
+        "author",
+        "conference",
+        "journal",
+        "organization",
+        "publication",
+        "writes"
+      ],
+      "missing_gold_tables": [],
+      "all_gold_tables_covered": true,
+      "full_table_count": 15,
+      "selected_table_count": 6,
+      "full_schema_character_count": 2196,
+      "selected_schema_character_count": 823
+    },
+    {
+      "id": "spider_train_others_1254",
+      "db_id": "academic",
+      "gold_tables": [
+        "organization"
+      ],
+      "seed_tables": [
+        "journal",
+        "conference",
+        "author",
+        "organization"
+      ],
+      "selected_tables": [
+        "author",
+        "conference",
+        "journal",
+        "organization",
+        "publication",
+        "writes"
+      ],
+      "missing_gold_tables": [],
+      "all_gold_tables_covered": true,
+      "full_table_count": 15,
+      "selected_table_count": 6,
+      "full_schema_character_count": 2196,
+      "selected_schema_character_count": 823
+    },
+    {
+      "id": "spider_train_others_1332",
+      "db_id": "academic",
+      "gold_tables": [
+        "keyword"
+      ],
+      "seed_tables": [
+        "keyword",
+        "domain_keyword",
+        "journal",
+        "publication_keyword"
+      ],
+      "selected_tables": [
+        "domain",
+        "domain_journal",
+        "domain_keyword",
+        "journal",
+        "keyword",
+        "publication",
+        "publication_keyword"
+      ],
+      "missing_gold_tables": [],
+      "all_gold_tables_covered": true,
+      "full_table_count": 15,
+      "selected_table_count": 7,
+      "full_schema_character_count": 2196,
+      "selected_schema_character_count": 978
+    },
+    {
+      "id": "spider_train_others_1272",
+      "db_id": "academic",
+      "gold_tables": [
+        "conference",
+        "publication"
+      ],
+      "seed_tables": [
+        "conference",
+        "domain_conference",
+        "domain",
+        "journal"
+      ],
+      "selected_tables": [
+        "conference",
+        "domain",
+        "domain_conference",
+        "domain_journal",
+        "journal",
+        "publication"
+      ],
+      "missing_gold_tables": [],
+      "all_gold_tables_covered": true,
+      "full_table_count": 15,
+      "selected_table_count": 6,
+      "full_schema_character_count": 2196,
+      "selected_schema_character_count": 867
+    },
+    {
+      "id": "spider_train_others_1322",
+      "db_id": "academic",
+      "gold_tables": [
+        "conference",
+        "publication"
+      ],
+      "seed_tables": [
+        "conference",
+        "journal",
+        "domain_conference",
+        "author"
+      ],
+      "selected_tables": [
+        "author",
+        "conference",
+        "domain",
+        "domain_author",
+        "domain_conference",
+        "domain_journal",
+        "journal",
+        "publication",
+        "writes"
+      ],
+      "missing_gold_tables": [],
+      "all_gold_tables_covered": true,
+      "full_table_count": 15,
+      "selected_table_count": 9,
+      "full_schema_character_count": 2196,
+      "selected_schema_character_count": 1310
+    },
+    {
+      "id": "spider_train_others_1363",
+      "db_id": "academic",
+      "gold_tables": [
+        "journal",
+        "publication"
+      ],
+      "seed_tables": [
+        "publication",
+        "organization",
+        "cite",
+        "journal"
+      ],
+      "selected_tables": [
+        "cite",
+        "journal",
+        "organization",
+        "publication"
+      ],
+      "missing_gold_tables": [],
+      "all_gold_tables_covered": true,
+      "full_table_count": 15,
+      "selected_table_count": 4,
+      "full_schema_character_count": 2196,
+      "selected_schema_character_count": 577
+    },
+    {
+      "id": "spider_train_others_1276",
+      "db_id": "academic",
+      "gold_tables": [
+        "journal",
+        "publication"
+      ],
+      "seed_tables": [
+        "author",
+        "journal",
+        "conference",
+        "organization"
+      ],
+      "selected_tables": [
+        "author",
+        "conference",
+        "journal",
+        "organization",
+        "publication",
+        "writes"
+      ],
+      "missing_gold_tables": [],
+      "all_gold_tables_covered": true,
+      "full_table_count": 15,
+      "selected_table_count": 6,
+      "full_schema_character_count": 2196,
+      "selected_schema_character_count": 823
+    },
+    {
+      "id": "spider_train_others_1326",
+      "db_id": "academic",
+      "gold_tables": [
+        "conference",
+        "publication"
+      ],
+      "seed_tables": [
+        "conference",
+        "author",
+        "journal",
+        "domain_conference"
+      ],
+      "selected_tables": [
+        "author",
+        "conference",
+        "domain",
+        "domain_author",
+        "domain_conference",
+        "domain_journal",
+        "journal",
+        "publication",
+        "writes"
+      ],
+      "missing_gold_tables": [],
+      "all_gold_tables_covered": true,
+      "full_table_count": 15,
+      "selected_table_count": 9,
+      "full_schema_character_count": 2196,
+      "selected_schema_character_count": 1310
+    },
+    {
+      "id": "spider_train_others_1370",
+      "db_id": "academic",
+      "gold_tables": [
+        "conference",
+        "publication"
+      ],
+      "seed_tables": [
+        "conference",
+        "publication",
+        "organization",
+        "domain_conference"
+      ],
+      "selected_tables": [
+        "conference",
+        "domain_conference",
+        "organization",
+        "publication"
+      ],
+      "missing_gold_tables": [],
+      "all_gold_tables_covered": true,
+      "full_table_count": 15,
+      "selected_table_count": 4,
+      "full_schema_character_count": 2196,
+      "selected_schema_character_count": 558
+    },
+    {
+      "id": "spider_train_others_1271",
+      "db_id": "academic",
+      "gold_tables": [
+        "author",
+        "publication",
+        "writes"
+      ],
+      "seed_tables": [
+        "author",
+        "domain_author",
+        "domain",
+        "journal"
+      ],
+      "selected_tables": [
+        "author",
+        "domain",
+        "domain_author",
+        "domain_journal",
+        "journal",
+        "publication",
+        "writes"
+      ],
+      "missing_gold_tables": [],
+      "all_gold_tables_covered": true,
+      "full_table_count": 15,
+      "selected_table_count": 7,
+      "full_schema_character_count": 2196,
+      "selected_schema_character_count": 990
+    },
+    {
+      "id": "spider_train_others_1287",
+      "db_id": "academic",
+      "gold_tables": [
+        "keyword",
+        "publication",
+        "publication_keyword"
+      ],
+      "seed_tables": [
+        "keyword",
+        "domain_keyword",
+        "domain",
+        "publication_keyword"
+      ],
+      "selected_tables": [
+        "domain",
+        "domain_keyword",
+        "keyword",
+        "publication_keyword"
+      ],
+      "missing_gold_tables": [
+        "publication"
+      ],
+      "all_gold_tables_covered": false,
+      "full_table_count": 15,
+      "selected_table_count": 4,
+      "full_schema_character_count": 2196,
+      "selected_schema_character_count": 443
+    },
+    {
+      "id": "spider_train_others_1333",
+      "db_id": "academic",
+      "gold_tables": [
+        "domain",
+        "domain_keyword",
+        "keyword"
+      ],
+      "seed_tables": [
+        "keyword",
+        "domain_keyword",
+        "journal",
+        "publication_keyword"
+      ],
+      "selected_tables": [
+        "domain",
+        "domain_journal",
+        "domain_keyword",
+        "journal",
+        "keyword",
+        "publication",
+        "publication_keyword"
+      ],
+      "missing_gold_tables": [],
+      "all_gold_tables_covered": true,
+      "full_table_count": 15,
+      "selected_table_count": 7,
+      "full_schema_character_count": 2196,
+      "selected_schema_character_count": 978
+    },
+    {
+      "id": "spider_train_others_1366",
+      "db_id": "academic",
+      "gold_tables": [
+        "journal",
+        "publication"
+      ],
+      "seed_tables": [
+        "publication",
+        "organization",
+        "cite",
+        "journal"
+      ],
+      "selected_tables": [
+        "cite",
+        "journal",
+        "organization",
+        "publication"
+      ],
+      "missing_gold_tables": [],
+      "all_gold_tables_covered": true,
+      "full_table_count": 15,
+      "selected_table_count": 4,
+      "full_schema_character_count": 2196,
+      "selected_schema_character_count": 577
+    },
+    {
+      "id": "spider_train_others_1407",
+      "db_id": "academic",
+      "gold_tables": [
+        "conference",
+        "publication"
+      ],
+      "seed_tables": [
+        "conference",
+        "publication",
+        "organization",
+        "domain_conference"
+      ],
+      "selected_tables": [
+        "conference",
+        "domain_conference",
+        "organization",
+        "publication"
+      ],
+      "missing_gold_tables": [],
+      "all_gold_tables_covered": true,
+      "full_table_count": 15,
+      "selected_table_count": 4,
+      "full_schema_character_count": 2196,
+      "selected_schema_character_count": 558
+    },
+    {
+      "id": "spider_train_others_1329",
+      "db_id": "academic",
+      "gold_tables": [
+        "author",
+        "publication",
+        "writes"
+      ],
+      "seed_tables": [
+        "author",
+        "journal",
+        "conference",
+        "organization"
+      ],
+      "selected_tables": [
+        "author",
+        "conference",
+        "journal",
+        "organization",
+        "publication",
+        "writes"
+      ],
+      "missing_gold_tables": [],
+      "all_gold_tables_covered": true,
+      "full_table_count": 15,
+      "selected_table_count": 6,
+      "full_schema_character_count": 2196,
+      "selected_schema_character_count": 823
+    },
+    {
+      "id": "spider_train_others_1269",
+      "db_id": "academic",
+      "gold_tables": [
+        "author",
+        "journal",
+        "publication",
+        "writes"
+      ],
+      "seed_tables": [
+        "journal",
+        "domain_journal",
+        "organization",
+        "conference"
+      ],
+      "selected_tables": [
+        "conference",
+        "domain",
+        "domain_conference",
+        "domain_journal",
+        "journal",
+        "organization",
+        "publication"
+      ],
+      "missing_gold_tables": [
+        "author",
+        "writes"
+      ],
+      "all_gold_tables_covered": false,
+      "full_table_count": 15,
+      "selected_table_count": 7,
+      "full_schema_character_count": 2196,
+      "selected_schema_character_count": 977
+    },
+    {
+      "id": "spider_train_others_1296",
+      "db_id": "academic",
+      "gold_tables": [
+        "author",
+        "domain",
+        "domain_author",
+        "organization"
+      ],
+      "seed_tables": [
+        "organization",
+        "journal",
+        "publication",
+        "author"
+      ],
+      "selected_tables": [
+        "author",
+        "journal",
+        "organization",
+        "publication",
+        "writes"
+      ],
+      "missing_gold_tables": [
+        "domain",
+        "domain_author"
+      ],
+      "all_gold_tables_covered": false,
+      "full_table_count": 15,
+      "selected_table_count": 5,
+      "full_schema_character_count": 2196,
+      "selected_schema_character_count": 685
+    },
+    {
+      "id": "spider_train_others_1317",
+      "db_id": "academic",
+      "gold_tables": [
+        "author",
+        "publication",
+        "writes"
+      ],
+      "seed_tables": [
+        "publication",
+        "writes",
+        "journal",
+        "cite"
+      ],
+      "selected_tables": [
+        "cite",
+        "journal",
+        "publication",
+        "writes"
+      ],
+      "missing_gold_tables": [
+        "author"
+      ],
+      "all_gold_tables_covered": false,
+      "full_table_count": 15,
+      "selected_table_count": 4,
+      "full_schema_character_count": 2196,
+      "selected_schema_character_count": 593
+    },
+    {
+      "id": "spider_train_others_1355",
+      "db_id": "academic",
+      "gold_tables": [
+        "author",
+        "organization",
+        "publication",
+        "writes"
+      ],
+      "seed_tables": [
+        "publication",
+        "organization",
+        "cite",
+        "journal"
+      ],
+      "selected_tables": [
+        "cite",
+        "journal",
+        "organization",
+        "publication"
+      ],
+      "missing_gold_tables": [
+        "author",
+        "writes"
+      ],
+      "all_gold_tables_covered": false,
+      "full_table_count": 15,
+      "selected_table_count": 4,
+      "full_schema_character_count": 2196,
+      "selected_schema_character_count": 577
+    },
+    {
+      "id": "spider_train_others_1260",
+      "db_id": "academic",
+      "gold_tables": [
+        "author",
+        "journal",
+        "publication",
+        "writes"
+      ],
+      "seed_tables": [
+        "author",
+        "journal",
+        "conference",
+        "domain_author"
+      ],
+      "selected_tables": [
+        "author",
+        "conference",
+        "domain",
+        "domain_author",
+        "domain_conference",
+        "domain_journal",
+        "journal",
+        "publication",
+        "writes"
+      ],
+      "missing_gold_tables": [],
+      "all_gold_tables_covered": true,
+      "full_table_count": 15,
+      "selected_table_count": 9,
+      "full_schema_character_count": 2196,
+      "selected_schema_character_count": 1310
+    },
+    {
+      "id": "spider_train_others_1278",
+      "db_id": "academic",
+      "gold_tables": [
+        "author",
+        "journal",
+        "publication",
+        "writes"
+      ],
+      "seed_tables": [
+        "journal",
+        "conference",
+        "author",
+        "organization"
+      ],
+      "selected_tables": [
+        "author",
+        "conference",
+        "journal",
+        "organization",
+        "publication",
+        "writes"
+      ],
+      "missing_gold_tables": [],
+      "all_gold_tables_covered": true,
+      "full_table_count": 15,
+      "selected_table_count": 6,
+      "full_schema_character_count": 2196,
+      "selected_schema_character_count": 823
+    },
+    {
+      "id": "spider_train_others_1299",
+      "db_id": "academic",
+      "gold_tables": [
+        "author",
+        "domain",
+        "domain_author",
+        "organization"
+      ],
+      "seed_tables": [
+        "journal",
+        "author",
+        "conference",
+        "domain"
+      ],
+      "selected_tables": [
+        "author",
+        "conference",
+        "domain",
+        "domain_author",
+        "domain_conference",
+        "domain_journal",
+        "journal",
+        "publication",
+        "writes"
+      ],
+      "missing_gold_tables": [
+        "organization"
+      ],
+      "all_gold_tables_covered": false,
+      "full_table_count": 15,
+      "selected_table_count": 9,
+      "full_schema_character_count": 2196,
+      "selected_schema_character_count": 1310
+    },
+    {
+      "id": "spider_train_others_1342",
+      "db_id": "academic",
+      "gold_tables": [
+        "conference",
+        "keyword",
+        "publication",
+        "publication_keyword"
+      ],
+      "seed_tables": [
+        "keyword",
+        "conference",
+        "organization",
+        "domain_keyword"
+      ],
+      "selected_tables": [
+        "conference",
+        "domain",
+        "domain_conference",
+        "domain_keyword",
+        "keyword",
+        "organization",
+        "publication",
+        "publication_keyword"
+      ],
+      "missing_gold_tables": [],
+      "all_gold_tables_covered": true,
+      "full_table_count": 15,
+      "selected_table_count": 8,
+      "full_schema_character_count": 2196,
+      "selected_schema_character_count": 1100
+    },
+    {
+      "id": "spider_train_others_1264",
+      "db_id": "academic",
+      "gold_tables": [
+        "author",
+        "conference",
+        "publication",
+        "writes"
+      ],
+      "seed_tables": [
+        "author",
+        "conference",
+        "journal",
+        "domain_author"
+      ],
+      "selected_tables": [
+        "author",
+        "conference",
+        "domain",
+        "domain_author",
+        "domain_conference",
+        "domain_journal",
+        "journal",
+        "publication",
+        "writes"
+      ],
+      "missing_gold_tables": [],
+      "all_gold_tables_covered": true,
+      "full_table_count": 15,
+      "selected_table_count": 9,
+      "full_schema_character_count": 2196,
+      "selected_schema_character_count": 1310
+    },
+    {
+      "id": "spider_train_others_1295",
+      "db_id": "academic",
+      "gold_tables": [
+        "author",
+        "keyword",
+        "publication",
+        "publication_keyword",
+        "writes"
+      ],
+      "seed_tables": [
+        "keyword",
+        "author",
+        "organization",
+        "publication_keyword"
+      ],
+      "selected_tables": [
+        "author",
+        "domain",
+        "domain_author",
+        "domain_keyword",
+        "keyword",
+        "organization",
+        "publication",
+        "publication_keyword",
+        "writes"
+      ],
+      "missing_gold_tables": [],
+      "all_gold_tables_covered": true,
+      "full_table_count": 15,
+      "selected_table_count": 9,
+      "full_schema_character_count": 2196,
+      "selected_schema_character_count": 1223
+    },
+    {
+      "id": "spider_train_others_1336",
+      "db_id": "academic",
+      "gold_tables": [
+        "author",
+        "keyword",
+        "publication",
+        "publication_keyword",
+        "writes"
+      ],
+      "seed_tables": [
+        "keyword",
+        "domain_keyword",
+        "publication_keyword",
+        "journal"
+      ],
+      "selected_tables": [
+        "domain",
+        "domain_journal",
+        "domain_keyword",
+        "journal",
+        "keyword",
+        "publication",
+        "publication_keyword"
+      ],
+      "missing_gold_tables": [
+        "author",
+        "writes"
+      ],
+      "all_gold_tables_covered": false,
+      "full_table_count": 15,
+      "selected_table_count": 7,
+      "full_schema_character_count": 2196,
+      "selected_schema_character_count": 978
+    },
+    {
+      "id": "spider_train_others_1302",
+      "db_id": "academic",
+      "gold_tables": [
+        "author",
+        "conference",
+        "organization",
+        "publication",
+        "writes"
+      ],
+      "seed_tables": [
+        "conference",
+        "domain_conference",
+        "journal",
+        "domain"
+      ],
+      "selected_tables": [
+        "conference",
+        "domain",
+        "domain_conference",
+        "domain_journal",
+        "journal",
+        "publication"
+      ],
+      "missing_gold_tables": [
+        "author",
+        "organization",
+        "writes"
+      ],
+      "all_gold_tables_covered": false,
+      "full_table_count": 15,
+      "selected_table_count": 6,
+      "full_schema_character_count": 2196,
+      "selected_schema_character_count": 867
+    },
+    {
+      "id": "spider_train_others_1353",
+      "db_id": "academic",
+      "gold_tables": [
+        "author",
+        "journal",
+        "organization",
+        "publication",
+        "writes"
+      ],
+      "seed_tables": [
+        "journal",
+        "conference",
+        "domain",
+        "author"
+      ],
+      "selected_tables": [
+        "author",
+        "conference",
+        "domain",
+        "domain_author",
+        "domain_conference",
+        "domain_journal",
+        "journal",
+        "publication",
+        "writes"
+      ],
+      "missing_gold_tables": [
+        "organization"
+      ],
+      "all_gold_tables_covered": false,
+      "full_table_count": 15,
+      "selected_table_count": 9,
+      "full_schema_character_count": 2196,
+      "selected_schema_character_count": 1310
+    },
+    {
+      "id": "spider_train_others_1304",
+      "db_id": "academic",
+      "gold_tables": [
+        "author",
+        "journal",
+        "organization",
+        "publication",
+        "writes"
+      ],
+      "seed_tables": [
+        "author",
+        "journal",
+        "conference",
+        "domain"
+      ],
+      "selected_tables": [
+        "author",
+        "conference",
+        "domain",
+        "domain_author",
+        "domain_conference",
+        "domain_journal",
+        "journal",
+        "publication",
+        "writes"
+      ],
+      "missing_gold_tables": [
+        "organization"
+      ],
+      "all_gold_tables_covered": false,
+      "full_table_count": 15,
+      "selected_table_count": 9,
+      "full_schema_character_count": 2196,
+      "selected_schema_character_count": 1310
+    },
+    {
+      "id": "spider_train_others_1384",
+      "db_id": "academic",
+      "gold_tables": [
+        "author",
+        "publication",
+        "writes"
+      ],
+      "seed_tables": [
+        "writes",
+        "journal",
+        "cite",
+        "organization"
+      ],
+      "selected_tables": [
+        "cite",
+        "journal",
+        "organization",
+        "publication",
+        "writes"
+      ],
+      "missing_gold_tables": [
+        "author"
+      ],
+      "all_gold_tables_covered": false,
+      "full_table_count": 15,
+      "selected_table_count": 5,
+      "full_schema_character_count": 2196,
+      "selected_schema_character_count": 703
+    },
+    {
+      "id": "spider_train_others_1395",
+      "db_id": "academic",
+      "gold_tables": [
+        "journal",
+        "keyword",
+        "publication",
+        "publication_keyword"
+      ],
+      "seed_tables": [
+        "keyword",
+        "publication_keyword",
+        "domain_keyword",
+        "organization"
+      ],
+      "selected_tables": [
+        "domain_keyword",
+        "keyword",
+        "organization",
+        "publication_keyword"
+      ],
+      "missing_gold_tables": [
+        "journal",
+        "publication"
+      ],
+      "all_gold_tables_covered": false,
+      "full_table_count": 15,
+      "selected_table_count": 4,
+      "full_schema_character_count": 2196,
+      "selected_schema_character_count": 442
+    },
+    {
+      "id": "spider_train_others_1402",
+      "db_id": "academic",
+      "gold_tables": [
+        "author",
+        "journal",
+        "publication",
+        "writes"
+      ],
+      "seed_tables": [
+        "journal",
+        "domain_journal",
+        "conference",
+        "organization"
+      ],
+      "selected_tables": [
+        "conference",
+        "domain",
+        "domain_conference",
+        "domain_journal",
+        "journal",
+        "organization",
+        "publication"
+      ],
+      "missing_gold_tables": [
+        "author",
+        "writes"
+      ],
+      "all_gold_tables_covered": false,
+      "full_table_count": 15,
+      "selected_table_count": 7,
+      "full_schema_character_count": 2196,
+      "selected_schema_character_count": 977
+    },
+    {
+      "id": "spider_train_others_1417",
+      "db_id": "academic",
+      "gold_tables": [
+        "journal",
+        "keyword",
+        "publication",
+        "publication_keyword"
+      ],
+      "seed_tables": [
+        "keyword",
+        "journal",
+        "organization",
+        "publication_keyword"
+      ],
+      "selected_tables": [
+        "journal",
+        "keyword",
+        "organization",
+        "publication",
+        "publication_keyword"
+      ],
+      "missing_gold_tables": [],
+      "all_gold_tables_covered": true,
+      "full_table_count": 15,
+      "selected_table_count": 5,
+      "full_schema_character_count": 2196,
+      "selected_schema_character_count": 671
+    },
+    {
+      "id": "spider_train_others_1423",
+      "db_id": "academic",
+      "gold_tables": [
+        "author",
+        "organization",
+        "publication",
+        "writes"
+      ],
+      "seed_tables": [
+        "author",
+        "publication",
+        "organization",
+        "cite"
+      ],
+      "selected_tables": [
+        "author",
+        "cite",
+        "organization",
+        "publication",
+        "writes"
+      ],
+      "missing_gold_tables": [],
+      "all_gold_tables_covered": true,
+      "full_table_count": 15,
+      "selected_table_count": 5,
+      "full_schema_character_count": 2196,
+      "selected_schema_character_count": 714
+    },
+    {
+      "id": "spider_train_others_1387",
+      "db_id": "academic",
+      "gold_tables": [
+        "author",
+        "cite",
+        "publication",
+        "writes"
+      ],
+      "seed_tables": [
+        "cite",
+        "author",
+        "domain_author",
+        "conference"
+      ],
+      "selected_tables": [
+        "author",
+        "cite",
+        "conference",
+        "domain",
+        "domain_author",
+        "domain_conference",
+        "domain_publication",
+        "publication",
+        "writes"
+      ],
+      "missing_gold_tables": [],
+      "all_gold_tables_covered": true,
+      "full_table_count": 15,
+      "selected_table_count": 9,
+      "full_schema_character_count": 2196,
+      "selected_schema_character_count": 1347
+    },
+    {
+      "id": "spider_train_others_1420",
+      "db_id": "academic",
+      "gold_tables": [
+        "author",
+        "keyword",
+        "publication",
+        "publication_keyword",
+        "writes"
+      ],
+      "seed_tables": [
+        "keyword",
+        "domain_keyword",
+        "organization",
+        "publication_keyword"
+      ],
+      "selected_tables": [
+        "domain_keyword",
+        "keyword",
+        "organization",
+        "publication_keyword"
+      ],
+      "missing_gold_tables": [
+        "author",
+        "publication",
+        "writes"
+      ],
+      "all_gold_tables_covered": false,
+      "full_table_count": 15,
+      "selected_table_count": 4,
+      "full_schema_character_count": 2196,
+      "selected_schema_character_count": 442
+    },
+    {
+      "id": "spider_train_others_1424",
+      "db_id": "academic",
+      "gold_tables": [
+        "author",
+        "domain",
+        "domain_author",
+        "organization",
+        "publication",
+        "writes"
+      ],
+      "seed_tables": [
+        "author",
+        "publication",
+        "organization",
+        "cite"
+      ],
+      "selected_tables": [
+        "author",
+        "cite",
+        "organization",
+        "publication",
+        "writes"
+      ],
+      "missing_gold_tables": [
+        "domain",
+        "domain_author"
+      ],
+      "all_gold_tables_covered": false,
+      "full_table_count": 15,
+      "selected_table_count": 5,
+      "full_schema_character_count": 2196,
+      "selected_schema_character_count": 714
+    },
+    {
+      "id": "spider_train_others_1425",
+      "db_id": "imdb",
+      "gold_tables": [
+        "movie"
+      ],
+      "seed_tables": [
+        "movie",
+        "actor",
+        "writer",
+        "director"
+      ],
+      "selected_tables": [
+        "actor",
+        "cast",
+        "copyright",
+        "directed_by",
+        "director",
+        "movie",
+        "writer",
+        "written_by"
+      ],
+      "missing_gold_tables": [],
+      "all_gold_tables_covered": true,
+      "full_table_count": 16,
+      "selected_table_count": 8,
+      "full_schema_character_count": 2262,
+      "selected_schema_character_count": 1189
+    },
+    {
+      "id": "spider_train_others_1429",
+      "db_id": "imdb",
+      "gold_tables": [
+        "actor"
+      ],
+      "seed_tables": [
+        "actor",
+        "director",
+        "writer",
+        "producer"
+      ],
+      "selected_tables": [
+        "actor",
+        "cast",
+        "copyright",
+        "directed_by",
+        "director",
+        "made_by",
+        "producer",
+        "writer",
+        "written_by"
+      ],
+      "missing_gold_tables": [],
+      "all_gold_tables_covered": true,
+      "full_table_count": 16,
+      "selected_table_count": 9,
+      "full_schema_character_count": 2262,
+      "selected_schema_character_count": 1388
+    },
+    {
+      "id": "spider_train_others_1432",
+      "db_id": "imdb",
+      "gold_tables": [
+        "actor"
+      ],
+      "seed_tables": [
+        "actor",
+        "director",
+        "writer",
+        "company"
+      ],
+      "selected_tables": [
+        "actor",
+        "cast",
+        "company",
+        "copyright",
+        "directed_by",
+        "director",
+        "writer",
+        "written_by"
+      ],
+      "missing_gold_tables": [],
+      "all_gold_tables_covered": true,
+      "full_table_count": 16,
+      "selected_table_count": 8,
+      "full_schema_character_count": 2262,
+      "selected_schema_character_count": 1153
+    },
+    {
+      "id": "spider_train_others_1438",
+      "db_id": "imdb",
+      "gold_tables": [
+        "actor"
+      ],
+      "seed_tables": [
+        "actor",
+        "genre",
+        "director",
+        "writer"
+      ],
+      "selected_tables": [
+        "actor",
+        "cast",
+        "classification",
+        "copyright",
+        "directed_by",
+        "director",
+        "genre",
+        "writer",
+        "written_by"
+      ],
+      "missing_gold_tables": [],
+      "all_gold_tables_covered": true,
+      "full_table_count": 16,
+      "selected_table_count": 9,
+      "full_schema_character_count": 2262,
+      "selected_schema_character_count": 1310
+    },
+    {
+      "id": "spider_train_others_1441",
+      "db_id": "imdb",
+      "gold_tables": [
+        "director"
+      ],
+      "seed_tables": [
+        "director",
+        "producer",
+        "actor",
+        "writer"
+      ],
+      "selected_tables": [
+        "actor",
+        "cast",
+        "copyright",
+        "directed_by",
+        "director",
+        "made_by",
+        "producer",
+        "writer",
+        "written_by"
+      ],
+      "missing_gold_tables": [],
+      "all_gold_tables_covered": true,
+      "full_table_count": 16,
+      "selected_table_count": 9,
+      "full_schema_character_count": 2262,
+      "selected_schema_character_count": 1388
+    },
+    {
+      "id": "spider_train_others_1444",
+      "db_id": "imdb",
+      "gold_tables": [
+        "movie"
+      ],
+      "seed_tables": [
+        "movie",
+        "tv_series",
+        "cast",
+        "director"
+      ],
+      "selected_tables": [
+        "cast",
+        "copyright",
+        "directed_by",
+        "director",
+        "movie",
+        "tv_series"
+      ],
+      "missing_gold_tables": [],
+      "all_gold_tables_covered": true,
+      "full_table_count": 16,
+      "selected_table_count": 6,
+      "full_schema_character_count": 2262,
+      "selected_schema_character_count": 844
+    },
+    {
+      "id": "spider_train_others_1503",
+      "db_id": "imdb",
+      "gold_tables": [
+        "movie"
+      ],
+      "seed_tables": [
+        "producer",
+        "movie",
+        "writer",
+        "genre"
+      ],
+      "selected_tables": [
+        "classification",
+        "copyright",
+        "genre",
+        "made_by",
+        "movie",
+        "producer",
+        "writer",
+        "written_by"
+      ],
+      "missing_gold_tables": [],
+      "all_gold_tables_covered": true,
+      "full_table_count": 16,
+      "selected_table_count": 8,
+      "full_schema_character_count": 2262,
+      "selected_schema_character_count": 1102
+    },
+    {
+      "id": "spider_train_others_1464",
+      "db_id": "imdb",
+      "gold_tables": [
+        "actor"
+      ],
+      "seed_tables": [
+        "actor",
+        "director",
+        "cast",
+        "writer"
+      ],
+      "selected_tables": [
+        "actor",
+        "cast",
+        "copyright",
+        "directed_by",
+        "director",
+        "writer",
+        "written_by"
+      ],
+      "missing_gold_tables": [],
+      "all_gold_tables_covered": true,
+      "full_table_count": 16,
+      "selected_table_count": 7,
+      "full_schema_character_count": 2262,
+      "selected_schema_character_count": 1065
+    },
+    {
+      "id": "spider_train_others_1485",
+      "db_id": "imdb",
+      "gold_tables": [
+        "actor"
+      ],
+      "seed_tables": [
+        "actor",
+        "director",
+        "cast",
+        "made_by"
+      ],
+      "selected_tables": [
+        "actor",
+        "cast",
+        "copyright",
+        "directed_by",
+        "director",
+        "made_by"
+      ],
+      "missing_gold_tables": [],
+      "all_gold_tables_covered": true,
+      "full_table_count": 16,
+      "selected_table_count": 6,
+      "full_schema_character_count": 2262,
+      "selected_schema_character_count": 860
+    },
+    {
+      "id": "spider_train_others_1510",
+      "db_id": "imdb",
+      "gold_tables": [
+        "actor"
+      ],
+      "seed_tables": [
+        "actor",
+        "genre",
+        "director",
+        "writer"
+      ],
+      "selected_tables": [
+        "actor",
+        "cast",
+        "classification",
+        "copyright",
+        "directed_by",
+        "director",
+        "genre",
+        "writer",
+        "written_by"
+      ],
+      "missing_gold_tables": [],
+      "all_gold_tables_covered": true,
+      "full_table_count": 16,
+      "selected_table_count": 9,
+      "full_schema_character_count": 2262,
+      "selected_schema_character_count": 1310
+    },
+    {
+      "id": "spider_train_others_1494",
+      "db_id": "imdb",
+      "gold_tables": [
+        "actor",
+        "cast"
+      ],
+      "seed_tables": [
+        "cast",
+        "actor",
+        "movie",
+        "directed_by"
+      ],
+      "selected_tables": [
+        "actor",
+        "cast",
+        "copyright",
+        "directed_by",
+        "movie"
+      ],
+      "missing_gold_tables": [],
+      "all_gold_tables_covered": true,
+      "full_table_count": 16,
+      "selected_table_count": 5,
+      "full_schema_character_count": 2262,
+      "selected_schema_character_count": 661
+    },
+    {
+      "id": "spider_train_others_1518",
+      "db_id": "imdb",
+      "gold_tables": [
+        "actor"
+      ],
+      "seed_tables": [
+        "actor",
+        "director",
+        "writer",
+        "genre"
+      ],
+      "selected_tables": [
+        "actor",
+        "cast",
+        "classification",
+        "copyright",
+        "directed_by",
+        "director",
+        "genre",
+        "writer",
+        "written_by"
+      ],
+      "missing_gold_tables": [],
+      "all_gold_tables_covered": true,
+      "full_table_count": 16,
+      "selected_table_count": 9,
+      "full_schema_character_count": 2262,
+      "selected_schema_character_count": 1310
+    },
+    {
+      "id": "spider_train_others_1454",
+      "db_id": "imdb",
+      "gold_tables": [
+        "classification",
+        "genre",
+        "movie"
+      ],
+      "seed_tables": [
+        "genre",
+        "movie",
+        "actor",
+        "writer"
+      ],
+      "selected_tables": [
+        "actor",
+        "cast",
+        "classification",
+        "copyright",
+        "genre",
+        "movie",
+        "writer",
+        "written_by"
+      ],
+      "missing_gold_tables": [],
+      "all_gold_tables_covered": true,
+      "full_table_count": 16,
+      "selected_table_count": 8,
+      "full_schema_character_count": 2262,
+      "selected_schema_character_count": 1107
+    },
+    {
+      "id": "spider_train_others_1458",
+      "db_id": "imdb",
+      "gold_tables": [
+        "actor",
+        "cast",
+        "movie"
+      ],
+      "seed_tables": [
+        "writer",
+        "movie",
+        "written_by",
+        "copyright"
+      ],
+      "selected_tables": [
+        "copyright",
+        "movie",
+        "writer",
+        "written_by"
+      ],
+      "missing_gold_tables": [
+        "actor",
+        "cast"
+      ],
+      "all_gold_tables_covered": false,
+      "full_table_count": 16,
+      "selected_table_count": 4,
+      "full_schema_character_count": 2262,
+      "selected_schema_character_count": 534
+    },
+    {
+      "id": "spider_train_others_1469",
+      "db_id": "imdb",
+      "gold_tables": [
+        "keyword",
+        "movie",
+        "tags"
+      ],
+      "seed_tables": [
+        "movie",
+        "producer",
+        "tv_series",
+        "actor"
+      ],
+      "selected_tables": [
+        "actor",
+        "cast",
+        "copyright",
+        "made_by",
+        "movie",
+        "producer",
+        "tv_series"
+      ],
+      "missing_gold_tables": [
+        "keyword",
+        "tags"
+      ],
+      "all_gold_tables_covered": false,
+      "full_table_count": 16,
+      "selected_table_count": 7,
+      "full_schema_character_count": 2262,
+      "selected_schema_character_count": 1029
+    },
+    {
+      "id": "spider_train_others_1476",
+      "db_id": "imdb",
+      "gold_tables": [
+        "made_by",
+        "producer",
+        "tv_series"
+      ],
+      "seed_tables": [
+        "tv_series",
+        "directed_by",
+        "writer",
+        "cast"
+      ],
+      "selected_tables": [
+        "cast",
+        "copyright",
+        "directed_by",
+        "tv_series",
+        "writer",
+        "written_by"
+      ],
+      "missing_gold_tables": [
+        "made_by",
+        "producer"
+      ],
+      "all_gold_tables_covered": false,
+      "full_table_count": 16,
+      "selected_table_count": 6,
+      "full_schema_character_count": 2262,
+      "selected_schema_character_count": 858
+    },
+    {
+      "id": "spider_train_others_1480",
+      "db_id": "imdb",
+      "gold_tables": [
+        "actor",
+        "cast",
+        "tv_series"
+      ],
+      "seed_tables": [
+        "tv_series",
+        "cast",
+        "actor",
+        "movie"
+      ],
+      "selected_tables": [
+        "actor",
+        "cast",
+        "movie",
+        "tv_series"
+      ],
+      "missing_gold_tables": [],
+      "all_gold_tables_covered": true,
+      "full_table_count": 16,
+      "selected_table_count": 4,
+      "full_schema_character_count": 2262,
+      "selected_schema_character_count": 576
+    },
+    {
+      "id": "spider_train_others_1493",
+      "db_id": "imdb",
+      "gold_tables": [
+        "directed_by",
+        "director",
+        "movie"
+      ],
+      "seed_tables": [
+        "director",
+        "directed_by",
+        "cast",
+        "actor"
+      ],
+      "selected_tables": [
+        "actor",
+        "cast",
+        "copyright",
+        "directed_by",
+        "director"
+      ],
+      "missing_gold_tables": [
+        "movie"
+      ],
+      "all_gold_tables_covered": false,
+      "full_table_count": 16,
+      "selected_table_count": 5,
+      "full_schema_character_count": 2262,
+      "selected_schema_character_count": 732
+    },
+    {
+      "id": "spider_train_others_1500",
+      "db_id": "imdb",
+      "gold_tables": [
+        "actor",
+        "cast",
+        "movie"
+      ],
+      "seed_tables": [
+        "movie",
+        "actor",
+        "director",
+        "writer"
+      ],
+      "selected_tables": [
+        "actor",
+        "cast",
+        "copyright",
+        "directed_by",
+        "director",
+        "movie",
+        "writer",
+        "written_by"
+      ],
+      "missing_gold_tables": [],
+      "all_gold_tables_covered": true,
+      "full_table_count": 16,
+      "selected_table_count": 8,
+      "full_schema_character_count": 2262,
+      "selected_schema_character_count": 1189
+    },
+    {
+      "id": "spider_train_others_1506",
+      "db_id": "imdb",
+      "gold_tables": [
+        "actor",
+        "cast",
+        "movie"
+      ],
+      "seed_tables": [
+        "directed_by",
+        "actor",
+        "cast",
+        "movie"
+      ],
+      "selected_tables": [
+        "actor",
+        "cast",
+        "copyright",
+        "directed_by",
+        "movie"
+      ],
+      "missing_gold_tables": [],
+      "all_gold_tables_covered": true,
+      "full_table_count": 16,
+      "selected_table_count": 5,
+      "full_schema_character_count": 2262,
+      "selected_schema_character_count": 661
+    },
+    {
+      "id": "spider_train_others_1449",
+      "db_id": "imdb",
+      "gold_tables": [
+        "actor",
+        "cast",
+        "movie"
+      ],
+      "seed_tables": [
+        "actor",
+        "movie",
+        "director",
+        "company"
+      ],
+      "selected_tables": [
+        "actor",
+        "cast",
+        "company",
+        "copyright",
+        "directed_by",
+        "director",
+        "movie"
+      ],
+      "missing_gold_tables": [],
+      "all_gold_tables_covered": true,
+      "full_table_count": 16,
+      "selected_table_count": 7,
+      "full_schema_character_count": 2262,
+      "selected_schema_character_count": 944
+    },
+    {
+      "id": "spider_train_others_1462",
+      "db_id": "imdb",
+      "gold_tables": [
+        "classification",
+        "genre",
+        "movie"
+      ],
+      "seed_tables": [
+        "producer",
+        "actor",
+        "directed_by",
+        "writer"
+      ],
+      "selected_tables": [
+        "actor",
+        "cast",
+        "copyright",
+        "directed_by",
+        "made_by",
+        "producer",
+        "writer",
+        "written_by"
+      ],
+      "missing_gold_tables": [
+        "classification",
+        "genre",
+        "movie"
+      ],
+      "all_gold_tables_covered": false,
+      "full_table_count": 16,
+      "selected_table_count": 8,
+      "full_schema_character_count": 2262,
+      "selected_schema_character_count": 1193
+    },
+    {
+      "id": "spider_train_others_1484",
+      "db_id": "imdb",
+      "gold_tables": [
+        "directed_by",
+        "director",
+        "tv_series"
+      ],
+      "seed_tables": [
+        "director",
+        "tv_series",
+        "actor",
+        "directed_by"
+      ],
+      "selected_tables": [
+        "actor",
+        "cast",
+        "copyright",
+        "directed_by",
+        "director",
+        "tv_series"
+      ],
+      "missing_gold_tables": [],
+      "all_gold_tables_covered": true,
+      "full_table_count": 16,
+      "selected_table_count": 6,
+      "full_schema_character_count": 2262,
+      "selected_schema_character_count": 909
+    },
+    {
+      "id": "spider_train_others_1491",
+      "db_id": "imdb",
+      "gold_tables": [
+        "actor",
+        "cast",
+        "movie"
+      ],
+      "seed_tables": [
+        "actor",
+        "director",
+        "company",
+        "movie"
+      ],
+      "selected_tables": [
+        "actor",
+        "cast",
+        "company",
+        "copyright",
+        "directed_by",
+        "director",
+        "movie"
+      ],
+      "missing_gold_tables": [],
+      "all_gold_tables_covered": true,
+      "full_table_count": 16,
+      "selected_table_count": 7,
+      "full_schema_character_count": 2262,
+      "selected_schema_character_count": 944
+    },
+    {
+      "id": "spider_train_others_1499",
+      "db_id": "imdb",
+      "gold_tables": [
+        "actor",
+        "cast",
+        "movie"
+      ],
+      "seed_tables": [
+        "actor",
+        "writer",
+        "movie",
+        "cast"
+      ],
+      "selected_tables": [
+        "actor",
+        "cast",
+        "copyright",
+        "movie",
+        "writer",
+        "written_by"
+      ],
+      "missing_gold_tables": [],
+      "all_gold_tables_covered": true,
+      "full_table_count": 16,
+      "selected_table_count": 6,
+      "full_schema_character_count": 2262,
+      "selected_schema_character_count": 862
+    },
+    {
+      "id": "spider_train_others_1513",
+      "db_id": "imdb",
+      "gold_tables": [
+        "keyword",
+        "movie",
+        "tags"
+      ],
+      "seed_tables": [
+        "producer",
+        "genre",
+        "movie",
+        "writer"
+      ],
+      "selected_tables": [
+        "classification",
+        "copyright",
+        "genre",
+        "made_by",
+        "movie",
+        "producer",
+        "writer",
+        "written_by"
+      ],
+      "missing_gold_tables": [
+        "keyword",
+        "tags"
+      ],
+      "all_gold_tables_covered": false,
+      "full_table_count": 16,
+      "selected_table_count": 8,
+      "full_schema_character_count": 2262,
+      "selected_schema_character_count": 1102
+    },
+    {
+      "id": "spider_train_others_1515",
+      "db_id": "imdb",
+      "gold_tables": [
+        "directed_by",
+        "director",
+        "movie"
+      ],
+      "seed_tables": [
+        "directed_by",
+        "director",
+        "movie",
+        "actor"
+      ],
+      "selected_tables": [
+        "actor",
+        "cast",
+        "copyright",
+        "directed_by",
+        "director",
+        "movie"
+      ],
+      "missing_gold_tables": [],
+      "all_gold_tables_covered": true,
+      "full_table_count": 16,
+      "selected_table_count": 6,
+      "full_schema_character_count": 2262,
+      "selected_schema_character_count": 856
+    },
+    {
+      "id": "spider_train_others_1520",
+      "db_id": "imdb",
+      "gold_tables": [
+        "actor",
+        "cast",
+        "movie"
+      ],
+      "seed_tables": [
+        "actor",
+        "director",
+        "producer",
+        "directed_by"
+      ],
+      "selected_tables": [
+        "actor",
+        "cast",
+        "copyright",
+        "directed_by",
+        "director",
+        "made_by",
+        "producer"
+      ],
+      "missing_gold_tables": [
+        "movie"
+      ],
+      "all_gold_tables_covered": false,
+      "full_table_count": 16,
+      "selected_table_count": 7,
+      "full_schema_character_count": 2262,
+      "selected_schema_character_count": 1055
+    },
+    {
+      "id": "spider_train_others_1512",
+      "db_id": "imdb",
+      "gold_tables": [
+        "actor",
+        "cast",
+        "movie"
+      ],
+      "seed_tables": [
+        "actor",
+        "movie",
+        "producer",
+        "writer"
+      ],
+      "selected_tables": [
+        "actor",
+        "cast",
+        "copyright",
+        "made_by",
+        "movie",
+        "producer",
+        "writer",
+        "written_by"
+      ],
+      "missing_gold_tables": [],
+      "all_gold_tables_covered": true,
+      "full_table_count": 16,
+      "selected_table_count": 8,
+      "full_schema_character_count": 2262,
+      "selected_schema_character_count": 1185
+    },
+    {
+      "id": "spider_train_others_1531",
+      "db_id": "imdb",
+      "gold_tables": [
+        "directed_by",
+        "director",
+        "movie"
+      ],
+      "seed_tables": [
+        "movie",
+        "cast",
+        "made_by",
+        "classification"
+      ],
+      "selected_tables": [
+        "cast",
+        "classification",
+        "copyright",
+        "made_by",
+        "movie"
+      ],
+      "missing_gold_tables": [
+        "directed_by",
+        "director"
+      ],
+      "all_gold_tables_covered": false,
+      "full_table_count": 16,
+      "selected_table_count": 5,
+      "full_schema_character_count": 2262,
+      "selected_schema_character_count": 603
+    },
+    {
+      "id": "spider_train_others_1482",
+      "db_id": "imdb",
+      "gold_tables": [
+        "actor",
+        "cast",
+        "directed_by",
+        "director",
+        "movie"
+      ],
+      "seed_tables": [
+        "director",
+        "movie",
+        "actor",
+        "directed_by"
+      ],
+      "selected_tables": [
+        "actor",
+        "cast",
+        "copyright",
+        "directed_by",
+        "director",
+        "movie"
+      ],
+      "missing_gold_tables": [],
+      "all_gold_tables_covered": true,
+      "full_table_count": 16,
+      "selected_table_count": 6,
+      "full_schema_character_count": 2262,
+      "selected_schema_character_count": 856
+    },
+    {
+      "id": "spider_train_others_1495",
+      "db_id": "imdb",
+      "gold_tables": [
+        "classification",
+        "directed_by",
+        "director",
+        "genre",
+        "movie"
+      ],
+      "seed_tables": [
+        "genre",
+        "directed_by",
+        "director",
+        "movie"
+      ],
+      "selected_tables": [
+        "classification",
+        "copyright",
+        "directed_by",
+        "director",
+        "genre",
+        "movie"
+      ],
+      "missing_gold_tables": [],
+      "all_gold_tables_covered": true,
+      "full_table_count": 16,
+      "selected_table_count": 6,
+      "full_schema_character_count": 2262,
+      "selected_schema_character_count": 773
+    },
+    {
+      "id": "spider_train_others_1525",
+      "db_id": "imdb",
+      "gold_tables": [
+        "actor",
+        "cast",
+        "movie"
+      ],
+      "seed_tables": [
+        "actor",
+        "movie",
+        "director",
+        "company"
+      ],
+      "selected_tables": [
+        "actor",
+        "cast",
+        "company",
+        "copyright",
+        "directed_by",
+        "director",
+        "movie"
+      ],
+      "missing_gold_tables": [],
+      "all_gold_tables_covered": true,
+      "full_table_count": 16,
+      "selected_table_count": 7,
+      "full_schema_character_count": 2262,
+      "selected_schema_character_count": 944
+    },
+    {
+      "id": "spider_train_others_1527",
+      "db_id": "imdb",
+      "gold_tables": [
+        "classification",
+        "genre",
+        "movie"
+      ],
+      "seed_tables": [
+        "genre",
+        "movie",
+        "classification",
+        "writer"
+      ],
+      "selected_tables": [
+        "classification",
+        "copyright",
+        "genre",
+        "movie",
+        "writer",
+        "written_by"
+      ],
+      "missing_gold_tables": [],
+      "all_gold_tables_covered": true,
+      "full_table_count": 16,
+      "selected_table_count": 6,
+      "full_schema_character_count": 2262,
+      "selected_schema_character_count": 779
+    },
+    {
+      "id": "spider_train_others_1457",
+      "db_id": "imdb",
+      "gold_tables": [
+        "made_by",
+        "movie",
+        "producer",
+        "writer",
+        "written_by"
+      ],
+      "seed_tables": [
+        "written_by",
+        "producer",
+        "writer",
+        "movie"
+      ],
+      "selected_tables": [
+        "copyright",
+        "made_by",
+        "movie",
+        "producer",
+        "writer",
+        "written_by"
+      ],
+      "missing_gold_tables": [],
+      "all_gold_tables_covered": true,
+      "full_table_count": 16,
+      "selected_table_count": 6,
+      "full_schema_character_count": 2262,
+      "selected_schema_character_count": 857
+    },
+    {
+      "id": "spider_train_others_1519",
+      "db_id": "imdb",
+      "gold_tables": [
+        "actor",
+        "cast",
+        "directed_by",
+        "director",
+        "movie"
+      ],
+      "seed_tables": [
+        "actor",
+        "movie",
+        "director",
+        "company"
+      ],
+      "selected_tables": [
+        "actor",
+        "cast",
+        "company",
+        "copyright",
+        "directed_by",
+        "director",
+        "movie"
+      ],
+      "missing_gold_tables": [],
+      "all_gold_tables_covered": true,
+      "full_table_count": 16,
+      "selected_table_count": 7,
+      "full_schema_character_count": 2262,
+      "selected_schema_character_count": 944
+    },
+    {
+      "id": "spider_train_others_1517",
+      "db_id": "imdb",
+      "gold_tables": [
+        "directed_by",
+        "director",
+        "made_by",
+        "movie",
+        "producer"
+      ],
+      "seed_tables": [
+        "directed_by",
+        "director",
+        "movie",
+        "actor"
+      ],
+      "selected_tables": [
+        "actor",
+        "cast",
+        "copyright",
+        "directed_by",
+        "director",
+        "movie"
+      ],
+      "missing_gold_tables": [
+        "made_by",
+        "producer"
+      ],
+      "all_gold_tables_covered": false,
+      "full_table_count": 16,
+      "selected_table_count": 6,
+      "full_schema_character_count": 2262,
+      "selected_schema_character_count": 856
+    },
+    {
+      "id": "spider_train_others_1532",
+      "db_id": "imdb",
+      "gold_tables": [
+        "directed_by",
+        "director",
+        "made_by",
+        "movie",
+        "producer"
+      ],
+      "seed_tables": [
+        "director",
+        "producer",
+        "directed_by",
+        "keyword"
+      ],
+      "selected_tables": [
+        "copyright",
+        "directed_by",
+        "director",
+        "keyword",
+        "made_by",
+        "producer",
+        "tags"
+      ],
+      "missing_gold_tables": [
+        "movie"
+      ],
+      "all_gold_tables_covered": false,
+      "full_table_count": 16,
+      "selected_table_count": 7,
+      "full_schema_character_count": 2262,
+      "selected_schema_character_count": 967
+    },
+    {
+      "id": "spider_train_others_0651",
+      "db_id": "scholar",
+      "gold_tables": [
+        "paper"
+      ],
+      "seed_tables": [
+        "paper",
+        "paperKeyphrase",
+        "paperDataset",
+        "cite"
+      ],
+      "selected_tables": [
+        "cite",
+        "paper",
+        "paperDataset",
+        "paperKeyphrase"
+      ],
+      "missing_gold_tables": [],
+      "all_gold_tables_covered": true,
+      "full_table_count": 10,
+      "selected_table_count": 4,
+      "full_schema_character_count": 1708,
+      "selected_schema_character_count": 790
+    },
+    {
+      "id": "spider_train_others_1094",
+      "db_id": "scholar",
+      "gold_tables": [
+        "paper"
+      ],
+      "seed_tables": [
+        "paper",
+        "paperDataset",
+        "paperKeyphrase",
+        "writes"
+      ],
+      "selected_tables": [
+        "paper",
+        "paperDataset",
+        "paperKeyphrase",
+        "writes"
+      ],
+      "missing_gold_tables": [],
+      "all_gold_tables_covered": true,
+      "full_table_count": 10,
+      "selected_table_count": 4,
+      "full_schema_character_count": 1708,
+      "selected_schema_character_count": 744
+    },
+    {
+      "id": "spider_train_others_1102",
+      "db_id": "scholar",
+      "gold_tables": [
+        "paper"
+      ],
+      "seed_tables": [
+        "paper",
+        "dataset",
+        "paperDataset",
+        "author"
+      ],
+      "selected_tables": [
+        "author",
+        "dataset",
+        "paper",
+        "paperDataset",
+        "writes"
+      ],
+      "missing_gold_tables": [],
+      "all_gold_tables_covered": true,
+      "full_table_count": 10,
+      "selected_table_count": 5,
+      "full_schema_character_count": 1708,
+      "selected_schema_character_count": 821
+    },
+    {
+      "id": "spider_train_others_0998",
+      "db_id": "scholar",
+      "gold_tables": [
+        "paper",
+        "venue"
+      ],
+      "seed_tables": [
+        "paper",
+        "paperKeyphrase",
+        "paperDataset",
+        "writes"
+      ],
+      "selected_tables": [
+        "paper",
+        "paperDataset",
+        "paperKeyphrase",
+        "writes"
+      ],
+      "missing_gold_tables": [
+        "venue"
+      ],
+      "all_gold_tables_covered": false,
+      "full_table_count": 10,
+      "selected_table_count": 4,
+      "full_schema_character_count": 1708,
+      "selected_schema_character_count": 744
+    },
+    {
+      "id": "spider_train_others_0954",
+      "db_id": "scholar",
+      "gold_tables": [
+        "paper",
+        "venue"
+      ],
+      "seed_tables": [
+        "paper",
+        "paperKeyphrase",
+        "paperDataset",
+        "writes"
+      ],
+      "selected_tables": [
+        "paper",
+        "paperDataset",
+        "paperKeyphrase",
+        "writes"
+      ],
+      "missing_gold_tables": [
+        "venue"
+      ],
+      "all_gold_tables_covered": false,
+      "full_table_count": 10,
+      "selected_table_count": 4,
+      "full_schema_character_count": 1708,
+      "selected_schema_character_count": 744
+    },
+    {
+      "id": "spider_train_others_0688",
+      "db_id": "scholar",
+      "gold_tables": [
+        "author",
+        "paper",
+        "writes"
+      ],
+      "seed_tables": [
+        "dataset",
+        "venue",
+        "paperDataset",
+        "cite"
+      ],
+      "selected_tables": [
+        "cite",
+        "dataset",
+        "paper",
+        "paperDataset",
+        "venue"
+      ],
+      "missing_gold_tables": [
+        "author",
+        "writes"
+      ],
+      "all_gold_tables_covered": false,
+      "full_table_count": 10,
+      "selected_table_count": 5,
+      "full_schema_character_count": 1708,
+      "selected_schema_character_count": 862
+    },
+    {
+      "id": "spider_train_others_0748",
+      "db_id": "scholar",
+      "gold_tables": [
+        "author",
+        "paper",
+        "writes"
+      ],
+      "seed_tables": [
+        "paper",
+        "paperDataset",
+        "paperKeyphrase",
+        "cite"
+      ],
+      "selected_tables": [
+        "cite",
+        "paper",
+        "paperDataset",
+        "paperKeyphrase"
+      ],
+      "missing_gold_tables": [
+        "author",
+        "writes"
+      ],
+      "all_gold_tables_covered": false,
+      "full_table_count": 10,
+      "selected_table_count": 4,
+      "full_schema_character_count": 1708,
+      "selected_schema_character_count": 790
+    },
+    {
+      "id": "spider_train_others_1025",
+      "db_id": "scholar",
+      "gold_tables": [
+        "paper",
+        "venue"
+      ],
+      "seed_tables": [
+        "paper",
+        "paperDataset",
+        "paperKeyphrase",
+        "cite"
+      ],
+      "selected_tables": [
+        "cite",
+        "paper",
+        "paperDataset",
+        "paperKeyphrase"
+      ],
+      "missing_gold_tables": [
+        "venue"
+      ],
+      "all_gold_tables_covered": false,
+      "full_table_count": 10,
+      "selected_table_count": 4,
+      "full_schema_character_count": 1708,
+      "selected_schema_character_count": 790
+    },
+    {
+      "id": "spider_train_others_1081",
+      "db_id": "scholar",
+      "gold_tables": [
+        "keyphrase",
+        "paper",
+        "paperKeyphrase"
+      ],
+      "seed_tables": [
+        "venue",
+        "paper",
+        "dataset",
+        "paperDataset"
+      ],
+      "selected_tables": [
+        "dataset",
+        "paper",
+        "paperDataset",
+        "venue"
+      ],
+      "missing_gold_tables": [
+        "keyphrase",
+        "paperKeyphrase"
+      ],
+      "all_gold_tables_covered": false,
+      "full_table_count": 10,
+      "selected_table_count": 4,
+      "full_schema_character_count": 1708,
+      "selected_schema_character_count": 645
+    },
+    {
+      "id": "spider_train_others_0637",
+      "db_id": "scholar",
+      "gold_tables": [
+        "keyphrase",
+        "paper",
+        "paperKeyphrase"
+      ],
+      "seed_tables": [
+        "paper",
+        "paperKeyphrase",
+        "paperDataset",
+        "cite"
+      ],
+      "selected_tables": [
+        "cite",
+        "paper",
+        "paperDataset",
+        "paperKeyphrase"
+      ],
+      "missing_gold_tables": [
+        "keyphrase"
+      ],
+      "all_gold_tables_covered": false,
+      "full_table_count": 10,
+      "selected_table_count": 4,
+      "full_schema_character_count": 1708,
+      "selected_schema_character_count": 790
+    },
+    {
+      "id": "spider_train_others_0856",
+      "db_id": "scholar",
+      "gold_tables": [
+        "keyphrase",
+        "paper",
+        "paperKeyphrase"
+      ],
+      "seed_tables": [
+        "paper",
+        "paperDataset",
+        "writes",
+        "paperKeyphrase"
+      ],
+      "selected_tables": [
+        "paper",
+        "paperDataset",
+        "paperKeyphrase",
+        "writes"
+      ],
+      "missing_gold_tables": [
+        "keyphrase"
+      ],
+      "all_gold_tables_covered": false,
+      "full_table_count": 10,
+      "selected_table_count": 4,
+      "full_schema_character_count": 1708,
+      "selected_schema_character_count": 744
+    },
+    {
+      "id": "spider_train_others_0900",
+      "db_id": "scholar",
+      "gold_tables": [
+        "author",
+        "paper",
+        "writes"
+      ],
+      "seed_tables": [
+        "paper",
+        "cite",
+        "writes",
+        "author"
+      ],
+      "selected_tables": [
+        "author",
+        "cite",
+        "paper",
+        "writes"
+      ],
+      "missing_gold_tables": [],
+      "all_gold_tables_covered": true,
+      "full_table_count": 10,
+      "selected_table_count": 4,
+      "full_schema_character_count": 1708,
+      "selected_schema_character_count": 810
+    },
+    {
+      "id": "spider_train_others_0942",
+      "db_id": "scholar",
+      "gold_tables": [
+        "author",
+        "paper",
+        "writes"
+      ],
+      "seed_tables": [
+        "paper",
+        "paperKeyphrase",
+        "paperDataset",
+        "journal"
+      ],
+      "selected_tables": [
+        "journal",
+        "paper",
+        "paperDataset",
+        "paperKeyphrase"
+      ],
+      "missing_gold_tables": [
+        "author",
+        "writes"
+      ],
+      "all_gold_tables_covered": false,
+      "full_table_count": 10,
+      "selected_table_count": 4,
+      "full_schema_character_count": 1708,
+      "selected_schema_character_count": 736
+    },
+    {
+      "id": "spider_train_others_1124",
+      "db_id": "scholar",
+      "gold_tables": [
+        "paper",
+        "venue",
+        "writes"
+      ],
+      "seed_tables": [
+        "author",
+        "writes",
+        "cite",
+        "paper"
+      ],
+      "selected_tables": [
+        "author",
+        "cite",
+        "paper",
+        "writes"
+      ],
+      "missing_gold_tables": [
+        "venue"
+      ],
+      "all_gold_tables_covered": false,
+      "full_table_count": 10,
+      "selected_table_count": 4,
+      "full_schema_character_count": 1708,
+      "selected_schema_character_count": 810
+    },
+    {
+      "id": "spider_train_others_0823",
+      "db_id": "scholar",
+      "gold_tables": [
+        "dataset",
+        "keyphrase",
+        "paperDataset",
+        "paperKeyphrase"
+      ],
+      "seed_tables": [
+        "dataset",
+        "paperDataset",
+        "paper",
+        "paperKeyphrase"
+      ],
+      "selected_tables": [
+        "dataset",
+        "paper",
+        "paperDataset",
+        "paperKeyphrase"
+      ],
+      "missing_gold_tables": [
+        "keyphrase"
+      ],
+      "all_gold_tables_covered": false,
+      "full_table_count": 10,
+      "selected_table_count": 4,
+      "full_schema_character_count": 1708,
+      "selected_schema_character_count": 676
+    },
+    {
+      "id": "spider_train_others_0880",
+      "db_id": "scholar",
+      "gold_tables": [
+        "author",
+        "paper",
+        "paperDataset",
+        "writes"
+      ],
+      "seed_tables": [
+        "dataset",
+        "paperDataset",
+        "venue",
+        "cite"
+      ],
+      "selected_tables": [
+        "cite",
+        "dataset",
+        "paper",
+        "paperDataset",
+        "venue"
+      ],
+      "missing_gold_tables": [
+        "author",
+        "writes"
+      ],
+      "all_gold_tables_covered": false,
+      "full_table_count": 10,
+      "selected_table_count": 5,
+      "full_schema_character_count": 1708,
+      "selected_schema_character_count": 862
+    },
+    {
+      "id": "spider_train_others_0945",
+      "db_id": "scholar",
+      "gold_tables": [
+        "paper",
+        "venue",
+        "writes"
+      ],
+      "seed_tables": [
+        "author",
+        "paper",
+        "paperKeyphrase",
+        "paperDataset"
+      ],
+      "selected_tables": [
+        "author",
+        "paper",
+        "paperDataset",
+        "paperKeyphrase",
+        "writes"
+      ],
+      "missing_gold_tables": [
+        "venue"
+      ],
+      "all_gold_tables_covered": false,
+      "full_table_count": 10,
+      "selected_table_count": 5,
+      "full_schema_character_count": 1708,
+      "selected_schema_character_count": 900
+    },
+    {
+      "id": "spider_train_others_1045",
+      "db_id": "scholar",
+      "gold_tables": [
+        "keyphrase",
+        "paper",
+        "paperKeyphrase"
+      ],
+      "seed_tables": [
+        "journal",
+        "dataset",
+        "paperDataset",
+        "paper"
+      ],
+      "selected_tables": [
+        "dataset",
+        "journal",
+        "paper",
+        "paperDataset"
+      ],
+      "missing_gold_tables": [
+        "keyphrase",
+        "paperKeyphrase"
+      ],
+      "all_gold_tables_covered": false,
+      "full_table_count": 10,
+      "selected_table_count": 4,
+      "full_schema_character_count": 1708,
+      "selected_schema_character_count": 657
+    },
+    {
+      "id": "spider_train_others_1093",
+      "db_id": "scholar",
+      "gold_tables": [
+        "paper",
+        "writes"
+      ],
+      "seed_tables": [
+        "author",
+        "paper",
+        "paperDataset",
+        "paperKeyphrase"
+      ],
+      "selected_tables": [
+        "author",
+        "paper",
+        "paperDataset",
+        "paperKeyphrase",
+        "writes"
+      ],
+      "missing_gold_tables": [],
+      "all_gold_tables_covered": true,
+      "full_table_count": 10,
+      "selected_table_count": 5,
+      "full_schema_character_count": 1708,
+      "selected_schema_character_count": 900
+    },
+    {
+      "id": "spider_train_others_0643",
+      "db_id": "scholar",
+      "gold_tables": [
+        "author",
+        "paper",
+        "venue",
+        "writes"
+      ],
+      "seed_tables": [
+        "paper",
+        "paperDataset",
+        "paperKeyphrase",
+        "dataset"
+      ],
+      "selected_tables": [
+        "dataset",
+        "paper",
+        "paperDataset",
+        "paperKeyphrase"
+      ],
+      "missing_gold_tables": [
+        "author",
+        "venue",
+        "writes"
+      ],
+      "all_gold_tables_covered": false,
+      "full_table_count": 10,
+      "selected_table_count": 4,
+      "full_schema_character_count": 1708,
+      "selected_schema_character_count": 676
+    },
+    {
+      "id": "spider_train_others_0797",
+      "db_id": "scholar",
+      "gold_tables": [
+        "author",
+        "paper",
+        "paperKeyphrase",
+        "writes"
+      ],
+      "seed_tables": [
+        "keyphrase",
+        "paperKeyphrase",
+        "cite",
+        "dataset"
+      ],
+      "selected_tables": [
+        "cite",
+        "dataset",
+        "keyphrase",
+        "paper",
+        "paperKeyphrase"
+      ],
+      "missing_gold_tables": [
+        "author",
+        "writes"
+      ],
+      "all_gold_tables_covered": false,
+      "full_table_count": 10,
+      "selected_table_count": 5,
+      "full_schema_character_count": 1708,
+      "selected_schema_character_count": 942
+    },
+    {
+      "id": "spider_train_others_0995",
+      "db_id": "scholar",
+      "gold_tables": [
+        "author",
+        "paper",
+        "writes"
+      ],
+      "seed_tables": [
+        "dataset",
+        "paperDataset",
+        "paper",
+        "venue"
+      ],
+      "selected_tables": [
+        "dataset",
+        "paper",
+        "paperDataset",
+        "venue"
+      ],
+      "missing_gold_tables": [
+        "author",
+        "writes"
+      ],
+      "all_gold_tables_covered": false,
+      "full_table_count": 10,
+      "selected_table_count": 4,
+      "full_schema_character_count": 1708,
+      "selected_schema_character_count": 645
+    },
+    {
+      "id": "spider_train_others_1071",
+      "db_id": "scholar",
+      "gold_tables": [
+        "author",
+        "paper",
+        "writes"
+      ],
+      "seed_tables": [
+        "paper",
+        "paperKeyphrase",
+        "paperDataset",
+        "cite"
+      ],
+      "selected_tables": [
+        "cite",
+        "paper",
+        "paperDataset",
+        "paperKeyphrase"
+      ],
+      "missing_gold_tables": [
+        "author",
+        "writes"
+      ],
+      "all_gold_tables_covered": false,
+      "full_table_count": 10,
+      "selected_table_count": 4,
+      "full_schema_character_count": 1708,
+      "selected_schema_character_count": 790
+    },
+    {
+      "id": "spider_train_others_1121",
+      "db_id": "scholar",
+      "gold_tables": [
+        "author",
+        "paper",
+        "venue",
+        "writes"
+      ],
+      "seed_tables": [
+        "paper",
+        "paperDataset",
+        "paperKeyphrase",
+        "writes"
+      ],
+      "selected_tables": [
+        "paper",
+        "paperDataset",
+        "paperKeyphrase",
+        "writes"
+      ],
+      "missing_gold_tables": [
+        "author",
+        "venue"
+      ],
+      "all_gold_tables_covered": false,
+      "full_table_count": 10,
+      "selected_table_count": 4,
+      "full_schema_character_count": 1708,
+      "selected_schema_character_count": 744
+    },
+    {
+      "id": "spider_train_others_0704",
+      "db_id": "scholar",
+      "gold_tables": [
+        "keyphrase",
+        "paper",
+        "paperKeyphrase",
+        "venue"
+      ],
+      "seed_tables": [
+        "paper",
+        "paperKeyphrase",
+        "paperDataset",
+        "writes"
+      ],
+      "selected_tables": [
+        "paper",
+        "paperDataset",
+        "paperKeyphrase",
+        "writes"
+      ],
+      "missing_gold_tables": [
+        "keyphrase",
+        "venue"
+      ],
+      "all_gold_tables_covered": false,
+      "full_table_count": 10,
+      "selected_table_count": 4,
+      "full_schema_character_count": 1708,
+      "selected_schema_character_count": 744
+    },
+    {
+      "id": "spider_train_others_0948",
+      "db_id": "scholar",
+      "gold_tables": [
+        "paper",
+        "venue",
+        "writes"
+      ],
+      "seed_tables": [
+        "paper",
+        "paperKeyphrase",
+        "writes",
+        "paperDataset"
+      ],
+      "selected_tables": [
+        "paper",
+        "paperDataset",
+        "paperKeyphrase",
+        "writes"
+      ],
+      "missing_gold_tables": [
+        "venue"
+      ],
+      "all_gold_tables_covered": false,
+      "full_table_count": 10,
+      "selected_table_count": 4,
+      "full_schema_character_count": 1708,
+      "selected_schema_character_count": 744
+    },
+    {
+      "id": "spider_train_others_1100",
+      "db_id": "scholar",
+      "gold_tables": [
+        "author",
+        "cite",
+        "paper",
+        "writes"
+      ],
+      "seed_tables": [
+        "paper",
+        "paperDataset",
+        "cite",
+        "paperKeyphrase"
+      ],
+      "selected_tables": [
+        "cite",
+        "paper",
+        "paperDataset",
+        "paperKeyphrase"
+      ],
+      "missing_gold_tables": [
+        "author",
+        "writes"
+      ],
+      "all_gold_tables_covered": false,
+      "full_table_count": 10,
+      "selected_table_count": 4,
+      "full_schema_character_count": 1708,
+      "selected_schema_character_count": 790
+    },
+    {
+      "id": "spider_train_others_0657",
+      "db_id": "scholar",
+      "gold_tables": [
+        "dataset",
+        "paper",
+        "paperDataset",
+        "venue"
+      ],
+      "seed_tables": [
+        "dataset",
+        "paperDataset",
+        "paper",
+        "paperKeyphrase"
+      ],
+      "selected_tables": [
+        "dataset",
+        "paper",
+        "paperDataset",
+        "paperKeyphrase"
+      ],
+      "missing_gold_tables": [
+        "venue"
+      ],
+      "all_gold_tables_covered": false,
+      "full_table_count": 10,
+      "selected_table_count": 4,
+      "full_schema_character_count": 1708,
+      "selected_schema_character_count": 676
+    },
+    {
+      "id": "spider_train_others_0851",
+      "db_id": "scholar",
+      "gold_tables": [
+        "dataset",
+        "keyphrase",
+        "paper",
+        "paperDataset",
+        "paperKeyphrase"
+      ],
+      "seed_tables": [
+        "paper",
+        "paperKeyphrase",
+        "paperDataset",
+        "cite"
+      ],
+      "selected_tables": [
+        "cite",
+        "paper",
+        "paperDataset",
+        "paperKeyphrase"
+      ],
+      "missing_gold_tables": [
+        "dataset",
+        "keyphrase"
+      ],
+      "all_gold_tables_covered": false,
+      "full_table_count": 10,
+      "selected_table_count": 4,
+      "full_schema_character_count": 1708,
+      "selected_schema_character_count": 790
+    },
+    {
+      "id": "spider_train_others_0922",
+      "db_id": "scholar",
+      "gold_tables": [
+        "cite",
+        "keyphrase",
+        "paper",
+        "paperKeyphrase"
+      ],
+      "seed_tables": [
+        "paper",
+        "cite",
+        "paperKeyphrase",
+        "paperDataset"
+      ],
+      "selected_tables": [
+        "cite",
+        "paper",
+        "paperDataset",
+        "paperKeyphrase"
+      ],
+      "missing_gold_tables": [
+        "keyphrase"
+      ],
+      "all_gold_tables_covered": false,
+      "full_table_count": 10,
+      "selected_table_count": 4,
+      "full_schema_character_count": 1708,
+      "selected_schema_character_count": 790
+    },
+    {
+      "id": "spider_train_others_0996",
+      "db_id": "scholar",
+      "gold_tables": [
+        "author",
+        "cite",
+        "writes"
+      ],
+      "seed_tables": [
+        "cite",
+        "paper",
+        "writes",
+        "dataset"
+      ],
+      "selected_tables": [
+        "cite",
+        "dataset",
+        "paper",
+        "writes"
+      ],
+      "missing_gold_tables": [
+        "author"
+      ],
+      "all_gold_tables_covered": false,
+      "full_table_count": 10,
+      "selected_table_count": 4,
+      "full_schema_character_count": 1708,
+      "selected_schema_character_count": 757
+    },
+    {
+      "id": "spider_train_others_1039",
+      "db_id": "scholar",
+      "gold_tables": [
+        "author",
+        "keyphrase",
+        "paper",
+        "paperKeyphrase",
+        "writes"
+      ],
+      "seed_tables": [
+        "author",
+        "paper",
+        "writes",
+        "paperKeyphrase"
+      ],
+      "selected_tables": [
+        "author",
+        "paper",
+        "paperKeyphrase",
+        "writes"
+      ],
+      "missing_gold_tables": [
+        "keyphrase"
+      ],
+      "all_gold_tables_covered": false,
+      "full_table_count": 10,
+      "selected_table_count": 4,
+      "full_schema_character_count": 1708,
+      "selected_schema_character_count": 775
+    },
+    {
+      "id": "spider_train_others_1105",
+      "db_id": "scholar",
+      "gold_tables": [
+        "author",
+        "paper",
+        "paperKeyphrase",
+        "venue",
+        "writes"
+      ],
+      "seed_tables": [
+        "paperKeyphrase",
+        "keyphrase",
+        "paper",
+        "paperDataset"
+      ],
+      "selected_tables": [
+        "keyphrase",
+        "paper",
+        "paperDataset",
+        "paperKeyphrase"
+      ],
+      "missing_gold_tables": [
+        "author",
+        "venue",
+        "writes"
+      ],
+      "all_gold_tables_covered": false,
+      "full_table_count": 10,
+      "selected_table_count": 4,
+      "full_schema_character_count": 1708,
+      "selected_schema_character_count": 747
+    },
+    {
+      "id": "spider_train_others_1114",
+      "db_id": "scholar",
+      "gold_tables": [
+        "author",
+        "paper",
+        "writes"
+      ],
+      "seed_tables": [
+        "paper",
+        "author",
+        "paperKeyphrase",
+        "paperDataset"
+      ],
+      "selected_tables": [
+        "author",
+        "paper",
+        "paperDataset",
+        "paperKeyphrase",
+        "writes"
+      ],
+      "missing_gold_tables": [],
+      "all_gold_tables_covered": true,
+      "full_table_count": 10,
+      "selected_table_count": 5,
+      "full_schema_character_count": 1708,
+      "selected_schema_character_count": 900
+    },
+    {
+      "id": "spider_train_others_0968",
+      "db_id": "scholar",
+      "gold_tables": [
+        "keyphrase",
+        "paper",
+        "paperKeyphrase",
+        "venue"
+      ],
+      "seed_tables": [
+        "journal",
+        "author",
+        "paper",
+        "cite"
+      ],
+      "selected_tables": [
+        "author",
+        "cite",
+        "journal",
+        "paper",
+        "writes"
+      ],
+      "missing_gold_tables": [
+        "keyphrase",
+        "paperKeyphrase",
+        "venue"
+      ],
+      "all_gold_tables_covered": false,
+      "full_table_count": 10,
+      "selected_table_count": 5,
+      "full_schema_character_count": 1708,
+      "selected_schema_character_count": 973
+    },
+    {
+      "id": "spider_train_others_1103",
+      "db_id": "scholar",
+      "gold_tables": [
+        "author",
+        "keyphrase",
+        "paper",
+        "paperKeyphrase",
+        "venue",
+        "writes"
+      ],
+      "seed_tables": [
+        "paper",
+        "paperDataset",
+        "paperKeyphrase",
+        "writes"
+      ],
+      "selected_tables": [
+        "paper",
+        "paperDataset",
+        "paperKeyphrase",
+        "writes"
+      ],
+      "missing_gold_tables": [
+        "author",
+        "keyphrase",
+        "venue"
+      ],
+      "all_gold_tables_covered": false,
+      "full_table_count": 10,
+      "selected_table_count": 4,
+      "full_schema_character_count": 1708,
+      "selected_schema_character_count": 744
+    },
+    {
+      "id": "spider_train_others_1047",
+      "db_id": "scholar",
+      "gold_tables": [
+        "dataset",
+        "keyphrase",
+        "paper",
+        "paperDataset",
+        "paperKeyphrase",
+        "venue"
+      ],
+      "seed_tables": [
+        "paper",
+        "paperKeyphrase",
+        "paperDataset",
+        "writes"
+      ],
+      "selected_tables": [
+        "paper",
+        "paperDataset",
+        "paperKeyphrase",
+        "writes"
+      ],
+      "missing_gold_tables": [
+        "dataset",
+        "keyphrase",
+        "venue"
+      ],
+      "all_gold_tables_covered": false,
+      "full_table_count": 10,
+      "selected_table_count": 4,
+      "full_schema_character_count": 1708,
+      "selected_schema_character_count": 744
+    },
+    {
+      "id": "spider_train_others_1133",
+      "db_id": "yelp",
+      "gold_tables": [
+        "business"
+      ],
+      "seed_tables": [
+        "business",
+        "review",
+        "checkin",
+        "tip"
+      ],
+      "selected_tables": [
+        "business",
+        "checkin",
+        "review",
+        "tip"
+      ],
+      "missing_gold_tables": [],
+      "all_gold_tables_covered": true,
+      "full_table_count": 7,
+      "selected_table_count": 4,
+      "full_schema_character_count": 1349,
+      "selected_schema_character_count": 832
+    },
+    {
+      "id": "spider_train_others_1136",
+      "db_id": "yelp",
+      "gold_tables": [
+        "business"
+      ],
+      "seed_tables": [
+        "business",
+        "user",
+        "category",
+        "tip"
+      ],
+      "selected_tables": [
+        "business",
+        "category",
+        "review",
+        "tip",
+        "user"
+      ],
+      "missing_gold_tables": [],
+      "all_gold_tables_covered": true,
+      "full_table_count": 7,
+      "selected_table_count": 5,
+      "full_schema_character_count": 1349,
+      "selected_schema_character_count": 1012
+    },
+    {
+      "id": "spider_train_others_1139",
+      "db_id": "yelp",
+      "gold_tables": [
+        "business"
+      ],
+      "seed_tables": [
+        "business",
+        "category",
+        "checkin",
+        "tip"
+      ],
+      "selected_tables": [
+        "business",
+        "category",
+        "checkin",
+        "tip"
+      ],
+      "missing_gold_tables": [],
+      "all_gold_tables_covered": true,
+      "full_table_count": 7,
+      "selected_table_count": 4,
+      "full_schema_character_count": 1349,
+      "selected_schema_character_count": 777
+    },
+    {
+      "id": "spider_train_others_1212",
+      "db_id": "yelp",
+      "gold_tables": [
+        "business"
+      ],
+      "seed_tables": [
+        "review",
+        "category",
+        "business",
+        "checkin"
+      ],
+      "selected_tables": [
+        "business",
+        "category",
+        "checkin",
+        "review"
+      ],
+      "missing_gold_tables": [],
+      "all_gold_tables_covered": true,
+      "full_table_count": 7,
+      "selected_table_count": 4,
+      "full_schema_character_count": 1349,
+      "selected_schema_character_count": 779
+    },
+    {
+      "id": "spider_train_others_1226",
+      "db_id": "yelp",
+      "gold_tables": [
+        "business"
+      ],
+      "seed_tables": [
+        "business",
+        "user",
+        "category",
+        "checkin"
+      ],
+      "selected_tables": [
+        "business",
+        "category",
+        "checkin",
+        "review",
+        "user"
+      ],
+      "missing_gold_tables": [],
+      "all_gold_tables_covered": true,
+      "full_table_count": 7,
+      "selected_table_count": 5,
+      "full_schema_character_count": 1349,
+      "selected_schema_character_count": 912
+    },
+    {
+      "id": "spider_train_others_1158",
+      "db_id": "yelp",
+      "gold_tables": [
+        "business"
+      ],
+      "seed_tables": [
+        "business",
+        "review",
+        "category",
+        "user"
+      ],
+      "selected_tables": [
+        "business",
+        "category",
+        "review",
+        "user"
+      ],
+      "missing_gold_tables": [],
+      "all_gold_tables_covered": true,
+      "full_table_count": 7,
+      "selected_table_count": 4,
+      "full_schema_character_count": 1349,
+      "selected_schema_character_count": 746
+    },
+    {
+      "id": "spider_train_others_1219",
+      "db_id": "yelp",
+      "gold_tables": [
+        "business"
+      ],
+      "seed_tables": [
+        "review",
+        "business",
+        "tip",
+        "user"
+      ],
+      "selected_tables": [
+        "business",
+        "review",
+        "tip",
+        "user"
+      ],
+      "missing_gold_tables": [],
+      "all_gold_tables_covered": true,
+      "full_table_count": 7,
+      "selected_table_count": 4,
+      "full_schema_character_count": 1349,
+      "selected_schema_character_count": 851
+    },
+    {
+      "id": "spider_train_others_1194",
+      "db_id": "yelp",
+      "gold_tables": [
+        "review",
+        "user"
+      ],
+      "seed_tables": [
+        "review",
+        "business",
+        "tip",
+        "category"
+      ],
+      "selected_tables": [
+        "business",
+        "category",
+        "review",
+        "tip"
+      ],
+      "missing_gold_tables": [
+        "user"
+      ],
+      "all_gold_tables_covered": false,
+      "full_table_count": 7,
+      "selected_table_count": 4,
+      "full_schema_character_count": 1349,
+      "selected_schema_character_count": 827
+    },
+    {
+      "id": "spider_train_others_1211",
+      "db_id": "yelp",
+      "gold_tables": [
+        "business"
+      ],
+      "seed_tables": [
+        "tip",
+        "review",
+        "checkin",
+        "business"
+      ],
+      "selected_tables": [
+        "business",
+        "checkin",
+        "review",
+        "tip"
+      ],
+      "missing_gold_tables": [],
+      "all_gold_tables_covered": true,
+      "full_table_count": 7,
+      "selected_table_count": 4,
+      "full_schema_character_count": 1349,
+      "selected_schema_character_count": 832
+    },
+    {
+      "id": "spider_train_others_1225",
+      "db_id": "yelp",
+      "gold_tables": [
+        "business",
+        "category"
+      ],
+      "seed_tables": [
+        "business",
+        "review",
+        "checkin",
+        "user"
+      ],
+      "selected_tables": [
+        "business",
+        "checkin",
+        "review",
+        "user"
+      ],
+      "missing_gold_tables": [
+        "category"
+      ],
+      "all_gold_tables_covered": false,
+      "full_table_count": 7,
+      "selected_table_count": 4,
+      "full_schema_character_count": 1349,
+      "selected_schema_character_count": 751
+    },
+    {
+      "id": "spider_train_others_1137",
+      "db_id": "yelp",
+      "gold_tables": [
+        "business",
+        "category"
+      ],
+      "seed_tables": [
+        "business",
+        "category",
+        "checkin",
+        "user"
+      ],
+      "selected_tables": [
+        "business",
+        "category",
+        "checkin",
+        "review",
+        "user"
+      ],
+      "missing_gold_tables": [],
+      "all_gold_tables_covered": true,
+      "full_table_count": 7,
+      "selected_table_count": 5,
+      "full_schema_character_count": 1349,
+      "selected_schema_character_count": 912
+    },
+    {
+      "id": "spider_train_others_1151",
+      "db_id": "yelp",
+      "gold_tables": [
+        "business",
+        "category"
+      ],
+      "seed_tables": [
+        "review",
+        "business",
+        "checkin",
+        "user"
+      ],
+      "selected_tables": [
+        "business",
+        "checkin",
+        "review",
+        "user"
+      ],
+      "missing_gold_tables": [
+        "category"
+      ],
+      "all_gold_tables_covered": false,
+      "full_table_count": 7,
+      "selected_table_count": 4,
+      "full_schema_character_count": 1349,
+      "selected_schema_character_count": 751
+    },
+    {
+      "id": "spider_train_others_1168",
+      "db_id": "yelp",
+      "gold_tables": [
+        "review",
+        "user"
+      ],
+      "seed_tables": [
+        "review",
+        "business",
+        "tip",
+        "category"
+      ],
+      "selected_tables": [
+        "business",
+        "category",
+        "review",
+        "tip"
+      ],
+      "missing_gold_tables": [
+        "user"
+      ],
+      "all_gold_tables_covered": false,
+      "full_table_count": 7,
+      "selected_table_count": 4,
+      "full_schema_character_count": 1349,
+      "selected_schema_character_count": 827
+    },
+    {
+      "id": "spider_train_others_1177",
+      "db_id": "yelp",
+      "gold_tables": [
+        "business",
+        "tip"
+      ],
+      "seed_tables": [
+        "tip",
+        "category",
+        "review",
+        "business"
+      ],
+      "selected_tables": [
+        "business",
+        "category",
+        "review",
+        "tip"
+      ],
+      "missing_gold_tables": [],
+      "all_gold_tables_covered": true,
+      "full_table_count": 7,
+      "selected_table_count": 4,
+      "full_schema_character_count": 1349,
+      "selected_schema_character_count": 827
+    },
+    {
+      "id": "spider_train_others_1193",
+      "db_id": "yelp",
+      "gold_tables": [
+        "review",
+        "user"
+      ],
+      "seed_tables": [
+        "review",
+        "business",
+        "neighbourhood",
+        "tip"
+      ],
+      "selected_tables": [
+        "business",
+        "neighbourhood",
+        "review",
+        "tip"
+      ],
+      "missing_gold_tables": [
+        "user"
+      ],
+      "all_gold_tables_covered": false,
+      "full_table_count": 7,
+      "selected_table_count": 4,
+      "full_schema_character_count": 1349,
+      "selected_schema_character_count": 837
+    },
+    {
+      "id": "spider_train_others_1202",
+      "db_id": "yelp",
+      "gold_tables": [
+        "tip",
+        "user"
+      ],
+      "seed_tables": [
+        "tip",
+        "review",
+        "business",
+        "checkin"
+      ],
+      "selected_tables": [
+        "business",
+        "checkin",
+        "review",
+        "tip"
+      ],
+      "missing_gold_tables": [
+        "user"
+      ],
+      "all_gold_tables_covered": false,
+      "full_table_count": 7,
+      "selected_table_count": 4,
+      "full_schema_character_count": 1349,
+      "selected_schema_character_count": 832
+    },
+    {
+      "id": "spider_train_others_1214",
+      "db_id": "yelp",
+      "gold_tables": [
+        "business",
+        "neighbourhood"
+      ],
+      "seed_tables": [
+        "neighbourhood",
+        "business",
+        "category",
+        "review"
+      ],
+      "selected_tables": [
+        "business",
+        "category",
+        "neighbourhood",
+        "review"
+      ],
+      "missing_gold_tables": [],
+      "all_gold_tables_covered": true,
+      "full_table_count": 7,
+      "selected_table_count": 4,
+      "full_schema_character_count": 1349,
+      "selected_schema_character_count": 784
+    },
+    {
+      "id": "spider_train_others_1170",
+      "db_id": "yelp",
+      "gold_tables": [
+        "business",
+        "category"
+      ],
+      "seed_tables": [
+        "review",
+        "business",
+        "tip",
+        "category"
+      ],
+      "selected_tables": [
+        "business",
+        "category",
+        "review",
+        "tip"
+      ],
+      "missing_gold_tables": [],
+      "all_gold_tables_covered": true,
+      "full_table_count": 7,
+      "selected_table_count": 4,
+      "full_schema_character_count": 1349,
+      "selected_schema_character_count": 827
+    },
+    {
+      "id": "spider_train_others_1175",
+      "db_id": "yelp",
+      "gold_tables": [
+        "business",
+        "category"
+      ],
+      "seed_tables": [
+        "business",
+        "category",
+        "tip",
+        "review"
+      ],
+      "selected_tables": [
+        "business",
+        "category",
+        "review",
+        "tip"
+      ],
+      "missing_gold_tables": [],
+      "all_gold_tables_covered": true,
+      "full_table_count": 7,
+      "selected_table_count": 4,
+      "full_schema_character_count": 1349,
+      "selected_schema_character_count": 827
+    },
+    {
+      "id": "spider_train_others_1197",
+      "db_id": "yelp",
+      "gold_tables": [
+        "business",
+        "category"
+      ],
+      "seed_tables": [
+        "review",
+        "category",
+        "neighbourhood",
+        "business"
+      ],
+      "selected_tables": [
+        "business",
+        "category",
+        "neighbourhood",
+        "review"
+      ],
+      "missing_gold_tables": [],
+      "all_gold_tables_covered": true,
+      "full_table_count": 7,
+      "selected_table_count": 4,
+      "full_schema_character_count": 1349,
+      "selected_schema_character_count": 784
+    },
+    {
+      "id": "spider_train_others_1223",
+      "db_id": "yelp",
+      "gold_tables": [
+        "business",
+        "neighbourhood",
+        "review"
+      ],
+      "seed_tables": [
+        "neighbourhood",
+        "business",
+        "review",
+        "category"
+      ],
+      "selected_tables": [
+        "business",
+        "category",
+        "neighbourhood",
+        "review"
+      ],
+      "missing_gold_tables": [],
+      "all_gold_tables_covered": true,
+      "full_table_count": 7,
+      "selected_table_count": 4,
+      "full_schema_character_count": 1349,
+      "selected_schema_character_count": 784
+    },
+    {
+      "id": "spider_train_others_1153",
+      "db_id": "yelp",
+      "gold_tables": [
+        "business",
+        "category",
+        "review"
+      ],
+      "seed_tables": [
+        "review",
+        "business",
+        "tip",
+        "user"
+      ],
+      "selected_tables": [
+        "business",
+        "review",
+        "tip",
+        "user"
+      ],
+      "missing_gold_tables": [
+        "category"
+      ],
+      "all_gold_tables_covered": false,
+      "full_table_count": 7,
+      "selected_table_count": 4,
+      "full_schema_character_count": 1349,
+      "selected_schema_character_count": 851
+    },
+    {
+      "id": "spider_train_others_1171",
+      "db_id": "yelp",
+      "gold_tables": [
+        "business",
+        "category",
+        "neighbourhood"
+      ],
+      "seed_tables": [
+        "neighbourhood",
+        "tip",
+        "review",
+        "business"
+      ],
+      "selected_tables": [
+        "business",
+        "neighbourhood",
+        "review",
+        "tip"
+      ],
+      "missing_gold_tables": [
+        "category"
+      ],
+      "all_gold_tables_covered": false,
+      "full_table_count": 7,
+      "selected_table_count": 4,
+      "full_schema_character_count": 1349,
+      "selected_schema_character_count": 837
+    },
+    {
+      "id": "spider_train_others_1209",
+      "db_id": "yelp",
+      "gold_tables": [
+        "business",
+        "review",
+        "user"
+      ],
+      "seed_tables": [
+        "review",
+        "business",
+        "tip",
+        "user"
+      ],
+      "selected_tables": [
+        "business",
+        "review",
+        "tip",
+        "user"
+      ],
+      "missing_gold_tables": [],
+      "all_gold_tables_covered": true,
+      "full_table_count": 7,
+      "selected_table_count": 4,
+      "full_schema_character_count": 1349,
+      "selected_schema_character_count": 851
+    },
+    {
+      "id": "spider_train_others_1147",
+      "db_id": "yelp",
+      "gold_tables": [
+        "business",
+        "category",
+        "review"
+      ],
+      "seed_tables": [
+        "review",
+        "business",
+        "tip",
+        "category"
+      ],
+      "selected_tables": [
+        "business",
+        "category",
+        "review",
+        "tip"
+      ],
+      "missing_gold_tables": [],
+      "all_gold_tables_covered": true,
+      "full_table_count": 7,
+      "selected_table_count": 4,
+      "full_schema_character_count": 1349,
+      "selected_schema_character_count": 827
+    },
+    {
+      "id": "spider_train_others_1165",
+      "db_id": "yelp",
+      "gold_tables": [
+        "business",
+        "category"
+      ],
+      "seed_tables": [
+        "review",
+        "business",
+        "neighbourhood",
+        "user"
+      ],
+      "selected_tables": [
+        "business",
+        "neighbourhood",
+        "review",
+        "user"
+      ],
+      "missing_gold_tables": [
+        "category"
+      ],
+      "all_gold_tables_covered": false,
+      "full_table_count": 7,
+      "selected_table_count": 4,
+      "full_schema_character_count": 1349,
+      "selected_schema_character_count": 756
+    },
+    {
+      "id": "spider_train_others_1210",
+      "db_id": "yelp",
+      "gold_tables": [
+        "business",
+        "category",
+        "neighbourhood"
+      ],
+      "seed_tables": [
+        "tip",
+        "business",
+        "checkin",
+        "neighbourhood"
+      ],
+      "selected_tables": [
+        "business",
+        "checkin",
+        "neighbourhood",
+        "tip"
+      ],
+      "missing_gold_tables": [
+        "category"
+      ],
+      "all_gold_tables_covered": false,
+      "full_table_count": 7,
+      "selected_table_count": 4,
+      "full_schema_character_count": 1349,
+      "selected_schema_character_count": 787
+    },
+    {
+      "id": "spider_train_others_1233",
+      "db_id": "yelp",
+      "gold_tables": [
+        "business",
+        "checkin"
+      ],
+      "seed_tables": [
+        "business",
+        "checkin",
+        "review",
+        "tip"
+      ],
+      "selected_tables": [
+        "business",
+        "checkin",
+        "review",
+        "tip"
+      ],
+      "missing_gold_tables": [],
+      "all_gold_tables_covered": true,
+      "full_table_count": 7,
+      "selected_table_count": 4,
+      "full_schema_character_count": 1349,
+      "selected_schema_character_count": 832
+    },
+    {
+      "id": "spider_train_others_1240",
+      "db_id": "yelp",
+      "gold_tables": [
+        "business",
+        "category"
+      ],
+      "seed_tables": [
+        "neighbourhood",
+        "tip",
+        "checkin",
+        "business"
+      ],
+      "selected_tables": [
+        "business",
+        "checkin",
+        "neighbourhood",
+        "tip"
+      ],
+      "missing_gold_tables": [
+        "category"
+      ],
+      "all_gold_tables_covered": false,
+      "full_table_count": 7,
+      "selected_table_count": 4,
+      "full_schema_character_count": 1349,
+      "selected_schema_character_count": 787
+    },
+    {
+      "id": "spider_train_others_1243",
+      "db_id": "yelp",
+      "gold_tables": [
+        "business",
+        "category"
+      ],
+      "seed_tables": [
+        "category",
+        "business",
+        "neighbourhood",
+        "review"
+      ],
+      "selected_tables": [
+        "business",
+        "category",
+        "neighbourhood",
+        "review"
+      ],
+      "missing_gold_tables": [],
+      "all_gold_tables_covered": true,
+      "full_table_count": 7,
+      "selected_table_count": 4,
+      "full_schema_character_count": 1349,
+      "selected_schema_character_count": 784
+    },
+    {
+      "id": "spider_train_others_1180",
+      "db_id": "yelp",
+      "gold_tables": [
+        "business",
+        "category",
+        "review",
+        "user"
+      ],
+      "seed_tables": [
+        "business",
+        "review",
+        "user",
+        "tip"
+      ],
+      "selected_tables": [
+        "business",
+        "review",
+        "tip",
+        "user"
+      ],
+      "missing_gold_tables": [
+        "category"
+      ],
+      "all_gold_tables_covered": false,
+      "full_table_count": 7,
+      "selected_table_count": 4,
+      "full_schema_character_count": 1349,
+      "selected_schema_character_count": 851
+    },
+    {
+      "id": "spider_train_others_1235",
+      "db_id": "yelp",
+      "gold_tables": [
+        "business",
+        "category"
+      ],
+      "seed_tables": [
+        "user",
+        "business",
+        "checkin",
+        "review"
+      ],
+      "selected_tables": [
+        "business",
+        "checkin",
+        "review",
+        "user"
+      ],
+      "missing_gold_tables": [
+        "category"
+      ],
+      "all_gold_tables_covered": false,
+      "full_table_count": 7,
+      "selected_table_count": 4,
+      "full_schema_character_count": 1349,
+      "selected_schema_character_count": 751
+    },
+    {
+      "id": "spider_train_others_1149",
+      "db_id": "yelp",
+      "gold_tables": [
+        "business",
+        "category",
+        "neighbourhood"
+      ],
+      "seed_tables": [
+        "neighbourhood",
+        "tip",
+        "business",
+        "review"
+      ],
+      "selected_tables": [
+        "business",
+        "neighbourhood",
+        "review",
+        "tip"
+      ],
+      "missing_gold_tables": [
+        "category"
+      ],
+      "all_gold_tables_covered": false,
+      "full_table_count": 7,
+      "selected_table_count": 4,
+      "full_schema_character_count": 1349,
+      "selected_schema_character_count": 837
+    },
+    {
+      "id": "spider_train_others_1189",
+      "db_id": "yelp",
+      "gold_tables": [
+        "business",
+        "category",
+        "checkin"
+      ],
+      "seed_tables": [
+        "checkin",
+        "review",
+        "business",
+        "tip"
+      ],
+      "selected_tables": [
+        "business",
+        "checkin",
+        "review",
+        "tip"
+      ],
+      "missing_gold_tables": [
+        "category"
+      ],
+      "all_gold_tables_covered": false,
+      "full_table_count": 7,
+      "selected_table_count": 4,
+      "full_schema_character_count": 1349,
+      "selected_schema_character_count": 832
+    },
+    {
+      "id": "spider_train_others_1190",
+      "db_id": "yelp",
+      "gold_tables": [
+        "business",
+        "category",
+        "checkin"
+      ],
+      "seed_tables": [
+        "checkin",
+        "review",
+        "business",
+        "category"
+      ],
+      "selected_tables": [
+        "business",
+        "category",
+        "checkin",
+        "review"
+      ],
+      "missing_gold_tables": [],
+      "all_gold_tables_covered": true,
+      "full_table_count": 7,
+      "selected_table_count": 4,
+      "full_schema_character_count": 1349,
+      "selected_schema_character_count": 779
+    },
+    {
+      "id": "spider_train_others_1238",
+      "db_id": "yelp",
+      "gold_tables": [
+        "business",
+        "category",
+        "neighbourhood"
+      ],
+      "seed_tables": [
+        "neighbourhood",
+        "tip",
+        "business",
+        "review"
+      ],
+      "selected_tables": [
+        "business",
+        "neighbourhood",
+        "review",
+        "tip"
+      ],
+      "missing_gold_tables": [
+        "category"
+      ],
+      "all_gold_tables_covered": false,
+      "full_table_count": 7,
+      "selected_table_count": 4,
+      "full_schema_character_count": 1349,
+      "selected_schema_character_count": 837
+    },
+    {
+      "id": "spider_train_others_1192",
+      "db_id": "yelp",
+      "gold_tables": [
+        "business",
+        "category",
+        "checkin"
+      ],
+      "seed_tables": [
+        "checkin",
+        "business",
+        "user",
+        "category"
+      ],
+      "selected_tables": [
+        "business",
+        "category",
+        "checkin",
+        "review",
+        "user"
+      ],
+      "missing_gold_tables": [],
+      "all_gold_tables_covered": true,
+      "full_table_count": 7,
+      "selected_table_count": 5,
+      "full_schema_character_count": 1349,
+      "selected_schema_character_count": 912
+    }
+  ]
+}

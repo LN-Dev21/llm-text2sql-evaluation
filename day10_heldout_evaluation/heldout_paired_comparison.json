@@ -1,0 +1,101 @@
+{
+  "experiment": "150-case internal held-out paired comparison",
+  "primary_metric": "Spider Test Suite Accuracy",
+  "full_schema": {
+    "correct": 47,
+    "accuracy": 0.3133,
+    "single_database_correct": 133,
+    "single_database_false_positives": 86,
+    "execution_success_count": 133,
+    "total_tokens": 85485,
+    "average_latency_seconds": 2.697
+  },
+  "lexical_top4": {
+    "correct": 35,
+    "accuracy": 0.2333,
+    "single_database_correct": 128,
+    "single_database_false_positives": 93,
+    "execution_success_count": 129,
+    "total_tokens": 51543,
+    "average_latency_seconds": 4.199
+  },
+  "efficiency_change": {
+    "token_reduction_rate": 0.3971,
+    "latency_change_rate": 0.5569
+  },
+  "paired_transitions": {
+    "both_correct": 30,
+    "full_schema_only_correct": 17,
+    "lexical_only_correct": 5,
+    "both_wrong": 98,
+    "full_schema_only_ids": [
+      "spider_train_others_1244",
+      "spider_train_others_1370",
+      "spider_train_others_1299",
+      "spider_train_others_1384",
+      "spider_train_others_1395",
+      "spider_train_others_1476",
+      "spider_train_others_0651",
+      "spider_train_others_0998",
+      "spider_train_others_0637",
+      "spider_train_others_0856",
+      "spider_train_others_1121",
+      "spider_train_others_0704",
+      "spider_train_others_0657",
+      "spider_train_others_1047",
+      "spider_train_others_1136",
+      "spider_train_others_1211",
+      "spider_train_others_1225"
+    ],
+    "lexical_only_ids": [
+      "spider_train_others_1272",
+      "spider_train_others_1366",
+      "spider_train_others_1342",
+      "spider_train_others_1515",
+      "spider_train_others_1214"
+    ]
+  },
+  "mcnemar_exact_two_sided_p": 0.01690054,
+  "statistical_conclusion_at_alpha_0_05": "lexical Top-4 is significantly worse than full schema",
+  "by_database": [
+    {
+      "db_id": "academic",
+      "case_count": 38,
+      "full_schema_correct": 8,
+      "lexical_correct": 6
+    },
+    {
+      "db_id": "imdb",
+      "case_count": 38,
+      "full_schema_correct": 6,
+      "lexical_correct": 6
+    },
+    {
+      "db_id": "scholar",
+      "case_count": 37,
+      "full_schema_correct": 27,
+      "lexical_correct": 19
+    },
+    {
+      "db_id": "yelp",
+      "case_count": 37,
+      "full_schema_correct": 6,
+      "lexical_correct": 4
+    }
+  ],
+  "by_gold_table_coverage": [
+    {
+      "all_gold_tables_covered": true,
+      "case_count": 78,
+      "full_schema_correct": 18,
+      "lexical_correct": 18
+    },
+    {
+      "all_gold_tables_covered": false,
+      "case_count": 72,
+      "full_schema_correct": 29,
+      "lexical_correct": 17
+    }
+  ],
+  "methodological_note": "Public Spider train_others is used as an internal project held-out split, not the official hidden test set; possible model pretraining contamination remains a limitation."
+}
