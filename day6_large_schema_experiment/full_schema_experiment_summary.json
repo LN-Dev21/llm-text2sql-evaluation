@@ -1,0 +1,52 @@
+{
+  "experiment_id": "Exp1",
+  "experiment_name": "large-schema full-schema zero-shot baseline",
+  "model": "glm-4.5-air",
+  "case_count": 30,
+  "database_count": 3,
+  "gold_sql_sent_to_model": false,
+  "execution_success_count": 28,
+  "execution_success_rate": 0.9333,
+  "strict_local_correct_count": 19,
+  "strict_local_accuracy": 0.6333,
+  "column_permutation_aware_local_correct_count": 21,
+  "column_permutation_aware_local_accuracy": 0.7,
+  "official_single_database_correct_count": 21,
+  "official_single_database_execution_accuracy": 0.7,
+  "official_test_suite_correct_count": 17,
+  "official_test_suite_accuracy": 0.5667,
+  "single_database_false_positive_count": 4,
+  "average_latency_seconds": 5.486,
+  "total_tokens": 17531,
+  "test_suite_by_database": {
+    "student_transcripts_tracking": {
+      "correct": 7,
+      "count": 10,
+      "accuracy": 0.7
+    },
+    "dog_kennels": {
+      "correct": 5,
+      "count": 10,
+      "accuracy": 0.5
+    },
+    "car_1": {
+      "correct": 5,
+      "count": 10,
+      "accuracy": 0.5
+    }
+  },
+  "official_test_suite_by_hardness": {
+    "easy": 0.833,
+    "medium": 0.8,
+    "hard": 0.5,
+    "extra": 0.125,
+    "all": 0.567
+  },
+  "execution_failure_ids": [
+    "spider_dev_0173",
+    "spider_dev_0177"
+  ],
+  "execution_failure_note": "Both predictions referenced the nonexistent countries.Country column.",
+  "metric_note": "Primary metric is official Spider Test Suite Accuracy with keep_distinct=false."
+}
+

@@ -144,10 +144,26 @@ def main() -> None:
     parser.add_argument("--output", type=Path, default=DEFAULT_OUTPUT)
     parser.add_argument("--limit", type=int)
     parser.add_argument("--resume", action="store_true")
+    parser.add_argument(
+        "--api-timeout",
+        type=float,
+        default=30.0,
+        help="单次API请求超时秒数，默认30秒。",
+    )
+    parser.add_argument(
+        "--api-max-retries",
+        type=int,
+        default=1,
+        help="SDK在请求失败后的自动重试次数，默认1次。",
+    )
     args = parser.parse_args()
 
     if args.limit is not None and args.limit <= 0:
         raise SystemExit("--limit 必须是正整数。")
+    if args.api_timeout <= 0:
+        raise SystemExit("--api-timeout 必须大于0。")
+    if args.api_max_retries < 0:
+        raise SystemExit("--api-max-retries 不能为负数。")
     if not args.subset.is_file():
         raise SystemExit(f"找不到子集文件：{args.subset}")
 
@@ -162,7 +178,15 @@ def main() -> None:
             "未检测到 ZAI_API_KEY。请先在当前 PowerShell 窗口安全设置 API Key。"
         )
     model = os.getenv("ZAI_MODEL", "glm-4.5-air")
-    client = ZhipuAiClient(api_key=api_key)
+    client = ZhipuAiClient(
+        api_key=api_key,
+        timeout=args.api_timeout,
+        max_retries=args.api_max_retries,
+    )
+    print(
+        f"API设置：timeout={args.api_timeout:g}s, "
+        f"max_retries={args.api_max_retries}"
+    )
 
     results_by_id: dict[str, dict[str, Any]] = {}
     if args.resume and args.output.is_file():
@@ -174,8 +198,11 @@ def main() -> None:
     for index, case in enumerate(cases, start=1):
         case_id = case["id"]
         if args.resume and case_id in results_by_id:
-            print(f"[{index}/{len(cases)}] {case_id}: 已完成，跳过 API。")
-            continue
+            existing_result = results_by_id[case_id]
+            if existing_result.get("generated_sql"):
+                print(f"[{index}/{len(cases)}] {case_id}: 已完成，跳过 API。")
+                continue
+            print(f"[{index}/{len(cases)}] {case_id}: 上次未获得SQL，重新调用API。")
 
         db_id = case["db_id"]
         db_path = database_path(spider_root, db_id)
@@ -200,6 +227,7 @@ def main() -> None:
                 thinking={"type": "disabled"},
                 temperature=0.0,
                 max_tokens=512,
+                timeout=args.api_timeout,
             )
             choice = response.choices[0]
             generated_sql = clean_sql(choice.message.content)
@@ -276,4 +304,3 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
-

@@ -39,15 +39,29 @@ def load_completed_results(path: Path) -> list[dict[str, Any]]:
     return results
 
 
+def sql_to_single_line(sql: str) -> str:
+    """官方Spider格式要求每条SQL严格占一行。"""
+    lines = [line.strip().replace("\t", " ") for line in sql.splitlines()]
+    return " ".join(line for line in lines if line)
+
+
 def write_official_inputs(
     results: list[dict[str, Any]], gold_path: Path, prediction_path: Path
 ) -> None:
-    gold_lines = [f"{item['gold_sql']}\t{item['db_id']}" for item in results]
-    prediction_lines = [item["generated_sql"] for item in results]
+    gold_lines = [
+        f"{sql_to_single_line(item['gold_sql'])}\t{item['db_id']}" for item in results
+    ]
+    prediction_lines = [sql_to_single_line(item["generated_sql"]) for item in results]
+    if any(not line for line in prediction_lines):
+        raise ValueError("至少一条模型预测在单行化后为空。")
     gold_path.write_text("\n".join(gold_lines) + "\n", encoding="utf-8")
     prediction_path.write_text(
         "\n".join(prediction_lines) + "\n", encoding="utf-8"
     )
+    if len(gold_path.read_text(encoding="utf-8").splitlines()) != len(results):
+        raise RuntimeError("官方gold文件行数与题目数不一致。")
+    if len(prediction_path.read_text(encoding="utf-8").splitlines()) != len(results):
+        raise RuntimeError("官方prediction文件行数与题目数不一致。")
 
 
 def inspect_database_instances(

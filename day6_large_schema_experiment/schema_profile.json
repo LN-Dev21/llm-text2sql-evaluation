@@ -1,0 +1,41 @@
+{
+  "experiment": "large-schema controlled comparison",
+  "case_count": 30,
+  "database_count": 3,
+  "gold_sql_sent_to_model": false,
+  "profiles": [
+    {
+      "db_id": "student_transcripts_tracking",
+      "selected_question_count": 10,
+      "table_count": 11,
+      "column_count": 56,
+      "foreign_key_count": 11,
+      "full_schema_character_count": 3069,
+      "full_schema_line_count": 99,
+      "test_suite_database_instance_count": 55,
+      "database_file": "D:\\SystemDir\\Desktop\\Research project\\Text-to-SQL System\\data\\spider_data\\database\\student_transcripts_tracking\\student_transcripts_tracking.sqlite"
+    },
+    {
+      "db_id": "dog_kennels",
+      "selected_question_count": 10,
+      "table_count": 8,
+      "column_count": 49,
+      "foreign_key_count": 7,
+      "full_schema_character_count": 2162,
+      "full_schema_line_count": 79,
+      "test_suite_database_instance_count": 48,
+      "database_file": "D:\\SystemDir\\Desktop\\Research project\\Text-to-SQL System\\data\\spider_data\\database\\dog_kennels\\dog_kennels.sqlite"
+    },
+    {
+      "db_id": "car_1",
+      "selected_question_count": 10,
+      "table_count": 6,
+      "column_count": 23,
+      "foreign_key_count": 5,
+      "full_schema_character_count": 949,
+      "full_schema_line_count": 45,
+      "test_suite_database_instance_count": 60,
+      "database_file": "D:\\SystemDir\\Desktop\\Research project\\Text-to-SQL System\\data\\spider_data\\database\\car_1\\car_1.sqlite"
+    }
+  ]
+}
