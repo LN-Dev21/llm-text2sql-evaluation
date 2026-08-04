@@ -1,0 +1,42 @@
+{
+  "case_count": 150,
+  "database_count": 4,
+  "profiles": [
+    {
+      "db_id": "academic",
+      "selected_question_count": 38,
+      "table_count": 15,
+      "column_count": 42,
+      "foreign_key_count": 18,
+      "full_schema_character_count": 2196,
+      "test_suite_database_instance_count": 412
+    },
+    {
+      "db_id": "imdb",
+      "selected_question_count": 38,
+      "table_count": 16,
+      "column_count": 66,
+      "foreign_key_count": 11,
+      "full_schema_character_count": 2262,
+      "test_suite_database_instance_count": 201
+    },
+    {
+      "db_id": "scholar",
+      "selected_question_count": 37,
+      "table_count": 10,
+      "column_count": 25,
+      "foreign_key_count": 8,
+      "full_schema_character_count": 1708,
+      "test_suite_database_instance_count": 208
+    },
+    {
+      "db_id": "yelp",
+      "selected_question_count": 37,
+      "table_count": 7,
+      "column_count": 38,
+      "foreign_key_count": 7,
+      "full_schema_character_count": 1349,
+      "test_suite_database_instance_count": 283
+    }
+  ]
+}

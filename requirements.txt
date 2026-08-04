@@ -6,3 +6,5 @@ sqlparse>=0.5,<1
 nltk>=3.9,<4
 tqdm>=4.66,<5
 
+# Heuristic schema linking
+rapidfuzz>=3.9,<4

@@ -1,0 +1,107 @@
+You are reviewing a SQLite Text-to-SQL query after it was executed.
+
+Independently check whether the SQL correctly answers the natural-language question. Execution success only means the SQL is syntactically executable; it does not prove semantic correctness. Check tables, joins, filters, aggregation, GROUP BY, HAVING, DISTINCT, ordering, limits, and set logic when relevant.
+
+If the original SQL is already correct, return the same SQL. If it is incorrect, return one corrected SQL query.
+
+Requirements:
+1. Output SQL only, without explanation or Markdown fences.
+2. Only use tables and columns present in the Schema.
+3. Only generate a read-only SELECT or WITH query.
+4. Treat sample rows as execution evidence, not as the complete database.
+5. An empty result is not automatically an error.
+
+Schema:
+CREATE TABLE Addresses (
+    address_id INTEGER PRIMARY KEY,
+    line_1 VARCHAR(255),
+    line_2 VARCHAR(255),
+    line_3 VARCHAR(255),
+    city VARCHAR(255),
+    zip_postcode VARCHAR(20),
+    state_province_county VARCHAR(255),
+    country VARCHAR(255),
+    other_address_details VARCHAR(255)
+);
+
+CREATE TABLE Courses (
+    course_id INTEGER PRIMARY KEY,
+    course_name VARCHAR(255),
+    course_description VARCHAR(255),
+    other_details VARCHAR(255)
+);
+
+CREATE TABLE Sections (
+    section_id INTEGER PRIMARY KEY,
+    course_id INTEGER NOT NULL,
+    section_name VARCHAR(255),
+    section_description VARCHAR(255),
+    other_details VARCHAR(255),
+    FOREIGN KEY (course_id) REFERENCES Courses(course_id)
+);
+
+CREATE TABLE Student_Enrolment (
+    student_enrolment_id INTEGER PRIMARY KEY,
+    degree_program_id INTEGER NOT NULL,
+    semester_id INTEGER NOT NULL,
+    student_id INTEGER NOT NULL,
+    other_details VARCHAR(255),
+    FOREIGN KEY (student_id) REFERENCES Students(student_id)
+);
+
+CREATE TABLE Student_Enrolment_Courses (
+    student_course_id INTEGER PRIMARY KEY,
+    course_id INTEGER NOT NULL,
+    student_enrolment_id INTEGER NOT NULL,
+    FOREIGN KEY (student_enrolment_id) REFERENCES Student_Enrolment(student_enrolment_id),
+    FOREIGN KEY (course_id) REFERENCES Courses(course_id)
+);
+
+CREATE TABLE Students (
+    student_id INTEGER PRIMARY KEY,
+    current_address_id INTEGER NOT NULL,
+    permanent_address_id INTEGER NOT NULL,
+    first_name VARCHAR(80),
+    middle_name VARCHAR(40),
+    last_name VARCHAR(40),
+    cell_mobile_number VARCHAR(40),
+    email_address VARCHAR(40),
+    ssn VARCHAR(40),
+    date_first_registered DATETIME,
+    date_left DATETIME,
+    other_student_details VARCHAR(255),
+    FOREIGN KEY (permanent_address_id) REFERENCES Addresses(address_id),
+    FOREIGN KEY (current_address_id) REFERENCES Addresses(address_id)
+);
+
+Question:
+what are all the addresses including line 1 and line 2?
+
+Original SQL:
+SELECT line_1, line_2 FROM Addresses;
+
+Execution feedback:
+{
+  "execution_success": true,
+  "error": null,
+  "returned_columns": [
+    "line_1",
+    "line_2"
+  ],
+  "total_row_count": 15,
+  "sample_rows": [
+    [
+      "2294 Grant Square Apt. 235",
+      "Apt. 370"
+    ],
+    [
+      "3999 Aufderhar Ways Suite 593",
+      "Apt. 388"
+    ],
+    [
+      "67942 Carlotta Ferry Apt. 686",
+      "Apt. 583"
+    ]
+  ],
+  "sample_note": "Only the first 3 rows and first 8 columns are shown."
+}

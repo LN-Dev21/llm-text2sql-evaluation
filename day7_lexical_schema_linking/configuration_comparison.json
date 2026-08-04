@@ -1,0 +1,37 @@
+{
+  "selection_rule": "maximize gold-table coverage first, then maximize schema reduction",
+  "important_note": "Gold SQL is used only for offline development-set configuration audit and never enters the selector or model prompt.",
+  "configurations": [
+    {
+      "top_k": 3,
+      "all_gold_tables_covered_case_count": 27,
+      "case_count": 30,
+      "case_level_gold_table_coverage": 0.9,
+      "micro_gold_table_recall": 0.941,
+      "table_reduction_rate": 0.54,
+      "schema_character_reduction_rate": 0.541
+    },
+    {
+      "top_k": 4,
+      "all_gold_tables_covered_case_count": 29,
+      "case_count": 30,
+      "case_level_gold_table_coverage": 0.9667,
+      "micro_gold_table_recall": 0.98,
+      "table_reduction_rate": 0.468,
+      "schema_character_reduction_rate": 0.46,
+      "selected_for_exp2": true
+    },
+    {
+      "top_k": 5,
+      "all_gold_tables_covered_case_count": 29,
+      "case_count": 30,
+      "case_level_gold_table_coverage": 0.9667,
+      "micro_gold_table_recall": 0.98,
+      "table_reduction_rate": 0.344,
+      "schema_character_reduction_rate": 0.333
+    }
+  ],
+  "decision": "Top-4 improves coverage over Top-3 and has the same coverage as Top-5 with substantially greater schema reduction.",
+  "known_limitation": "spider_dev_0575 requires Degree_Programs because Master and Bachelor are database values; pure identifier matching cannot infer this value-to-column relation."
+}
+

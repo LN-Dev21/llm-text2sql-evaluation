@@ -1,0 +1,2055 @@
+{
+  "method": "dynamic lexical seeds + FK expansion + confidence fallback",
+  "status": "post-hoc exploratory development after held-out failure",
+  "gold_sql_used_for_per_case_selection": false,
+  "gold_sql_used_for_configuration_selection": true,
+  "target_complete_coverage": 0.98,
+  "selection_rule": "among configurations reaching target coverage, maximize schema character reduction",
+  "candidate_count": 72,
+  "chosen": {
+    "small_schema_threshold": 4,
+    "seed_fraction": 0.6,
+    "min_cutoff_gap": 2.0,
+    "add_one_hop_neighbors": true,
+    "near_full_fraction": 0.9,
+    "case_count": 180,
+    "complete_coverage_count": 180,
+    "case_level_gold_table_coverage": 1.0,
+    "micro_gold_table_recall": 1.0,
+    "fallback_count": 165,
+    "fallback_rate": 0.9167,
+    "average_selected_table_count": 11.3,
+    "table_reduction_rate": 0.0112,
+    "schema_character_reduction_rate": 0.0093,
+    "coverage_by_dataset": {
+      "development_30": {
+        "case_count": 30,
+        "complete_coverage_count": 30,
+        "coverage": 1.0
+      },
+      "expanded_validation_150": {
+        "case_count": 150,
+        "complete_coverage_count": 150,
+        "coverage": 1.0
+      }
+    }
+  },
+  "candidates": [
+    {
+      "small_schema_threshold": 4,
+      "seed_fraction": 0.4,
+      "min_cutoff_gap": 0.0,
+      "add_one_hop_neighbors": false,
+      "near_full_fraction": 0.9,
+      "case_count": 180,
+      "complete_coverage_count": 121,
+      "case_level_gold_table_coverage": 0.6722,
+      "micro_gold_table_recall": 0.8154,
+      "fallback_count": 1,
+      "fallback_rate": 0.0056,
+      "average_selected_table_count": 6.672,
+      "table_reduction_rate": 0.4161,
+      "schema_character_reduction_rate": 0.4069,
+      "coverage_by_dataset": {
+        "development_30": {
+          "case_count": 30,
+          "complete_coverage_count": 29,
+          "coverage": 0.9667
+        },
+        "expanded_validation_150": {
+          "case_count": 150,
+          "complete_coverage_count": 92,
+          "coverage": 0.6133
+        }
+      }
+    },
+    {
+      "small_schema_threshold": 4,
+      "seed_fraction": 0.4,
+      "min_cutoff_gap": 0.0,
+      "add_one_hop_neighbors": true,
+      "near_full_fraction": 0.9,
+      "case_count": 180,
+      "complete_coverage_count": 159,
+      "case_level_gold_table_coverage": 0.8833,
+      "micro_gold_table_recall": 0.9544,
+      "fallback_count": 92,
+      "fallback_rate": 0.5111,
+      "average_selected_table_count": 10.15,
+      "table_reduction_rate": 0.1118,
+      "schema_character_reduction_rate": 0.0964,
+      "coverage_by_dataset": {
+        "development_30": {
+          "case_count": 30,
+          "complete_coverage_count": 30,
+          "coverage": 1.0
+        },
+        "expanded_validation_150": {
+          "case_count": 150,
+          "complete_coverage_count": 129,
+          "coverage": 0.86
+        }
+      }
+    },
+    {
+      "small_schema_threshold": 4,
+      "seed_fraction": 0.4,
+      "min_cutoff_gap": 2.0,
+      "add_one_hop_neighbors": false,
+      "near_full_fraction": 0.9,
+      "case_count": 180,
+      "complete_coverage_count": 150,
+      "case_level_gold_table_coverage": 0.8333,
+      "micro_gold_table_recall": 0.9066,
+      "fallback_count": 85,
+      "fallback_rate": 0.4722,
+      "average_selected_table_count": 9.072,
+      "table_reduction_rate": 0.2061,
+      "schema_character_reduction_rate": 0.2099,
+      "coverage_by_dataset": {
+        "development_30": {
+          "case_count": 30,
+          "complete_coverage_count": 29,
+          "coverage": 0.9667
+        },
+        "expanded_validation_150": {
+          "case_count": 150,
+          "complete_coverage_count": 121,
+          "coverage": 0.8067
+        }
+      }
+    },
+    {
+      "small_schema_threshold": 4,
+      "seed_fraction": 0.4,
+      "min_cutoff_gap": 2.0,
+      "add_one_hop_neighbors": true,
+      "near_full_fraction": 0.9,
+      "case_count": 180,
+      "complete_coverage_count": 173,
+      "case_level_gold_table_coverage": 0.9611,
+      "micro_gold_table_recall": 0.9855,
+      "fallback_count": 145,
+      "fallback_rate": 0.8056,
+      "average_selected_table_count": 11.0,
+      "table_reduction_rate": 0.0374,
+      "schema_character_reduction_rate": 0.0314,
+      "coverage_by_dataset": {
+        "development_30": {
+          "case_count": 30,
+          "complete_coverage_count": 30,
+          "coverage": 1.0
+        },
+        "expanded_validation_150": {
+          "case_count": 150,
+          "complete_coverage_count": 143,
+          "coverage": 0.9533
+        }
+      }
+    },
+    {
+      "small_schema_threshold": 4,
+      "seed_fraction": 0.4,
+      "min_cutoff_gap": 5.0,
+      "add_one_hop_neighbors": false,
+      "near_full_fraction": 0.9,
+      "case_count": 180,
+      "complete_coverage_count": 166,
+      "case_level_gold_table_coverage": 0.9222,
+      "micro_gold_table_recall": 0.9544,
+      "fallback_count": 131,
+      "fallback_rate": 0.7278,
+      "average_selected_table_count": 10.278,
+      "table_reduction_rate": 0.1006,
+      "schema_character_reduction_rate": 0.1086,
+      "coverage_by_dataset": {
+        "development_30": {
+          "case_count": 30,
+          "complete_coverage_count": 30,
+          "coverage": 1.0
+        },
+        "expanded_validation_150": {
+          "case_count": 150,
+          "complete_coverage_count": 136,
+          "coverage": 0.9067
+        }
+      }
+    },
+    {
+      "small_schema_threshold": 4,
+      "seed_fraction": 0.4,
+      "min_cutoff_gap": 5.0,
+      "add_one_hop_neighbors": true,
+      "near_full_fraction": 0.9,
+      "case_count": 180,
+      "complete_coverage_count": 176,
+      "case_level_gold_table_coverage": 0.9778,
+      "micro_gold_table_recall": 0.9917,
+      "fallback_count": 162,
+      "fallback_rate": 0.9,
+      "average_selected_table_count": 11.267,
+      "table_reduction_rate": 0.0141,
+      "schema_character_reduction_rate": 0.0122,
+      "coverage_by_dataset": {
+        "development_30": {
+          "case_count": 30,
+          "complete_coverage_count": 30,
+          "coverage": 1.0
+        },
+        "expanded_validation_150": {
+          "case_count": 150,
+          "complete_coverage_count": 146,
+          "coverage": 0.9733
+        }
+      }
+    },
+    {
+      "small_schema_threshold": 4,
+      "seed_fraction": 0.5,
+      "min_cutoff_gap": 0.0,
+      "add_one_hop_neighbors": false,
+      "near_full_fraction": 0.9,
+      "case_count": 180,
+      "complete_coverage_count": 125,
+      "case_level_gold_table_coverage": 0.6944,
+      "micro_gold_table_recall": 0.8361,
+      "fallback_count": 2,
+      "fallback_rate": 0.0111,
+      "average_selected_table_count": 7.611,
+      "table_reduction_rate": 0.334,
+      "schema_character_reduction_rate": 0.3254,
+      "coverage_by_dataset": {
+        "development_30": {
+          "case_count": 30,
+          "complete_coverage_count": 30,
+          "coverage": 1.0
+        },
+        "expanded_validation_150": {
+          "case_count": 150,
+          "complete_coverage_count": 95,
+          "coverage": 0.6333
+        }
+      }
+    },
+    {
+      "small_schema_threshold": 4,
+      "seed_fraction": 0.5,
+      "min_cutoff_gap": 0.0,
+      "add_one_hop_neighbors": true,
+      "near_full_fraction": 0.9,
+      "case_count": 180,
+      "complete_coverage_count": 166,
+      "case_level_gold_table_coverage": 0.9222,
+      "micro_gold_table_recall": 0.971,
+      "fallback_count": 118,
+      "fallback_rate": 0.6556,
+      "average_selected_table_count": 10.617,
+      "table_reduction_rate": 0.071,
+      "schema_character_reduction_rate": 0.0576,
+      "coverage_by_dataset": {
+        "development_30": {
+          "case_count": 30,
+          "complete_coverage_count": 30,
+          "coverage": 1.0
+        },
+        "expanded_validation_150": {
+          "case_count": 150,
+          "complete_coverage_count": 136,
+          "coverage": 0.9067
+        }
+      }
+    },
+    {
+      "small_schema_threshold": 4,
+      "seed_fraction": 0.5,
+      "min_cutoff_gap": 2.0,
+      "add_one_hop_neighbors": false,
+      "near_full_fraction": 0.9,
+      "case_count": 180,
+      "complete_coverage_count": 146,
+      "case_level_gold_table_coverage": 0.8111,
+      "micro_gold_table_recall": 0.9004,
+      "fallback_count": 90,
+      "fallback_rate": 0.5,
+      "average_selected_table_count": 9.567,
+      "table_reduction_rate": 0.1629,
+      "schema_character_reduction_rate": 0.1591,
+      "coverage_by_dataset": {
+        "development_30": {
+          "case_count": 30,
+          "complete_coverage_count": 30,
+          "coverage": 1.0
+        },
+        "expanded_validation_150": {
+          "case_count": 150,
+          "complete_coverage_count": 116,
+          "coverage": 0.7733
+        }
+      }
+    },
+    {
+      "small_schema_threshold": 4,
+      "seed_fraction": 0.5,
+      "min_cutoff_gap": 2.0,
+      "add_one_hop_neighbors": true,
+      "near_full_fraction": 0.9,
+      "case_count": 180,
+      "complete_coverage_count": 173,
+      "case_level_gold_table_coverage": 0.9611,
+      "micro_gold_table_recall": 0.9855,
+      "fallback_count": 156,
+      "fallback_rate": 0.8667,
+      "average_selected_table_count": 11.167,
+      "table_reduction_rate": 0.0228,
+      "schema_character_reduction_rate": 0.0177,
+      "coverage_by_dataset": {
+        "development_30": {
+          "case_count": 30,
+          "complete_coverage_count": 30,
+          "coverage": 1.0
+        },
+        "expanded_validation_150": {
+          "case_count": 150,
+          "complete_coverage_count": 143,
+          "coverage": 0.9533
+        }
+      }
+    },
+    {
+      "small_schema_threshold": 4,
+      "seed_fraction": 0.5,
+      "min_cutoff_gap": 5.0,
+      "add_one_hop_neighbors": false,
+      "near_full_fraction": 0.9,
+      "case_count": 180,
+      "complete_coverage_count": 162,
+      "case_level_gold_table_coverage": 0.9,
+      "micro_gold_table_recall": 0.9502,
+      "fallback_count": 134,
+      "fallback_rate": 0.7444,
+      "average_selected_table_count": 10.467,
+      "table_reduction_rate": 0.0841,
+      "schema_character_reduction_rate": 0.0839,
+      "coverage_by_dataset": {
+        "development_30": {
+          "case_count": 30,
+          "complete_coverage_count": 30,
+          "coverage": 1.0
+        },
+        "expanded_validation_150": {
+          "case_count": 150,
+          "complete_coverage_count": 132,
+          "coverage": 0.88
+        }
+      }
+    },
+    {
+      "small_schema_threshold": 4,
+      "seed_fraction": 0.5,
+      "min_cutoff_gap": 5.0,
+      "add_one_hop_neighbors": true,
+      "near_full_fraction": 0.9,
+      "case_count": 180,
+      "complete_coverage_count": 180,
+      "case_level_gold_table_coverage": 1.0,
+      "micro_gold_table_recall": 1.0,
+      "fallback_count": 172,
+      "fallback_rate": 0.9556,
+      "average_selected_table_count": 11.383,
+      "table_reduction_rate": 0.0039,
+      "schema_character_reduction_rate": 0.003,
+      "coverage_by_dataset": {
+        "development_30": {
+          "case_count": 30,
+          "complete_coverage_count": 30,
+          "coverage": 1.0
+        },
+        "expanded_validation_150": {
+          "case_count": 150,
+          "complete_coverage_count": 150,
+          "coverage": 1.0
+        }
+      }
+    },
+    {
+      "small_schema_threshold": 4,
+      "seed_fraction": 0.6,
+      "min_cutoff_gap": 0.0,
+      "add_one_hop_neighbors": false,
+      "near_full_fraction": 0.9,
+      "case_count": 180,
+      "complete_coverage_count": 140,
+      "case_level_gold_table_coverage": 0.7778,
+      "micro_gold_table_recall": 0.888,
+      "fallback_count": 16,
+      "fallback_rate": 0.0889,
+      "average_selected_table_count": 8.672,
+      "table_reduction_rate": 0.2411,
+      "schema_character_reduction_rate": 0.2326,
+      "coverage_by_dataset": {
+        "development_30": {
+          "case_count": 30,
+          "complete_coverage_count": 30,
+          "coverage": 1.0
+        },
+        "expanded_validation_150": {
+          "case_count": 150,
+          "complete_coverage_count": 110,
+          "coverage": 0.7333
+        }
+      }
+    },
+    {
+      "small_schema_threshold": 4,
+      "seed_fraction": 0.6,
+      "min_cutoff_gap": 0.0,
+      "add_one_hop_neighbors": true,
+      "near_full_fraction": 0.9,
+      "case_count": 180,
+      "complete_coverage_count": 176,
+      "case_level_gold_table_coverage": 0.9778,
+      "micro_gold_table_recall": 0.9917,
+      "fallback_count": 142,
+      "fallback_rate": 0.7889,
+      "average_selected_table_count": 11.039,
+      "table_reduction_rate": 0.034,
+      "schema_character_reduction_rate": 0.0278,
+      "coverage_by_dataset": {
+        "development_30": {
+          "case_count": 30,
+          "complete_coverage_count": 30,
+          "coverage": 1.0
+        },
+        "expanded_validation_150": {
+          "case_count": 150,
+          "complete_coverage_count": 146,
+          "coverage": 0.9733
+        }
+      }
+    },
+    {
+      "small_schema_threshold": 4,
+      "seed_fraction": 0.6,
+      "min_cutoff_gap": 2.0,
+      "add_one_hop_neighbors": false,
+      "near_full_fraction": 0.9,
+      "case_count": 180,
+      "complete_coverage_count": 160,
+      "case_level_gold_table_coverage": 0.8889,
+      "micro_gold_table_recall": 0.9461,
+      "fallback_count": 105,
+      "fallback_rate": 0.5833,
+      "average_selected_table_count": 10.172,
+      "table_reduction_rate": 0.1099,
+      "schema_character_reduction_rate": 0.1063,
+      "coverage_by_dataset": {
+        "development_30": {
+          "case_count": 30,
+          "complete_coverage_count": 30,
+          "coverage": 1.0
+        },
+        "expanded_validation_150": {
+          "case_count": 150,
+          "complete_coverage_count": 130,
+          "coverage": 0.8667
+        }
+      }
+    },
+    {
+      "small_schema_threshold": 4,
+      "seed_fraction": 0.6,
+      "min_cutoff_gap": 2.0,
+      "add_one_hop_neighbors": true,
+      "near_full_fraction": 0.9,
+      "case_count": 180,
+      "complete_coverage_count": 180,
+      "case_level_gold_table_coverage": 1.0,
+      "micro_gold_table_recall": 1.0,
+      "fallback_count": 165,
+      "fallback_rate": 0.9167,
+      "average_selected_table_count": 11.3,
+      "table_reduction_rate": 0.0112,
+      "schema_character_reduction_rate": 0.0093,
+      "coverage_by_dataset": {
+        "development_30": {
+          "case_count": 30,
+          "complete_coverage_count": 30,
+          "coverage": 1.0
+        },
+        "expanded_validation_150": {
+          "case_count": 150,
+          "complete_coverage_count": 150,
+          "coverage": 1.0
+        }
+      }
+    },
+    {
+      "small_schema_threshold": 4,
+      "seed_fraction": 0.6,
+      "min_cutoff_gap": 5.0,
+      "add_one_hop_neighbors": false,
+      "near_full_fraction": 0.9,
+      "case_count": 180,
+      "complete_coverage_count": 167,
+      "case_level_gold_table_coverage": 0.9278,
+      "micro_gold_table_recall": 0.9647,
+      "fallback_count": 144,
+      "fallback_rate": 0.8,
+      "average_selected_table_count": 10.828,
+      "table_reduction_rate": 0.0525,
+      "schema_character_reduction_rate": 0.0518,
+      "coverage_by_dataset": {
+        "development_30": {
+          "case_count": 30,
+          "complete_coverage_count": 30,
+          "coverage": 1.0
+        },
+        "expanded_validation_150": {
+          "case_count": 150,
+          "complete_coverage_count": 137,
+          "coverage": 0.9133
+        }
+      }
+    },
+    {
+      "small_schema_threshold": 4,
+      "seed_fraction": 0.6,
+      "min_cutoff_gap": 5.0,
+      "add_one_hop_neighbors": true,
+      "near_full_fraction": 0.9,
+      "case_count": 180,
+      "complete_coverage_count": 180,
+      "case_level_gold_table_coverage": 1.0,
+      "micro_gold_table_recall": 1.0,
+      "fallback_count": 174,
+      "fallback_rate": 0.9667,
+      "average_selected_table_count": 11.394,
+      "table_reduction_rate": 0.0029,
+      "schema_character_reduction_rate": 0.0023,
+      "coverage_by_dataset": {
+        "development_30": {
+          "case_count": 30,
+          "complete_coverage_count": 30,
+          "coverage": 1.0
+        },
+        "expanded_validation_150": {
+          "case_count": 150,
+          "complete_coverage_count": 150,
+          "coverage": 1.0
+        }
+      }
+    },
+    {
+      "small_schema_threshold": 4,
+      "seed_fraction": 0.7,
+      "min_cutoff_gap": 0.0,
+      "add_one_hop_neighbors": false,
+      "near_full_fraction": 0.9,
+      "case_count": 180,
+      "complete_coverage_count": 149,
+      "case_level_gold_table_coverage": 0.8278,
+      "micro_gold_table_recall": 0.9253,
+      "fallback_count": 43,
+      "fallback_rate": 0.2389,
+      "average_selected_table_count": 9.578,
+      "table_reduction_rate": 0.1619,
+      "schema_character_reduction_rate": 0.1575,
+      "coverage_by_dataset": {
+        "development_30": {
+          "case_count": 30,
+          "complete_coverage_count": 30,
+          "coverage": 1.0
+        },
+        "expanded_validation_150": {
+          "case_count": 150,
+          "complete_coverage_count": 119,
+          "coverage": 0.7933
+        }
+      }
+    },
+    {
+      "small_schema_threshold": 4,
+      "seed_fraction": 0.7,
+      "min_cutoff_gap": 0.0,
+      "add_one_hop_neighbors": true,
+      "near_full_fraction": 0.9,
+      "case_count": 180,
+      "complete_coverage_count": 180,
+      "case_level_gold_table_coverage": 1.0,
+      "micro_gold_table_recall": 1.0,
+      "fallback_count": 168,
+      "fallback_rate": 0.9333,
+      "average_selected_table_count": 11.317,
+      "table_reduction_rate": 0.0097,
+      "schema_character_reduction_rate": 0.0071,
+      "coverage_by_dataset": {
+        "development_30": {
+          "case_count": 30,
+          "complete_coverage_count": 30,
+          "coverage": 1.0
+        },
+        "expanded_validation_150": {
+          "case_count": 150,
+          "complete_coverage_count": 150,
+          "coverage": 1.0
+        }
+      }
+    },
+    {
+      "small_schema_threshold": 4,
+      "seed_fraction": 0.7,
+      "min_cutoff_gap": 2.0,
+      "add_one_hop_neighbors": false,
+      "near_full_fraction": 0.9,
+      "case_count": 180,
+      "complete_coverage_count": 162,
+      "case_level_gold_table_coverage": 0.9,
+      "micro_gold_table_recall": 0.9585,
+      "fallback_count": 112,
+      "fallback_rate": 0.6222,
+      "average_selected_table_count": 10.528,
+      "table_reduction_rate": 0.0788,
+      "schema_character_reduction_rate": 0.0759,
+      "coverage_by_dataset": {
+        "development_30": {
+          "case_count": 30,
+          "complete_coverage_count": 30,
+          "coverage": 1.0
+        },
+        "expanded_validation_150": {
+          "case_count": 150,
+          "complete_coverage_count": 132,
+          "coverage": 0.88
+        }
+      }
+    },
+    {
+      "small_schema_threshold": 4,
+      "seed_fraction": 0.7,
+      "min_cutoff_gap": 2.0,
+      "add_one_hop_neighbors": true,
+      "near_full_fraction": 0.9,
+      "case_count": 180,
+      "complete_coverage_count": 180,
+      "case_level_gold_table_coverage": 1.0,
+      "micro_gold_table_recall": 1.0,
+      "fallback_count": 176,
+      "fallback_rate": 0.9778,
+      "average_selected_table_count": 11.406,
+      "table_reduction_rate": 0.0019,
+      "schema_character_reduction_rate": 0.0014,
+      "coverage_by_dataset": {
+        "development_30": {
+          "case_count": 30,
+          "complete_coverage_count": 30,
+          "coverage": 1.0
+        },
+        "expanded_validation_150": {
+          "case_count": 150,
+          "complete_coverage_count": 150,
+          "coverage": 1.0
+        }
+      }
+    },
+    {
+      "small_schema_threshold": 4,
+      "seed_fraction": 0.7,
+      "min_cutoff_gap": 5.0,
+      "add_one_hop_neighbors": false,
+      "near_full_fraction": 0.9,
+      "case_count": 180,
+      "complete_coverage_count": 174,
+      "case_level_gold_table_coverage": 0.9667,
+      "micro_gold_table_recall": 0.9855,
+      "fallback_count": 154,
+      "fallback_rate": 0.8556,
+      "average_selected_table_count": 11.117,
+      "table_reduction_rate": 0.0272,
+      "schema_character_reduction_rate": 0.0265,
+      "coverage_by_dataset": {
+        "development_30": {
+          "case_count": 30,
+          "complete_coverage_count": 30,
+          "coverage": 1.0
+        },
+        "expanded_validation_150": {
+          "case_count": 150,
+          "complete_coverage_count": 144,
+          "coverage": 0.96
+        }
+      }
+    },
+    {
+      "small_schema_threshold": 4,
+      "seed_fraction": 0.7,
+      "min_cutoff_gap": 5.0,
+      "add_one_hop_neighbors": true,
+      "near_full_fraction": 0.9,
+      "case_count": 180,
+      "complete_coverage_count": 180,
+      "case_level_gold_table_coverage": 1.0,
+      "micro_gold_table_recall": 1.0,
+      "fallback_count": 177,
+      "fallback_rate": 0.9833,
+      "average_selected_table_count": 11.411,
+      "table_reduction_rate": 0.0015,
+      "schema_character_reduction_rate": 0.0011,
+      "coverage_by_dataset": {
+        "development_30": {
+          "case_count": 30,
+          "complete_coverage_count": 30,
+          "coverage": 1.0
+        },
+        "expanded_validation_150": {
+          "case_count": 150,
+          "complete_coverage_count": 150,
+          "coverage": 1.0
+        }
+      }
+    },
+    {
+      "small_schema_threshold": 6,
+      "seed_fraction": 0.4,
+      "min_cutoff_gap": 0.0,
+      "add_one_hop_neighbors": false,
+      "near_full_fraction": 0.9,
+      "case_count": 180,
+      "complete_coverage_count": 121,
+      "case_level_gold_table_coverage": 0.6722,
+      "micro_gold_table_recall": 0.8154,
+      "fallback_count": 10,
+      "fallback_rate": 0.0556,
+      "average_selected_table_count": 6.761,
+      "table_reduction_rate": 0.4084,
+      "schema_character_reduction_rate": 0.3992,
+      "coverage_by_dataset": {
+        "development_30": {
+          "case_count": 30,
+          "complete_coverage_count": 29,
+          "coverage": 0.9667
+        },
+        "expanded_validation_150": {
+          "case_count": 150,
+          "complete_coverage_count": 92,
+          "coverage": 0.6133
+        }
+      }
+    },
+    {
+      "small_schema_threshold": 6,
+      "seed_fraction": 0.4,
+      "min_cutoff_gap": 0.0,
+      "add_one_hop_neighbors": true,
+      "near_full_fraction": 0.9,
+      "case_count": 180,
+      "complete_coverage_count": 159,
+      "case_level_gold_table_coverage": 0.8833,
+      "micro_gold_table_recall": 0.9544,
+      "fallback_count": 97,
+      "fallback_rate": 0.5389,
+      "average_selected_table_count": 10.178,
+      "table_reduction_rate": 0.1094,
+      "schema_character_reduction_rate": 0.0943,
+      "coverage_by_dataset": {
+        "development_30": {
+          "case_count": 30,
+          "complete_coverage_count": 30,
+          "coverage": 1.0
+        },
+        "expanded_validation_150": {
+          "case_count": 150,
+          "complete_coverage_count": 129,
+          "coverage": 0.86
+        }
+      }
+    },
+    {
+      "small_schema_threshold": 6,
+      "seed_fraction": 0.4,
+      "min_cutoff_gap": 2.0,
+      "add_one_hop_neighbors": false,
+      "near_full_fraction": 0.9,
+      "case_count": 180,
+      "complete_coverage_count": 150,
+      "case_level_gold_table_coverage": 0.8333,
+      "micro_gold_table_recall": 0.9066,
+      "fallback_count": 93,
+      "fallback_rate": 0.5167,
+      "average_selected_table_count": 9.15,
+      "table_reduction_rate": 0.1993,
+      "schema_character_reduction_rate": 0.203,
+      "coverage_by_dataset": {
+        "development_30": {
+          "case_count": 30,
+          "complete_coverage_count": 29,
+          "coverage": 0.9667
+        },
+        "expanded_validation_150": {
+          "case_count": 150,
+          "complete_coverage_count": 121,
+          "coverage": 0.8067
+        }
+      }
+    },
+    {
+      "small_schema_threshold": 6,
+      "seed_fraction": 0.4,
+      "min_cutoff_gap": 2.0,
+      "add_one_hop_neighbors": true,
+      "near_full_fraction": 0.9,
+      "case_count": 180,
+      "complete_coverage_count": 173,
+      "case_level_gold_table_coverage": 0.9611,
+      "micro_gold_table_recall": 0.9855,
+      "fallback_count": 149,
+      "fallback_rate": 0.8278,
+      "average_selected_table_count": 11.022,
+      "table_reduction_rate": 0.0355,
+      "schema_character_reduction_rate": 0.0297,
+      "coverage_by_dataset": {
+        "development_30": {
+          "case_count": 30,
+          "complete_coverage_count": 30,
+          "coverage": 1.0
+        },
+        "expanded_validation_150": {
+          "case_count": 150,
+          "complete_coverage_count": 143,
+          "coverage": 0.9533
+        }
+      }
+    },
+    {
+      "small_schema_threshold": 6,
+      "seed_fraction": 0.4,
+      "min_cutoff_gap": 5.0,
+      "add_one_hop_neighbors": false,
+      "near_full_fraction": 0.9,
+      "case_count": 180,
+      "complete_coverage_count": 166,
+      "case_level_gold_table_coverage": 0.9222,
+      "micro_gold_table_recall": 0.9544,
+      "fallback_count": 137,
+      "fallback_rate": 0.7611,
+      "average_selected_table_count": 10.339,
+      "table_reduction_rate": 0.0953,
+      "schema_character_reduction_rate": 0.103,
+      "coverage_by_dataset": {
+        "development_30": {
+          "case_count": 30,
+          "complete_coverage_count": 30,
+          "coverage": 1.0
+        },
+        "expanded_validation_150": {
+          "case_count": 150,
+          "complete_coverage_count": 136,
+          "coverage": 0.9067
+        }
+      }
+    },
+    {
+      "small_schema_threshold": 6,
+      "seed_fraction": 0.4,
+      "min_cutoff_gap": 5.0,
+      "add_one_hop_neighbors": true,
+      "near_full_fraction": 0.9,
+      "case_count": 180,
+      "complete_coverage_count": 176,
+      "case_level_gold_table_coverage": 0.9778,
+      "micro_gold_table_recall": 0.9917,
+      "fallback_count": 165,
+      "fallback_rate": 0.9167,
+      "average_selected_table_count": 11.283,
+      "table_reduction_rate": 0.0126,
+      "schema_character_reduction_rate": 0.011,
+      "coverage_by_dataset": {
+        "development_30": {
+          "case_count": 30,
+          "complete_coverage_count": 30,
+          "coverage": 1.0
+        },
+        "expanded_validation_150": {
+          "case_count": 150,
+          "complete_coverage_count": 146,
+          "coverage": 0.9733
+        }
+      }
+    },
+    {
+      "small_schema_threshold": 6,
+      "seed_fraction": 0.5,
+      "min_cutoff_gap": 0.0,
+      "add_one_hop_neighbors": false,
+      "near_full_fraction": 0.9,
+      "case_count": 180,
+      "complete_coverage_count": 125,
+      "case_level_gold_table_coverage": 0.6944,
+      "micro_gold_table_recall": 0.8361,
+      "fallback_count": 11,
+      "fallback_rate": 0.0611,
+      "average_selected_table_count": 7.7,
+      "table_reduction_rate": 0.3262,
+      "schema_character_reduction_rate": 0.3177,
+      "coverage_by_dataset": {
+        "development_30": {
+          "case_count": 30,
+          "complete_coverage_count": 30,
+          "coverage": 1.0
+        },
+        "expanded_validation_150": {
+          "case_count": 150,
+          "complete_coverage_count": 95,
+          "coverage": 0.6333
+        }
+      }
+    },
+    {
+      "small_schema_threshold": 6,
+      "seed_fraction": 0.5,
+      "min_cutoff_gap": 0.0,
+      "add_one_hop_neighbors": true,
+      "near_full_fraction": 0.9,
+      "case_count": 180,
+      "complete_coverage_count": 166,
+      "case_level_gold_table_coverage": 0.9222,
+      "micro_gold_table_recall": 0.971,
+      "fallback_count": 123,
+      "fallback_rate": 0.6833,
+      "average_selected_table_count": 10.644,
+      "table_reduction_rate": 0.0685,
+      "schema_character_reduction_rate": 0.0556,
+      "coverage_by_dataset": {
+        "development_30": {
+          "case_count": 30,
+          "complete_coverage_count": 30,
+          "coverage": 1.0
+        },
+        "expanded_validation_150": {
+          "case_count": 150,
+          "complete_coverage_count": 136,
+          "coverage": 0.9067
+        }
+      }
+    },
+    {
+      "small_schema_threshold": 6,
+      "seed_fraction": 0.5,
+      "min_cutoff_gap": 2.0,
+      "add_one_hop_neighbors": false,
+      "near_full_fraction": 0.9,
+      "case_count": 180,
+      "complete_coverage_count": 146,
+      "case_level_gold_table_coverage": 0.8111,
+      "micro_gold_table_recall": 0.9004,
+      "fallback_count": 98,
+      "fallback_rate": 0.5444,
+      "average_selected_table_count": 9.644,
+      "table_reduction_rate": 0.1561,
+      "schema_character_reduction_rate": 0.1522,
+      "coverage_by_dataset": {
+        "development_30": {
+          "case_count": 30,
+          "complete_coverage_count": 30,
+          "coverage": 1.0
+        },
+        "expanded_validation_150": {
+          "case_count": 150,
+          "complete_coverage_count": 116,
+          "coverage": 0.7733
+        }
+      }
+    },
+    {
+      "small_schema_threshold": 6,
+      "seed_fraction": 0.5,
+      "min_cutoff_gap": 2.0,
+      "add_one_hop_neighbors": true,
+      "near_full_fraction": 0.9,
+      "case_count": 180,
+      "complete_coverage_count": 173,
+      "case_level_gold_table_coverage": 0.9611,
+      "micro_gold_table_recall": 0.9855,
+      "fallback_count": 160,
+      "fallback_rate": 0.8889,
+      "average_selected_table_count": 11.189,
+      "table_reduction_rate": 0.0209,
+      "schema_character_reduction_rate": 0.0161,
+      "coverage_by_dataset": {
+        "development_30": {
+          "case_count": 30,
+          "complete_coverage_count": 30,
+          "coverage": 1.0
+        },
+        "expanded_validation_150": {
+          "case_count": 150,
+          "complete_coverage_count": 143,
+          "coverage": 0.9533
+        }
+      }
+    },
+    {
+      "small_schema_threshold": 6,
+      "seed_fraction": 0.5,
+      "min_cutoff_gap": 5.0,
+      "add_one_hop_neighbors": false,
+      "near_full_fraction": 0.9,
+      "case_count": 180,
+      "complete_coverage_count": 162,
+      "case_level_gold_table_coverage": 0.9,
+      "micro_gold_table_recall": 0.9502,
+      "fallback_count": 140,
+      "fallback_rate": 0.7778,
+      "average_selected_table_count": 10.528,
+      "table_reduction_rate": 0.0788,
+      "schema_character_reduction_rate": 0.0783,
+      "coverage_by_dataset": {
+        "development_30": {
+          "case_count": 30,
+          "complete_coverage_count": 30,
+          "coverage": 1.0
+        },
+        "expanded_validation_150": {
+          "case_count": 150,
+          "complete_coverage_count": 132,
+          "coverage": 0.88
+        }
+      }
+    },
+    {
+      "small_schema_threshold": 6,
+      "seed_fraction": 0.5,
+      "min_cutoff_gap": 5.0,
+      "add_one_hop_neighbors": true,
+      "near_full_fraction": 0.9,
+      "case_count": 180,
+      "complete_coverage_count": 180,
+      "case_level_gold_table_coverage": 1.0,
+      "micro_gold_table_recall": 1.0,
+      "fallback_count": 175,
+      "fallback_rate": 0.9722,
+      "average_selected_table_count": 11.4,
+      "table_reduction_rate": 0.0024,
+      "schema_character_reduction_rate": 0.0018,
+      "coverage_by_dataset": {
+        "development_30": {
+          "case_count": 30,
+          "complete_coverage_count": 30,
+          "coverage": 1.0
+        },
+        "expanded_validation_150": {
+          "case_count": 150,
+          "complete_coverage_count": 150,
+          "coverage": 1.0
+        }
+      }
+    },
+    {
+      "small_schema_threshold": 6,
+      "seed_fraction": 0.6,
+      "min_cutoff_gap": 0.0,
+      "add_one_hop_neighbors": false,
+      "near_full_fraction": 0.9,
+      "case_count": 180,
+      "complete_coverage_count": 140,
+      "case_level_gold_table_coverage": 0.7778,
+      "micro_gold_table_recall": 0.888,
+      "fallback_count": 25,
+      "fallback_rate": 0.1389,
+      "average_selected_table_count": 8.761,
+      "table_reduction_rate": 0.2333,
+      "schema_character_reduction_rate": 0.2248,
+      "coverage_by_dataset": {
+        "development_30": {
+          "case_count": 30,
+          "complete_coverage_count": 30,
+          "coverage": 1.0
+        },
+        "expanded_validation_150": {
+          "case_count": 150,
+          "complete_coverage_count": 110,
+          "coverage": 0.7333
+        }
+      }
+    },
+    {
+      "small_schema_threshold": 6,
+      "seed_fraction": 0.6,
+      "min_cutoff_gap": 0.0,
+      "add_one_hop_neighbors": true,
+      "near_full_fraction": 0.9,
+      "case_count": 180,
+      "complete_coverage_count": 176,
+      "case_level_gold_table_coverage": 0.9778,
+      "micro_gold_table_recall": 0.9917,
+      "fallback_count": 147,
+      "fallback_rate": 0.8167,
+      "average_selected_table_count": 11.067,
+      "table_reduction_rate": 0.0316,
+      "schema_character_reduction_rate": 0.0257,
+      "coverage_by_dataset": {
+        "development_30": {
+          "case_count": 30,
+          "complete_coverage_count": 30,
+          "coverage": 1.0
+        },
+        "expanded_validation_150": {
+          "case_count": 150,
+          "complete_coverage_count": 146,
+          "coverage": 0.9733
+        }
+      }
+    },
+    {
+      "small_schema_threshold": 6,
+      "seed_fraction": 0.6,
+      "min_cutoff_gap": 2.0,
+      "add_one_hop_neighbors": false,
+      "near_full_fraction": 0.9,
+      "case_count": 180,
+      "complete_coverage_count": 160,
+      "case_level_gold_table_coverage": 0.8889,
+      "micro_gold_table_recall": 0.9461,
+      "fallback_count": 113,
+      "fallback_rate": 0.6278,
+      "average_selected_table_count": 10.25,
+      "table_reduction_rate": 0.1031,
+      "schema_character_reduction_rate": 0.0994,
+      "coverage_by_dataset": {
+        "development_30": {
+          "case_count": 30,
+          "complete_coverage_count": 30,
+          "coverage": 1.0
+        },
+        "expanded_validation_150": {
+          "case_count": 150,
+          "complete_coverage_count": 130,
+          "coverage": 0.8667
+        }
+      }
+    },
+    {
+      "small_schema_threshold": 6,
+      "seed_fraction": 0.6,
+      "min_cutoff_gap": 2.0,
+      "add_one_hop_neighbors": true,
+      "near_full_fraction": 0.9,
+      "case_count": 180,
+      "complete_coverage_count": 180,
+      "case_level_gold_table_coverage": 1.0,
+      "micro_gold_table_recall": 1.0,
+      "fallback_count": 169,
+      "fallback_rate": 0.9389,
+      "average_selected_table_count": 11.322,
+      "table_reduction_rate": 0.0092,
+      "schema_character_reduction_rate": 0.0076,
+      "coverage_by_dataset": {
+        "development_30": {
+          "case_count": 30,
+          "complete_coverage_count": 30,
+          "coverage": 1.0
+        },
+        "expanded_validation_150": {
+          "case_count": 150,
+          "complete_coverage_count": 150,
+          "coverage": 1.0
+        }
+      }
+    },
+    {
+      "small_schema_threshold": 6,
+      "seed_fraction": 0.6,
+      "min_cutoff_gap": 5.0,
+      "add_one_hop_neighbors": false,
+      "near_full_fraction": 0.9,
+      "case_count": 180,
+      "complete_coverage_count": 167,
+      "case_level_gold_table_coverage": 0.9278,
+      "micro_gold_table_recall": 0.9647,
+      "fallback_count": 150,
+      "fallback_rate": 0.8333,
+      "average_selected_table_count": 10.889,
+      "table_reduction_rate": 0.0472,
+      "schema_character_reduction_rate": 0.0462,
+      "coverage_by_dataset": {
+        "development_30": {
+          "case_count": 30,
+          "complete_coverage_count": 30,
+          "coverage": 1.0
+        },
+        "expanded_validation_150": {
+          "case_count": 150,
+          "complete_coverage_count": 137,
+          "coverage": 0.9133
+        }
+      }
+    },
+    {
+      "small_schema_threshold": 6,
+      "seed_fraction": 0.6,
+      "min_cutoff_gap": 5.0,
+      "add_one_hop_neighbors": true,
+      "near_full_fraction": 0.9,
+      "case_count": 180,
+      "complete_coverage_count": 180,
+      "case_level_gold_table_coverage": 1.0,
+      "micro_gold_table_recall": 1.0,
+      "fallback_count": 177,
+      "fallback_rate": 0.9833,
+      "average_selected_table_count": 11.411,
+      "table_reduction_rate": 0.0015,
+      "schema_character_reduction_rate": 0.0011,
+      "coverage_by_dataset": {
+        "development_30": {
+          "case_count": 30,
+          "complete_coverage_count": 30,
+          "coverage": 1.0
+        },
+        "expanded_validation_150": {
+          "case_count": 150,
+          "complete_coverage_count": 150,
+          "coverage": 1.0
+        }
+      }
+    },
+    {
+      "small_schema_threshold": 6,
+      "seed_fraction": 0.7,
+      "min_cutoff_gap": 0.0,
+      "add_one_hop_neighbors": false,
+      "near_full_fraction": 0.9,
+      "case_count": 180,
+      "complete_coverage_count": 149,
+      "case_level_gold_table_coverage": 0.8278,
+      "micro_gold_table_recall": 0.9253,
+      "fallback_count": 49,
+      "fallback_rate": 0.2722,
+      "average_selected_table_count": 9.611,
+      "table_reduction_rate": 0.159,
+      "schema_character_reduction_rate": 0.1548,
+      "coverage_by_dataset": {
+        "development_30": {
+          "case_count": 30,
+          "complete_coverage_count": 30,
+          "coverage": 1.0
+        },
+        "expanded_validation_150": {
+          "case_count": 150,
+          "complete_coverage_count": 119,
+          "coverage": 0.7933
+        }
+      }
+    },
+    {
+      "small_schema_threshold": 6,
+      "seed_fraction": 0.7,
+      "min_cutoff_gap": 0.0,
+      "add_one_hop_neighbors": true,
+      "near_full_fraction": 0.9,
+      "case_count": 180,
+      "complete_coverage_count": 180,
+      "case_level_gold_table_coverage": 1.0,
+      "micro_gold_table_recall": 1.0,
+      "fallback_count": 168,
+      "fallback_rate": 0.9333,
+      "average_selected_table_count": 11.317,
+      "table_reduction_rate": 0.0097,
+      "schema_character_reduction_rate": 0.0071,
+      "coverage_by_dataset": {
+        "development_30": {
+          "case_count": 30,
+          "complete_coverage_count": 30,
+          "coverage": 1.0
+        },
+        "expanded_validation_150": {
+          "case_count": 150,
+          "complete_coverage_count": 150,
+          "coverage": 1.0
+        }
+      }
+    },
+    {
+      "small_schema_threshold": 6,
+      "seed_fraction": 0.7,
+      "min_cutoff_gap": 2.0,
+      "add_one_hop_neighbors": false,
+      "near_full_fraction": 0.9,
+      "case_count": 180,
+      "complete_coverage_count": 162,
+      "case_level_gold_table_coverage": 0.9,
+      "micro_gold_table_recall": 0.9585,
+      "fallback_count": 118,
+      "fallback_rate": 0.6556,
+      "average_selected_table_count": 10.561,
+      "table_reduction_rate": 0.0758,
+      "schema_character_reduction_rate": 0.0731,
+      "coverage_by_dataset": {
+        "development_30": {
+          "case_count": 30,
+          "complete_coverage_count": 30,
+          "coverage": 1.0
+        },
+        "expanded_validation_150": {
+          "case_count": 150,
+          "complete_coverage_count": 132,
+          "coverage": 0.88
+        }
+      }
+    },
+    {
+      "small_schema_threshold": 6,
+      "seed_fraction": 0.7,
+      "min_cutoff_gap": 2.0,
+      "add_one_hop_neighbors": true,
+      "near_full_fraction": 0.9,
+      "case_count": 180,
+      "complete_coverage_count": 180,
+      "case_level_gold_table_coverage": 1.0,
+      "micro_gold_table_recall": 1.0,
+      "fallback_count": 176,
+      "fallback_rate": 0.9778,
+      "average_selected_table_count": 11.406,
+      "table_reduction_rate": 0.0019,
+      "schema_character_reduction_rate": 0.0014,
+      "coverage_by_dataset": {
+        "development_30": {
+          "case_count": 30,
+          "complete_coverage_count": 30,
+          "coverage": 1.0
+        },
+        "expanded_validation_150": {
+          "case_count": 150,
+          "complete_coverage_count": 150,
+          "coverage": 1.0
+        }
+      }
+    },
+    {
+      "small_schema_threshold": 6,
+      "seed_fraction": 0.7,
+      "min_cutoff_gap": 5.0,
+      "add_one_hop_neighbors": false,
+      "near_full_fraction": 0.9,
+      "case_count": 180,
+      "complete_coverage_count": 174,
+      "case_level_gold_table_coverage": 0.9667,
+      "micro_gold_table_recall": 0.9855,
+      "fallback_count": 158,
+      "fallback_rate": 0.8778,
+      "average_selected_table_count": 11.139,
+      "table_reduction_rate": 0.0253,
+      "schema_character_reduction_rate": 0.0246,
+      "coverage_by_dataset": {
+        "development_30": {
+          "case_count": 30,
+          "complete_coverage_count": 30,
+          "coverage": 1.0
+        },
+        "expanded_validation_150": {
+          "case_count": 150,
+          "complete_coverage_count": 144,
+          "coverage": 0.96
+        }
+      }
+    },
+    {
+      "small_schema_threshold": 6,
+      "seed_fraction": 0.7,
+      "min_cutoff_gap": 5.0,
+      "add_one_hop_neighbors": true,
+      "near_full_fraction": 0.9,
+      "case_count": 180,
+      "complete_coverage_count": 180,
+      "case_level_gold_table_coverage": 1.0,
+      "micro_gold_table_recall": 1.0,
+      "fallback_count": 177,
+      "fallback_rate": 0.9833,
+      "average_selected_table_count": 11.411,
+      "table_reduction_rate": 0.0015,
+      "schema_character_reduction_rate": 0.0011,
+      "coverage_by_dataset": {
+        "development_30": {
+          "case_count": 30,
+          "complete_coverage_count": 30,
+          "coverage": 1.0
+        },
+        "expanded_validation_150": {
+          "case_count": 150,
+          "complete_coverage_count": 150,
+          "coverage": 1.0
+        }
+      }
+    },
+    {
+      "small_schema_threshold": 8,
+      "seed_fraction": 0.4,
+      "min_cutoff_gap": 0.0,
+      "add_one_hop_neighbors": false,
+      "near_full_fraction": 0.9,
+      "case_count": 180,
+      "complete_coverage_count": 137,
+      "case_level_gold_table_coverage": 0.7611,
+      "micro_gold_table_recall": 0.8485,
+      "fallback_count": 57,
+      "fallback_rate": 0.3167,
+      "average_selected_table_count": 7.572,
+      "table_reduction_rate": 0.3374,
+      "schema_character_reduction_rate": 0.3183,
+      "coverage_by_dataset": {
+        "development_30": {
+          "case_count": 30,
+          "complete_coverage_count": 29,
+          "coverage": 0.9667
+        },
+        "expanded_validation_150": {
+          "case_count": 150,
+          "complete_coverage_count": 108,
+          "coverage": 0.72
+        }
+      }
+    },
+    {
+      "small_schema_threshold": 8,
+      "seed_fraction": 0.4,
+      "min_cutoff_gap": 0.0,
+      "add_one_hop_neighbors": true,
+      "near_full_fraction": 0.9,
+      "case_count": 180,
+      "complete_coverage_count": 159,
+      "case_level_gold_table_coverage": 0.8833,
+      "micro_gold_table_recall": 0.9544,
+      "fallback_count": 105,
+      "fallback_rate": 0.5833,
+      "average_selected_table_count": 10.222,
+      "table_reduction_rate": 0.1055,
+      "schema_character_reduction_rate": 0.0915,
+      "coverage_by_dataset": {
+        "development_30": {
+          "case_count": 30,
+          "complete_coverage_count": 30,
+          "coverage": 1.0
+        },
+        "expanded_validation_150": {
+          "case_count": 150,
+          "complete_coverage_count": 129,
+          "coverage": 0.86
+        }
+      }
+    },
+    {
+      "small_schema_threshold": 8,
+      "seed_fraction": 0.4,
+      "min_cutoff_gap": 2.0,
+      "add_one_hop_neighbors": false,
+      "near_full_fraction": 0.9,
+      "case_count": 180,
+      "complete_coverage_count": 157,
+      "case_level_gold_table_coverage": 0.8722,
+      "micro_gold_table_recall": 0.9212,
+      "fallback_count": 121,
+      "fallback_rate": 0.6722,
+      "average_selected_table_count": 9.656,
+      "table_reduction_rate": 0.1551,
+      "schema_character_reduction_rate": 0.1515,
+      "coverage_by_dataset": {
+        "development_30": {
+          "case_count": 30,
+          "complete_coverage_count": 29,
+          "coverage": 0.9667
+        },
+        "expanded_validation_150": {
+          "case_count": 150,
+          "complete_coverage_count": 128,
+          "coverage": 0.8533
+        }
+      }
+    },
+    {
+      "small_schema_threshold": 8,
+      "seed_fraction": 0.4,
+      "min_cutoff_gap": 2.0,
+      "add_one_hop_neighbors": true,
+      "near_full_fraction": 0.9,
+      "case_count": 180,
+      "complete_coverage_count": 173,
+      "case_level_gold_table_coverage": 0.9611,
+      "micro_gold_table_recall": 0.9855,
+      "fallback_count": 155,
+      "fallback_rate": 0.8611,
+      "average_selected_table_count": 11.056,
+      "table_reduction_rate": 0.0326,
+      "schema_character_reduction_rate": 0.0276,
+      "coverage_by_dataset": {
+        "development_30": {
+          "case_count": 30,
+          "complete_coverage_count": 30,
+          "coverage": 1.0
+        },
+        "expanded_validation_150": {
+          "case_count": 150,
+          "complete_coverage_count": 143,
+          "coverage": 0.9533
+        }
+      }
+    },
+    {
+      "small_schema_threshold": 8,
+      "seed_fraction": 0.4,
+      "min_cutoff_gap": 5.0,
+      "add_one_hop_neighbors": false,
+      "near_full_fraction": 0.9,
+      "case_count": 180,
+      "complete_coverage_count": 168,
+      "case_level_gold_table_coverage": 0.9333,
+      "micro_gold_table_recall": 0.9585,
+      "fallback_count": 152,
+      "fallback_rate": 0.8444,
+      "average_selected_table_count": 10.617,
+      "table_reduction_rate": 0.071,
+      "schema_character_reduction_rate": 0.0743,
+      "coverage_by_dataset": {
+        "development_30": {
+          "case_count": 30,
+          "complete_coverage_count": 30,
+          "coverage": 1.0
+        },
+        "expanded_validation_150": {
+          "case_count": 150,
+          "complete_coverage_count": 138,
+          "coverage": 0.92
+        }
+      }
+    },
+    {
+      "small_schema_threshold": 8,
+      "seed_fraction": 0.4,
+      "min_cutoff_gap": 5.0,
+      "add_one_hop_neighbors": true,
+      "near_full_fraction": 0.9,
+      "case_count": 180,
+      "complete_coverage_count": 176,
+      "case_level_gold_table_coverage": 0.9778,
+      "micro_gold_table_recall": 0.9917,
+      "fallback_count": 170,
+      "fallback_rate": 0.9444,
+      "average_selected_table_count": 11.311,
+      "table_reduction_rate": 0.0102,
+      "schema_character_reduction_rate": 0.0092,
+      "coverage_by_dataset": {
+        "development_30": {
+          "case_count": 30,
+          "complete_coverage_count": 30,
+          "coverage": 1.0
+        },
+        "expanded_validation_150": {
+          "case_count": 150,
+          "complete_coverage_count": 146,
+          "coverage": 0.9733
+        }
+      }
+    },
+    {
+      "small_schema_threshold": 8,
+      "seed_fraction": 0.5,
+      "min_cutoff_gap": 0.0,
+      "add_one_hop_neighbors": false,
+      "near_full_fraction": 0.9,
+      "case_count": 180,
+      "complete_coverage_count": 141,
+      "case_level_gold_table_coverage": 0.7833,
+      "micro_gold_table_recall": 0.8693,
+      "fallback_count": 58,
+      "fallback_rate": 0.3222,
+      "average_selected_table_count": 8.511,
+      "table_reduction_rate": 0.2552,
+      "schema_character_reduction_rate": 0.2368,
+      "coverage_by_dataset": {
+        "development_30": {
+          "case_count": 30,
+          "complete_coverage_count": 30,
+          "coverage": 1.0
+        },
+        "expanded_validation_150": {
+          "case_count": 150,
+          "complete_coverage_count": 111,
+          "coverage": 0.74
+        }
+      }
+    },
+    {
+      "small_schema_threshold": 8,
+      "seed_fraction": 0.5,
+      "min_cutoff_gap": 0.0,
+      "add_one_hop_neighbors": true,
+      "near_full_fraction": 0.9,
+      "case_count": 180,
+      "complete_coverage_count": 166,
+      "case_level_gold_table_coverage": 0.9222,
+      "micro_gold_table_recall": 0.971,
+      "fallback_count": 131,
+      "fallback_rate": 0.7278,
+      "average_selected_table_count": 10.689,
+      "table_reduction_rate": 0.0647,
+      "schema_character_reduction_rate": 0.0527,
+      "coverage_by_dataset": {
+        "development_30": {
+          "case_count": 30,
+          "complete_coverage_count": 30,
+          "coverage": 1.0
+        },
+        "expanded_validation_150": {
+          "case_count": 150,
+          "complete_coverage_count": 136,
+          "coverage": 0.9067
+        }
+      }
+    },
+    {
+      "small_schema_threshold": 8,
+      "seed_fraction": 0.5,
+      "min_cutoff_gap": 2.0,
+      "add_one_hop_neighbors": false,
+      "near_full_fraction": 0.9,
+      "case_count": 180,
+      "complete_coverage_count": 153,
+      "case_level_gold_table_coverage": 0.85,
+      "micro_gold_table_recall": 0.9149,
+      "fallback_count": 126,
+      "fallback_rate": 0.7,
+      "average_selected_table_count": 10.15,
+      "table_reduction_rate": 0.1118,
+      "schema_character_reduction_rate": 0.1007,
+      "coverage_by_dataset": {
+        "development_30": {
+          "case_count": 30,
+          "complete_coverage_count": 30,
+          "coverage": 1.0
+        },
+        "expanded_validation_150": {
+          "case_count": 150,
+          "complete_coverage_count": 123,
+          "coverage": 0.82
+        }
+      }
+    },
+    {
+      "small_schema_threshold": 8,
+      "seed_fraction": 0.5,
+      "min_cutoff_gap": 2.0,
+      "add_one_hop_neighbors": true,
+      "near_full_fraction": 0.9,
+      "case_count": 180,
+      "complete_coverage_count": 173,
+      "case_level_gold_table_coverage": 0.9611,
+      "micro_gold_table_recall": 0.9855,
+      "fallback_count": 166,
+      "fallback_rate": 0.9222,
+      "average_selected_table_count": 11.222,
+      "table_reduction_rate": 0.018,
+      "schema_character_reduction_rate": 0.0139,
+      "coverage_by_dataset": {
+        "development_30": {
+          "case_count": 30,
+          "complete_coverage_count": 30,
+          "coverage": 1.0
+        },
+        "expanded_validation_150": {
+          "case_count": 150,
+          "complete_coverage_count": 143,
+          "coverage": 0.9533
+        }
+      }
+    },
+    {
+      "small_schema_threshold": 8,
+      "seed_fraction": 0.5,
+      "min_cutoff_gap": 5.0,
+      "add_one_hop_neighbors": false,
+      "near_full_fraction": 0.9,
+      "case_count": 180,
+      "complete_coverage_count": 164,
+      "case_level_gold_table_coverage": 0.9111,
+      "micro_gold_table_recall": 0.9544,
+      "fallback_count": 155,
+      "fallback_rate": 0.8611,
+      "average_selected_table_count": 10.806,
+      "table_reduction_rate": 0.0544,
+      "schema_character_reduction_rate": 0.0495,
+      "coverage_by_dataset": {
+        "development_30": {
+          "case_count": 30,
+          "complete_coverage_count": 30,
+          "coverage": 1.0
+        },
+        "expanded_validation_150": {
+          "case_count": 150,
+          "complete_coverage_count": 134,
+          "coverage": 0.8933
+        }
+      }
+    },
+    {
+      "small_schema_threshold": 8,
+      "seed_fraction": 0.5,
+      "min_cutoff_gap": 5.0,
+      "add_one_hop_neighbors": true,
+      "near_full_fraction": 0.9,
+      "case_count": 180,
+      "complete_coverage_count": 180,
+      "case_level_gold_table_coverage": 1.0,
+      "micro_gold_table_recall": 1.0,
+      "fallback_count": 180,
+      "fallback_rate": 1.0,
+      "average_selected_table_count": 11.428,
+      "table_reduction_rate": 0.0,
+      "schema_character_reduction_rate": 0.0,
+      "coverage_by_dataset": {
+        "development_30": {
+          "case_count": 30,
+          "complete_coverage_count": 30,
+          "coverage": 1.0
+        },
+        "expanded_validation_150": {
+          "case_count": 150,
+          "complete_coverage_count": 150,
+          "coverage": 1.0
+        }
+      }
+    },
+    {
+      "small_schema_threshold": 8,
+      "seed_fraction": 0.6,
+      "min_cutoff_gap": 0.0,
+      "add_one_hop_neighbors": false,
+      "near_full_fraction": 0.9,
+      "case_count": 180,
+      "complete_coverage_count": 149,
+      "case_level_gold_table_coverage": 0.8278,
+      "micro_gold_table_recall": 0.9066,
+      "fallback_count": 72,
+      "fallback_rate": 0.4,
+      "average_selected_table_count": 9.333,
+      "table_reduction_rate": 0.1833,
+      "schema_character_reduction_rate": 0.1698,
+      "coverage_by_dataset": {
+        "development_30": {
+          "case_count": 30,
+          "complete_coverage_count": 30,
+          "coverage": 1.0
+        },
+        "expanded_validation_150": {
+          "case_count": 150,
+          "complete_coverage_count": 119,
+          "coverage": 0.7933
+        }
+      }
+    },
+    {
+      "small_schema_threshold": 8,
+      "seed_fraction": 0.6,
+      "min_cutoff_gap": 0.0,
+      "add_one_hop_neighbors": true,
+      "near_full_fraction": 0.9,
+      "case_count": 180,
+      "complete_coverage_count": 176,
+      "case_level_gold_table_coverage": 0.9778,
+      "micro_gold_table_recall": 0.9917,
+      "fallback_count": 152,
+      "fallback_rate": 0.8444,
+      "average_selected_table_count": 11.094,
+      "table_reduction_rate": 0.0292,
+      "schema_character_reduction_rate": 0.0239,
+      "coverage_by_dataset": {
+        "development_30": {
+          "case_count": 30,
+          "complete_coverage_count": 30,
+          "coverage": 1.0
+        },
+        "expanded_validation_150": {
+          "case_count": 150,
+          "complete_coverage_count": 146,
+          "coverage": 0.9733
+        }
+      }
+    },
+    {
+      "small_schema_threshold": 8,
+      "seed_fraction": 0.6,
+      "min_cutoff_gap": 2.0,
+      "add_one_hop_neighbors": false,
+      "near_full_fraction": 0.9,
+      "case_count": 180,
+      "complete_coverage_count": 163,
+      "case_level_gold_table_coverage": 0.9056,
+      "micro_gold_table_recall": 0.9523,
+      "fallback_count": 137,
+      "fallback_rate": 0.7611,
+      "average_selected_table_count": 10.544,
+      "table_reduction_rate": 0.0773,
+      "schema_character_reduction_rate": 0.0726,
+      "coverage_by_dataset": {
+        "development_30": {
+          "case_count": 30,
+          "complete_coverage_count": 30,
+          "coverage": 1.0
+        },
+        "expanded_validation_150": {
+          "case_count": 150,
+          "complete_coverage_count": 133,
+          "coverage": 0.8867
+        }
+      }
+    },
+    {
+      "small_schema_threshold": 8,
+      "seed_fraction": 0.6,
+      "min_cutoff_gap": 2.0,
+      "add_one_hop_neighbors": true,
+      "near_full_fraction": 0.9,
+      "case_count": 180,
+      "complete_coverage_count": 180,
+      "case_level_gold_table_coverage": 1.0,
+      "micro_gold_table_recall": 1.0,
+      "fallback_count": 173,
+      "fallback_rate": 0.9611,
+      "average_selected_table_count": 11.344,
+      "table_reduction_rate": 0.0073,
+      "schema_character_reduction_rate": 0.0062,
+      "coverage_by_dataset": {
+        "development_30": {
+          "case_count": 30,
+          "complete_coverage_count": 30,
+          "coverage": 1.0
+        },
+        "expanded_validation_150": {
+          "case_count": 150,
+          "complete_coverage_count": 150,
+          "coverage": 1.0
+        }
+      }
+    },
+    {
+      "small_schema_threshold": 8,
+      "seed_fraction": 0.6,
+      "min_cutoff_gap": 5.0,
+      "add_one_hop_neighbors": false,
+      "near_full_fraction": 0.9,
+      "case_count": 180,
+      "complete_coverage_count": 168,
+      "case_level_gold_table_coverage": 0.9333,
+      "micro_gold_table_recall": 0.9668,
+      "fallback_count": 161,
+      "fallback_rate": 0.8944,
+      "average_selected_table_count": 11.033,
+      "table_reduction_rate": 0.0345,
+      "schema_character_reduction_rate": 0.033,
+      "coverage_by_dataset": {
+        "development_30": {
+          "case_count": 30,
+          "complete_coverage_count": 30,
+          "coverage": 1.0
+        },
+        "expanded_validation_150": {
+          "case_count": 150,
+          "complete_coverage_count": 138,
+          "coverage": 0.92
+        }
+      }
+    },
+    {
+      "small_schema_threshold": 8,
+      "seed_fraction": 0.6,
+      "min_cutoff_gap": 5.0,
+      "add_one_hop_neighbors": true,
+      "near_full_fraction": 0.9,
+      "case_count": 180,
+      "complete_coverage_count": 180,
+      "case_level_gold_table_coverage": 1.0,
+      "micro_gold_table_recall": 1.0,
+      "fallback_count": 180,
+      "fallback_rate": 1.0,
+      "average_selected_table_count": 11.428,
+      "table_reduction_rate": 0.0,
+      "schema_character_reduction_rate": 0.0,
+      "coverage_by_dataset": {
+        "development_30": {
+          "case_count": 30,
+          "complete_coverage_count": 30,
+          "coverage": 1.0
+        },
+        "expanded_validation_150": {
+          "case_count": 150,
+          "complete_coverage_count": 150,
+          "coverage": 1.0
+        }
+      }
+    },
+    {
+      "small_schema_threshold": 8,
+      "seed_fraction": 0.7,
+      "min_cutoff_gap": 0.0,
+      "add_one_hop_neighbors": false,
+      "near_full_fraction": 0.9,
+      "case_count": 180,
+      "complete_coverage_count": 158,
+      "case_level_gold_table_coverage": 0.8778,
+      "micro_gold_table_recall": 0.944,
+      "fallback_count": 96,
+      "fallback_rate": 0.5333,
+      "average_selected_table_count": 10.128,
+      "table_reduction_rate": 0.1138,
+      "schema_character_reduction_rate": 0.1058,
+      "coverage_by_dataset": {
+        "development_30": {
+          "case_count": 30,
+          "complete_coverage_count": 30,
+          "coverage": 1.0
+        },
+        "expanded_validation_150": {
+          "case_count": 150,
+          "complete_coverage_count": 128,
+          "coverage": 0.8533
+        }
+      }
+    },
+    {
+      "small_schema_threshold": 8,
+      "seed_fraction": 0.7,
+      "min_cutoff_gap": 0.0,
+      "add_one_hop_neighbors": true,
+      "near_full_fraction": 0.9,
+      "case_count": 180,
+      "complete_coverage_count": 180,
+      "case_level_gold_table_coverage": 1.0,
+      "micro_gold_table_recall": 1.0,
+      "fallback_count": 172,
+      "fallback_rate": 0.9556,
+      "average_selected_table_count": 11.339,
+      "table_reduction_rate": 0.0078,
+      "schema_character_reduction_rate": 0.0056,
+      "coverage_by_dataset": {
+        "development_30": {
+          "case_count": 30,
+          "complete_coverage_count": 30,
+          "coverage": 1.0
+        },
+        "expanded_validation_150": {
+          "case_count": 150,
+          "complete_coverage_count": 150,
+          "coverage": 1.0
+        }
+      }
+    },
+    {
+      "small_schema_threshold": 8,
+      "seed_fraction": 0.7,
+      "min_cutoff_gap": 2.0,
+      "add_one_hop_neighbors": false,
+      "near_full_fraction": 0.9,
+      "case_count": 180,
+      "complete_coverage_count": 165,
+      "case_level_gold_table_coverage": 0.9167,
+      "micro_gold_table_recall": 0.9647,
+      "fallback_count": 146,
+      "fallback_rate": 0.8111,
+      "average_selected_table_count": 10.872,
+      "table_reduction_rate": 0.0486,
+      "schema_character_reduction_rate": 0.0441,
+      "coverage_by_dataset": {
+        "development_30": {
+          "case_count": 30,
+          "complete_coverage_count": 30,
+          "coverage": 1.0
+        },
+        "expanded_validation_150": {
+          "case_count": 150,
+          "complete_coverage_count": 135,
+          "coverage": 0.9
+        }
+      }
+    },
+    {
+      "small_schema_threshold": 8,
+      "seed_fraction": 0.7,
+      "min_cutoff_gap": 2.0,
+      "add_one_hop_neighbors": true,
+      "near_full_fraction": 0.9,
+      "case_count": 180,
+      "complete_coverage_count": 180,
+      "case_level_gold_table_coverage": 1.0,
+      "micro_gold_table_recall": 1.0,
+      "fallback_count": 180,
+      "fallback_rate": 1.0,
+      "average_selected_table_count": 11.428,
+      "table_reduction_rate": 0.0,
+      "schema_character_reduction_rate": 0.0,
+      "coverage_by_dataset": {
+        "development_30": {
+          "case_count": 30,
+          "complete_coverage_count": 30,
+          "coverage": 1.0
+        },
+        "expanded_validation_150": {
+          "case_count": 150,
+          "complete_coverage_count": 150,
+          "coverage": 1.0
+        }
+      }
+    },
+    {
+      "small_schema_threshold": 8,
+      "seed_fraction": 0.7,
+      "min_cutoff_gap": 5.0,
+      "add_one_hop_neighbors": false,
+      "near_full_fraction": 0.9,
+      "case_count": 180,
+      "complete_coverage_count": 175,
+      "case_level_gold_table_coverage": 0.9722,
+      "micro_gold_table_recall": 0.9876,
+      "fallback_count": 172,
+      "fallback_rate": 0.9556,
+      "average_selected_table_count": 11.294,
+      "table_reduction_rate": 0.0117,
+      "schema_character_reduction_rate": 0.0104,
+      "coverage_by_dataset": {
+        "development_30": {
+          "case_count": 30,
+          "complete_coverage_count": 30,
+          "coverage": 1.0
+        },
+        "expanded_validation_150": {
+          "case_count": 150,
+          "complete_coverage_count": 145,
+          "coverage": 0.9667
+        }
+      }
+    },
+    {
+      "small_schema_threshold": 8,
+      "seed_fraction": 0.7,
+      "min_cutoff_gap": 5.0,
+      "add_one_hop_neighbors": true,
+      "near_full_fraction": 0.9,
+      "case_count": 180,
+      "complete_coverage_count": 180,
+      "case_level_gold_table_coverage": 1.0,
+      "micro_gold_table_recall": 1.0,
+      "fallback_count": 180,
+      "fallback_rate": 1.0,
+      "average_selected_table_count": 11.428,
+      "table_reduction_rate": 0.0,
+      "schema_character_reduction_rate": 0.0,
+      "coverage_by_dataset": {
+        "development_30": {
+          "case_count": 30,
+          "complete_coverage_count": 30,
+          "coverage": 1.0
+        },
+        "expanded_validation_150": {
+          "case_count": 150,
+          "complete_coverage_count": 150,
+          "coverage": 1.0
+        }
+      }
+    }
+  ]
+}

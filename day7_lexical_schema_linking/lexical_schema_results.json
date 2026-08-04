@@ -1,0 +1,2530 @@
+{
+  "experiment": "Exp2 lexical schema linking",
+  "model": "glm-4.5-air",
+  "spider_root": "D:\\SystemDir\\Desktop\\Research project\\Text-to-SQL System\\data\\spider_data",
+  "schema_source": "heuristic lexical schema linking",
+  "schema_selection_file": "D:\\SystemDir\\Desktop\\Research project\\Text-to-SQL System\\day7_lexical_schema_linking\\lexical_schema_selections.json",
+  "gold_sql_sent_to_model": false,
+  "metric_note": "This is a local development-time row comparison, not official Spider Test Suite Accuracy. Official evaluation will be integrated separately.",
+  "results": [
+    {
+      "id": "spider_dev_0507",
+      "source_index": 507,
+      "db_id": "student_transcripts_tracking",
+      "question": "what are all the addresses including line 1 and line 2?",
+      "schema_mode": "selected_schema",
+      "selected_tables": [
+        "Addresses",
+        "Courses",
+        "Sections",
+        "Student_Enrolment",
+        "Student_Enrolment_Courses",
+        "Students"
+      ],
+      "selected_table_count": 6,
+      "schema_character_count": 1869,
+      "generated_sql": "SELECT line_1, line_2 FROM Addresses;",
+      "gold_sql": "SELECT line_1 ,  line_2 FROM addresses",
+      "gold_order_matters": false,
+      "execution_success": true,
+      "preliminary_is_correct": true,
+      "predicted_columns": [
+        "line_1",
+        "line_2"
+      ],
+      "predicted_rows": [
+        [
+          "2294 Grant Square Apt. 235",
+          "Apt. 370"
+        ],
+        [
+          "3999 Aufderhar Ways Suite 593",
+          "Apt. 388"
+        ],
+        [
+          "67942 Carlotta Ferry Apt. 686",
+          "Apt. 583"
+        ],
+        [
+          "0144 Lamar Plaza Apt. 346",
+          "Suite 703"
+        ],
+        [
+          "858 Peggie Bypass Suite 212",
+          "Apt. 335"
+        ],
+        [
+          "16998 Mraz Lodge",
+          "Apt. 689"
+        ],
+        [
+          "193 Marlin Brook",
+          "Apt. 406"
+        ],
+        [
+          "202 Hessel Views Apt. 468",
+          "Apt. 305"
+        ],
+        [
+          "0643 Muller Vista",
+          "Suite 383"
+        ],
+        [
+          "7081 Eda Center",
+          "Suite 830"
+        ],
+        [
+          "9283 Schulist Falls Apt. 037",
+          "Suite 239"
+        ],
+        [
+          "979 Haag Shores Suite 656",
+          "Apt. 468"
+        ],
+        [
+          "492 Wilkinson Route",
+          "Suite 865"
+        ],
+        [
+          "186 Evan Motorway Apt. 409",
+          "Suite 079"
+        ],
+        [
+          "74046 Metz Walk Apt. 113",
+          "Suite 674"
+        ]
+      ],
+      "gold_columns": [
+        "line_1",
+        "line_2"
+      ],
+      "gold_rows": [
+        [
+          "2294 Grant Square Apt. 235",
+          "Apt. 370"
+        ],
+        [
+          "3999 Aufderhar Ways Suite 593",
+          "Apt. 388"
+        ],
+        [
+          "67942 Carlotta Ferry Apt. 686",
+          "Apt. 583"
+        ],
+        [
+          "0144 Lamar Plaza Apt. 346",
+          "Suite 703"
+        ],
+        [
+          "858 Peggie Bypass Suite 212",
+          "Apt. 335"
+        ],
+        [
+          "16998 Mraz Lodge",
+          "Apt. 689"
+        ],
+        [
+          "193 Marlin Brook",
+          "Apt. 406"
+        ],
+        [
+          "202 Hessel Views Apt. 468",
+          "Apt. 305"
+        ],
+        [
+          "0643 Muller Vista",
+          "Suite 383"
+        ],
+        [
+          "7081 Eda Center",
+          "Suite 830"
+        ],
+        [
+          "9283 Schulist Falls Apt. 037",
+          "Suite 239"
+        ],
+        [
+          "979 Haag Shores Suite 656",
+          "Apt. 468"
+        ],
+        [
+          "492 Wilkinson Route",
+          "Suite 865"
+        ],
+        [
+          "186 Evan Motorway Apt. 409",
+          "Suite 079"
+        ],
+        [
+          "74046 Metz Walk Apt. 113",
+          "Suite 674"
+        ]
+      ],
+      "error": null,
+      "latency_seconds": 1.83,
+      "finish_reason": "stop",
+      "prompt_tokens": 500,
+      "completion_tokens": 12,
+      "total_tokens": 512
+    },
+    {
+      "id": "spider_dev_0517",
+      "source_index": 517,
+      "db_id": "student_transcripts_tracking",
+      "question": "How many departments offer any degree?",
+      "schema_mode": "selected_schema",
+      "selected_tables": [
+        "Degree_Programs",
+        "Departments",
+        "Student_Enrolment",
+        "Students"
+      ],
+      "selected_table_count": 4,
+      "schema_character_count": 1258,
+      "generated_sql": "SELECT COUNT(DISTINCT d.department_id) FROM Departments d JOIN Degree_Programs dp ON d.department_id = dp.department_id;",
+      "gold_sql": "SELECT count(DISTINCT department_id) FROM Degree_Programs",
+      "gold_order_matters": false,
+      "execution_success": true,
+      "preliminary_is_correct": true,
+      "predicted_columns": [
+        "COUNT(DISTINCT d.department_id)"
+      ],
+      "predicted_rows": [
+        [
+          10
+        ]
+      ],
+      "gold_columns": [
+        "count(DISTINCT department_id)"
+      ],
+      "gold_rows": [
+        [
+          10
+        ]
+      ],
+      "error": null,
+      "latency_seconds": 1.579,
+      "finish_reason": "stop",
+      "prompt_tokens": 347,
+      "completion_tokens": 27,
+      "total_tokens": 374
+    },
+    {
+      "id": "spider_dev_0559",
+      "source_index": 559,
+      "db_id": "student_transcripts_tracking",
+      "question": "Whose permanent address is different from his or her current address? List his or her first name.",
+      "schema_mode": "selected_schema",
+      "selected_tables": [
+        "Addresses",
+        "Degree_Programs",
+        "Departments",
+        "Student_Enrolment",
+        "Students"
+      ],
+      "selected_table_count": 5,
+      "schema_character_count": 1700,
+      "generated_sql": "SELECT first_name FROM Students WHERE permanent_address_id != current_address_id;",
+      "gold_sql": "SELECT first_name FROM Students WHERE current_address_id != permanent_address_id",
+      "gold_order_matters": false,
+      "execution_success": true,
+      "preliminary_is_correct": true,
+      "predicted_columns": [
+        "first_name"
+      ],
+      "predicted_rows": [
+        [
+          "Timmothy"
+        ],
+        [
+          "Hobart"
+        ],
+        [
+          "Warren"
+        ],
+        [
+          "Jarvis"
+        ],
+        [
+          "Stanford"
+        ],
+        [
+          "Frida"
+        ],
+        [
+          "Delaney"
+        ],
+        [
+          "Reva"
+        ],
+        [
+          "Helga"
+        ],
+        [
+          "Gregg"
+        ],
+        [
+          "Orrin"
+        ],
+        [
+          "Deon"
+        ],
+        [
+          "Jordy"
+        ],
+        [
+          "Jett"
+        ]
+      ],
+      "gold_columns": [
+        "first_name"
+      ],
+      "gold_rows": [
+        [
+          "Timmothy"
+        ],
+        [
+          "Hobart"
+        ],
+        [
+          "Warren"
+        ],
+        [
+          "Jarvis"
+        ],
+        [
+          "Stanford"
+        ],
+        [
+          "Frida"
+        ],
+        [
+          "Delaney"
+        ],
+        [
+          "Reva"
+        ],
+        [
+          "Helga"
+        ],
+        [
+          "Gregg"
+        ],
+        [
+          "Orrin"
+        ],
+        [
+          "Deon"
+        ],
+        [
+          "Jordy"
+        ],
+        [
+          "Jett"
+        ]
+      ],
+      "error": null,
+      "latency_seconds": 1.814,
+      "finish_reason": "stop",
+      "prompt_tokens": 459,
+      "completion_tokens": 15,
+      "total_tokens": 474
+    },
+    {
+      "id": "spider_dev_0527",
+      "source_index": 527,
+      "db_id": "student_transcripts_tracking",
+      "question": "List the section_name in reversed lexicographical order.",
+      "schema_mode": "selected_schema",
+      "selected_tables": [
+        "Courses",
+        "Degree_Programs",
+        "Sections",
+        "Semesters",
+        "Student_Enrolment",
+        "Student_Enrolment_Courses"
+      ],
+      "selected_table_count": 6,
+      "schema_character_count": 1490,
+      "generated_sql": "SELECT section_name FROM Sections ORDER BY section_name DESC;",
+      "gold_sql": "SELECT section_name FROM Sections ORDER BY section_name DESC",
+      "gold_order_matters": true,
+      "execution_success": true,
+      "preliminary_is_correct": true,
+      "predicted_columns": [
+        "section_name"
+      ],
+      "predicted_rows": [
+        [
+          "y"
+        ],
+        [
+          "u"
+        ],
+        [
+          "p"
+        ],
+        [
+          "o"
+        ],
+        [
+          "l"
+        ],
+        [
+          "k"
+        ],
+        [
+          "j"
+        ],
+        [
+          "h"
+        ],
+        [
+          "g"
+        ],
+        [
+          "f"
+        ],
+        [
+          "e"
+        ],
+        [
+          "d"
+        ],
+        [
+          "c"
+        ],
+        [
+          "b"
+        ],
+        [
+          "a"
+        ]
+      ],
+      "gold_columns": [
+        "section_name"
+      ],
+      "gold_rows": [
+        [
+          "y"
+        ],
+        [
+          "u"
+        ],
+        [
+          "p"
+        ],
+        [
+          "o"
+        ],
+        [
+          "l"
+        ],
+        [
+          "k"
+        ],
+        [
+          "j"
+        ],
+        [
+          "h"
+        ],
+        [
+          "g"
+        ],
+        [
+          "f"
+        ],
+        [
+          "e"
+        ],
+        [
+          "d"
+        ],
+        [
+          "c"
+        ],
+        [
+          "b"
+        ],
+        [
+          "a"
+        ]
+      ],
+      "error": null,
+      "latency_seconds": 1.059,
+      "finish_reason": "stop",
+      "prompt_tokens": 404,
+      "completion_tokens": 12,
+      "total_tokens": 416
+    },
+    {
+      "id": "spider_dev_0521",
+      "source_index": 521,
+      "db_id": "student_transcripts_tracking",
+      "question": "How many degrees does the engineering department offer?",
+      "schema_mode": "selected_schema",
+      "selected_tables": [
+        "Degree_Programs",
+        "Departments",
+        "Student_Enrolment",
+        "Student_Enrolment_Courses"
+      ],
+      "selected_table_count": 4,
+      "schema_character_count": 1030,
+      "generated_sql": "SELECT COUNT(*) FROM Degree_Programs WHERE department_id = (SELECT department_id FROM Departments WHERE department_name = 'engineering');",
+      "gold_sql": "SELECT count(*) FROM Departments AS T1 JOIN Degree_Programs AS T2 ON T1.department_id  =  T2.department_id WHERE T1.department_name  =  'engineer'",
+      "gold_order_matters": false,
+      "execution_success": true,
+      "preliminary_is_correct": true,
+      "predicted_columns": [
+        "COUNT(*)"
+      ],
+      "predicted_rows": [
+        [
+          0
+        ]
+      ],
+      "gold_columns": [
+        "count(*)"
+      ],
+      "gold_rows": [
+        [
+          0
+        ]
+      ],
+      "error": null,
+      "latency_seconds": 1.394,
+      "finish_reason": "stop",
+      "prompt_tokens": 303,
+      "completion_tokens": 25,
+      "total_tokens": 328
+    },
+    {
+      "id": "spider_dev_0565",
+      "source_index": 565,
+      "db_id": "student_transcripts_tracking",
+      "question": "When is the first transcript released? List the date and details.",
+      "schema_mode": "selected_schema",
+      "selected_tables": [
+        "Degree_Programs",
+        "Departments",
+        "Student_Enrolment",
+        "Student_Enrolment_Courses",
+        "Students",
+        "Transcript_Contents",
+        "Transcripts"
+      ],
+      "selected_table_count": 7,
+      "schema_character_count": 1920,
+      "generated_sql": "SELECT transcript_date, other_details FROM Transcripts ORDER BY transcript_date ASC LIMIT 1;",
+      "gold_sql": "SELECT transcript_date ,  other_details FROM Transcripts ORDER BY transcript_date ASC LIMIT 1",
+      "gold_order_matters": true,
+      "execution_success": true,
+      "preliminary_is_correct": true,
+      "predicted_columns": [
+        "transcript_date",
+        "other_details"
+      ],
+      "predicted_rows": [
+        [
+          "1975-05-06 12:04:47",
+          null
+        ]
+      ],
+      "gold_columns": [
+        "transcript_date",
+        "other_details"
+      ],
+      "gold_rows": [
+        [
+          "1975-05-06 12:04:47",
+          null
+        ]
+      ],
+      "error": null,
+      "latency_seconds": 1.284,
+      "finish_reason": "stop",
+      "prompt_tokens": 494,
+      "completion_tokens": 19,
+      "total_tokens": 513
+    },
+    {
+      "id": "spider_dev_0571",
+      "source_index": 571,
+      "db_id": "student_transcripts_tracking",
+      "question": "How many times at most can a course enrollment result show in different transcripts? Also show the course enrollment id.",
+      "schema_mode": "selected_schema",
+      "selected_tables": [
+        "Courses",
+        "Student_Enrolment_Courses",
+        "Transcript_Contents",
+        "Transcripts"
+      ],
+      "selected_table_count": 4,
+      "schema_character_count": 788,
+      "generated_sql": "SELECT student_course_id, COUNT(*) AS max_count FROM Transcript_Contents GROUP BY student_course_id ORDER BY max_count DESC LIMIT 1;",
+      "gold_sql": "SELECT count(*) ,  student_course_id FROM Transcript_Contents GROUP BY student_course_id ORDER BY count(*) DESC LIMIT 1",
+      "gold_order_matters": true,
+      "execution_success": true,
+      "preliminary_is_correct": false,
+      "predicted_columns": [
+        "student_course_id",
+        "max_count"
+      ],
+      "predicted_rows": [
+        [
+          0,
+          4
+        ]
+      ],
+      "gold_columns": [
+        "count(*)",
+        "student_course_id"
+      ],
+      "gold_rows": [
+        [
+          4,
+          0
+        ]
+      ],
+      "error": null,
+      "latency_seconds": 12.649,
+      "finish_reason": "stop",
+      "prompt_tokens": 266,
+      "completion_tokens": 29,
+      "total_tokens": 295
+    },
+    {
+      "id": "spider_dev_0537",
+      "source_index": 537,
+      "db_id": "student_transcripts_tracking",
+      "question": "Find the kind of program which most number of students are enrolled in?",
+      "schema_mode": "selected_schema",
+      "selected_tables": [
+        "Degree_Programs",
+        "Student_Enrolment",
+        "Student_Enrolment_Courses",
+        "Students"
+      ],
+      "selected_table_count": 4,
+      "schema_character_count": 1264,
+      "generated_sql": "SELECT dp.degree_summary_name, COUNT(se.student_enrolment_id) AS student_count FROM Degree_Programs dp JOIN Student_Enrolment se ON dp.degree_program_id = se.degree_program_id GROUP BY dp.degree_summary_name ORDER BY student_count DESC LIMIT 1;",
+      "gold_sql": "SELECT T1.degree_summary_name FROM Degree_Programs AS T1 JOIN Student_Enrolment AS T2 ON T1.degree_program_id  =  T2.degree_program_id GROUP BY T1.degree_summary_name ORDER BY count(*) DESC LIMIT 1",
+      "gold_order_matters": true,
+      "execution_success": true,
+      "preliminary_is_correct": false,
+      "predicted_columns": [
+        "degree_summary_name",
+        "student_count"
+      ],
+      "predicted_rows": [
+        [
+          "Bachelor",
+          8
+        ]
+      ],
+      "gold_columns": [
+        "degree_summary_name"
+      ],
+      "gold_rows": [
+        [
+          "Bachelor"
+        ]
+      ],
+      "error": null,
+      "latency_seconds": 4.006,
+      "finish_reason": "stop",
+      "prompt_tokens": 366,
+      "completion_tokens": 55,
+      "total_tokens": 421
+    },
+    {
+      "id": "spider_dev_0551",
+      "source_index": 551,
+      "db_id": "student_transcripts_tracking",
+      "question": "Show the date and id of the transcript with at least 2 course results.",
+      "schema_mode": "selected_schema",
+      "selected_tables": [
+        "Courses",
+        "Student_Enrolment_Courses",
+        "Transcript_Contents",
+        "Transcripts"
+      ],
+      "selected_table_count": 4,
+      "schema_character_count": 788,
+      "generated_sql": "SELECT t.transcript_id, t.transcript_date FROM Transcripts t JOIN Transcript_Contents tc ON t.transcript_id = tc.transcript_id GROUP BY t.transcript_id HAVING COUNT(tc.student_course_id) >= 2;",
+      "gold_sql": "SELECT T2.transcript_date ,  T1.transcript_id FROM Transcript_Contents AS T1 JOIN Transcripts AS T2 ON T1.transcript_id  =  T2.transcript_id GROUP BY T1.transcript_id HAVING count(*)  >=  2",
+      "gold_order_matters": false,
+      "execution_success": true,
+      "preliminary_is_correct": false,
+      "predicted_columns": [
+        "transcript_id",
+        "transcript_date"
+      ],
+      "predicted_rows": [
+        [
+          5,
+          "2013-06-30 13:01:40"
+        ],
+        [
+          6,
+          "2010-12-13 10:55:15"
+        ],
+        [
+          8,
+          "1975-05-06 12:04:47"
+        ],
+        [
+          15,
+          "1998-11-22 12:18:29"
+        ]
+      ],
+      "gold_columns": [
+        "transcript_date",
+        "transcript_id"
+      ],
+      "gold_rows": [
+        [
+          "2013-06-30 13:01:40",
+          5
+        ],
+        [
+          "2010-12-13 10:55:15",
+          6
+        ],
+        [
+          "1975-05-06 12:04:47",
+          8
+        ],
+        [
+          "1998-11-22 12:18:29",
+          15
+        ]
+      ],
+      "error": null,
+      "latency_seconds": 2.126,
+      "finish_reason": "stop",
+      "prompt_tokens": 260,
+      "completion_tokens": 48,
+      "total_tokens": 308
+    },
+    {
+      "id": "spider_dev_0575",
+      "source_index": 575,
+      "db_id": "student_transcripts_tracking",
+      "question": "Find the semester when both Master students and Bachelor students got enrolled in.",
+      "schema_mode": "selected_schema",
+      "selected_tables": [
+        "Semesters",
+        "Student_Enrolment",
+        "Student_Enrolment_Courses",
+        "Students"
+      ],
+      "selected_table_count": 4,
+      "schema_character_count": 1186,
+      "generated_sql": "SELECT DISTINCT s.semester_name\nFROM Semesters s\nJOIN Student_Enrolment se ON s.semester_id = se.semester_id\nJOIN Students st ON se.student_id = st.student_id\nWHERE st.student_id IN (\n    SELECT se1.student_id\n    FROM Student_Enrolment se1\n    JOIN Students st1 ON se1.student_id = st1.student_id\n    WHERE st1.first_name LIKE '%Master%'\n)\nAND st.student_id IN (\n    SELECT se2.student_id\n    FROM Student_Enrolment se2\n    JOIN Students st2 ON se2.student_id = st2.student_id\n    WHERE st2.first_name LIKE '%Bachelor%'\n);",
+      "gold_sql": "SELECT DISTINCT T2.semester_id FROM Degree_Programs AS T1 JOIN Student_Enrolment AS T2 ON T1.degree_program_id  =  T2.degree_program_id WHERE degree_summary_name  =  'Master' INTERSECT SELECT DISTINCT T2.semester_id FROM Degree_Programs AS T1 JOIN Student_Enrolment AS T2 ON T1.degree_program_id  =  T2.degree_program_id WHERE degree_summary_name  =  'Bachelor'",
+      "gold_order_matters": false,
+      "execution_success": true,
+      "preliminary_is_correct": false,
+      "predicted_columns": [
+        "semester_name"
+      ],
+      "predicted_rows": [],
+      "gold_columns": [
+        "semester_id"
+      ],
+      "gold_rows": [
+        [
+          13
+        ]
+      ],
+      "error": null,
+      "latency_seconds": 5.092,
+      "finish_reason": "stop",
+      "prompt_tokens": 352,
+      "completion_tokens": 143,
+      "total_tokens": 495
+    },
+    {
+      "id": "spider_dev_0964",
+      "source_index": 964,
+      "db_id": "dog_kennels",
+      "question": "What are the arriving date and the departing date of all the dogs?",
+      "schema_mode": "selected_schema",
+      "selected_tables": [
+        "Dogs",
+        "Professionals",
+        "Treatment_Types",
+        "Treatments"
+      ],
+      "selected_table_count": 4,
+      "schema_character_count": 1323,
+      "generated_sql": "SELECT date_arrived, date_departed FROM Dogs;",
+      "gold_sql": "SELECT date_arrived ,  date_departed FROM Dogs",
+      "gold_order_matters": false,
+      "execution_success": true,
+      "preliminary_is_correct": true,
+      "predicted_columns": [
+        "date_arrived",
+        "date_departed"
+      ],
+      "predicted_rows": [
+        [
+          "2017-09-08 20:10:13",
+          "2018-03-25 06:58:44"
+        ],
+        [
+          "2017-12-22 05:02:02",
+          "2018-03-25 02:11:32"
+        ],
+        [
+          "2017-06-25 10:14:05",
+          "2018-03-25 10:25:46"
+        ],
+        [
+          "2017-04-20 00:58:55",
+          "2018-03-24 19:12:22"
+        ],
+        [
+          "2017-10-25 00:55:34",
+          "2018-03-25 04:50:22"
+        ],
+        [
+          "2017-04-15 09:25:31",
+          "2018-03-25 13:07:04"
+        ],
+        [
+          "2017-05-06 08:03:52",
+          "2018-03-25 06:29:10"
+        ],
+        [
+          "2017-10-16 20:06:21",
+          "2018-03-25 02:47:40"
+        ],
+        [
+          "2018-01-17 11:44:16",
+          "2018-03-25 06:46:07"
+        ],
+        [
+          "2017-12-29 06:08:26",
+          "2018-03-25 04:42:14"
+        ],
+        [
+          "2017-07-25 15:19:07",
+          "2018-03-25 15:05:16"
+        ],
+        [
+          "2017-10-24 04:45:13",
+          "2018-03-25 14:15:41"
+        ],
+        [
+          "2018-01-02 03:15:29",
+          "2018-03-25 05:07:47"
+        ],
+        [
+          "2017-06-18 19:45:38",
+          "2018-03-24 23:48:59"
+        ],
+        [
+          "2017-12-29 23:24:13",
+          "2018-03-24 19:36:59"
+        ]
+      ],
+      "gold_columns": [
+        "date_arrived",
+        "date_departed"
+      ],
+      "gold_rows": [
+        [
+          "2017-09-08 20:10:13",
+          "2018-03-25 06:58:44"
+        ],
+        [
+          "2017-12-22 05:02:02",
+          "2018-03-25 02:11:32"
+        ],
+        [
+          "2017-06-25 10:14:05",
+          "2018-03-25 10:25:46"
+        ],
+        [
+          "2017-04-20 00:58:55",
+          "2018-03-24 19:12:22"
+        ],
+        [
+          "2017-10-25 00:55:34",
+          "2018-03-25 04:50:22"
+        ],
+        [
+          "2017-04-15 09:25:31",
+          "2018-03-25 13:07:04"
+        ],
+        [
+          "2017-05-06 08:03:52",
+          "2018-03-25 06:29:10"
+        ],
+        [
+          "2017-10-16 20:06:21",
+          "2018-03-25 02:47:40"
+        ],
+        [
+          "2018-01-17 11:44:16",
+          "2018-03-25 06:46:07"
+        ],
+        [
+          "2017-12-29 06:08:26",
+          "2018-03-25 04:42:14"
+        ],
+        [
+          "2017-07-25 15:19:07",
+          "2018-03-25 15:05:16"
+        ],
+        [
+          "2017-10-24 04:45:13",
+          "2018-03-25 14:15:41"
+        ],
+        [
+          "2018-01-02 03:15:29",
+          "2018-03-25 05:07:47"
+        ],
+        [
+          "2017-06-18 19:45:38",
+          "2018-03-24 23:48:59"
+        ],
+        [
+          "2017-12-29 23:24:13",
+          "2018-03-24 19:36:59"
+        ]
+      ],
+      "error": null,
+      "latency_seconds": 1.01,
+      "finish_reason": "stop",
+      "prompt_tokens": 405,
+      "completion_tokens": 12,
+      "total_tokens": 417
+    },
+    {
+      "id": "spider_dev_0972",
+      "source_index": 972,
+      "db_id": "dog_kennels",
+      "question": "Which owners live in the state whose name contains the substring 'North'? List his first name, last name and email.",
+      "schema_mode": "selected_schema",
+      "selected_tables": [
+        "Dogs",
+        "Owners",
+        "Professionals",
+        "Treatment_Types",
+        "Treatments"
+      ],
+      "selected_table_count": 5,
+      "schema_character_count": 1732,
+      "generated_sql": "SELECT first_name, last_name, email_address FROM Owners WHERE state LIKE '%North%'",
+      "gold_sql": "SELECT first_name ,  last_name ,  email_address FROM Owners WHERE state LIKE '%North%'",
+      "gold_order_matters": false,
+      "execution_success": true,
+      "preliminary_is_correct": true,
+      "predicted_columns": [
+        "first_name",
+        "last_name",
+        "email_address"
+      ],
+      "predicted_rows": [
+        [
+          "Johann",
+          "Fisher",
+          "zboncak.madonna@example.net"
+        ],
+        [
+          "Cindy",
+          "Schmitt",
+          "wpfeffer@example.net"
+        ]
+      ],
+      "gold_columns": [
+        "first_name",
+        "last_name",
+        "email_address"
+      ],
+      "gold_rows": [
+        [
+          "Johann",
+          "Fisher",
+          "zboncak.madonna@example.net"
+        ],
+        [
+          "Cindy",
+          "Schmitt",
+          "wpfeffer@example.net"
+        ]
+      ],
+      "error": null,
+      "latency_seconds": 1.602,
+      "finish_reason": "stop",
+      "prompt_tokens": 511,
+      "completion_tokens": 18,
+      "total_tokens": 529
+    },
+    {
+      "id": "spider_dev_0992",
+      "source_index": 992,
+      "db_id": "dog_kennels",
+      "question": "How much does the most expensive charge type costs?",
+      "schema_mode": "selected_schema",
+      "selected_tables": [
+        "Charges",
+        "Dogs",
+        "Owners",
+        "Treatments"
+      ],
+      "selected_table_count": 4,
+      "schema_character_count": 1217,
+      "generated_sql": "SELECT MAX(charge_amount) FROM Charges;",
+      "gold_sql": "SELECT max(charge_amount) FROM Charges",
+      "gold_order_matters": false,
+      "execution_success": true,
+      "preliminary_is_correct": true,
+      "predicted_columns": [
+        "MAX(charge_amount)"
+      ],
+      "predicted_rows": [
+        [
+          640
+        ]
+      ],
+      "gold_columns": [
+        "max(charge_amount)"
+      ],
+      "gold_rows": [
+        [
+          640
+        ]
+      ],
+      "error": null,
+      "latency_seconds": 1.195,
+      "finish_reason": "stop",
+      "prompt_tokens": 386,
+      "completion_tokens": 10,
+      "total_tokens": 396
+    },
+    {
+      "id": "spider_dev_0924",
+      "source_index": 924,
+      "db_id": "dog_kennels",
+      "question": "Which dogs have not cost their owner more than 1000 for treatment ? List the dog names .",
+      "schema_mode": "selected_schema",
+      "selected_tables": [
+        "Dogs",
+        "Owners",
+        "Treatment_Types",
+        "Treatments"
+      ],
+      "selected_table_count": 4,
+      "schema_character_count": 1308,
+      "generated_sql": "SELECT d.name FROM Dogs d LEFT JOIN Treatments t ON d.dog_id = t.dog_id GROUP BY d.dog_id HAVING COALESCE(SUM(t.cost_of_treatment), 0) <= 1000;",
+      "gold_sql": "select name from dogs where dog_id not in ( select dog_id from treatments group by dog_id having sum(cost_of_treatment)  >  1000 )",
+      "gold_order_matters": false,
+      "execution_success": true,
+      "preliminary_is_correct": true,
+      "predicted_columns": [
+        "name"
+      ],
+      "predicted_rows": [
+        [
+          "Kacey"
+        ],
+        [
+          "Hipolito"
+        ],
+        [
+          "Mavis"
+        ],
+        [
+          "Houston"
+        ],
+        [
+          "Jeffrey"
+        ],
+        [
+          "Merritt"
+        ],
+        [
+          "Narciso"
+        ],
+        [
+          "George"
+        ],
+        [
+          "Bessie"
+        ],
+        [
+          "Betty"
+        ],
+        [
+          "Holden"
+        ],
+        [
+          "Jesus"
+        ]
+      ],
+      "gold_columns": [
+        "name"
+      ],
+      "gold_rows": [
+        [
+          "Kacey"
+        ],
+        [
+          "Hipolito"
+        ],
+        [
+          "Mavis"
+        ],
+        [
+          "Houston"
+        ],
+        [
+          "Jeffrey"
+        ],
+        [
+          "Merritt"
+        ],
+        [
+          "Narciso"
+        ],
+        [
+          "George"
+        ],
+        [
+          "Bessie"
+        ],
+        [
+          "Betty"
+        ],
+        [
+          "Holden"
+        ],
+        [
+          "Jesus"
+        ]
+      ],
+      "error": null,
+      "latency_seconds": 3.942,
+      "finish_reason": "stop",
+      "prompt_tokens": 411,
+      "completion_tokens": 49,
+      "total_tokens": 460
+    },
+    {
+      "id": "spider_dev_0982",
+      "source_index": 982,
+      "db_id": "dog_kennels",
+      "question": "How many professionals did not operate any treatment on dogs?",
+      "schema_mode": "selected_schema",
+      "selected_tables": [
+        "Dogs",
+        "Professionals",
+        "Treatment_Types",
+        "Treatments"
+      ],
+      "selected_table_count": 4,
+      "schema_character_count": 1323,
+      "generated_sql": "SELECT COUNT(*) FROM Professionals p WHERE NOT EXISTS (SELECT 1 FROM Treatments t WHERE t.professional_id = p.professional_id);",
+      "gold_sql": "SELECT count(*) FROM Professionals WHERE professional_id NOT IN ( SELECT professional_id FROM Treatments )",
+      "gold_order_matters": false,
+      "execution_success": true,
+      "preliminary_is_correct": true,
+      "predicted_columns": [
+        "COUNT(*)"
+      ],
+      "predicted_rows": [
+        [
+          7
+        ]
+      ],
+      "gold_columns": [
+        "count(*)"
+      ],
+      "gold_rows": [
+        [
+          7
+        ]
+      ],
+      "error": null,
+      "latency_seconds": 1.712,
+      "finish_reason": "stop",
+      "prompt_tokens": 402,
+      "completion_tokens": 29,
+      "total_tokens": 431
+    },
+    {
+      "id": "spider_dev_0952",
+      "source_index": 952,
+      "db_id": "dog_kennels",
+      "question": "List pairs of the owner's first name and the dogs's name.",
+      "schema_mode": "selected_schema",
+      "selected_tables": [
+        "Dogs",
+        "Owners",
+        "Professionals",
+        "Treatments"
+      ],
+      "selected_table_count": 4,
+      "schema_character_count": 1518,
+      "generated_sql": "SELECT Owners.first_name, Dogs.name FROM Dogs JOIN Owners ON Dogs.owner_id = Owners.owner_id;",
+      "gold_sql": "SELECT T1.first_name ,  T2.name FROM Owners AS T1 JOIN Dogs AS T2 ON T1.owner_id  =  T2.owner_id",
+      "gold_order_matters": false,
+      "execution_success": true,
+      "preliminary_is_correct": true,
+      "predicted_columns": [
+        "first_name",
+        "name"
+      ],
+      "predicted_rows": [
+        [
+          "Jaclyn",
+          "Kacey"
+        ],
+        [
+          "Gay",
+          "Hipolito"
+        ],
+        [
+          "Nora",
+          "Mavis"
+        ],
+        [
+          "Rachelle",
+          "Houston"
+        ],
+        [
+          "Emelie",
+          "Jeffrey"
+        ],
+        [
+          "Johann",
+          "Merritt"
+        ],
+        [
+          "Jaclyn",
+          "Narciso"
+        ],
+        [
+          "Rachelle",
+          "George"
+        ],
+        [
+          "Melisa",
+          "Bessie"
+        ],
+        [
+          "Kade",
+          "Troy"
+        ],
+        [
+          "Cindy",
+          "Betty"
+        ],
+        [
+          "Orlando",
+          "Holden"
+        ],
+        [
+          "Rolando",
+          "Jesus"
+        ],
+        [
+          "Rachelle",
+          "Lyric"
+        ],
+        [
+          "Lorenz",
+          "Evangeline"
+        ]
+      ],
+      "gold_columns": [
+        "first_name",
+        "name"
+      ],
+      "gold_rows": [
+        [
+          "Jaclyn",
+          "Kacey"
+        ],
+        [
+          "Gay",
+          "Hipolito"
+        ],
+        [
+          "Nora",
+          "Mavis"
+        ],
+        [
+          "Rachelle",
+          "Houston"
+        ],
+        [
+          "Emelie",
+          "Jeffrey"
+        ],
+        [
+          "Johann",
+          "Merritt"
+        ],
+        [
+          "Jaclyn",
+          "Narciso"
+        ],
+        [
+          "Rachelle",
+          "George"
+        ],
+        [
+          "Melisa",
+          "Bessie"
+        ],
+        [
+          "Kade",
+          "Troy"
+        ],
+        [
+          "Cindy",
+          "Betty"
+        ],
+        [
+          "Orlando",
+          "Holden"
+        ],
+        [
+          "Rolando",
+          "Jesus"
+        ],
+        [
+          "Rachelle",
+          "Lyric"
+        ],
+        [
+          "Lorenz",
+          "Evangeline"
+        ]
+      ],
+      "error": null,
+      "latency_seconds": 1.236,
+      "finish_reason": "stop",
+      "prompt_tokens": 457,
+      "completion_tokens": 21,
+      "total_tokens": 478
+    },
+    {
+      "id": "spider_dev_0954",
+      "source_index": 954,
+      "db_id": "dog_kennels",
+      "question": "List the names of the dogs of the rarest breed and the treatment dates of them.",
+      "schema_mode": "selected_schema",
+      "selected_tables": [
+        "Breeds",
+        "Dogs",
+        "Treatment_Types",
+        "Treatments"
+      ],
+      "selected_table_count": 4,
+      "schema_character_count": 1052,
+      "generated_sql": "SELECT d.name, t.date_of_treatment FROM Dogs d JOIN Treatments t ON d.dog_id = t.dog_id JOIN Breeds b ON d.breed_code = b.breed_code WHERE b.breed_code = (SELECT breed_code FROM Breeds GROUP BY breed_code ORDER BY COUNT(*) ASC LIMIT 1)",
+      "gold_sql": "SELECT T1.name ,  T2.date_of_treatment FROM Dogs AS T1 JOIN Treatments AS T2 ON T1.dog_id  =  T2.dog_id WHERE T1.breed_code  =  ( SELECT breed_code FROM Dogs GROUP BY breed_code ORDER BY count(*) ASC LIMIT 1 )",
+      "gold_order_matters": false,
+      "execution_success": true,
+      "preliminary_is_correct": false,
+      "predicted_columns": [
+        "name",
+        "date_of_treatment"
+      ],
+      "predicted_rows": [
+        [
+          "Hipolito",
+          "2018-03-01 04:14:46"
+        ],
+        [
+          "Evangeline",
+          "2018-03-10 11:45:58"
+        ],
+        [
+          "Hipolito",
+          "2018-03-24 22:25:58"
+        ],
+        [
+          "Evangeline",
+          "2018-03-13 12:22:58"
+        ],
+        [
+          "Narciso",
+          "2018-02-26 09:08:53"
+        ]
+      ],
+      "gold_columns": [
+        "name",
+        "date_of_treatment"
+      ],
+      "gold_rows": [
+        [
+          "Lyric",
+          "2018-03-19 04:39:54"
+        ],
+        [
+          "Houston",
+          "2018-03-15 20:25:34"
+        ],
+        [
+          "Lyric",
+          "2018-03-08 05:26:23"
+        ],
+        [
+          "Lyric",
+          "2018-03-14 19:10:40"
+        ],
+        [
+          "Kacey",
+          "2018-03-15 19:10:02"
+        ]
+      ],
+      "error": null,
+      "latency_seconds": 2.523,
+      "finish_reason": "stop",
+      "prompt_tokens": 351,
+      "completion_tokens": 67,
+      "total_tokens": 418
+    },
+    {
+      "id": "spider_dev_0926",
+      "source_index": 926,
+      "db_id": "dog_kennels",
+      "question": "Which first names are used for professionals or owners but are not used as dog names?",
+      "schema_mode": "selected_schema",
+      "selected_tables": [
+        "Dogs",
+        "Owners",
+        "Professionals",
+        "Treatments"
+      ],
+      "selected_table_count": 4,
+      "schema_character_count": 1518,
+      "generated_sql": "SELECT DISTINCT first_name FROM Owners UNION SELECT first_name FROM Professionals EXCEPT SELECT name FROM Dogs;",
+      "gold_sql": "SELECT first_name FROM Professionals UNION SELECT first_name FROM Owners EXCEPT SELECT name FROM Dogs",
+      "gold_order_matters": false,
+      "execution_success": true,
+      "preliminary_is_correct": true,
+      "predicted_columns": [
+        "first_name"
+      ],
+      "predicted_rows": [
+        [
+          "Adelle"
+        ],
+        [
+          "Brady"
+        ],
+        [
+          "Cindy"
+        ],
+        [
+          "Danny"
+        ],
+        [
+          "Domenica"
+        ],
+        [
+          "Emelie"
+        ],
+        [
+          "Ericka"
+        ],
+        [
+          "Gay"
+        ],
+        [
+          "Heather"
+        ],
+        [
+          "Jaclyn"
+        ],
+        [
+          "Jayson"
+        ],
+        [
+          "Johann"
+        ],
+        [
+          "Kade"
+        ],
+        [
+          "Karley"
+        ],
+        [
+          "Lesly"
+        ],
+        [
+          "Lorenz"
+        ],
+        [
+          "Melisa"
+        ],
+        [
+          "Monte"
+        ],
+        [
+          "Nora"
+        ],
+        [
+          "Olaf"
+        ],
+        [
+          "Orlando"
+        ],
+        [
+          "Rachelle"
+        ],
+        [
+          "Rolando"
+        ],
+        [
+          "Ruben"
+        ],
+        [
+          "Sigurd"
+        ],
+        [
+          "Taryn"
+        ],
+        [
+          "Tre"
+        ],
+        [
+          "Velva"
+        ],
+        [
+          "Vernice"
+        ],
+        [
+          "Winfield"
+        ]
+      ],
+      "gold_columns": [
+        "first_name"
+      ],
+      "gold_rows": [
+        [
+          "Adelle"
+        ],
+        [
+          "Brady"
+        ],
+        [
+          "Cindy"
+        ],
+        [
+          "Danny"
+        ],
+        [
+          "Domenica"
+        ],
+        [
+          "Emelie"
+        ],
+        [
+          "Ericka"
+        ],
+        [
+          "Gay"
+        ],
+        [
+          "Heather"
+        ],
+        [
+          "Jaclyn"
+        ],
+        [
+          "Jayson"
+        ],
+        [
+          "Johann"
+        ],
+        [
+          "Kade"
+        ],
+        [
+          "Karley"
+        ],
+        [
+          "Lesly"
+        ],
+        [
+          "Lorenz"
+        ],
+        [
+          "Melisa"
+        ],
+        [
+          "Monte"
+        ],
+        [
+          "Nora"
+        ],
+        [
+          "Olaf"
+        ],
+        [
+          "Orlando"
+        ],
+        [
+          "Rachelle"
+        ],
+        [
+          "Rolando"
+        ],
+        [
+          "Ruben"
+        ],
+        [
+          "Sigurd"
+        ],
+        [
+          "Taryn"
+        ],
+        [
+          "Tre"
+        ],
+        [
+          "Velva"
+        ],
+        [
+          "Vernice"
+        ],
+        [
+          "Winfield"
+        ]
+      ],
+      "error": null,
+      "latency_seconds": 1.379,
+      "finish_reason": "stop",
+      "prompt_tokens": 460,
+      "completion_tokens": 20,
+      "total_tokens": 480
+    },
+    {
+      "id": "spider_dev_0934",
+      "source_index": 934,
+      "db_id": "dog_kennels",
+      "question": "What is the name of the breed with the most dogs?",
+      "schema_mode": "selected_schema",
+      "selected_tables": [
+        "Breeds",
+        "Dogs",
+        "Treatment_Types",
+        "Treatments"
+      ],
+      "selected_table_count": 4,
+      "schema_character_count": 1052,
+      "generated_sql": "SELECT b.breed_name FROM Breeds b JOIN Dogs d ON b.breed_code = d.breed_code GROUP BY b.breed_name ORDER BY COUNT(d.dog_id) DESC LIMIT 1;",
+      "gold_sql": "SELECT T1.breed_name FROM Breeds AS T1 JOIN Dogs AS T2 ON T1.breed_code  =  T2.breed_code GROUP BY T1.breed_name ORDER BY count(*) DESC LIMIT 1",
+      "gold_order_matters": true,
+      "execution_success": true,
+      "preliminary_is_correct": true,
+      "predicted_columns": [
+        "breed_name"
+      ],
+      "predicted_rows": [
+        [
+          "Bulldog"
+        ]
+      ],
+      "gold_columns": [
+        "breed_name"
+      ],
+      "gold_rows": [
+        [
+          "Bulldog"
+        ]
+      ],
+      "error": null,
+      "latency_seconds": 2.777,
+      "finish_reason": "stop",
+      "prompt_tokens": 345,
+      "completion_tokens": 42,
+      "total_tokens": 387
+    },
+    {
+      "id": "spider_dev_0940",
+      "source_index": 940,
+      "db_id": "dog_kennels",
+      "question": "Which owner has paid the largest amount of money in total for their dogs? Show the owner id and zip code.",
+      "schema_mode": "selected_schema",
+      "selected_tables": [
+        "Charges",
+        "Dogs",
+        "Owners",
+        "Treatments"
+      ],
+      "selected_table_count": 4,
+      "schema_character_count": 1217,
+      "generated_sql": "SELECT o.owner_id, o.zip_code\nFROM Owners o\nJOIN Dogs d ON o.owner_id = d.owner_id\nJOIN Treatments t ON d.dog_id = t.dog_id\nGROUP BY o.owner_id, o.zip_code\nORDER BY SUM(t.cost_of_treatment) DESC\nLIMIT 1;",
+      "gold_sql": "SELECT T1.owner_id ,  T1.zip_code FROM Owners AS T1 JOIN Dogs AS T2 ON T1.owner_id  =  T2.owner_id JOIN Treatments AS T3 ON T2.dog_id  =  T3.dog_id GROUP BY T1.owner_id ORDER BY sum(T3.cost_of_treatment) DESC LIMIT 1",
+      "gold_order_matters": true,
+      "execution_success": true,
+      "preliminary_is_correct": true,
+      "predicted_columns": [
+        "owner_id",
+        "zip_code"
+      ],
+      "predicted_rows": [
+        [
+          3,
+          "02647"
+        ]
+      ],
+      "gold_columns": [
+        "owner_id",
+        "zip_code"
+      ],
+      "gold_rows": [
+        [
+          3,
+          "02647"
+        ]
+      ],
+      "error": null,
+      "latency_seconds": 2.629,
+      "finish_reason": "stop",
+      "prompt_tokens": 399,
+      "completion_tokens": 66,
+      "total_tokens": 465
+    },
+    {
+      "id": "spider_dev_0087",
+      "source_index": 87,
+      "db_id": "car_1",
+      "question": "How many continents are there?",
+      "schema_mode": "selected_schema",
+      "selected_tables": [
+        "car_makers",
+        "car_names",
+        "cars_data",
+        "continents",
+        "countries",
+        "model_list"
+      ],
+      "selected_table_count": 6,
+      "schema_character_count": 949,
+      "generated_sql": "SELECT COUNT(*) FROM continents;",
+      "gold_sql": "SELECT count(*) FROM CONTINENTS;",
+      "gold_order_matters": false,
+      "execution_success": true,
+      "preliminary_is_correct": true,
+      "predicted_columns": [
+        "COUNT(*)"
+      ],
+      "predicted_rows": [
+        [
+          5
+        ]
+      ],
+      "gold_columns": [
+        "count(*)"
+      ],
+      "gold_rows": [
+        [
+          5
+        ]
+      ],
+      "error": null,
+      "latency_seconds": 0.889,
+      "finish_reason": "stop",
+      "prompt_tokens": 297,
+      "completion_tokens": 7,
+      "total_tokens": 304
+    },
+    {
+      "id": "spider_dev_0135",
+      "source_index": 135,
+      "db_id": "car_1",
+      "question": "What is the average horsepower of the cars before 1980?",
+      "schema_mode": "selected_schema",
+      "selected_tables": [
+        "car_makers",
+        "car_names",
+        "cars_data",
+        "model_list"
+      ],
+      "selected_table_count": 4,
+      "schema_character_count": 642,
+      "generated_sql": "SELECT AVG(Horsepower) FROM cars_data WHERE Year < 1980;",
+      "gold_sql": "SELECT avg(horsepower) FROM CARS_DATA WHERE YEAR  <  1980;",
+      "gold_order_matters": false,
+      "execution_success": true,
+      "preliminary_is_correct": true,
+      "predicted_columns": [
+        "AVG(Horsepower)"
+      ],
+      "predicted_rows": [
+        [
+          111.13291139240506
+        ]
+      ],
+      "gold_columns": [
+        "avg(horsepower)"
+      ],
+      "gold_rows": [
+        [
+          111.13291139240506
+        ]
+      ],
+      "error": null,
+      "latency_seconds": 1.282,
+      "finish_reason": "stop",
+      "prompt_tokens": 242,
+      "completion_tokens": 17,
+      "total_tokens": 259
+    },
+    {
+      "id": "spider_dev_0119",
+      "source_index": 119,
+      "db_id": "car_1",
+      "question": "What is the smallest weight of the car produced with 8 cylinders on 1974 ?",
+      "schema_mode": "selected_schema",
+      "selected_tables": [
+        "car_makers",
+        "car_names",
+        "cars_data",
+        "model_list"
+      ],
+      "selected_table_count": 4,
+      "schema_character_count": 642,
+      "generated_sql": "SELECT MIN(Weight) FROM cars_data WHERE Cylinders = 8 AND Year = 1974;",
+      "gold_sql": "select min(weight) from cars_data where cylinders  =  8 and year  =  1974",
+      "gold_order_matters": false,
+      "execution_success": true,
+      "preliminary_is_correct": true,
+      "predicted_columns": [
+        "MIN(Weight)"
+      ],
+      "predicted_rows": [
+        [
+          4141
+        ]
+      ],
+      "gold_columns": [
+        "min(weight)"
+      ],
+      "gold_rows": [
+        [
+          4141
+        ]
+      ],
+      "error": null,
+      "latency_seconds": 3.285,
+      "finish_reason": "stop",
+      "prompt_tokens": 248,
+      "completion_tokens": 24,
+      "total_tokens": 272
+    },
+    {
+      "id": "spider_dev_0137",
+      "source_index": 137,
+      "db_id": "car_1",
+      "question": "What is the average edispl of the cars of model volvo?",
+      "schema_mode": "selected_schema",
+      "selected_tables": [
+        "car_makers",
+        "car_names",
+        "cars_data",
+        "model_list"
+      ],
+      "selected_table_count": 4,
+      "schema_character_count": 642,
+      "generated_sql": "SELECT AVG(c.Edispl) FROM cars_data c JOIN car_names cn ON c.Id = cn.MakeId WHERE cn.Model = 'volvo';",
+      "gold_sql": "SELECT avg(T2.edispl) FROM CAR_NAMES AS T1 JOIN CARS_DATA AS T2 ON T1.MakeId  =  T2.Id WHERE T1.Model  =  'volvo';",
+      "gold_order_matters": false,
+      "execution_success": true,
+      "preliminary_is_correct": true,
+      "predicted_columns": [
+        "AVG(c.Edispl)"
+      ],
+      "predicted_rows": [
+        [
+          133.5
+        ]
+      ],
+      "gold_columns": [
+        "avg(T2.edispl)"
+      ],
+      "gold_rows": [
+        [
+          133.5
+        ]
+      ],
+      "error": null,
+      "latency_seconds": 1.745,
+      "finish_reason": "stop",
+      "prompt_tokens": 244,
+      "completion_tokens": 31,
+      "total_tokens": 275
+    },
+    {
+      "id": "spider_dev_0101",
+      "source_index": 101,
+      "db_id": "car_1",
+      "question": "Find the make and production time of the cars that were produced in the earliest year?",
+      "schema_mode": "selected_schema",
+      "selected_tables": [
+        "car_makers",
+        "car_names",
+        "cars_data",
+        "model_list"
+      ],
+      "selected_table_count": 4,
+      "schema_character_count": 642,
+      "generated_sql": "SELECT car_makers.Maker, cars_data.Year FROM cars_data JOIN car_names ON cars_data.Id = car_names.MakeId JOIN model_list ON car_names.Model = model_list.Model JOIN car_makers ON model_list.Maker = car_makers.Id ORDER BY cars_data.Year ASC LIMIT 1;",
+      "gold_sql": "SELECT T2.Make ,  T1.Year FROM CARS_DATA AS T1 JOIN CAR_NAMES AS T2 ON T1.Id  =  T2.MakeId WHERE T1.Year  =  (SELECT min(YEAR) FROM CARS_DATA);",
+      "gold_order_matters": false,
+      "execution_success": true,
+      "preliminary_is_correct": false,
+      "predicted_columns": [
+        "Maker",
+        "Year"
+      ],
+      "predicted_rows": [
+        [
+          "gm",
+          1970
+        ]
+      ],
+      "gold_columns": [
+        "Make",
+        "Year"
+      ],
+      "gold_rows": [
+        [
+          "chevrolet chevelle malibu",
+          1970
+        ],
+        [
+          "buick skylark 320",
+          1970
+        ],
+        [
+          "plymouth satellite",
+          1970
+        ],
+        [
+          "amc rebel sst",
+          1970
+        ],
+        [
+          "ford torino",
+          1970
+        ],
+        [
+          "ford galaxie 500",
+          1970
+        ],
+        [
+          "chevrolet impala",
+          1970
+        ],
+        [
+          "plymouth fury iii",
+          1970
+        ],
+        [
+          "pontiac catalina",
+          1970
+        ],
+        [
+          "amc ambassador dpl",
+          1970
+        ],
+        [
+          "citroen ds-21 pallas",
+          1970
+        ],
+        [
+          "chevrolet chevelle concours (sw)",
+          1970
+        ],
+        [
+          "ford torino (sw)",
+          1970
+        ],
+        [
+          "plymouth satellite (sw)",
+          1970
+        ],
+        [
+          "amc rebel sst (sw)",
+          1970
+        ],
+        [
+          "dodge challenger se",
+          1970
+        ],
+        [
+          "plymouth cuda 340",
+          1970
+        ],
+        [
+          "ford mustang boss 302",
+          1970
+        ],
+        [
+          "chevrolet monte carlo",
+          1970
+        ],
+        [
+          "buick estate wagon (sw)",
+          1970
+        ],
+        [
+          "toyota corona mark ii",
+          1970
+        ],
+        [
+          "plymouth duster",
+          1970
+        ],
+        [
+          "amc hornet",
+          1970
+        ],
+        [
+          "ford maverick",
+          1970
+        ],
+        [
+          "datsun pl510",
+          1970
+        ],
+        [
+          "volkswagen 1131 deluxe sedan",
+          1970
+        ],
+        [
+          "peugeot 504",
+          1970
+        ],
+        [
+          "audi 100 ls",
+          1970
+        ],
+        [
+          "saab 99e",
+          1970
+        ],
+        [
+          "bmw 2002",
+          1970
+        ],
+        [
+          "amc gremlin",
+          1970
+        ],
+        [
+          "ford f250",
+          1970
+        ],
+        [
+          "chevy c20",
+          1970
+        ],
+        [
+          "dodge d200",
+          1970
+        ],
+        [
+          "hi 1200d",
+          1970
+        ]
+      ],
+      "error": null,
+      "latency_seconds": 3.492,
+      "finish_reason": "stop",
+      "prompt_tokens": 246,
+      "completion_tokens": 61,
+      "total_tokens": 307
+    },
+    {
+      "id": "spider_dev_0109",
+      "source_index": 109,
+      "db_id": "car_1",
+      "question": "How many car models are produced by each maker ? Only list the count and the maker full name .",
+      "schema_mode": "selected_schema",
+      "selected_tables": [
+        "car_makers",
+        "car_names",
+        "countries",
+        "model_list"
+      ],
+      "selected_table_count": 4,
+      "schema_character_count": 568,
+      "generated_sql": "SELECT COUNT(ml.ModelId) AS count, cm.FullName AS maker_full_name FROM car_makers cm JOIN model_list ml ON cm.Id = ml.Maker GROUP BY cm.FullName;",
+      "gold_sql": "select count(*) ,  t2.fullname from model_list as t1 join car_makers as t2 on t1.maker  =  t2.id group by t2.id;",
+      "gold_order_matters": false,
+      "execution_success": true,
+      "preliminary_is_correct": true,
+      "predicted_columns": [
+        "count",
+        "maker_full_name"
+      ],
+      "predicted_rows": [
+        [
+          1,
+          "American Motor Company"
+        ],
+        [
+          1,
+          "BMW"
+        ],
+        [
+          4,
+          "Chrysler"
+        ],
+        [
+          1,
+          "Citroen"
+        ],
+        [
+          2,
+          "Daimler Benz"
+        ],
+        [
+          1,
+          "Fiat"
+        ],
+        [
+          3,
+          "Ford Motor Company"
+        ],
+        [
+          5,
+          "General Motors"
+        ],
+        [
+          1,
+          "Honda"
+        ],
+        [
+          1,
+          "Hyundai"
+        ],
+        [
+          1,
+          "Kia Motors"
+        ],
+        [
+          1,
+          "Mazda"
+        ],
+        [
+          2,
+          "Nissan Motors"
+        ],
+        [
+          1,
+          "Opel"
+        ],
+        [
+          1,
+          "Peugeaut"
+        ],
+        [
+          1,
+          "Renault"
+        ],
+        [
+          1,
+          "Saab"
+        ],
+        [
+          1,
+          "Subaru"
+        ],
+        [
+          2,
+          "Toyota"
+        ],
+        [
+          1,
+          "Triumph"
+        ],
+        [
+          2,
+          "Volkswagen"
+        ],
+        [
+          1,
+          "Volvo"
+        ]
+      ],
+      "gold_columns": [
+        "count(*)",
+        "FullName"
+      ],
+      "gold_rows": [
+        [
+          1,
+          "American Motor Company"
+        ],
+        [
+          2,
+          "Volkswagen"
+        ],
+        [
+          1,
+          "BMW"
+        ],
+        [
+          5,
+          "General Motors"
+        ],
+        [
+          3,
+          "Ford Motor Company"
+        ],
+        [
+          4,
+          "Chrysler"
+        ],
+        [
+          1,
+          "Citroen"
+        ],
+        [
+          2,
+          "Nissan Motors"
+        ],
+        [
+          1,
+          "Fiat"
+        ],
+        [
+          1,
+          "Honda"
+        ],
+        [
+          1,
+          "Mazda"
+        ],
+        [
+          2,
+          "Daimler Benz"
+        ],
+        [
+          1,
+          "Opel"
+        ],
+        [
+          1,
+          "Peugeaut"
+        ],
+        [
+          1,
+          "Renault"
+        ],
+        [
+          1,
+          "Saab"
+        ],
+        [
+          1,
+          "Subaru"
+        ],
+        [
+          2,
+          "Toyota"
+        ],
+        [
+          1,
+          "Triumph"
+        ],
+        [
+          1,
+          "Volvo"
+        ],
+        [
+          1,
+          "Kia Motors"
+        ],
+        [
+          1,
+          "Hyundai"
+        ]
+      ],
+      "error": null,
+      "latency_seconds": 1.744,
+      "finish_reason": "stop",
+      "prompt_tokens": 223,
+      "completion_tokens": 37,
+      "total_tokens": 260
+    },
+    {
+      "id": "spider_dev_0141",
+      "source_index": 141,
+      "db_id": "car_1",
+      "question": "Which model has the most version(make) of cars?",
+      "schema_mode": "selected_schema",
+      "selected_tables": [
+        "car_makers",
+        "car_names",
+        "cars_data",
+        "model_list"
+      ],
+      "selected_table_count": 4,
+      "schema_character_count": 642,
+      "generated_sql": "SELECT Model, COUNT(*) as version_count FROM car_names GROUP BY Model ORDER BY version_count DESC LIMIT 1;",
+      "gold_sql": "SELECT Model FROM CAR_NAMES GROUP BY Model ORDER BY count(*) DESC LIMIT 1;",
+      "gold_order_matters": true,
+      "execution_success": true,
+      "preliminary_is_correct": false,
+      "predicted_columns": [
+        "Model",
+        "version_count"
+      ],
+      "predicted_rows": [
+        [
+          "ford",
+          53
+        ]
+      ],
+      "gold_columns": [
+        "Model"
+      ],
+      "gold_rows": [
+        [
+          "ford"
+        ]
+      ],
+      "error": null,
+      "latency_seconds": 1.92,
+      "finish_reason": "stop",
+      "prompt_tokens": 240,
+      "completion_tokens": 24,
+      "total_tokens": 264
+    },
+    {
+      "id": "spider_dev_0105",
+      "source_index": 105,
+      "db_id": "car_1",
+      "question": "How many car makers are there in each continents? List the continent name and the count.",
+      "schema_mode": "selected_schema",
+      "selected_tables": [
+        "car_makers",
+        "car_names",
+        "continents",
+        "countries",
+        "model_list"
+      ],
+      "selected_table_count": 5,
+      "schema_character_count": 708,
+      "generated_sql": "SELECT c.Continent, COUNT(cm.Id) AS count FROM car_makers cm JOIN countries co ON cm.Country = co.CountryId JOIN continents c ON co.Continent = c.ContId GROUP BY c.Continent;",
+      "gold_sql": "SELECT T1.Continent ,  count(*) FROM CONTINENTS AS T1 JOIN COUNTRIES AS T2 ON T1.ContId  =  T2.continent JOIN car_makers AS T3 ON T2.CountryId  =  T3.Country GROUP BY T1.Continent;",
+      "gold_order_matters": false,
+      "execution_success": true,
+      "preliminary_is_correct": true,
+      "predicted_columns": [
+        "Continent",
+        "count"
+      ],
+      "predicted_rows": [
+        [
+          "america",
+          4
+        ],
+        [
+          "asia",
+          7
+        ],
+        [
+          "europe",
+          11
+        ]
+      ],
+      "gold_columns": [
+        "Continent",
+        "count(*)"
+      ],
+      "gold_rows": [
+        [
+          "america",
+          4
+        ],
+        [
+          "asia",
+          7
+        ],
+        [
+          "europe",
+          11
+        ]
+      ],
+      "error": null,
+      "latency_seconds": 2.646,
+      "finish_reason": "stop",
+      "prompt_tokens": 250,
+      "completion_tokens": 44,
+      "total_tokens": 294
+    },
+    {
+      "id": "spider_dev_0173",
+      "source_index": 173,
+      "db_id": "car_1",
+      "question": "What are the name of the countries where there is not a single car maker?",
+      "schema_mode": "selected_schema",
+      "selected_tables": [
+        "car_makers",
+        "car_names",
+        "cars_data",
+        "countries",
+        "model_list"
+      ],
+      "selected_table_count": 5,
+      "schema_character_count": 809,
+      "generated_sql": "SELECT c.CountryName FROM countries c LEFT JOIN car_makers cm ON c.CountryId = cm.Country WHERE cm.Id IS NULL;",
+      "gold_sql": "SELECT CountryName FROM countries EXCEPT SELECT T1.CountryName FROM countries AS T1 JOIN CAR_MAKERS AS T2 ON T1.countryId  =  T2.Country;",
+      "gold_order_matters": false,
+      "execution_success": true,
+      "preliminary_is_correct": true,
+      "predicted_columns": [
+        "CountryName"
+      ],
+      "predicted_rows": [
+        [
+          "russia"
+        ],
+        [
+          "nigeria"
+        ],
+        [
+          "australia"
+        ],
+        [
+          "new zealand"
+        ],
+        [
+          "egypt"
+        ],
+        [
+          "mexico"
+        ],
+        [
+          "brazil"
+        ]
+      ],
+      "gold_columns": [
+        "CountryName"
+      ],
+      "gold_rows": [
+        [
+          "australia"
+        ],
+        [
+          "brazil"
+        ],
+        [
+          "egypt"
+        ],
+        [
+          "mexico"
+        ],
+        [
+          "new zealand"
+        ],
+        [
+          "nigeria"
+        ],
+        [
+          "russia"
+        ]
+      ],
+      "error": null,
+      "latency_seconds": 1.696,
+      "finish_reason": "stop",
+      "prompt_tokens": 278,
+      "completion_tokens": 27,
+      "total_tokens": 305
+    },
+    {
+      "id": "spider_dev_0177",
+      "source_index": 177,
+      "db_id": "car_1",
+      "question": "What are the id and names of the countries which have more than 3 car makers or produce the 'fiat' model?",
+      "schema_mode": "selected_schema",
+      "selected_tables": [
+        "car_makers",
+        "car_names",
+        "countries",
+        "model_list"
+      ],
+      "selected_table_count": 4,
+      "schema_character_count": 568,
+      "generated_sql": "SELECT c.CountryId, c.CountryName FROM countries c JOIN car_makers m ON c.CountryId = m.Country GROUP BY c.CountryId, c.CountryName HAVING COUNT(m.Id) > 3 OR EXISTS (SELECT 1 FROM car_names cn JOIN model_list ml ON cn.Model = ml.Model WHERE ml.Maker = m.Id AND cn.Make = 'fiat');",
+      "gold_sql": "SELECT T1.countryId ,  T1.CountryName FROM Countries AS T1 JOIN CAR_MAKERS AS T2 ON T1.CountryId  =  T2.Country GROUP BY T1.countryId HAVING count(*)  >  3 UNION SELECT T1.countryId ,  T1.CountryName FROM Countries AS T1 JOIN CAR_MAKERS AS T2 ON T1.CountryId  =  T2.Country JOIN MODEL_LIST AS T3 ON T2.Id  =  T3.Maker WHERE T3.Model  =  'fiat';",
+      "gold_order_matters": false,
+      "execution_success": true,
+      "preliminary_is_correct": false,
+      "predicted_columns": [
+        "CountryId",
+        "CountryName"
+      ],
+      "predicted_rows": [
+        [
+          1,
+          "usa"
+        ],
+        [
+          2,
+          "germany"
+        ],
+        [
+          4,
+          "japan"
+        ]
+      ],
+      "gold_columns": [
+        "CountryId",
+        "CountryName"
+      ],
+      "gold_rows": [
+        [
+          1,
+          "usa"
+        ],
+        [
+          2,
+          "germany"
+        ],
+        [
+          4,
+          "japan"
+        ],
+        [
+          5,
+          "italy"
+        ]
+      ],
+      "error": null,
+      "latency_seconds": 6.453,
+      "finish_reason": "stop",
+      "prompt_tokens": 229,
+      "completion_tokens": 77,
+      "total_tokens": 306
+    }
+  ],
+  "summary": {
+    "dataset_size": 30,
+    "completed": 30,
+    "execution_success_count": 30,
+    "preliminary_correct_count": 22,
+    "execution_success_rate": 1.0,
+    "preliminary_execution_accuracy": 0.7333,
+    "average_latency_seconds": 2.6,
+    "total_tokens": 11443
+  }
+}

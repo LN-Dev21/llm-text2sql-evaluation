@@ -1,0 +1,1511 @@
+{
+  "case_count": 150,
+  "keep_distinct": false,
+  "single_database_correct_count": 128,
+  "single_database_execution_accuracy": 0.8533,
+  "test_suite_correct_count": 35,
+  "test_suite_accuracy": 0.2333,
+  "single_database_false_positive_count": 93,
+  "cases": [
+    {
+      "id": "spider_train_others_1244",
+      "db_id": "academic",
+      "question": "return me the homepage of PVLDB .",
+      "generated_sql": "SELECT homepage FROM conference WHERE name = 'PVLDB';",
+      "gold_sql": "SELECT homepage FROM journal WHERE name  =  \"PVLDB\";",
+      "single_database_pass": true,
+      "test_suite_pass": false,
+      "single_database_false_positive": true
+    },
+    {
+      "id": "spider_train_others_1250",
+      "db_id": "academic",
+      "question": "return me the homepage of the VLDB conference .",
+      "generated_sql": "SELECT homepage FROM conference WHERE name = 'VLDB';",
+      "gold_sql": "SELECT homepage FROM conference WHERE name  =  \"VLDB\";",
+      "single_database_pass": true,
+      "test_suite_pass": true,
+      "single_database_false_positive": false
+    },
+    {
+      "id": "spider_train_others_1254",
+      "db_id": "academic",
+      "question": "return me the homepage of \" University of Michigan \" .",
+      "generated_sql": "SELECT homepage FROM organization WHERE name = ' University of Michigan ' ;",
+      "gold_sql": "SELECT homepage FROM organization WHERE name  =  \"University of Michigan\";",
+      "single_database_pass": true,
+      "test_suite_pass": false,
+      "single_database_false_positive": true
+    },
+    {
+      "id": "spider_train_others_1332",
+      "db_id": "academic",
+      "question": "return me the number of keywords .",
+      "generated_sql": "SELECT COUNT(*) FROM keyword;",
+      "gold_sql": "SELECT COUNT ( DISTINCT keyword ) FROM keyword;",
+      "single_database_pass": true,
+      "test_suite_pass": true,
+      "single_database_false_positive": false
+    },
+    {
+      "id": "spider_train_others_1272",
+      "db_id": "academic",
+      "question": "return me the conference, which published \" Making database systems usable \" .",
+      "generated_sql": "SELECT conference.name FROM conference JOIN publication ON conference.cid = publication.cid WHERE publication.title = 'Making database systems usable';",
+      "gold_sql": "SELECT t1.name FROM publication AS t2 JOIN conference AS t1 ON t2.cid  =  t1.cid WHERE t2.title  =  \"Making database systems usable\";",
+      "single_database_pass": true,
+      "test_suite_pass": true,
+      "single_database_false_positive": false
+    },
+    {
+      "id": "spider_train_others_1322",
+      "db_id": "academic",
+      "question": "return me the number of papers on VLDB conference .",
+      "generated_sql": "SELECT COUNT(*) FROM publication WHERE cid = (SELECT cid FROM conference WHERE name = 'VLDB');",
+      "gold_sql": "SELECT COUNT ( DISTINCT t2.title ) FROM publication AS t2 JOIN conference AS t1 ON t2.cid  =  t1.cid WHERE t1.name  =  \"VLDB\";",
+      "single_database_pass": true,
+      "test_suite_pass": false,
+      "single_database_false_positive": true
+    },
+    {
+      "id": "spider_train_others_1363",
+      "db_id": "academic",
+      "question": "return me the citations of each paper in PVLDB .",
+      "generated_sql": "SELECT p.pid, p.title, c.citing AS citation_count FROM publication p JOIN cite c ON p.pid = c.cited JOIN journal j ON p.jid = j.jid WHERE j.name = 'PVLDB' GROUP BY p.pid, p.title, c.citing;",
+      "gold_sql": "SELECT t2.citation_num FROM publication AS t2 JOIN journal AS t1 ON t2.jid  =  t1.jid WHERE t1.name  =  \"PVLDB\";",
+      "single_database_pass": true,
+      "test_suite_pass": false,
+      "single_database_false_positive": true
+    },
+    {
+      "id": "spider_train_others_1276",
+      "db_id": "academic",
+      "question": "return me the papers on PVLDB after 2000 .",
+      "generated_sql": "SELECT * FROM publication WHERE jid = (SELECT jid FROM journal WHERE name = 'PVLDB') AND year > 2000;",
+      "gold_sql": "SELECT t2.title FROM publication AS t2 JOIN journal AS t1 ON t2.jid  =  t1.jid WHERE t1.name  =  \"PVLDB\" AND t2.year  >  2000;",
+      "single_database_pass": true,
+      "test_suite_pass": false,
+      "single_database_false_positive": true
+    },
+    {
+      "id": "spider_train_others_1326",
+      "db_id": "academic",
+      "question": "return me the number of papers on VLDB conference after 2000 .",
+      "generated_sql": "SELECT COUNT(*) FROM publication WHERE cid = (SELECT cid FROM conference WHERE name = 'VLDB') AND year > 2000;",
+      "gold_sql": "SELECT COUNT ( DISTINCT t2.title ) FROM publication AS t2 JOIN conference AS t1 ON t2.cid  =  t1.cid WHERE t1.name  =  \"VLDB\" AND t2.year  >  2000;",
+      "single_database_pass": true,
+      "test_suite_pass": false,
+      "single_database_false_positive": true
+    },
+    {
+      "id": "spider_train_others_1370",
+      "db_id": "academic",
+      "question": "return me the total citations of papers in the VLDB conference in 2005 .",
+      "generated_sql": "SELECT SUM(citation_num) FROM publication WHERE cid = (SELECT cid FROM conference WHERE name = 'VLDB') AND year = 2005;",
+      "gold_sql": "SELECT SUM ( t2.citation_num ) FROM publication AS t2 JOIN conference AS t1 ON t2.cid  =  t1.cid WHERE t1.name  =  \"VLDB\" AND t2.year  =  2005;",
+      "single_database_pass": true,
+      "test_suite_pass": false,
+      "single_database_false_positive": true
+    },
+    {
+      "id": "spider_train_others_1271",
+      "db_id": "academic",
+      "question": "return me the authors of \" Making database systems usable \" .",
+      "generated_sql": "SELECT author.name FROM author JOIN writes ON author.aid = writes.aid JOIN publication ON writes.pid = publication.pid WHERE publication.title = ' Making database systems usable ' ;",
+      "gold_sql": "SELECT t1.name FROM writes AS t2 JOIN author AS t1 ON t2.aid  =  t1.aid JOIN publication AS t3 ON t2.pid  =  t3.pid WHERE t3.title  =  \"Making database systems usable\";",
+      "single_database_pass": true,
+      "test_suite_pass": false,
+      "single_database_false_positive": true
+    },
+    {
+      "id": "spider_train_others_1287",
+      "db_id": "academic",
+      "question": "return me the keywords of \" Making database systems usable \" .",
+      "generated_sql": "SELECT keyword FROM keyword WHERE kid IN (SELECT kid FROM publication_keyword WHERE pid IN (SELECT pid FROM publication WHERE title = 'Making database systems usable'));",
+      "gold_sql": "SELECT t1.keyword FROM publication_keyword AS t3 JOIN keyword AS t1 ON t3.kid  =  t1.kid JOIN publication AS t2 ON t2.pid  =  t3.pid WHERE t2.title  =  \"Making database systems usable\";",
+      "single_database_pass": true,
+      "test_suite_pass": false,
+      "single_database_false_positive": true
+    },
+    {
+      "id": "spider_train_others_1333",
+      "db_id": "academic",
+      "question": "return me the number of keywords in Databases area .",
+      "generated_sql": "SELECT COUNT(*) FROM keyword WHERE kid IN (SELECT kid FROM domain_keyword WHERE did IN (SELECT did FROM domain WHERE name = 'Databases'));",
+      "gold_sql": "SELECT COUNT ( DISTINCT t1.keyword ) FROM DOMAIN AS t3 JOIN domain_keyword AS t2 ON t3.did  =  t2.did JOIN keyword AS t1 ON t1.kid  =  t2.kid WHERE t3.name  =  \"Databases\";",
+      "single_database_pass": true,
+      "test_suite_pass": false,
+      "single_database_false_positive": true
+    },
+    {
+      "id": "spider_train_others_1366",
+      "db_id": "academic",
+      "question": "return me the total citations of papers in PVLDB in each year .",
+      "generated_sql": "SELECT p.year, SUM(p.citation_num) AS total_citations FROM publication p JOIN journal j ON p.jid = j.jid WHERE j.name = 'PVLDB' GROUP BY p.year;",
+      "gold_sql": "SELECT t2.year  ,  SUM ( t2.citation_num ) FROM publication AS t2 JOIN journal AS t1 ON t2.jid  =  t1.jid WHERE t1.name  =  \"PVLDB\" GROUP BY t2.year;",
+      "single_database_pass": true,
+      "test_suite_pass": true,
+      "single_database_false_positive": false
+    },
+    {
+      "id": "spider_train_others_1407",
+      "db_id": "academic",
+      "question": "return me the paper in VLDB conference with the most citations .",
+      "generated_sql": "SELECT * FROM publication WHERE cid = (SELECT cid FROM conference WHERE name = 'VLDB') ORDER BY citation_num DESC LIMIT 1;",
+      "gold_sql": "SELECT t2.title FROM publication AS t2 JOIN conference AS t1 ON t2.cid  =  t1.cid WHERE t1.name  =  \"VLDB\" ORDER BY t2.citation_num DESC LIMIT 1;",
+      "single_database_pass": true,
+      "test_suite_pass": false,
+      "single_database_false_positive": true
+    },
+    {
+      "id": "spider_train_others_1329",
+      "db_id": "academic",
+      "question": "return me the number of papers by \" H. V. Jagadish \" after 2000 .",
+      "generated_sql": "SELECT COUNT(*) FROM publication p JOIN writes w ON p.pid = w.pid JOIN author a ON w.aid = a.aid WHERE a.name = ' H. V. Jagadish ' AND p.year > 2000;",
+      "gold_sql": "SELECT COUNT ( DISTINCT t3.title ) FROM writes AS t2 JOIN author AS t1 ON t2.aid  =  t1.aid JOIN publication AS t3 ON t2.pid  =  t3.pid WHERE t1.name  =  \"H. V. Jagadish\" AND t3.year  >  2000;",
+      "single_database_pass": true,
+      "test_suite_pass": false,
+      "single_database_false_positive": true
+    },
+    {
+      "id": "spider_train_others_1269",
+      "db_id": "academic",
+      "question": "return me the journals, which have papers by \" H. V. Jagadish \" .",
+      "generated_sql": "SELECT j.name FROM journal j JOIN publication p ON j.jid = p.jid WHERE p.title LIKE '% H. V. Jagadish %';",
+      "gold_sql": "SELECT t2.name FROM publication AS t4 JOIN journal AS t2 ON t4.jid  =  t2.jid JOIN writes AS t3 ON t3.pid  =  t4.pid JOIN author AS t1 ON t3.aid  =  t1.aid WHERE t1.name  =  \"H. V. Jagadish\";",
+      "single_database_pass": true,
+      "test_suite_pass": false,
+      "single_database_false_positive": true
+    },
+    {
+      "id": "spider_train_others_1296",
+      "db_id": "academic",
+      "question": "return me all the organizations in Databases area .",
+      "generated_sql": "SELECT * FROM organization WHERE name = 'Databases';",
+      "gold_sql": "SELECT t2.name FROM domain_author AS t4 JOIN author AS t1 ON t4.aid  =  t1.aid JOIN DOMAIN AS t3 ON t3.did  =  t4.did JOIN organization AS t2 ON t2.oid  =  t1.oid WHERE t3.name  =  \"Databases\";",
+      "single_database_pass": true,
+      "test_suite_pass": false,
+      "single_database_false_positive": true
+    },
+    {
+      "id": "spider_train_others_1317",
+      "db_id": "academic",
+      "question": "return me the number of papers written by \" H. V. Jagadish \" in each year .",
+      "generated_sql": "SELECT p.year, COUNT(*) AS number_of_papers FROM publication p JOIN writes w ON p.pid = w.pid WHERE w.aid = (SELECT aid FROM author WHERE name = 'H. V. Jagadish') GROUP BY p.year;",
+      "gold_sql": "SELECT COUNT ( DISTINCT t3.title )  ,  t3.year FROM writes AS t2 JOIN author AS t1 ON t2.aid  =  t1.aid JOIN publication AS t3 ON t2.pid  =  t3.pid WHERE t1.name  =  \"H. V. Jagadish\" GROUP BY t3.year;",
+      "single_database_pass": true,
+      "test_suite_pass": false,
+      "single_database_false_positive": true
+    },
+    {
+      "id": "spider_train_others_1355",
+      "db_id": "academic",
+      "question": "return me the total citations of the papers in \" University of Michigan \" .",
+      "generated_sql": "SELECT SUM(citation_num) FROM publication WHERE pid IN (SELECT pid FROM cite WHERE cited IN (SELECT pid FROM publication WHERE title LIKE '%University of Michigan%'));",
+      "gold_sql": "SELECT SUM ( t4.citation_num ) FROM organization AS t2 JOIN author AS t1 ON t2.oid  =  t1.oid JOIN writes AS t3 ON t3.aid  =  t1.aid JOIN publication AS t4 ON t3.pid  =  t4.pid WHERE t2.name  =  \"University of Michigan\";",
+      "single_database_pass": true,
+      "test_suite_pass": false,
+      "single_database_false_positive": true
+    },
+    {
+      "id": "spider_train_others_1260",
+      "db_id": "academic",
+      "question": "return me the authors who have papers in PVLDB 2010 .",
+      "generated_sql": "SELECT author.name FROM author JOIN writes ON author.aid = writes.aid JOIN publication ON writes.pid = publication.pid JOIN journal ON publication.jid = journal.jid WHERE journal.name = 'PVLDB' AND publication.year = 2010;",
+      "gold_sql": "SELECT t1.name FROM publication AS t4 JOIN journal AS t2 ON t4.jid  =  t2.jid JOIN writes AS t3 ON t3.pid  =  t4.pid JOIN author AS t1 ON t3.aid  =  t1.aid WHERE t2.name  =  \"PVLDB\" AND t4.year  =  2010;",
+      "single_database_pass": true,
+      "test_suite_pass": true,
+      "single_database_false_positive": false
+    },
+    {
+      "id": "spider_train_others_1278",
+      "db_id": "academic",
+      "question": "return me the papers by \" H. V. Jagadish \" on PVLDB .",
+      "generated_sql": "SELECT p.* FROM publication p JOIN writes w ON p.pid = w.pid JOIN author a ON w.aid = a.name WHERE a.name = 'H. V. Jagadish' AND p.title LIKE '%PVLDB%'",
+      "gold_sql": "SELECT t4.title FROM publication AS t4 JOIN journal AS t2 ON t4.jid  =  t2.jid JOIN writes AS t3 ON t3.pid  =  t4.pid JOIN author AS t1 ON t3.aid  =  t1.aid WHERE t1.name  =  \"H. V. Jagadish\" AND t2.name  =  \"PVLDB\";",
+      "single_database_pass": true,
+      "test_suite_pass": false,
+      "single_database_false_positive": true
+    },
+    {
+      "id": "spider_train_others_1299",
+      "db_id": "academic",
+      "question": "return me all the researchers in Databases area in \" University of Michigan \" .",
+      "generated_sql": "SELECT a.name FROM author a JOIN domain_author da ON a.aid = da.aid JOIN domain d ON da.did = d.did WHERE d.name = 'Databases' AND a.homepage LIKE '%University of Michigan%'",
+      "gold_sql": "SELECT t1.name FROM domain_author AS t4 JOIN author AS t1 ON t4.aid  =  t1.aid JOIN DOMAIN AS t3 ON t3.did  =  t4.did JOIN organization AS t2 ON t2.oid  =  t1.oid WHERE t3.name  =  \"Databases\" AND t2.name  =  \"University of Michigan\";",
+      "single_database_pass": true,
+      "test_suite_pass": false,
+      "single_database_false_positive": true
+    },
+    {
+      "id": "spider_train_others_1342",
+      "db_id": "academic",
+      "question": "return me the number of papers in VLDB conference containing keyword \" Information Retrieval \" .",
+      "generated_sql": "SELECT COUNT(*) FROM publication p JOIN publication_keyword pk ON p.pid = pk.pid JOIN keyword k ON pk.kid = k.kid JOIN conference c ON p.cid = c.cid WHERE c.name = 'VLDB' AND k.keyword = 'Information Retrieval';",
+      "gold_sql": "SELECT COUNT ( DISTINCT t4.title ) FROM publication_keyword AS t3 JOIN keyword AS t1 ON t3.kid  =  t1.kid JOIN publication AS t4 ON t4.pid  =  t3.pid JOIN conference AS t2 ON t4.cid  =  t2.cid WHERE t2.name  =  \"VLDB\" AND t1.keyword  =  \"Information Retrieval\";",
+      "single_database_pass": true,
+      "test_suite_pass": true,
+      "single_database_false_positive": false
+    },
+    {
+      "id": "spider_train_others_1264",
+      "db_id": "academic",
+      "question": "return me the authors who have papers in VLDB conference before 2002 after 1995 .",
+      "generated_sql": "SELECT DISTINCT author.name FROM author JOIN writes ON author.aid = writes.aid JOIN publication ON writes.pid = publication.pid WHERE publication.cid = (SELECT cid FROM conference WHERE name = 'VLDB') AND publication.year BETWEEN 1996 AND 2001;",
+      "gold_sql": "SELECT t1.name FROM publication AS t4 JOIN conference AS t2 ON t4.cid  =  t2.cid JOIN writes AS t3 ON t3.pid  =  t4.pid JOIN author AS t1 ON t3.aid  =  t1.aid WHERE t2.name  =  \"VLDB\" AND t4.year  <  2002 AND t4.year  >  1995;",
+      "single_database_pass": true,
+      "test_suite_pass": false,
+      "single_database_false_positive": true
+    },
+    {
+      "id": "spider_train_others_1295",
+      "db_id": "academic",
+      "question": "return me the authors who have papers containing keyword \" Relational Database \" .",
+      "generated_sql": "SELECT DISTINCT author.name FROM author JOIN writes ON author.aid = writes.aid JOIN publication_keyword ON writes.pid = publication_keyword.pid JOIN keyword ON publication_keyword.kid = keyword.kid WHERE keyword.keyword = ' Relational Database ';",
+      "gold_sql": "SELECT t2.name FROM publication_keyword AS t5 JOIN keyword AS t1 ON t5.kid  =  t1.kid JOIN publication AS t3 ON t3.pid  =  t5.pid JOIN writes AS t4 ON t4.pid  =  t3.pid JOIN author AS t2 ON t4.aid  =  t2.aid WHERE t1.keyword  =  \"Relational Database\";",
+      "single_database_pass": true,
+      "test_suite_pass": false,
+      "single_database_false_positive": true
+    },
+    {
+      "id": "spider_train_others_1336",
+      "db_id": "academic",
+      "question": "return me the number of the keywords related to \" H. V. Jagadish \" .",
+      "generated_sql": "SELECT COUNT(*) FROM keyword WHERE kid IN (SELECT kid FROM publication_keyword WHERE pid IN (SELECT pid FROM publication WHERE title LIKE '%H. V. Jagadish%'));",
+      "gold_sql": "SELECT COUNT ( DISTINCT t1.keyword ) FROM publication_keyword AS t5 JOIN keyword AS t1 ON t5.kid  =  t1.kid JOIN publication AS t3 ON t3.pid  =  t5.pid JOIN writes AS t4 ON t4.pid  =  t3.pid JOIN author AS t2 ON t4.aid  =  t2.aid WHERE t2.name  =  \"H. V. Jagadish\";",
+      "single_database_pass": true,
+      "test_suite_pass": false,
+      "single_database_false_positive": true
+    },
+    {
+      "id": "spider_train_others_1302",
+      "db_id": "academic",
+      "question": "return me all the papers in VLDB conference in \" University of Michigan \" .",
+      "generated_sql": "SELECT p.* FROM publication p JOIN conference c ON p.cid = c.cid WHERE c.name = 'VLDB' AND p.title LIKE '%University of Michigan%'",
+      "gold_sql": "SELECT t5.title FROM organization AS t3 JOIN author AS t1 ON t3.oid  =  t1.oid JOIN writes AS t4 ON t4.aid  =  t1.aid JOIN publication AS t5 ON t4.pid  =  t5.pid JOIN conference AS t2 ON t5.cid  =  t2.cid WHERE t2.name  =  \"VLDB\" AND t3.name  =  \"University of Michigan\";",
+      "single_database_pass": true,
+      "test_suite_pass": false,
+      "single_database_false_positive": true
+    },
+    {
+      "id": "spider_train_others_1353",
+      "db_id": "academic",
+      "question": "return me the number of papers in PVLDB in \" University of Michigan \" .",
+      "generated_sql": "SELECT COUNT(*) FROM publication p JOIN journal j ON p.jid = j.jid WHERE j.name = 'PVLDB' AND p.title LIKE '%University of Michigan%'",
+      "gold_sql": "SELECT COUNT ( DISTINCT t5.title ) FROM organization AS t2 JOIN author AS t1 ON t2.oid  =  t1.oid JOIN writes AS t4 ON t4.aid  =  t1.aid JOIN publication AS t5 ON t4.pid  =  t5.pid JOIN journal AS t3 ON t5.jid  =  t3.jid WHERE t3.name  =  \"PVLDB\" AND t2.name  =  \"University of Michigan\";",
+      "single_database_pass": true,
+      "test_suite_pass": false,
+      "single_database_false_positive": true
+    },
+    {
+      "id": "spider_train_others_1304",
+      "db_id": "academic",
+      "question": "return me all the papers in PVLDB after 2000 in \" University of Michigan \" .",
+      "generated_sql": "SELECT p.* FROM publication p JOIN journal j ON p.jid = j.jid WHERE j.name = 'PVLDB' AND p.year > 2000;",
+      "gold_sql": "SELECT t5.title FROM organization AS t2 JOIN author AS t1 ON t2.oid  =  t1.oid JOIN writes AS t4 ON t4.aid  =  t1.aid JOIN publication AS t5 ON t4.pid  =  t5.pid JOIN journal AS t3 ON t5.jid  =  t3.jid WHERE t3.name  =  \"PVLDB\" AND t2.name  =  \"University of Michigan\" AND t5.year  >  2000;",
+      "single_database_pass": true,
+      "test_suite_pass": false,
+      "single_database_false_positive": true
+    },
+    {
+      "id": "spider_train_others_1384",
+      "db_id": "academic",
+      "question": "return me the number of papers written by \" H. V. Jagadish \" and \" Divesh Srivastava \" before 2000 .",
+      "generated_sql": "SELECT COUNT(*) FROM writes WHERE pid IN (SELECT pid FROM publication WHERE year < 2000 AND pid IN (SELECT pid FROM writes WHERE aid IN (SELECT aid FROM author WHERE name = 'H. V. Jagadish' OR name = 'Divesh Srivastava')));",
+      "gold_sql": "SELECT COUNT ( DISTINCT t5.title ) FROM writes AS t3 JOIN author AS t2 ON t3.aid  =  t2.aid JOIN publication AS t5 ON t3.pid  =  t5.pid JOIN writes AS t4 ON t4.pid  =  t5.pid JOIN author AS t1 ON t4.aid  =  t1.aid WHERE t2.name  =  \"H. V. Jagadish\" AND t1.name  =  \"Divesh Srivastava\" AND t5.year  <  2000;",
+      "single_database_pass": true,
+      "test_suite_pass": false,
+      "single_database_false_positive": true
+    },
+    {
+      "id": "spider_train_others_1395",
+      "db_id": "academic",
+      "question": "return me the keyword, which have been contained by the most number of papers in PVLDB .",
+      "generated_sql": "SELECT keyword FROM keyword WHERE kid IN (SELECT kid FROM publication_keyword WHERE pid IN (SELECT pid FROM publication WHERE venue = 'PVLDB')) GROUP BY keyword ORDER BY COUNT(*) DESC LIMIT 1;",
+      "gold_sql": "SELECT t1.keyword FROM publication_keyword AS t4 JOIN keyword AS t1 ON t4.kid  =  t1.kid JOIN publication AS t2 ON t2.pid  =  t4.pid JOIN journal AS t3 ON t2.jid  =  t3.jid WHERE t3.name  =  \"PVLDB\" GROUP BY t1.keyword ORDER BY COUNT ( DISTINCT t2.title ) DESC LIMIT 1;",
+      "single_database_pass": false,
+      "test_suite_pass": false,
+      "single_database_false_positive": false
+    },
+    {
+      "id": "spider_train_others_1402",
+      "db_id": "academic",
+      "question": "return me the journals, which have more than 10 papers by \" H. V. Jagadish \" .",
+      "generated_sql": "SELECT j.name FROM journal j JOIN publication p ON j.jid = p.jid WHERE p.title LIKE '%H. V. Jagadish%' GROUP BY j.name HAVING COUNT(p.pid) > 10;",
+      "gold_sql": "SELECT t2.name FROM publication AS t4 JOIN journal AS t2 ON t4.jid  =  t2.jid JOIN writes AS t3 ON t3.pid  =  t4.pid JOIN author AS t1 ON t3.aid  =  t1.aid WHERE t1.name  =  \"H. V. Jagadish\" GROUP BY t2.name HAVING COUNT ( DISTINCT t4.title )  >  10;",
+      "single_database_pass": true,
+      "test_suite_pass": false,
+      "single_database_false_positive": true
+    },
+    {
+      "id": "spider_train_others_1417",
+      "db_id": "academic",
+      "question": "return me the journals, which have more than 60 papers containing keyword \" Relational Database \" .",
+      "generated_sql": "SELECT j.name FROM journal j JOIN publication p ON j.jid = p.jid JOIN publication_keyword pk ON p.pid = pk.pid JOIN keyword k ON pk.kid = k.kid WHERE k.keyword = ' Relational Database ' GROUP BY j.jid HAVING COUNT(p.pid) > 60;",
+      "gold_sql": "SELECT t3.name FROM publication_keyword AS t4 JOIN keyword AS t1 ON t4.kid  =  t1.kid JOIN publication AS t2 ON t2.pid  =  t4.pid JOIN journal AS t3 ON t2.jid  =  t3.jid WHERE t1.keyword  =  \"Relational Database\" GROUP BY t3.name HAVING COUNT ( DISTINCT t2.title )  >  60;",
+      "single_database_pass": true,
+      "test_suite_pass": false,
+      "single_database_false_positive": true
+    },
+    {
+      "id": "spider_train_others_1423",
+      "db_id": "academic",
+      "question": "return me the author in the \" University of Michigan \" whose papers have more than 5000 total citations .",
+      "generated_sql": "SELECT a.name FROM author a JOIN writes w ON a.aid = w.aid JOIN publication p ON w.pid = p.pid JOIN organization o ON a.oid = o.oid WHERE o.name = 'University of Michigan' AND p.citation_num > 5000;",
+      "gold_sql": "SELECT t1.name FROM organization AS t2 JOIN author AS t1 ON t2.oid  =  t1.oid JOIN writes AS t3 ON t3.aid  =  t1.aid JOIN publication AS t4 ON t3.pid  =  t4.pid WHERE t2.name  =  \"University of Michigan\" GROUP BY t1.name HAVING SUM ( t4.citation_num )  >  5000;",
+      "single_database_pass": true,
+      "test_suite_pass": false,
+      "single_database_false_positive": true
+    },
+    {
+      "id": "spider_train_others_1387",
+      "db_id": "academic",
+      "question": "return me the number of authors who have cited the papers by \" H. V. Jagadish \" .",
+      "generated_sql": "SELECT COUNT(DISTINCT w.aid) FROM writes w JOIN publication p ON w.pid = p.pid JOIN cite c ON p.pid = c.cited JOIN publication p2 ON c.citing = p2.pid JOIN writes w2 ON p2.pid = w2.pid JOIN author a ON w2.aid = a.aid WHERE a.name = ' H. V. Jagadish ';",
+      "gold_sql": "SELECT COUNT ( DISTINCT t2.name ) FROM publication AS t7 JOIN cite AS t5 ON t7.pid  =  t5.citing JOIN publication AS t6 ON t6.pid  =  t5.cited JOIN writes AS t3 ON t3.pid  =  t7.pid JOIN writes AS t4 ON t4.pid  =  t6.pid JOIN author AS t2 ON t3.aid  =  t2.aid JOIN author AS t1 ON t4.aid  =  t1.aid WHERE t1.name  =  \"H. V. Jagadish\";",
+      "single_database_pass": true,
+      "test_suite_pass": false,
+      "single_database_false_positive": true
+    },
+    {
+      "id": "spider_train_others_1420",
+      "db_id": "academic",
+      "question": "return me the keywords, which have been contained by more than 10 papers of \" H. V. Jagadish \" .",
+      "generated_sql": "SELECT k.keyword FROM keyword k JOIN publication_keyword pk ON k.kid = pk.kid JOIN publication p ON pk.pid = p.pid WHERE p.author = 'H. V. Jagadish' GROUP BY k.keyword HAVING COUNT(p.pid) > 10;",
+      "gold_sql": "SELECT t1.keyword FROM publication_keyword AS t5 JOIN keyword AS t1 ON t5.kid  =  t1.kid JOIN publication AS t3 ON t3.pid  =  t5.pid JOIN writes AS t4 ON t4.pid  =  t3.pid JOIN author AS t2 ON t4.aid  =  t2.aid WHERE t2.name  =  \"H. V. Jagadish\" GROUP BY t1.keyword HAVING COUNT ( DISTINCT t3.title )  >  10;",
+      "single_database_pass": false,
+      "test_suite_pass": false,
+      "single_database_false_positive": false
+    },
+    {
+      "id": "spider_train_others_1424",
+      "db_id": "academic",
+      "question": "return me the author in the \" University of Michigan \" in Databases area whose papers have more than 5000 total citations .",
+      "generated_sql": "SELECT a.name FROM author a JOIN writes w ON a.aid = w.aid JOIN publication p ON w.pid = p.pid JOIN organization o ON a.oid = o.oid WHERE o.name = 'University of Michigan' AND p.title LIKE '%Databases%' AND p.citation_num > 5000;",
+      "gold_sql": "SELECT t1.name FROM domain_author AS t6 JOIN author AS t1 ON t6.aid  =  t1.aid JOIN DOMAIN AS t3 ON t3.did  =  t6.did JOIN organization AS t5 ON t5.oid  =  t1.oid JOIN writes AS t2 ON t2.aid  =  t1.aid JOIN publication AS t4 ON t2.pid  =  t4.pid WHERE t3.name  =  \"Databases\" AND t5.name  =  \"University of Michigan\" GROUP BY t1.name HAVING SUM ( t4.citation_num )  >  5000;",
+      "single_database_pass": true,
+      "test_suite_pass": false,
+      "single_database_false_positive": true
+    },
+    {
+      "id": "spider_train_others_1425",
+      "db_id": "imdb",
+      "question": "What year is the movie \" The Imitation Game \" from ?",
+      "generated_sql": "SELECT release_year FROM movie WHERE title = ' The Imitation Game ';",
+      "gold_sql": "SELECT release_year FROM movie WHERE title  =  \"The Imitation Game\";",
+      "single_database_pass": true,
+      "test_suite_pass": false,
+      "single_database_false_positive": true
+    },
+    {
+      "id": "spider_train_others_1429",
+      "db_id": "imdb",
+      "question": "What is the nationality of the actress \" Christoph Waltz \" ?",
+      "generated_sql": "SELECT nationality FROM actor WHERE name = 'Christoph Waltz' AND gender = 'F';",
+      "gold_sql": "SELECT nationality FROM actor WHERE name  =  \"Christoph Waltz\";",
+      "single_database_pass": true,
+      "test_suite_pass": false,
+      "single_database_false_positive": true
+    },
+    {
+      "id": "spider_train_others_1432",
+      "db_id": "imdb",
+      "question": "Find all actors born in \" Tehran \"",
+      "generated_sql": "SELECT * FROM actor WHERE birth_city = ' Tehran ';",
+      "gold_sql": "SELECT name FROM actor WHERE birth_city  =  \"Tehran\";",
+      "single_database_pass": true,
+      "test_suite_pass": false,
+      "single_database_false_positive": true
+    },
+    {
+      "id": "spider_train_others_1438",
+      "db_id": "imdb",
+      "question": "Find all actors who were born in 1984",
+      "generated_sql": "SELECT * FROM actor WHERE birth_year = 1984;",
+      "gold_sql": "SELECT name FROM actor WHERE birth_year  =  1984;",
+      "single_database_pass": true,
+      "test_suite_pass": false,
+      "single_database_false_positive": true
+    },
+    {
+      "id": "spider_train_others_1441",
+      "db_id": "imdb",
+      "question": "Where is the birth place of \" Kevin Spacey \"",
+      "generated_sql": "SELECT birth_city FROM actor WHERE name = 'Kevin Spacey';",
+      "gold_sql": "SELECT birth_city FROM director WHERE name  =  \"director_name0\";",
+      "single_database_pass": true,
+      "test_suite_pass": true,
+      "single_database_false_positive": false
+    },
+    {
+      "id": "spider_train_others_1444",
+      "db_id": "imdb",
+      "question": "How much was the budget of \" Finding Nemo \"",
+      "generated_sql": "SELECT budget FROM movie WHERE title = 'Finding Nemo';",
+      "gold_sql": "SELECT budget FROM movie WHERE title  =  \"Finding Nemo\";",
+      "single_database_pass": true,
+      "test_suite_pass": true,
+      "single_database_false_positive": false
+    },
+    {
+      "id": "spider_train_others_1503",
+      "db_id": "imdb",
+      "question": "How many movies were produced in the year 2013 ?",
+      "generated_sql": "SELECT COUNT(*) FROM movie WHERE release_year = 2013;",
+      "gold_sql": "SELECT COUNT ( DISTINCT title  ) FROM movie WHERE release_year  =  2013;",
+      "single_database_pass": true,
+      "test_suite_pass": true,
+      "single_database_false_positive": false
+    },
+    {
+      "id": "spider_train_others_1464",
+      "db_id": "imdb",
+      "question": "Find all actors born in \" Austin \" after 1980",
+      "generated_sql": "SELECT * FROM actor WHERE birth_city = 'Austin' AND birth_year > 1980;",
+      "gold_sql": "SELECT name FROM actor WHERE birth_city  =  \"Austin\" AND birth_year  >  1980;",
+      "single_database_pass": true,
+      "test_suite_pass": false,
+      "single_database_false_positive": true
+    },
+    {
+      "id": "spider_train_others_1485",
+      "db_id": "imdb",
+      "question": "Find all the female actors from Austin",
+      "generated_sql": "SELECT * FROM actor WHERE gender = 'female' AND birth_city = 'Austin';",
+      "gold_sql": "SELECT name FROM actor WHERE birth_city  =  \"Austin\" AND gender  =  \"female\";",
+      "single_database_pass": true,
+      "test_suite_pass": false,
+      "single_database_false_positive": true
+    },
+    {
+      "id": "spider_train_others_1510",
+      "db_id": "imdb",
+      "question": "How many actors were born in \" Los Angeles \" after 2000 ?",
+      "generated_sql": "SELECT COUNT(*) FROM actor WHERE birth_city = 'Los Angeles' AND birth_year > 2000;",
+      "gold_sql": "SELECT COUNT ( DISTINCT name  ) FROM actor WHERE birth_city  =  \"Los Angeles\" AND birth_year  >  2000;",
+      "single_database_pass": true,
+      "test_suite_pass": true,
+      "single_database_false_positive": false
+    },
+    {
+      "id": "spider_train_others_1494",
+      "db_id": "imdb",
+      "question": "who acted the role of \" Mr. Bean \"",
+      "generated_sql": "SELECT actor.name FROM actor JOIN cast ON actor.aid = cast.aid WHERE cast.role = \" Mr. Bean \";",
+      "gold_sql": "SELECT t1.name FROM CAST AS t2 JOIN actor AS t1 ON t2.aid  =  t1.aid WHERE t2.role  =  \"Mr. Bean\";",
+      "single_database_pass": false,
+      "test_suite_pass": false,
+      "single_database_false_positive": false
+    },
+    {
+      "id": "spider_train_others_1518",
+      "db_id": "imdb",
+      "question": "How many female actors were born in \" New York City \" after 1980 ?",
+      "generated_sql": "SELECT COUNT(*) FROM actor WHERE gender = 'female' AND birth_city = 'New York City' AND birth_year > 1980;",
+      "gold_sql": "SELECT COUNT ( DISTINCT name  ) FROM actor WHERE birth_city  =  \"New York City\" AND birth_year  >  1980 AND gender  =  \"female\";",
+      "single_database_pass": true,
+      "test_suite_pass": true,
+      "single_database_false_positive": false
+    },
+    {
+      "id": "spider_train_others_1454",
+      "db_id": "imdb",
+      "question": "What is the genre of the movie \" Jurassic Park \" ?",
+      "generated_sql": "SELECT genre FROM genre JOIN classification ON genre.gid = classification.gid JOIN copyright ON classification.msid = copyright.msid JOIN movie ON copyright.msid = movie.mid WHERE movie.title = ' Jurassic Park ';",
+      "gold_sql": "SELECT t2.genre FROM genre AS t2 JOIN classification AS t1 ON t2.gid  =  t1.gid JOIN movie AS t3 ON t3.mid  =  t1.msid WHERE t3.title  =  \"Jurassic Park\";",
+      "single_database_pass": true,
+      "test_suite_pass": false,
+      "single_database_false_positive": true
+    },
+    {
+      "id": "spider_train_others_1458",
+      "db_id": "imdb",
+      "question": "Find all movies featuring \" Robin Wright \"",
+      "generated_sql": "SELECT m.* FROM movie m JOIN copyright c ON m.mid = c.msid JOIN written_by wb ON c.msid = wb.msid JOIN writer w ON wb.wid = w.wid WHERE w.name = ' Robin Wright '",
+      "gold_sql": "SELECT t2.title FROM CAST AS t3 JOIN actor AS t1 ON t3.aid  =  t1.aid JOIN movie AS t2 ON t2.mid  =  t3.msid WHERE t1.name  =  \"Robin Wright\";",
+      "single_database_pass": true,
+      "test_suite_pass": false,
+      "single_database_false_positive": true
+    },
+    {
+      "id": "spider_train_others_1469",
+      "db_id": "imdb",
+      "question": "Find all movies about nuclear weapons",
+      "generated_sql": "SELECT * FROM movie WHERE title LIKE '%nuclear weapons%' OR title_aka LIKE '%nuclear weapons%';",
+      "gold_sql": "SELECT t3.title FROM tags AS t2 JOIN keyword AS t1 ON t2.kid  =  t1.id JOIN movie AS t3 ON t2.msid  =  t3.mid WHERE t1.keyword  =  \"nuclear weapons\";",
+      "single_database_pass": true,
+      "test_suite_pass": false,
+      "single_database_false_positive": true
+    },
+    {
+      "id": "spider_train_others_1476",
+      "db_id": "imdb",
+      "question": "What are all the tv series created by \" Shonda Rhimes \" ?",
+      "generated_sql": "SELECT tv_series.title FROM tv_series JOIN written_by ON tv_series.sid = written_by.wid JOIN writer ON written_by.wid = writer.wid WHERE writer.name = 'Shonda Rhimes';",
+      "gold_sql": "SELECT t2.title FROM producer AS t1 JOIN made_by AS t3 ON t1.pid  =  t3.pid JOIN tv_series AS t2 ON t2.sid  =  t3.msid WHERE t1.name  =  \"Shonda Rhimes\";",
+      "single_database_pass": true,
+      "test_suite_pass": false,
+      "single_database_false_positive": true
+    },
+    {
+      "id": "spider_train_others_1480",
+      "db_id": "imdb",
+      "question": "What are the series featuring \" Scott Foley \" ?",
+      "generated_sql": "SELECT tv_series.title FROM tv_series JOIN cast ON tv_series.sid = cast.msid JOIN actor ON cast.aid = actor.aid WHERE actor.name = ' Scott Foley ';",
+      "gold_sql": "SELECT t2.title FROM CAST AS t3 JOIN actor AS t1 ON t3.aid  =  t1.aid JOIN tv_series AS t2 ON t2.sid  =  t3.msid WHERE t1.name  =  \"Scott Foley\";",
+      "single_database_pass": false,
+      "test_suite_pass": false,
+      "single_database_false_positive": false
+    },
+    {
+      "id": "spider_train_others_1493",
+      "db_id": "imdb",
+      "question": "where is the director of \" The Past \" from",
+      "generated_sql": "SELECT d.nationality FROM director d JOIN directed_by db ON d.did = db.did JOIN copyright c ON db.msid = c.msid WHERE c.title = 'The Past'",
+      "gold_sql": "SELECT t2.birth_city FROM director AS t2 JOIN directed_by AS t1 ON t2.did  =  t1.did JOIN movie AS t3 ON t3.mid  =  t1.msid WHERE t3.title  =  \"The Past\";",
+      "single_database_pass": false,
+      "test_suite_pass": false,
+      "single_database_false_positive": false
+    },
+    {
+      "id": "spider_train_others_1500",
+      "db_id": "imdb",
+      "question": "What is the number of actors in the movie \" Saving Private Ryan \" ?",
+      "generated_sql": "SELECT COUNT(DISTINCT c.aid) FROM cast c JOIN copyright co ON c.msid = co.msid JOIN movie m ON co.msid = m.mid WHERE m.title = ' Saving Private Ryan '",
+      "gold_sql": "SELECT COUNT ( DISTINCT t1.name  ) FROM CAST AS t2 JOIN actor AS t1 ON t2.aid  =  t1.aid JOIN movie AS t3 ON t3.mid  =  t2.msid WHERE t3.title  =  \"Saving Private Ryan\";",
+      "single_database_pass": true,
+      "test_suite_pass": false,
+      "single_database_false_positive": true
+    },
+    {
+      "id": "spider_train_others_1506",
+      "db_id": "imdb",
+      "question": "How many movies did \" Shahab Hosseini \" act in ?",
+      "generated_sql": "SELECT COUNT(*) FROM cast JOIN actor ON cast.aid = actor.aid WHERE actor.name = 'Shahab Hosseini';",
+      "gold_sql": "SELECT COUNT ( DISTINCT t2.title  ) FROM CAST AS t3 JOIN actor AS t1 ON t3.aid  =  t1.aid JOIN movie AS t2 ON t2.mid  =  t3.msid WHERE t1.name  =  \"Shahab Hosseini\";",
+      "single_database_pass": false,
+      "test_suite_pass": false,
+      "single_database_false_positive": false
+    },
+    {
+      "id": "spider_train_others_1449",
+      "db_id": "imdb",
+      "question": "Find the actor who played \" Alan Turing \" in the movie \" The Imitation Game \"",
+      "generated_sql": "SELECT actor.name FROM actor JOIN cast ON actor.aid = cast.aid JOIN copyright ON cast.msid = copyright.msid JOIN movie ON copyright.msid = movie.mid WHERE movie.title = 'The Imitation Game' AND actor.name = 'Alan Turing';",
+      "gold_sql": "SELECT t1.name FROM CAST AS t2 JOIN actor AS t1 ON t2.aid  =  t1.aid JOIN movie AS t3 ON t3.mid  =  t2.msid WHERE t2.role  =  \"Alan Turing\" AND t3.title  =  \"The Imitation Game\";",
+      "single_database_pass": false,
+      "test_suite_pass": false,
+      "single_database_false_positive": false
+    },
+    {
+      "id": "spider_train_others_1462",
+      "db_id": "imdb",
+      "question": "Find all Sci-Fi produced in year 2010",
+      "generated_sql": "SELECT c.msid FROM copyright c JOIN made_by m ON c.msid = m.msid JOIN producer p ON m.pid = p.pid WHERE c.msid IN (SELECT msid FROM written_by) AND c.msid IN (SELECT msid FROM directed_by) AND p.birth_year = 2010;",
+      "gold_sql": "SELECT t3.title FROM genre AS t2 JOIN classification AS t1 ON t2.gid  =  t1.gid JOIN movie AS t3 ON t3.mid  =  t1.msid WHERE t2.genre  =  \"Sci-Fi\" AND t3.release_year  =  2010;",
+      "single_database_pass": true,
+      "test_suite_pass": false,
+      "single_database_false_positive": true
+    },
+    {
+      "id": "spider_train_others_1484",
+      "db_id": "imdb",
+      "question": "Who is the director of the tv series \" House of Cards \" from 2013 ?",
+      "generated_sql": "SELECT d.name FROM director d JOIN directed_by db ON d.did = db.did JOIN copyright c ON db.msid = c.msid JOIN tv_series t ON c.msid = t.sid WHERE t.title = ' House of Cards ' AND t.release_year = 2013;",
+      "gold_sql": "SELECT t2.name FROM director AS t2 JOIN directed_by AS t1 ON t2.did  =  t1.did JOIN tv_series AS t3 ON t3.sid  =  t1.msid WHERE t3.release_year  =  2013 AND t3.title  =  \"House of Cards\";",
+      "single_database_pass": true,
+      "test_suite_pass": false,
+      "single_database_false_positive": true
+    },
+    {
+      "id": "spider_train_others_1491",
+      "db_id": "imdb",
+      "question": "Find all actors from Canada who acted in \" James Bond \" movies",
+      "generated_sql": "SELECT a.name FROM actor a JOIN cast c ON a.aid = c.aid JOIN copyright co ON c.msid = co.msid JOIN movie m ON co.msid = m.msid WHERE a.nationality = 'Canada' AND m.title LIKE '%James Bond%'",
+      "gold_sql": "SELECT t1.name FROM CAST AS t2 JOIN actor AS t1 ON t2.aid  =  t1.aid JOIN movie AS t3 ON t3.mid  =  t2.msid WHERE t1.nationality  =  \"Canada\" AND t3.title  =  \"James Bond\";",
+      "single_database_pass": false,
+      "test_suite_pass": false,
+      "single_database_false_positive": false
+    },
+    {
+      "id": "spider_train_others_1499",
+      "db_id": "imdb",
+      "question": "What is the number of movies in which \" Jennifer Aniston \" acted after 2010 ?",
+      "generated_sql": "SELECT COUNT(DISTINCT m.mid) FROM movie m JOIN copyright c ON m.mid = c.msid JOIN cast ca ON c.msid = ca.msid JOIN actor a ON ca.aid = a.aid WHERE a.name = 'Jennifer Aniston' AND m.release_year > 2010;",
+      "gold_sql": "SELECT COUNT ( DISTINCT t2.title  ) FROM CAST AS t3 JOIN actor AS t1 ON t3.aid  =  t1.aid JOIN movie AS t2 ON t2.mid  =  t3.msid WHERE t1.name  =  \"Jennifer Aniston\" AND t2.release_year  >  2010;",
+      "single_database_pass": true,
+      "test_suite_pass": false,
+      "single_database_false_positive": true
+    },
+    {
+      "id": "spider_train_others_1513",
+      "db_id": "imdb",
+      "question": "How many movies about Iraq war were produced in 2015 ?",
+      "generated_sql": "SELECT COUNT(*) FROM movie WHERE title LIKE '%Iraq war%' AND release_year = 2015;",
+      "gold_sql": "SELECT COUNT ( DISTINCT t3.title  ) FROM tags AS t2 JOIN keyword AS t1 ON t2.kid  =  t1.id JOIN movie AS t3 ON t2.msid  =  t3.mid WHERE t1.keyword  =  \"Iraq war\" AND t3.release_year  =  2015;",
+      "single_database_pass": true,
+      "test_suite_pass": false,
+      "single_database_false_positive": true
+    },
+    {
+      "id": "spider_train_others_1515",
+      "db_id": "imdb",
+      "question": "How many movies did \" Quentin Tarantino \" direct after 2010 ?",
+      "generated_sql": "SELECT COUNT(*) FROM movie JOIN directed_by ON movie.mid = directed_by.msid JOIN director ON directed_by.did = director.did WHERE director.name = 'Quentin Tarantino' AND movie.release_year > 2010;",
+      "gold_sql": "SELECT COUNT ( DISTINCT t3.title  ) FROM director AS t2 JOIN directed_by AS t1 ON t2.did  =  t1.did JOIN movie AS t3 ON t3.mid  =  t1.msid WHERE t2.name  =  \"Quentin Tarantino\" AND t3.release_year  >  2010;",
+      "single_database_pass": true,
+      "test_suite_pass": true,
+      "single_database_false_positive": false
+    },
+    {
+      "id": "spider_train_others_1520",
+      "db_id": "imdb",
+      "question": "How many actors from China have acted in \" Rush Hour 3 \"",
+      "generated_sql": "SELECT COUNT(DISTINCT a.aid) FROM actor a JOIN cast c ON a.aid = c.aid JOIN copyright co ON c.msid = co.msid WHERE a.nationality = 'China' AND co.id = (SELECT id FROM copyright WHERE msid = (SELECT msid FROM copyright WHERE id = (SELECT id FROM copyright WHERE msid = (SELECT msid FROM copyright WHERE id = (SELECT id FROM copyright WHERE msid = (SELECT msid FROM copyright WHERE id = (SELECT id FROM copyright WHERE msid = (SELECT msid FROM copyright WHERE id = (SELECT id FROM copyright WHERE msid = (SELECT msid FROM copyright WHERE id = (SELECT id FROM copyright WHERE msid = (SELECT msid FROM copyright WHERE id = (SELECT id FROM copyright WHERE msid = (SELECT msid FROM copyright WHERE id = (SELECT id FROM copyright WHERE msid = (SELECT msid FROM copyright WHERE id = (SELECT id FROM copyright WHERE msid = (SELECT msid FROM copyright WHERE id = (SELECT id FROM copyright WHERE msid = (SELECT msid FROM copyright WHERE id = (SELECT id FROM copyright WHERE msid = (SELECT msid FROM copyright WHERE id = (SELECT id FROM copyright WHERE msid = (SELECT msid FROM copyright WHERE id = (SELECT id FROM copyright WHERE msid = (SELECT msid FROM copyright WHERE id = (SELECT id FROM copyright WHERE msid = (SELECT msid FROM copyright WHERE id = (SELECT id FROM copyright WHERE msid = (SELECT msid FROM copyright WHERE id = (SELECT id FROM copyright WHERE msid = (SELECT msid FROM copyright WHERE id = (SELECT id FROM copyright WHERE msid = (SELECT msid FROM copyright WHERE id = (SELECT id FROM copyright WHERE msid = (SELECT msid FROM copyright WHERE id = (SELECT id FROM copyright WHERE msid = (SELECT msid FROM copyright WHERE id = (SELECT id FROM copyright WHERE msid = (SELECT msid FROM copyright WHERE id = (SELECT id FROM copyright WHERE msid = (SELECT msid FROM copyright WHERE id = (SELECT id FROM copyright WHERE msid = (SELECT msid FROM copyright WHERE id = (SELECT id FROM copyright WHERE msid = (SELECT msid FROM copyright WHERE id = (SELECT msid FROM copyright WHERE id = (SELECT msid FROM copyright WHERE id = (SELECT msid FROM copyright WHERE msid = (SELECT msid FROM copyright WHERE id = (SELECT id FROM copyright WHERE msid = (SELECT msid FROM",
+      "gold_sql": "SELECT COUNT ( DISTINCT t1.name  ) FROM CAST AS t2 JOIN actor AS t1 ON t2.aid  =  t1.aid JOIN movie AS t3 ON t3.mid  =  t2.msid WHERE t1.nationality  =  \"China\" AND t3.title  =  \"Rush Hour 3\";",
+      "single_database_pass": false,
+      "test_suite_pass": false,
+      "single_database_false_positive": false
+    },
+    {
+      "id": "spider_train_others_1512",
+      "db_id": "imdb",
+      "question": "What is the number of movies that \" Brad Pitt \" acts in per year ?",
+      "generated_sql": "SELECT movie.release_year, COUNT(movie.mid) AS number_of_movies FROM movie JOIN cast ON movie.mid = cast.msid JOIN actor ON cast.aid = actor.aid WHERE actor.name = ' Brad Pitt ' GROUP BY movie.release_year;",
+      "gold_sql": "SELECT COUNT ( DISTINCT t2.title  )  ,  t2.release_year FROM CAST AS t3 JOIN actor AS t1 ON t3.aid  =  t1.aid JOIN movie AS t2 ON t2.mid  =  t3.msid WHERE t1.name  =  \"Brad Pitt\" GROUP BY t2.release_year;",
+      "single_database_pass": false,
+      "test_suite_pass": false,
+      "single_database_false_positive": false
+    },
+    {
+      "id": "spider_train_others_1531",
+      "db_id": "imdb",
+      "question": "What is the latest movie by \" Jim Jarmusch \"",
+      "generated_sql": "SELECT m.title, m.release_year FROM movie m JOIN made_by mb ON m.mid = mb.msid JOIN cast c ON mb.msid = c.msid JOIN copyright cr ON c.msid = cr.msid WHERE c.aid = (SELECT id FROM cast WHERE role = 1 AND msid = (SELECT msid FROM made_by WHERE pid = (SELECT id FROM cast WHERE role = 1 AND msid = (SELECT msid FROM made_by WHERE pid = (SELECT id FROM cast WHERE role = 1 AND msid = (SELECT msid FROM made_by WHERE pid = (SELECT id FROM cast WHERE role = 1 AND msid = (SELECT msid FROM made_by WHERE pid = (SELECT id FROM cast WHERE role = 1 AND msid = (SELECT msid FROM made_by WHERE pid = (SELECT id FROM cast WHERE role = 1 AND msid = (SELECT msid FROM made_by WHERE pid = (SELECT id FROM cast WHERE role = 1 AND msid = (SELECT msid FROM made_by WHERE pid = (SELECT id FROM cast WHERE role = 1 AND msid = (SELECT msid FROM made_by WHERE pid = (SELECT id FROM cast WHERE role = 1 AND msid = (SELECT msid FROM made_by WHERE pid = (SELECT id FROM cast WHERE role = 1 AND msid = (SELECT msid FROM made_by WHERE pid = (SELECT id FROM cast WHERE role = 1 AND msid = (SELECT msid FROM made_by WHERE pid = (SELECT id FROM cast WHERE role = 1 AND msid = (SELECT msid FROM made_by WHERE pid = (SELECT id FROM cast WHERE role = 1 AND msid = (SELECT msid FROM made_by WHERE pid = (SELECT id FROM cast WHERE role = 1 AND msid = (SELECT msid FROM made_by WHERE pid = (SELECT id FROM cast WHERE role = 1 AND msid = (SELECT msid FROM made_by WHERE pid = (SELECT id FROM cast WHERE role = 1 AND msid = (SELECT msid FROM made_by WHERE pid = (SELECT id FROM cast WHERE role = 1 AND msid = (SELECT msid FROM made_by WHERE pid = (SELECT id FROM cast WHERE role = 1 AND msid = (SELECT msid FROM made_by WHERE pid = (SELECT id FROM cast WHERE role = 1 AND msid = (SELECT msid FROM made_by WHERE pid = (SELECT id FROM cast WHERE role =",
+      "gold_sql": "SELECT t3.title FROM director AS t2 JOIN directed_by AS t1 ON t2.did  =  t1.did JOIN movie AS t3 ON t3.mid  =  t1.msid WHERE t2.name  =  \"Jim Jarmusch\" ORDER BY t3.release_year DESC LIMIT 1;",
+      "single_database_pass": false,
+      "test_suite_pass": false,
+      "single_database_false_positive": false
+    },
+    {
+      "id": "spider_train_others_1482",
+      "db_id": "imdb",
+      "question": "Find the directors of all movies featuring \" Kate Winslet \"",
+      "generated_sql": "SELECT DISTINCT d.name FROM director d JOIN directed_by db ON d.did = db.did JOIN copyright c ON db.msid = c.msid JOIN cast ca ON c.msid = ca.msid JOIN actor a ON ca.aid = a.aid WHERE a.name = ' Kate Winslet '",
+      "gold_sql": "SELECT t3.name FROM CAST AS t4 JOIN actor AS t1 ON t4.aid  =  t1.aid JOIN movie AS t5 ON t5.mid  =  t4.msid JOIN directed_by AS t2 ON t5.mid  =  t2.msid JOIN director AS t3 ON t3.did  =  t2.did WHERE t1.name  =  \"Kate Winslet\";",
+      "single_database_pass": true,
+      "test_suite_pass": false,
+      "single_database_false_positive": true
+    },
+    {
+      "id": "spider_train_others_1495",
+      "db_id": "imdb",
+      "question": "what are the genres of movies directed by \" Asghar Farhadi \"",
+      "generated_sql": "SELECT g.genre FROM genre g JOIN classification c ON g.gid = c.gid JOIN directed_by db ON c.msid = db.msid JOIN director d ON db.did = d.did WHERE d.name = 'Asghar Farhadi';",
+      "gold_sql": "SELECT t3.genre FROM director AS t5 JOIN directed_by AS t2 ON t5.did  =  t2.did JOIN movie AS t4 ON t4.mid  =  t2.msid JOIN classification AS t1 ON t4.mid  =  t1.msid JOIN genre AS t3 ON t3.gid  =  t1.gid WHERE t5.name  =  \"Asghar Farhadi\";",
+      "single_database_pass": true,
+      "test_suite_pass": false,
+      "single_database_false_positive": true
+    },
+    {
+      "id": "spider_train_others_1525",
+      "db_id": "imdb",
+      "question": "Find all actors who acted in the same movie as \" Tom Hanks \"",
+      "generated_sql": "SELECT DISTINCT a.aid, a.name FROM actor a JOIN cast c ON a.aid = c.aid JOIN copyright co ON c.msid = co.msid JOIN cast c2 ON co.msid = c2.msid JOIN actor a2 ON c2.aid = a2.aid WHERE a2.name = ' Tom Hanks ' AND a.aid != a2.aid;",
+      "gold_sql": "SELECT t1.name FROM CAST AS t4 JOIN actor AS t1 ON t4.aid  =  t1.aid JOIN movie AS t5 ON t5.mid  =  t4.msid JOIN CAST AS t3 ON t5.mid  =  t3.msid JOIN actor AS t2 ON t3.aid  =  t2.aid WHERE t2.name  =  \"Tom Hanks\";",
+      "single_database_pass": true,
+      "test_suite_pass": false,
+      "single_database_false_positive": true
+    },
+    {
+      "id": "spider_train_others_1527",
+      "db_id": "imdb",
+      "question": "Find the movie which is classified in the most number of genres",
+      "generated_sql": "SELECT m.title FROM movie m JOIN copyright c ON m.mid = c.msid JOIN classification cl ON c.msid = cl.msid JOIN genre g ON cl.gid = g.gid GROUP BY m.mid ORDER BY COUNT(g.gid) DESC LIMIT 1;",
+      "gold_sql": "SELECT t3.title FROM genre AS t2 JOIN classification AS t1 ON t2.gid  =  t1.gid JOIN movie AS t3 ON t3.mid  =  t1.msid GROUP BY t3.title ORDER BY COUNT ( DISTINCT t2.genre  ) DESC LIMIT 1;",
+      "single_database_pass": true,
+      "test_suite_pass": false,
+      "single_database_false_positive": true
+    },
+    {
+      "id": "spider_train_others_1457",
+      "db_id": "imdb",
+      "question": "Find all movies written and produced by \" Woody Allen \"",
+      "generated_sql": "SELECT movie.title FROM movie JOIN written_by ON movie.mid = written_by.msid JOIN copyright ON written_by.msid = copyright.msid JOIN made_by ON copyright.msid = made_by.msid JOIN producer ON made_by.pid = producer.pid WHERE producer.name = 'Woody Allen' INTERSECT SELECT movie.title FROM movie JOIN written_by ON movie.mid = written_by.msid JOIN copyright ON written_by.msid = copyright.msid JOIN made_by ON copyright.msid = made_by.msid JOIN producer ON made_by.pid = producer.pid WHERE producer.name = 'Woody Allen';",
+      "gold_sql": "SELECT t2.title FROM movie AS t2 JOIN made_by AS t3 ON t2.mid  =  t3.msid JOIN producer AS t1 ON t1.pid  =  t3.pid JOIN written_by AS t5 ON t5.msid  =  t2.mid JOIN writer AS t4 ON t5.wid  =  t4.wid WHERE t1.name  =  \"Woody Allen\" AND t4.name  =  \"Woody Allen\";",
+      "single_database_pass": true,
+      "test_suite_pass": false,
+      "single_database_false_positive": true
+    },
+    {
+      "id": "spider_train_others_1519",
+      "db_id": "imdb",
+      "question": "find the number of actors from Iran who played in \" Jim Jarmusch \" movies",
+      "generated_sql": "SELECT COUNT(DISTINCT a.aid) FROM actor a JOIN cast c ON a.aid = c.aid JOIN copyright cr ON c.msid = cr.msid JOIN directed_by db ON cr.msid = db.msid JOIN director d ON db.did = d.did WHERE d.name = 'Jim Jarmusch' AND a.nationality = 'Iran';",
+      "gold_sql": "SELECT COUNT ( DISTINCT t1.name  ) FROM CAST AS t4 JOIN actor AS t1 ON t4.aid  =  t1.aid JOIN movie AS t5 ON t5.mid  =  t4.msid JOIN directed_by AS t2 ON t5.mid  =  t2.msid JOIN director AS t3 ON t3.did  =  t2.did WHERE t1.nationality  =  \"Iran\" AND t3.name  =  \"Jim Jarmusch\";",
+      "single_database_pass": true,
+      "test_suite_pass": false,
+      "single_database_false_positive": true
+    },
+    {
+      "id": "spider_train_others_1517",
+      "db_id": "imdb",
+      "question": "How many movies did \" Quentin Tarantino \" direct before 2002 and after 2010 ?",
+      "generated_sql": "SELECT COUNT(*) FROM movie m JOIN directed_by db ON m.mid = db.msid JOIN director d ON db.did = d.did WHERE d.name = 'Quentin Tarantino' AND (m.release_year < 2002 OR m.release_year > 2010);",
+      "gold_sql": "SELECT COUNT ( DISTINCT t4.title  ) FROM director AS t3 JOIN directed_by AS t2 ON t3.did  =  t2.did JOIN movie AS t4 ON t4.mid  =  t2.msid JOIN made_by AS t5 ON t4.mid  =  t5.msid JOIN producer AS t1 ON t1.pid  =  t5.pid WHERE t3.name  =  \"Quentin Tarantino\" AND t4.release_year  <  2010 AND t4.release_year  >  2002;",
+      "single_database_pass": true,
+      "test_suite_pass": false,
+      "single_database_false_positive": true
+    },
+    {
+      "id": "spider_train_others_1532",
+      "db_id": "imdb",
+      "question": "Which producer has worked with the most number of directors ?",
+      "generated_sql": "SELECT p.name, COUNT(DISTINCT d.did) as director_count\nFROM producer p\nJOIN made_by mb ON p.pid = mb.pid\nJOIN directed_by db ON mb.msid = db.msid\nJOIN director d ON db.did = d.did\nGROUP BY p.pid, p.name\nORDER BY director_count DESC\nLIMIT 1;",
+      "gold_sql": "SELECT t1.name FROM director AS t3 JOIN directed_by AS t2 ON t3.did  =  t2.did JOIN movie AS t4 ON t4.mid  =  t2.msid JOIN made_by AS t5 ON t4.mid  =  t5.msid JOIN producer AS t1 ON t1.pid  =  t5.pid GROUP BY t1.name ORDER BY COUNT ( DISTINCT t3.name  ) DESC LIMIT 1;",
+      "single_database_pass": true,
+      "test_suite_pass": false,
+      "single_database_false_positive": true
+    },
+    {
+      "id": "spider_train_others_0651",
+      "db_id": "scholar",
+      "question": "List all academic papers on machine networks for one shot learning",
+      "generated_sql": "SELECT p.paperId, p.title FROM paper p JOIN paperKeyphrase pk ON p.paperId = pk.paperId JOIN keyphrase k ON pk.keyphraseId = k.keyphraseId WHERE k.keyphrase = 'machine networks' AND k.keyphrase = 'one shot learning';",
+      "gold_sql": "SELECT DISTINCT paperid FROM paper WHERE title  =  \"machine networks for one shot learning\";",
+      "single_database_pass": false,
+      "test_suite_pass": false,
+      "single_database_false_positive": false
+    },
+    {
+      "id": "spider_train_others_1094",
+      "db_id": "scholar",
+      "question": "papers that were not published in the last year",
+      "generated_sql": "SELECT * FROM paper WHERE year < (SELECT MAX(year) FROM paper) - 1;",
+      "gold_sql": "SELECT DISTINCT paperid FROM paper WHERE YEAR != 2015;",
+      "single_database_pass": true,
+      "test_suite_pass": false,
+      "single_database_false_positive": true
+    },
+    {
+      "id": "spider_train_others_1102",
+      "db_id": "scholar",
+      "question": "What articles have been published since 2006 about the effects of juicing for cancer patients ?",
+      "generated_sql": "SELECT p.title FROM paper p JOIN writes w ON p.paperId = w.paperId JOIN author a ON w.authorId = a.authorId WHERE p.year >= 2006 AND p.title LIKE '%juicing%' AND p.title LIKE '%cancer%';",
+      "gold_sql": "SELECT DISTINCT paperid  ,  title FROM paper WHERE title LIKE \"the effects of juicing for cancer patients\" AND YEAR  >  2006;",
+      "single_database_pass": true,
+      "test_suite_pass": true,
+      "single_database_false_positive": false
+    },
+    {
+      "id": "spider_train_others_0998",
+      "db_id": "scholar",
+      "question": "how many papers are in sigir ?",
+      "generated_sql": "SELECT COUNT(*) FROM paper WHERE venueId = (SELECT venueId FROM venue WHERE name = 'sigir');",
+      "gold_sql": "SELECT DISTINCT COUNT ( t1.paperid ) FROM venue AS t2 JOIN paper AS t1 ON t2.venueid  =  t1.venueid WHERE t2.venuename  =  \"sigir\";",
+      "single_database_pass": false,
+      "test_suite_pass": false,
+      "single_database_false_positive": false
+    },
+    {
+      "id": "spider_train_others_0954",
+      "db_id": "scholar",
+      "question": "How many papers in ACL 2015 ?",
+      "generated_sql": "SELECT COUNT(*) FROM paper WHERE venueId = (SELECT venueId FROM venue WHERE name = 'ACL' AND year = 2015);",
+      "gold_sql": "SELECT DISTINCT COUNT ( DISTINCT t1.paperid ) FROM venue AS t2 JOIN paper AS t1 ON t2.venueid  =  t1.venueid WHERE t1.year  =  2015 AND t2.venuename  =  \"ACL\";",
+      "single_database_pass": false,
+      "test_suite_pass": false,
+      "single_database_false_positive": false
+    },
+    {
+      "id": "spider_train_others_0688",
+      "db_id": "scholar",
+      "question": "What conference does Daniella Coelho publish in ?",
+      "generated_sql": "SELECT v.venueName FROM venue v JOIN paper p ON v.venueId = p.venueId WHERE p.title LIKE '%Daniella Coelho%'",
+      "gold_sql": "SELECT DISTINCT t3.venueid FROM writes AS t2 JOIN author AS t1 ON t2.authorid  =  t1.authorid JOIN paper AS t3 ON t2.paperid  =  t3.paperid WHERE t1.authorname  =  \"Daniella Coelho\";",
+      "single_database_pass": true,
+      "test_suite_pass": true,
+      "single_database_false_positive": false
+    },
+    {
+      "id": "spider_train_others_0748",
+      "db_id": "scholar",
+      "question": "citation count of zachary tatlock 's papers",
+      "generated_sql": "SELECT p.numCiting FROM paper p JOIN cite c ON p.paperId = c.citingPaperId WHERE p.title LIKE '%zachary tatlock%'",
+      "gold_sql": "SELECT DISTINCT t3.paperid  ,  t3.year FROM writes AS t2 JOIN author AS t1 ON t2.authorid  =  t1.authorid JOIN paper AS t3 ON t2.paperid  =  t3.paperid WHERE t1.authorname  =  \"zachary tatlock\";",
+      "single_database_pass": true,
+      "test_suite_pass": true,
+      "single_database_false_positive": false
+    },
+    {
+      "id": "spider_train_others_1025",
+      "db_id": "scholar",
+      "question": "ACL papers in 2016 with neural attention in the title",
+      "generated_sql": "SELECT p.paperId, p.title FROM paper p JOIN cite c ON p.paperId = c.citedPaperId WHERE p.venueId = (SELECT venueId FROM paper WHERE title = 'ACL') AND p.year = 2016 AND p.title LIKE '%neural attention%';",
+      "gold_sql": "SELECT DISTINCT t1.paperid FROM venue AS t2 JOIN paper AS t1 ON t2.venueid  =  t1.venueid WHERE t1.title LIKE \"neural attention\" AND t1.year  =  2016 AND t2.venuename  =  \"ACL\";",
+      "single_database_pass": true,
+      "test_suite_pass": false,
+      "single_database_false_positive": true
+    },
+    {
+      "id": "spider_train_others_1081",
+      "db_id": "scholar",
+      "question": "venue for Trophic Cascade",
+      "generated_sql": "SELECT v.venueName FROM venue v JOIN paper p ON v.venueId = p.venueId WHERE p.title LIKE '%Trophic Cascade%'",
+      "gold_sql": "SELECT DISTINCT t3.venueid FROM paperkeyphrase AS t2 JOIN keyphrase AS t1 ON t2.keyphraseid  =  t1.keyphraseid JOIN paper AS t3 ON t3.paperid  =  t2.paperid WHERE t1.keyphrasename  =  \"Trophic Cascade\";",
+      "single_database_pass": true,
+      "test_suite_pass": true,
+      "single_database_false_positive": false
+    },
+    {
+      "id": "spider_train_others_0637",
+      "db_id": "scholar",
+      "question": "are there any monte carlo simulation papers since 2011 ?",
+      "generated_sql": "SELECT p.paperId, p.title FROM paper p JOIN paperKeyphrase pk ON p.paperId = pk.paperId WHERE pk.keyphraseId IN (SELECT keyphraseId FROM paperKeyphrase WHERE keyphraseId = (SELECT keyphraseId FROM paperKeyphrase WHERE keyphraseId = (SELECT keyphraseId FROM paperKeyphrase WHERE keyphraseId = (SELECT keyphraseId FROM paperKeyphrase WHERE keyphraseId = (SELECT keyphraseId FROM paperKeyphrase WHERE keyphraseId = (SELECT keyphraseId FROM paperKeyphrase WHERE keyphraseId = (SELECT keyphraseId FROM paperKeyphrase WHERE keyphraseId = (SELECT keyphraseId FROM paperKeyphrase WHERE keyphraseId = (SELECT keyphraseId FROM paperKeyphrase WHERE keyphraseId = (SELECT keyphraseId FROM paperKeyphrase WHERE keyphraseId = (SELECT keyphraseId FROM paperKeyphrase WHERE keyphraseId = (SELECT keyphraseId FROM paperKeyphrase WHERE keyphraseId = (SELECT keyphraseId FROM paperKeyphrase WHERE keyphraseId = (SELECT keyphraseId FROM paperKeyphrase WHERE keyphraseId = (SELECT keyphraseId FROM paperKeyphrase WHERE keyphraseId = (SELECT keyphraseId FROM paperKeyphrase WHERE keyphraseId = (SELECT keyphraseId FROM paperKeyphrase WHERE keyphraseId = (SELECT keyphraseId FROM paperKeyphrase WHERE keyphraseId = (SELECT keyphraseId FROM paperKeyphrase WHERE keyphraseId = (SELECT keyphraseId FROM paperKeyphrase WHERE keyphraseId = (SELECT keyphraseId FROM paperKeyphrase WHERE keyphraseId = (SELECT keyphraseId FROM paperKeyphrase WHERE keyphraseId = (SELECT keyphraseId FROM paperKeyphrase WHERE keyphraseId = (SELECT keyphraseId FROM paperKeyphrase WHERE keyphraseId = (SELECT keyphraseId FROM paperKeyphrase WHERE keyphraseId = (SELECT keyphraseId FROM paperKeyphrase WHERE keyphraseId = (SELECT keyphraseId FROM paperKeyphrase WHERE keyphraseId = (SELECT keyphraseId FROM paperKeyphrase WHERE keyphraseId = (SELECT keyphraseId FROM paperKeyphrase WHERE keyphraseId = (SELECT keyphraseId FROM paperKeyphrase WHERE keyphraseId = (SELECT keyphraseId FROM paperKeyphrase WHERE keyphraseId = (SELECT keyphraseId FROM paperKeyphrase WHERE keyphraseId = (SELECT keyphraseId FROM paperKeyphrase WHERE keyphraseId = (SELECT keyphraseId FROM paperKeyphrase WHERE keyphraseId = (SELECT keyphraseId FROM paper",
+      "gold_sql": "SELECT DISTINCT t3.paperid FROM paperkeyphrase AS t2 JOIN keyphrase AS t1 ON t2.keyphraseid  =  t1.keyphraseid JOIN paper AS t3 ON t3.paperid  =  t2.paperid WHERE t1.keyphrasename  =  \"monte carlo simulation\" AND t3.year  >  2011;",
+      "single_database_pass": false,
+      "test_suite_pass": false,
+      "single_database_false_positive": false
+    },
+    {
+      "id": "spider_train_others_0856",
+      "db_id": "scholar",
+      "question": "How many papers were written on convolutional neural networks in the past year ?",
+      "generated_sql": "SELECT COUNT(*) FROM paper p JOIN paperKeyphrase pk ON p.paperId = pk.paperId JOIN keyphrase k ON pk.keyphraseId = k.keyphraseId WHERE k.keyphrase = 'convolutional neural networks' AND p.year = (SELECT MAX(year) FROM paper);",
+      "gold_sql": "SELECT DISTINCT COUNT ( t3.paperid ) FROM paperkeyphrase AS t2 JOIN keyphrase AS t1 ON t2.keyphraseid  =  t1.keyphraseid JOIN paper AS t3 ON t3.paperid  =  t2.paperid WHERE t1.keyphrasename  =  \"convolutional neural networks\" AND t3.year  =  2016;",
+      "single_database_pass": false,
+      "test_suite_pass": false,
+      "single_database_false_positive": false
+    },
+    {
+      "id": "spider_train_others_0900",
+      "db_id": "scholar",
+      "question": "jamie callan 's publications by year",
+      "generated_sql": "SELECT p.year, COUNT(*) as publication_count FROM paper p JOIN writes w ON p.paperId = w.paperId JOIN author a ON w.authorId = a.authorId WHERE a.authorName = 'jamie callan' GROUP BY p.year ORDER BY p.year;",
+      "gold_sql": "SELECT DISTINCT t3.paperid  ,  t3.year FROM writes AS t2 JOIN author AS t1 ON t2.authorid  =  t1.authorid JOIN paper AS t3 ON t2.paperid  =  t3.paperid WHERE t1.authorname  =  \"jamie callan\" ORDER BY t3.year;",
+      "single_database_pass": true,
+      "test_suite_pass": true,
+      "single_database_false_positive": false
+    },
+    {
+      "id": "spider_train_others_0942",
+      "db_id": "scholar",
+      "question": "How many papers did michael i. jordan publish in 2016 ?",
+      "generated_sql": "SELECT COUNT(*) FROM paper WHERE title LIKE '%michael i. jordan%' AND year = 2016;",
+      "gold_sql": "SELECT DISTINCT COUNT ( t2.paperid ) FROM writes AS t2 JOIN author AS t1 ON t2.authorid  =  t1.authorid JOIN paper AS t3 ON t2.paperid  =  t3.paperid WHERE t1.authorname  =  \"michael i. jordan\" AND t3.year  =  2016;",
+      "single_database_pass": true,
+      "test_suite_pass": true,
+      "single_database_false_positive": false
+    },
+    {
+      "id": "spider_train_others_1124",
+      "db_id": "scholar",
+      "question": "How many authors published at sigcse in 2010 ?",
+      "generated_sql": "SELECT COUNT(DISTINCT author.authorId) FROM author JOIN writes ON author.authorId = writes.authorId JOIN paper ON writes.paperId = paper.paperId JOIN venue ON paper.venueId = venue.venueId WHERE venue.venueName = 'sigcse' AND paper.year = 2010;",
+      "gold_sql": "SELECT DISTINCT COUNT ( t2.paperid ) FROM venue AS t3 JOIN paper AS t2 ON t3.venueid  =  t2.venueid JOIN writes AS t1 ON t1.paperid  =  t2.paperid WHERE t2.year  =  2010 AND t3.venuename  =  \"sigcse\";",
+      "single_database_pass": true,
+      "test_suite_pass": true,
+      "single_database_false_positive": false
+    },
+    {
+      "id": "spider_train_others_0823",
+      "db_id": "scholar",
+      "question": "semantic parsing dataset",
+      "generated_sql": "SELECT d.datasetId, d.datasetName, COUNT(pd.paperId) AS paper_count FROM dataset d LEFT JOIN paperDataset pd ON d.datasetId = pd.datasetId GROUP BY d.datasetId, d.datasetName ORDER BY paper_count DESC;",
+      "gold_sql": "SELECT DISTINCT t2.datasetid FROM paperdataset AS t3 JOIN dataset AS t2 ON t3.datasetid  =  t2.datasetid JOIN paperkeyphrase AS t1 ON t1.paperid  =  t3.paperid JOIN keyphrase AS t4 ON t1.keyphraseid  =  t4.keyphraseid WHERE t4.keyphrasename  =  \"semantic parsing\";",
+      "single_database_pass": true,
+      "test_suite_pass": false,
+      "single_database_false_positive": true
+    },
+    {
+      "id": "spider_train_others_0880",
+      "db_id": "scholar",
+      "question": "what datasets did jitendra malik use ?",
+      "generated_sql": "SELECT d.datasetName FROM dataset d JOIN paperDataset pd ON d.datasetId = pd.datasetId JOIN paper p ON pd.paperId = p.paperId WHERE p.title LIKE '%jitendra malik%'",
+      "gold_sql": "SELECT DISTINCT t2.datasetid FROM paper AS t3 JOIN paperdataset AS t2 ON t3.paperid  =  t2.paperid JOIN writes AS t4 ON t4.paperid  =  t3.paperid JOIN author AS t1 ON t4.authorid  =  t1.authorid WHERE t1.authorname  =  \"jitendra malik\";",
+      "single_database_pass": true,
+      "test_suite_pass": true,
+      "single_database_false_positive": false
+    },
+    {
+      "id": "spider_train_others_0945",
+      "db_id": "scholar",
+      "question": "count of ACL papers by author",
+      "generated_sql": "SELECT a.authorName, COUNT(p.paperId) AS count FROM author a JOIN writes w ON a.authorId = w.authorId JOIN paper p ON w.paperId = p.paperId WHERE p.venueId = (SELECT venueId FROM paper WHERE title LIKE '%ACL%' LIMIT 1) GROUP BY a.authorName;",
+      "gold_sql": "SELECT DISTINCT COUNT ( t2.paperid )  ,  t1.authorid FROM venue AS t3 JOIN paper AS t2 ON t3.venueid  =  t2.venueid JOIN writes AS t1 ON t1.paperid  =  t2.paperid WHERE t3.venuename  =  \"ACL\" GROUP BY t1.authorid;",
+      "single_database_pass": true,
+      "test_suite_pass": false,
+      "single_database_false_positive": true
+    },
+    {
+      "id": "spider_train_others_1045",
+      "db_id": "scholar",
+      "question": "Find journals about Temporal Data .",
+      "generated_sql": "SELECT journal.journalName FROM journal JOIN paper ON journal.journalId = paper.journalId WHERE paper.title LIKE '%Temporal Data%' GROUP BY journal.journalName;",
+      "gold_sql": "SELECT DISTINCT t3.journalid FROM paperkeyphrase AS t2 JOIN keyphrase AS t1 ON t2.keyphraseid  =  t1.keyphraseid JOIN paper AS t3 ON t3.paperid  =  t2.paperid WHERE t1.keyphrasename  =  \"Temporal Data\" GROUP BY t3.journalid;",
+      "single_database_pass": true,
+      "test_suite_pass": true,
+      "single_database_false_positive": false
+    },
+    {
+      "id": "spider_train_others_1093",
+      "db_id": "scholar",
+      "question": "authors with at least 5 papers",
+      "generated_sql": "SELECT a.authorId, a.authorName, COUNT(w.paperId) as paperCount FROM author a JOIN writes w ON a.authorId = w.authorId GROUP BY a.authorId, a.authorName HAVING COUNT(w.paperId) >= 5;",
+      "gold_sql": "SELECT DISTINCT COUNT ( t2.paperid )  ,  t1.authorid FROM writes AS t1 JOIN paper AS t2 ON t1.paperid  =  t2.paperid GROUP BY t1.authorid HAVING COUNT ( t2.paperid )  >=  5;",
+      "single_database_pass": true,
+      "test_suite_pass": false,
+      "single_database_false_positive": true
+    },
+    {
+      "id": "spider_train_others_0643",
+      "db_id": "scholar",
+      "question": "How many papers did David M. Blei publish at AISTATS ?",
+      "generated_sql": "SELECT COUNT(*) FROM paper p JOIN venue v ON p.venueId = v.venueId WHERE p.title LIKE '%David M. Blei%' AND v.venueName = 'AISTATS';",
+      "gold_sql": "SELECT DISTINCT COUNT ( t3.paperid ) FROM venue AS t4 JOIN paper AS t3 ON t4.venueid  =  t3.venueid JOIN writes AS t2 ON t2.paperid  =  t3.paperid JOIN author AS t1 ON t2.authorid  =  t1.authorid WHERE t1.authorname  =  \"David M. Blei\" AND t4.venuename  =  \"AISTATS\";",
+      "single_database_pass": true,
+      "test_suite_pass": true,
+      "single_database_false_positive": false
+    },
+    {
+      "id": "spider_train_others_0797",
+      "db_id": "scholar",
+      "question": "keyphrases used by Christof Dallermassl in 2000",
+      "generated_sql": "SELECT k.keyphraseName FROM keyphrase k JOIN paperKeyphrase pk ON k.keyphraseId = pk.keyphraseId JOIN paper p ON pk.paperId = p.paperId WHERE p.title LIKE '%Christof Dallermassl%' AND p.year = 2000;",
+      "gold_sql": "SELECT DISTINCT t2.keyphraseid FROM paper AS t3 JOIN paperkeyphrase AS t2 ON t3.paperid  =  t2.paperid JOIN writes AS t4 ON t4.paperid  =  t3.paperid JOIN author AS t1 ON t4.authorid  =  t1.authorid WHERE t1.authorname  =  \"Christof Dallermassl\" AND t3.year  =  2000;",
+      "single_database_pass": true,
+      "test_suite_pass": true,
+      "single_database_false_positive": false
+    },
+    {
+      "id": "spider_train_others_0995",
+      "db_id": "scholar",
+      "question": "When did ameet soni publish ?",
+      "generated_sql": "SELECT year FROM paper WHERE title = 'ameet soni';",
+      "gold_sql": "SELECT DISTINCT COUNT ( t3.paperid )  ,  t3.year FROM writes AS t2 JOIN author AS t1 ON t2.authorid  =  t1.authorid JOIN paper AS t3 ON t2.paperid  =  t3.paperid WHERE t1.authorname  =  \"ameet soni\" GROUP BY t3.year ORDER BY t3.year;",
+      "single_database_pass": true,
+      "test_suite_pass": true,
+      "single_database_false_positive": false
+    },
+    {
+      "id": "spider_train_others_1071",
+      "db_id": "scholar",
+      "question": "In what year did Ye Cao publish the most papers",
+      "generated_sql": "SELECT year FROM paper WHERE title LIKE '%Ye Cao%' GROUP BY year ORDER BY COUNT(*) DESC LIMIT 1;",
+      "gold_sql": "SELECT DISTINCT COUNT ( DISTINCT t3.paperid )  ,  t3.year FROM writes AS t2 JOIN author AS t1 ON t2.authorid  =  t1.authorid JOIN paper AS t3 ON t2.paperid  =  t3.paperid WHERE t1.authorname LIKE \"Ye Cao\" GROUP BY t3.year ORDER BY COUNT ( DISTINCT t3.paperid ) DESC;",
+      "single_database_pass": true,
+      "test_suite_pass": true,
+      "single_database_false_positive": false
+    },
+    {
+      "id": "spider_train_others_1121",
+      "db_id": "scholar",
+      "question": "How many papers does Samuel Madden publish outside of PVLDB area ?",
+      "generated_sql": "SELECT COUNT(DISTINCT p.paperId) FROM paper p JOIN writes w ON p.paperId = w.paperId JOIN author a ON w.authorId = a.authorId WHERE a.name = 'Samuel Madden' AND p.venueId NOT IN (SELECT venueId FROM venue WHERE name = 'PVLDB');",
+      "gold_sql": "SELECT DISTINCT COUNT ( DISTINCT t3.paperid ) FROM venue AS t4 JOIN paper AS t3 ON t4.venueid  =  t3.venueid JOIN writes AS t2 ON t2.paperid  =  t3.paperid JOIN author AS t1 ON t2.authorid  =  t1.authorid WHERE t1.authorname  =  \"Samuel Madden\" AND t4.venuename != \"PVLDB\";",
+      "single_database_pass": false,
+      "test_suite_pass": false,
+      "single_database_false_positive": false
+    },
+    {
+      "id": "spider_train_others_0704",
+      "db_id": "scholar",
+      "question": "acl papers in 2012 on Parsing",
+      "generated_sql": "SELECT p.paperId, p.title FROM paper p JOIN writes w ON p.paperId = w.paperId WHERE p.year = 2012 AND p.title LIKE '%Parsing%' AND p.venueId IN (SELECT venueId FROM venue WHERE name LIKE '%ACL%');",
+      "gold_sql": "SELECT DISTINCT t3.paperid FROM paperkeyphrase AS t2 JOIN keyphrase AS t1 ON t2.keyphraseid  =  t1.keyphraseid JOIN paper AS t3 ON t3.paperid  =  t2.paperid JOIN venue AS t4 ON t4.venueid  =  t3.venueid WHERE t1.keyphrasename  =  \"Parsing\" AND t3.year  =  2012 AND t4.venuename  =  \"acl\";",
+      "single_database_pass": false,
+      "test_suite_pass": false,
+      "single_database_false_positive": false
+    },
+    {
+      "id": "spider_train_others_0948",
+      "db_id": "scholar",
+      "question": "who wrote the most papers for CVPR 2007",
+      "generated_sql": "SELECT authorId FROM writes WHERE paperId IN (SELECT paperId FROM paper WHERE venueId = (SELECT venueId FROM paper WHERE title = 'CVPR' AND year = 2007)) GROUP BY authorId ORDER BY COUNT(*) DESC LIMIT 1;",
+      "gold_sql": "SELECT DISTINCT COUNT ( t2.paperid )  ,  t1.authorid FROM venue AS t3 JOIN paper AS t2 ON t3.venueid  =  t2.venueid JOIN writes AS t1 ON t1.paperid  =  t2.paperid WHERE t2.year  =  2007 AND t3.venuename  =  \"CVPR\" GROUP BY t1.authorid ORDER BY COUNT ( t2.paperid ) DESC;",
+      "single_database_pass": true,
+      "test_suite_pass": true,
+      "single_database_false_positive": false
+    },
+    {
+      "id": "spider_train_others_1100",
+      "db_id": "scholar",
+      "question": "How many citations does luke zettlemoyer have per year",
+      "generated_sql": "SELECT p.year, COUNT(c.citingPaperId) AS num_citations FROM paper p JOIN cite c ON p.paperId = c.citedPaperId WHERE p.title LIKE '%luke zettlemoyer%' GROUP BY p.year;",
+      "gold_sql": "SELECT DISTINCT COUNT ( t4.citedpaperid )  ,  t3.year FROM paper AS t3 JOIN cite AS t4 ON t3.paperid  =  t4.citedpaperid JOIN writes AS t2 ON t2.paperid  =  t3.paperid JOIN author AS t1 ON t2.authorid  =  t1.authorid WHERE t1.authorname  =  \"luke zettlemoyer\" GROUP BY t3.year;",
+      "single_database_pass": true,
+      "test_suite_pass": true,
+      "single_database_false_positive": false
+    },
+    {
+      "id": "spider_train_others_0657",
+      "db_id": "scholar",
+      "question": "What papers were published at CVPR in 2016 about Class consistent multi-modal fusion with binary features applied to RGB-D Object Dataset ?",
+      "generated_sql": "SELECT p.paperId, p.title FROM paper p JOIN venue v ON p.venueId = v.venueId WHERE v.venueName = 'CVPR' AND p.year = 2016 AND p.paperId IN (SELECT pd.paperId FROM paperDataset pd JOIN dataset d ON pd.datasetId = d.datasetId WHERE d.datasetName = 'RGB-D Object Dataset') AND p.paperId IN (SELECT pk.paperId FROM paperKeyphrase pk JOIN keyphrase k ON pk.keyphraseId = k.keyphraseId WHERE k.keyphraseText = 'Class consistent multi-modal fusion with binary features');",
+      "gold_sql": "SELECT DISTINCT t3.paperid FROM paperdataset AS t2 JOIN dataset AS t1 ON t2.datasetid  =  t1.datasetid JOIN paper AS t3 ON t3.paperid  =  t2.paperid JOIN venue AS t4 ON t4.venueid  =  t3.venueid WHERE t1.datasetname  =  \"RGB-D Object Dataset\" AND t3.title  =  \"Class consistent multi-modal fusion with binary features\" AND t3.year  =  2016 AND t4.venuename  =  \"CVPR\";",
+      "single_database_pass": false,
+      "test_suite_pass": false,
+      "single_database_false_positive": false
+    },
+    {
+      "id": "spider_train_others_0851",
+      "db_id": "scholar",
+      "question": "what was the first deep learning paper ?",
+      "generated_sql": "SELECT title FROM paper WHERE title LIKE '%deep learning%' ORDER BY year ASC LIMIT 1;",
+      "gold_sql": "SELECT DISTINCT t2.datasetid  ,  t4.year FROM paperdataset AS t3 JOIN dataset AS t2 ON t3.datasetid  =  t2.datasetid JOIN paperkeyphrase AS t1 ON t1.paperid  =  t3.paperid JOIN paper AS t4 ON t4.paperid  =  t3.paperid JOIN keyphrase AS t5 ON t1.keyphraseid  =  t5.keyphraseid WHERE t5.keyphrasename  =  \"deep learning\" ORDER BY t4.year ASC;",
+      "single_database_pass": true,
+      "test_suite_pass": false,
+      "single_database_false_positive": true
+    },
+    {
+      "id": "spider_train_others_0922",
+      "db_id": "scholar",
+      "question": "most cited papers on parsing",
+      "generated_sql": "SELECT p.paperId, p.title, p.numCitedBy FROM paper p JOIN cite c ON p.paperId = c.citedPaperId WHERE p.title LIKE '%parsing%' ORDER BY p.numCitedBy DESC LIMIT 10;",
+      "gold_sql": "SELECT DISTINCT t4.citedpaperid  ,  COUNT ( t4.citedpaperid ) FROM paperkeyphrase AS t2 JOIN keyphrase AS t1 ON t2.keyphraseid  =  t1.keyphraseid JOIN paper AS t3 ON t3.paperid  =  t2.paperid JOIN cite AS t4 ON t3.paperid  =  t4.citedpaperid WHERE t1.keyphrasename  =  \"parsing\" GROUP BY t4.citedpaperid ORDER BY COUNT ( t4.citedpaperid ) DESC;",
+      "single_database_pass": true,
+      "test_suite_pass": true,
+      "single_database_false_positive": false
+    },
+    {
+      "id": "spider_train_others_0996",
+      "db_id": "scholar",
+      "question": "Who cites Daniel A Reed the most",
+      "generated_sql": "SELECT p.title, COUNT(*) AS citation_count FROM cite c JOIN paper p ON c.citingPaperId = p.paperId JOIN writes w ON p.paperId = w.paperId JOIN author a ON w.authorId = a.authorId WHERE a.authorName = 'Daniel A Reed' GROUP BY p.title ORDER BY citation_count DESC LIMIT 1;",
+      "gold_sql": "SELECT DISTINCT COUNT ( t4.citingpaperid )  ,  t3.authorid FROM writes AS t2 JOIN author AS t1 ON t2.authorid  =  t1.authorid JOIN cite AS t4 ON t2.paperid  =  t4.citedpaperid JOIN writes AS t3 ON t3.paperid  =  t4.citingpaperid WHERE t1.authorname  =  \"Daniel A Reed\" GROUP BY t3.authorid ORDER BY COUNT ( t4.citingpaperid ) DESC;",
+      "single_database_pass": true,
+      "test_suite_pass": true,
+      "single_database_false_positive": false
+    },
+    {
+      "id": "spider_train_others_1039",
+      "db_id": "scholar",
+      "question": "What authors wrote papers about Bacterial Wilt in 2016 ?",
+      "generated_sql": "SELECT a.authorName FROM author a JOIN writes w ON a.authorId = w.authorId JOIN paper p ON w.paperId = p.paperId JOIN paperKeyphrase pk ON p.paperId = pk.paperId WHERE pk.keyphraseId = (SELECT keyphraseId FROM paperKeyphrase WHERE keyphraseId = 1) AND p.year = 2016;",
+      "gold_sql": "SELECT DISTINCT t3.authorid FROM paperkeyphrase AS t1 JOIN keyphrase AS t2 ON t1.keyphraseid  =  t2.keyphraseid JOIN paper AS t4 ON t4.paperid  =  t1.paperid JOIN writes AS t3 ON t3.paperid  =  t4.paperid JOIN author AS t5 ON t3.authorid  =  t5.authorid WHERE t2.keyphrasename  =  \"Bacterial Wilt\" AND t4.year  =  2016;",
+      "single_database_pass": true,
+      "test_suite_pass": true,
+      "single_database_false_positive": false
+    },
+    {
+      "id": "spider_train_others_1105",
+      "db_id": "scholar",
+      "question": "keyphrases used by dan klein in his emnlp papers",
+      "generated_sql": "SELECT k.keyphraseName FROM keyphrase k JOIN paperKeyphrase pk ON k.keyphraseId = pk.keyphraseId JOIN paper p ON pk.paperId = p.paperId WHERE p.title LIKE '%dan klein%' AND p.venueId = (SELECT venueId FROM paper WHERE title LIKE '%emnlp%' LIMIT 1);",
+      "gold_sql": "SELECT DISTINCT t2.keyphraseid FROM paper AS t3 JOIN paperkeyphrase AS t2 ON t3.paperid  =  t2.paperid JOIN venue AS t4 ON t4.venueid  =  t3.venueid JOIN writes AS t5 ON t5.paperid  =  t3.paperid JOIN author AS t1 ON t5.authorid  =  t1.authorid WHERE t1.authorname  =  \"dan klein\" AND t4.venuename  =  \"emnlp\";",
+      "single_database_pass": true,
+      "test_suite_pass": false,
+      "single_database_false_positive": true
+    },
+    {
+      "id": "spider_train_others_1114",
+      "db_id": "scholar",
+      "question": "How many papers has Noah Smith co-authored since 2009 ?",
+      "generated_sql": "SELECT COUNT(*) FROM paper p JOIN writes w ON p.paperId = w.paperId JOIN author a ON w.authorId = a.authorId WHERE a.authorName = 'Noah Smith' AND p.year >= 2009;",
+      "gold_sql": "SELECT DISTINCT COUNT ( DISTINCT t2.paperid ) FROM writes AS t2 JOIN author AS t1 ON t2.authorid  =  t1.authorid JOIN paper AS t3 ON t2.paperid  =  t3.paperid WHERE t1.authorname != \"Noah Smith\" AND t3.year  >  2009 AND t2.paperid IN ( SELECT t2.paperid FROM writes AS t2 JOIN author AS t1 ON t2.authorid  =  t1.authorid WHERE t1.authorname LIKE \"Noah Smith\" );",
+      "single_database_pass": true,
+      "test_suite_pass": true,
+      "single_database_false_positive": false
+    },
+    {
+      "id": "spider_train_others_0968",
+      "db_id": "scholar",
+      "question": "topics at ACL 2014",
+      "generated_sql": "SELECT p.title FROM paper p JOIN journal j ON p.journalId = j.journalId WHERE j.journalName = 'ACL' AND p.year = 2014;",
+      "gold_sql": "SELECT DISTINCT COUNT ( t3.paperid )  ,  t1.keyphraseid FROM paperkeyphrase AS t2 JOIN keyphrase AS t1 ON t2.keyphraseid  =  t1.keyphraseid JOIN paper AS t3 ON t3.paperid  =  t2.paperid JOIN venue AS t4 ON t4.venueid  =  t3.venueid WHERE t3.year  =  2014 AND t4.venuename  =  \"ACL\" GROUP BY t1.keyphraseid ORDER BY COUNT ( t3.paperid ) DESC;",
+      "single_database_pass": true,
+      "test_suite_pass": false,
+      "single_database_false_positive": true
+    },
+    {
+      "id": "spider_train_others_1103",
+      "db_id": "scholar",
+      "question": "Eric C. Kerrigan 's Liquid Automatica paper",
+      "generated_sql": "SELECT p.title FROM paper p JOIN writes w ON p.paperId = w.paperId JOIN author a ON w.authorId = a.authorId WHERE a.name = 'Eric C. Kerrigan' AND p.title LIKE '%Liquid Automatica%'",
+      "gold_sql": "SELECT DISTINCT t2.paperid FROM paperkeyphrase AS t5 JOIN keyphrase AS t3 ON t5.keyphraseid  =  t3.keyphraseid JOIN writes AS t4 ON t4.paperid  =  t5.paperid JOIN paper AS t2 ON t4.paperid  =  t2.paperid JOIN author AS t1 ON t4.authorid  =  t1.authorid JOIN venue AS t6 ON t6.venueid  =  t2.venueid WHERE t1.authorname  =  \"Eric C. Kerrigan\" AND t3.keyphrasename  =  \"Liquid\" AND t6.venuename  =  \"Automatica\";",
+      "single_database_pass": false,
+      "test_suite_pass": false,
+      "single_database_false_positive": false
+    },
+    {
+      "id": "spider_train_others_1047",
+      "db_id": "scholar",
+      "question": "which ACL 2014 papers about Parsing used Jeopardy! Questions ?",
+      "generated_sql": "SELECT p.title FROM paper p JOIN paperKeyphrase pk ON p.paperId = pk.paperId JOIN paperDataset pd ON p.paperId = pd.paperId WHERE p.venueId = (SELECT venueId FROM paper WHERE title = 'ACL 2014') AND pk.keyphraseId = (SELECT keyphraseId FROM paperKeyphrase WHERE keyphraseId = (SELECT keyphraseId FROM paperKeyphrase WHERE keyphraseId = (SELECT keyphraseId FROM paperKeyphrase WHERE keyphraseId = (SELECT keyphraseId FROM paperKeyphrase WHERE keyphraseId = (SELECT keyphraseId FROM paperKeyphrase WHERE keyphraseId = (SELECT keyphraseId FROM paperKeyphrase WHERE keyphraseId = (SELECT keyphraseId FROM paperKeyphrase WHERE keyphraseId = (SELECT keyphraseId FROM paperKeyphrase WHERE keyphraseId = (SELECT keyphraseId FROM paperKeyphrase WHERE keyphraseId = (SELECT keyphraseId FROM paperKeyphrase WHERE keyphraseId = (SELECT keyphraseId FROM paperKeyphrase WHERE keyphraseId = (SELECT keyphraseId FROM paperKeyphrase WHERE keyphraseId = (SELECT keyphraseId FROM paperKeyphrase WHERE keyphraseId = (SELECT keyphraseId FROM paperKeyphrase WHERE keyphraseId = (SELECT keyphraseId FROM paperKeyphrase WHERE keyphraseId = (SELECT keyphraseId FROM paperKeyphrase WHERE keyphraseId = (SELECT keyphraseId FROM paperKeyphrase WHERE keyphraseId = (SELECT keyphraseId FROM paperKeyphrase WHERE keyphraseId = (SELECT keyphraseId FROM paperKeyphrase WHERE keyphraseId = (SELECT keyphraseId FROM paperKeyphrase WHERE keyphraseId = (SELECT keyphraseId FROM paperKeyphrase WHERE keyphraseId = (SELECT keyphraseId FROM paperKeyphrase WHERE keyphraseId = (SELECT keyphraseId FROM paperKeyphrase WHERE keyphraseId = (SELECT keyphraseId FROM paperKeyphrase WHERE keyphraseId = (SELECT keyphraseId FROM paperKeyphrase WHERE keyphraseId = (SELECT keyphraseId FROM paperKeyphrase WHERE keyphraseId = (SELECT keyphraseId FROM paperKeyphrase WHERE keyphraseId = (SELECT keyphraseId FROM paperKeyphrase WHERE keyphraseId = (SELECT keyphraseId FROM paperKeyphrase WHERE keyphraseId = (SELECT keyphraseId FROM paperKeyphrase WHERE keyphraseId = (SELECT keyphraseId FROM paperKeyphrase WHERE keyphraseId = (SELECT keyphraseId FROM paperKeyphrase WHERE keyphraseId = (SELECT keyphraseId FROM",
+      "gold_sql": "SELECT DISTINCT t2.paperid FROM paperdataset AS t3 JOIN dataset AS t5 ON t3.datasetid  =  t5.datasetid JOIN paperkeyphrase AS t4 ON t4.paperid  =  t3.paperid JOIN paper AS t2 ON t2.paperid  =  t3.paperid JOIN venue AS t6 ON t6.venueid  =  t2.venueid JOIN keyphrase AS t1 ON t4.keyphraseid  =  t1.keyphraseid WHERE t5.datasetname  =  \"Jeopardy! Questions\" AND t1.keyphrasename  =  \"Parsing\" AND t2.year  =  2014 AND t6.venuename  =  \"ACL\";",
+      "single_database_pass": false,
+      "test_suite_pass": false,
+      "single_database_false_positive": false
+    },
+    {
+      "id": "spider_train_others_1133",
+      "db_id": "yelp",
+      "question": "List all the businesses with more than 4.5 stars",
+      "generated_sql": "SELECT * FROM business WHERE rating > 4.5;",
+      "gold_sql": "SELECT name FROM business WHERE rating  >  4.5;",
+      "single_database_pass": true,
+      "test_suite_pass": false,
+      "single_database_false_positive": true
+    },
+    {
+      "id": "spider_train_others_1136",
+      "db_id": "yelp",
+      "question": "Find all states in which there is a Whataburger",
+      "generated_sql": "SELECT DISTINCT state FROM business WHERE business_id IN (SELECT business_id FROM category WHERE category_name = 'Whataburger');",
+      "gold_sql": "SELECT state FROM business WHERE name  =  \"Whataburger\";",
+      "single_database_pass": true,
+      "test_suite_pass": false,
+      "single_database_false_positive": true
+    },
+    {
+      "id": "spider_train_others_1139",
+      "db_id": "yelp",
+      "question": "Find all cities which has a \" Taj Mahal \" .",
+      "generated_sql": "SELECT DISTINCT city FROM business WHERE name LIKE '%Taj Mahal%'",
+      "gold_sql": "SELECT city FROM business WHERE name  =  \"Taj Mahal\";",
+      "single_database_pass": true,
+      "test_suite_pass": false,
+      "single_database_false_positive": true
+    },
+    {
+      "id": "spider_train_others_1212",
+      "db_id": "yelp",
+      "question": "How many reviews does \" Acacia Cafe \" have ?",
+      "generated_sql": "SELECT COUNT(*) FROM review WHERE business_id = (SELECT business_id FROM business WHERE name = ' Acacia Cafe ');",
+      "gold_sql": "SELECT review_count FROM business WHERE name  =  \"Acacia Cafe\";",
+      "single_database_pass": false,
+      "test_suite_pass": false,
+      "single_database_false_positive": false
+    },
+    {
+      "id": "spider_train_others_1226",
+      "db_id": "yelp",
+      "question": "Return me the number of cities that has \" Panda Express \" .",
+      "generated_sql": "SELECT COUNT(DISTINCT city) FROM business WHERE name = ' Panda Express ';",
+      "gold_sql": "SELECT COUNT ( DISTINCT city ) FROM business WHERE name  =  \"Panda Express\";",
+      "single_database_pass": true,
+      "test_suite_pass": false,
+      "single_database_false_positive": true
+    },
+    {
+      "id": "spider_train_others_1158",
+      "db_id": "yelp",
+      "question": "List the addresses of all Walmart in \" Los Angeles \"",
+      "generated_sql": "SELECT full_address FROM business WHERE name = 'Walmart' AND city = 'Los Angeles'",
+      "gold_sql": "SELECT full_address FROM business WHERE city  =  \"Los Angeles\" AND name  =  \"Walmart\";",
+      "single_database_pass": true,
+      "test_suite_pass": true,
+      "single_database_false_positive": false
+    },
+    {
+      "id": "spider_train_others_1219",
+      "db_id": "yelp",
+      "question": "How many Target are there in \" Los Angeles \" ?",
+      "generated_sql": "SELECT COUNT(*) FROM business WHERE name = 'Target' AND city = 'Los Angeles';",
+      "gold_sql": "SELECT COUNT ( DISTINCT business_id ) FROM business WHERE city  =  \"Los Angeles\" AND name  =  \"Target\";",
+      "single_database_pass": true,
+      "test_suite_pass": true,
+      "single_database_false_positive": false
+    },
+    {
+      "id": "spider_train_others_1194",
+      "db_id": "yelp",
+      "question": "what is the average rating given in Michelle reviews",
+      "generated_sql": "SELECT AVG(rating) FROM review WHERE user_id = 'Michelle'",
+      "gold_sql": "SELECT AVG ( t1.rating ) FROM USER AS t2 JOIN review AS t1 ON t2.user_id  =  t1.user_id WHERE t2.name  =  \"Michelle\";",
+      "single_database_pass": true,
+      "test_suite_pass": false,
+      "single_database_false_positive": true
+    },
+    {
+      "id": "spider_train_others_1211",
+      "db_id": "yelp",
+      "question": "How many Starbucks are there in Dallas Texas ?",
+      "generated_sql": "SELECT COUNT(*) FROM business WHERE name LIKE '%Starbucks%' AND city = 'Dallas' AND state = 'Texas';",
+      "gold_sql": "SELECT COUNT ( DISTINCT business_id ) FROM business WHERE city  =  \"Dallas\" AND name  =  \"Starbucks\" AND state  =  \"Texas\";",
+      "single_database_pass": true,
+      "test_suite_pass": false,
+      "single_database_false_positive": true
+    },
+    {
+      "id": "spider_train_others_1225",
+      "db_id": "yelp",
+      "question": "Return me the number of businesses that are restaurant .",
+      "generated_sql": "SELECT COUNT(*) FROM business WHERE name LIKE '%restaurant%';",
+      "gold_sql": "SELECT COUNT ( DISTINCT t1.name ) FROM category AS t2 JOIN business AS t1 ON t2.business_id  =  t1.business_id WHERE t2.category_name  =  \"restaurant\";",
+      "single_database_pass": true,
+      "test_suite_pass": false,
+      "single_database_false_positive": true
+    },
+    {
+      "id": "spider_train_others_1137",
+      "db_id": "yelp",
+      "question": "Find all cities in which there is a restaurant called \" MGM Grand Buffet \"",
+      "generated_sql": "SELECT DISTINCT city FROM business WHERE name = 'MGM Grand Buffet';",
+      "gold_sql": "SELECT t1.city FROM category AS t2 JOIN business AS t1 ON t2.business_id  =  t1.business_id WHERE t1.name  =  \"MGM Grand Buffet\" AND t2.category_name  =  \"category_category_name0\";",
+      "single_database_pass": true,
+      "test_suite_pass": false,
+      "single_database_false_positive": true
+    },
+    {
+      "id": "spider_train_others_1151",
+      "db_id": "yelp",
+      "question": "find all the restaurant in Pennsylvania",
+      "generated_sql": "SELECT * FROM business WHERE state = 'Pennsylvania'",
+      "gold_sql": "SELECT t1.name FROM category AS t2 JOIN business AS t1 ON t2.business_id  =  t1.business_id WHERE t1.state  =  \"Pennsylvania\" AND t2.category_name  =  \"restaurant\";",
+      "single_database_pass": true,
+      "test_suite_pass": false,
+      "single_database_false_positive": true
+    },
+    {
+      "id": "spider_train_others_1168",
+      "db_id": "yelp",
+      "question": "Find all reviews by Patrick with a rating above 4",
+      "generated_sql": "SELECT * FROM review WHERE user_id = 'Patrick' AND rating > 4;",
+      "gold_sql": "SELECT t1.text FROM USER AS t2 JOIN review AS t1 ON t2.user_id  =  t1.user_id WHERE t1.rating  >  4 AND t2.name  =  \"Patrick\";",
+      "single_database_pass": true,
+      "test_suite_pass": false,
+      "single_database_false_positive": true
+    },
+    {
+      "id": "spider_train_others_1177",
+      "db_id": "yelp",
+      "question": "Find all tips for \" Cafe Zinho \" in Texas .",
+      "generated_sql": "SELECT * FROM tip WHERE business_id IN (SELECT business_id FROM business WHERE name = ' Cafe Zinho ' AND state = 'Texas');",
+      "gold_sql": "SELECT t2.text FROM tip AS t2 JOIN business AS t1 ON t2.business_id  =  t1.business_id WHERE t1.name  =  \"Cafe Zinho\" AND t1.state  =  \"Texas\";",
+      "single_database_pass": true,
+      "test_suite_pass": false,
+      "single_database_false_positive": true
+    },
+    {
+      "id": "spider_train_others_1193",
+      "db_id": "yelp",
+      "question": "How many reviews has Niloofar written in 2015",
+      "generated_sql": "SELECT COUNT(*) FROM review WHERE user_id = 'Niloofar' AND year = 2015",
+      "gold_sql": "SELECT COUNT ( DISTINCT t1.text ) FROM USER AS t2 JOIN review AS t1 ON t2.user_id  =  t1.user_id WHERE t1.year  =  2015 AND t2.name  =  \"Niloofar\";",
+      "single_database_pass": true,
+      "test_suite_pass": false,
+      "single_database_false_positive": true
+    },
+    {
+      "id": "spider_train_others_1202",
+      "db_id": "yelp",
+      "question": "How many tips has Michelle written in 2010",
+      "generated_sql": "SELECT COUNT(*) FROM tip WHERE user_id = 'Michelle' AND year = 2010;",
+      "gold_sql": "SELECT COUNT ( DISTINCT t1.text ) FROM USER AS t2 JOIN tip AS t1 ON t2.user_id  =  t1.user_id WHERE t1.year  =  2010 AND t2.name  =  \"Michelle\";",
+      "single_database_pass": true,
+      "test_suite_pass": false,
+      "single_database_false_positive": true
+    },
+    {
+      "id": "spider_train_others_1214",
+      "db_id": "yelp",
+      "question": "How many businesses are there in the \" Stone Meadows \" neighbourhood in Madison ?",
+      "generated_sql": "SELECT COUNT(*) FROM business b JOIN neighbourhood n ON b.business_id = n.business_id WHERE n.neighbourhood_name = 'Stone Meadows' AND b.city = 'Madison';",
+      "gold_sql": "SELECT COUNT ( DISTINCT t1.name ) FROM neighbourhood AS t2 JOIN business AS t1 ON t2.business_id  =  t1.business_id WHERE t1.city  =  \"Madison\" AND t2.neighbourhood_name  =  \"Stone Meadows\";",
+      "single_database_pass": true,
+      "test_suite_pass": true,
+      "single_database_false_positive": false
+    },
+    {
+      "id": "spider_train_others_1170",
+      "db_id": "yelp",
+      "question": "Find all Dallas restaurant with a rating above 4.5",
+      "generated_sql": "SELECT * FROM business WHERE city = 'Dallas' AND rating > 4.5 AND name IN (SELECT name FROM business WHERE business_id IN (SELECT business_id FROM category WHERE category_name = 'Restaurant'))",
+      "gold_sql": "SELECT t1.name FROM category AS t2 JOIN business AS t1 ON t2.business_id  =  t1.business_id WHERE t1.city  =  \"Dallas\" AND t1.rating  >  4.5 AND t2.category_name  =  \"restaurant\";",
+      "single_database_pass": true,
+      "test_suite_pass": false,
+      "single_database_false_positive": true
+    },
+    {
+      "id": "spider_train_others_1175",
+      "db_id": "yelp",
+      "question": "Find all cities in Texas in which there is a restaurant called \" MGM Grand Buffet \"",
+      "generated_sql": "SELECT DISTINCT city FROM business WHERE state = 'Texas' AND name = 'MGM Grand Buffet';",
+      "gold_sql": "SELECT t1.city FROM category AS t2 JOIN business AS t1 ON t2.business_id  =  t1.business_id WHERE t1.name  =  \"MGM Grand Buffet\" AND t1.state  =  \"Texas\" AND t2.category_name  =  \"restaurant\";",
+      "single_database_pass": true,
+      "test_suite_pass": false,
+      "single_database_false_positive": true
+    },
+    {
+      "id": "spider_train_others_1197",
+      "db_id": "yelp",
+      "question": "What is the number of restaurant in Pittsburgh rated 4.5",
+      "generated_sql": "SELECT COUNT(*) FROM business b JOIN category c ON b.business_id = c.business_id WHERE b.city = 'Pittsburgh' AND c.category_name = 'Restaurants' AND b.rating = 4.5",
+      "gold_sql": "SELECT COUNT ( DISTINCT t1.name ) FROM category AS t2 JOIN business AS t1 ON t2.business_id  =  t1.business_id WHERE t1.city  =  \"Pittsburgh\" AND t1.rating  =  4.5 AND t2.category_name  =  \"restaurant\";",
+      "single_database_pass": true,
+      "test_suite_pass": false,
+      "single_database_false_positive": true
+    },
+    {
+      "id": "spider_train_others_1223",
+      "db_id": "yelp",
+      "question": "Find the number of reviews on businesses located in \" South Summerlin \" neighbourhood",
+      "generated_sql": "SELECT COUNT(*) FROM review r JOIN neighbourhood n ON r.business_id = n.business_id WHERE n.neighbourhood_name = ' South Summerlin '",
+      "gold_sql": "SELECT COUNT ( DISTINCT t3.text ) FROM neighbourhood AS t1 JOIN business AS t2 ON t1.business_id  =  t2.business_id JOIN review AS t3 ON t3.business_id  =  t2.business_id WHERE t1.neighbourhood_name  =  \"South Summerlin\";",
+      "single_database_pass": true,
+      "test_suite_pass": false,
+      "single_database_false_positive": true
+    },
+    {
+      "id": "spider_train_others_1153",
+      "db_id": "yelp",
+      "question": "Find all the reviews for all Pet Groomers with more than 100 reviews",
+      "generated_sql": "SELECT r.* FROM review r JOIN business b ON r.business_id = b.business_id WHERE b.name LIKE '%Pet Groomer%' AND b.review_count > 100",
+      "gold_sql": "SELECT t3.text FROM category AS t2 JOIN business AS t1 ON t2.business_id  =  t1.business_id JOIN review AS t3 ON t3.business_id  =  t1.business_id WHERE t1.review_count  >  100 AND t2.category_name  =  \"Pet Groomers\";",
+      "single_database_pass": true,
+      "test_suite_pass": false,
+      "single_database_false_positive": true
+    },
+    {
+      "id": "spider_train_others_1171",
+      "db_id": "yelp",
+      "question": "What neighbourhood is restaurant \" Flat Top Grill \" in ?",
+      "generated_sql": "SELECT neighbourhood_name FROM neighbourhood JOIN business ON neighbourhood.business_id = business.business_id WHERE name = ' Flat Top Grill ';",
+      "gold_sql": "SELECT t1.neighbourhood_name FROM category AS t3 JOIN business AS t2 ON t3.business_id  =  t2.business_id JOIN neighbourhood AS t1 ON t1.business_id  =  t2.business_id WHERE t2.name  =  \"Flat Top Grill\" AND t3.category_name  =  \"category_category_name0\";",
+      "single_database_pass": true,
+      "test_suite_pass": true,
+      "single_database_false_positive": false
+    },
+    {
+      "id": "spider_train_others_1209",
+      "db_id": "yelp",
+      "question": "How many people reviewed \" Bistro Di Napoli \" in 2015 ?",
+      "generated_sql": "SELECT COUNT(DISTINCT user_id) FROM review WHERE business_id = (SELECT business_id FROM business WHERE name = 'Bistro Di Napoli') AND year = 2015;",
+      "gold_sql": "SELECT COUNT ( DISTINCT t3.name ) FROM review AS t2 JOIN business AS t1 ON t2.business_id  =  t1.business_id JOIN USER AS t3 ON t3.user_id  =  t2.user_id WHERE t1.name  =  \"Bistro Di Napoli\" AND t2.year  =  2015;",
+      "single_database_pass": true,
+      "test_suite_pass": false,
+      "single_database_false_positive": true
+    },
+    {
+      "id": "spider_train_others_1147",
+      "db_id": "yelp",
+      "question": "find the number of reviews written for \" Cafe Zinho \" restaurant in Texas",
+      "generated_sql": "SELECT COUNT(*) FROM review WHERE business_id IN (SELECT business_id FROM business WHERE name = ' Cafe Zinho ' AND state = 'Texas')",
+      "gold_sql": "SELECT COUNT ( DISTINCT t3.text ) FROM category AS t2 JOIN business AS t1 ON t2.business_id  =  t1.business_id JOIN review AS t3 ON t3.business_id  =  t1.business_id WHERE t1.name  =  \"Cafe Zinho\" AND t1.state  =  \"Texas\" AND t2.category_name  =  \"restaurant\";",
+      "single_database_pass": true,
+      "test_suite_pass": false,
+      "single_database_false_positive": true
+    },
+    {
+      "id": "spider_train_others_1165",
+      "db_id": "yelp",
+      "question": "Find all restaurant Seafood in Los Angeles",
+      "generated_sql": "SELECT * FROM business WHERE name LIKE '%Seafood%' AND city = 'Los Angeles';",
+      "gold_sql": "SELECT t1.name FROM category AS t2 JOIN business AS t1 ON t2.business_id  =  t1.business_id JOIN category AS t3 ON t3.business_id  =  t1.business_id WHERE t1.city  =  \"Los Angeles\" AND t2.category_name  =  \"Seafood\" AND t3.category_name  =  \"restaurant\";",
+      "single_database_pass": true,
+      "test_suite_pass": false,
+      "single_database_false_positive": true
+    },
+    {
+      "id": "spider_train_others_1210",
+      "db_id": "yelp",
+      "question": "How many restaurant are there in the Hazelwood district of Dallas ?",
+      "generated_sql": "SELECT COUNT(*) FROM business b JOIN neighbourhood n ON b.business_id = n.business_id WHERE n.neighbourhood_name = 'Hazelwood' AND b.city = 'Dallas';",
+      "gold_sql": "SELECT COUNT ( DISTINCT t1.name ) FROM category AS t3 JOIN business AS t1 ON t3.business_id  =  t1.business_id JOIN neighbourhood AS t2 ON t2.business_id  =  t1.business_id WHERE t1.city  =  \"Dallas\" AND t3.category_name  =  \"restaurant\" AND t2.neighbourhood_name  =  \"Hazelwood\";",
+      "single_database_pass": true,
+      "test_suite_pass": false,
+      "single_database_false_positive": true
+    },
+    {
+      "id": "spider_train_others_1233",
+      "db_id": "yelp",
+      "question": "which business has the most number of checkins",
+      "generated_sql": "SELECT b.name, SUM(c.count) as total_checkins FROM business b JOIN checkin c ON b.business_id = c.business_id GROUP BY b.name ORDER BY total_checkins DESC LIMIT 1;",
+      "gold_sql": "SELECT t1.name FROM checkin AS t2 JOIN business AS t1 ON t2.business_id  =  t1.business_id GROUP BY t1.name ORDER BY SUM ( t2.count ) DESC LIMIT 1;",
+      "single_database_pass": true,
+      "test_suite_pass": false,
+      "single_database_false_positive": true
+    },
+    {
+      "id": "spider_train_others_1240",
+      "db_id": "yelp",
+      "question": "How many Egyptian restaurant are there in Edinburgh ?",
+      "generated_sql": "SELECT COUNT(*) FROM business WHERE name LIKE '%Egyptian%' AND city = 'Edinburgh';",
+      "gold_sql": "SELECT COUNT ( DISTINCT t1.name ) FROM category AS t2 JOIN business AS t1 ON t2.business_id  =  t1.business_id JOIN category AS t3 ON t3.business_id  =  t1.business_id WHERE t1.city  =  \"Edinburgh\" AND t2.category_name  =  \"restaurant\" AND t3.category_name  =  \"Egyptian\";",
+      "single_database_pass": true,
+      "test_suite_pass": false,
+      "single_database_false_positive": true
+    },
+    {
+      "id": "spider_train_others_1243",
+      "db_id": "yelp",
+      "question": "Find the business which has the most number of categories",
+      "generated_sql": "SELECT b.name, COUNT(c.category_name) as category_count FROM business b JOIN category c ON b.business_id = c.business_id GROUP BY b.business_id ORDER BY category_count DESC LIMIT 1;",
+      "gold_sql": "SELECT t1.name FROM category AS t2 JOIN business AS t1 ON t2.business_id  =  t1.business_id GROUP BY t1.name ORDER BY COUNT ( DISTINCT t2.category_name ) DESC LIMIT 1;",
+      "single_database_pass": true,
+      "test_suite_pass": false,
+      "single_database_false_positive": true
+    },
+    {
+      "id": "spider_train_others_1180",
+      "db_id": "yelp",
+      "question": "List all users who reviewed businesses that are restaurant in 2010 .",
+      "generated_sql": "SELECT DISTINCT u.user_id, u.name FROM user u JOIN review r ON u.user_id = r.user_id JOIN business b ON r.business_id = b.business_id WHERE b.name LIKE '%restaurant%' AND r.year = 2010;",
+      "gold_sql": "SELECT t4.name FROM category AS t2 JOIN business AS t1 ON t2.business_id  =  t1.business_id JOIN review AS t3 ON t3.business_id  =  t1.business_id JOIN USER AS t4 ON t4.user_id  =  t3.user_id WHERE t2.category_name  =  \"restaurant\" AND t3.year  =  2010;",
+      "single_database_pass": true,
+      "test_suite_pass": false,
+      "single_database_false_positive": true
+    },
+    {
+      "id": "spider_train_others_1235",
+      "db_id": "yelp",
+      "question": "Find all Mexican restaurant in Dallas with at least 3.5 stars",
+      "generated_sql": "SELECT * FROM business WHERE city = 'Dallas' AND rating >= 3.5 AND name LIKE '%Mexican%'",
+      "gold_sql": "SELECT t1.name FROM category AS t2 JOIN business AS t1 ON t2.business_id  =  t1.business_id JOIN category AS t3 ON t3.business_id  =  t1.business_id WHERE t1.city  =  \"Dallas\" AND t1.rating  >  3.5 AND t2.category_name  =  \"Mexican\" AND t3.category_name  =  \"restaurant\";",
+      "single_database_pass": true,
+      "test_suite_pass": false,
+      "single_database_false_positive": true
+    },
+    {
+      "id": "spider_train_others_1149",
+      "db_id": "yelp",
+      "question": "List all the neighbourhoods with Italian restaurant in Madison",
+      "generated_sql": "SELECT DISTINCT n.neighbourhood_name FROM neighbourhood n JOIN business b ON n.business_id = b.business_id WHERE b.city = 'Madison' AND b.name LIKE '%Italian%'",
+      "gold_sql": "SELECT t1.neighbourhood_name FROM category AS t3 JOIN business AS t2 ON t3.business_id  =  t2.business_id JOIN category AS t4 ON t4.business_id  =  t2.business_id JOIN neighbourhood AS t1 ON t1.business_id  =  t2.business_id WHERE t2.city  =  \"Madison\" AND t3.category_name  =  \"Italian\" AND t4.category_name  =  \"restaurant\";",
+      "single_database_pass": true,
+      "test_suite_pass": false,
+      "single_database_false_positive": true
+    },
+    {
+      "id": "spider_train_others_1189",
+      "db_id": "yelp",
+      "question": "find the total checkins in Moroccan restaurant in \" Los Angeles \"",
+      "generated_sql": "SELECT SUM(c.count) FROM checkin c JOIN business b ON c.business_id = b.business_id WHERE b.name LIKE '%Moroccan%' AND b.city = 'Los Angeles'",
+      "gold_sql": "SELECT SUM ( t4.count ) FROM category AS t2 JOIN business AS t1 ON t2.business_id  =  t1.business_id JOIN category AS t3 ON t3.business_id  =  t1.business_id JOIN checkin AS t4 ON t4.business_id  =  t1.business_id WHERE t1.city  =  \"Los Angeles\" AND t2.category_name  =  \"restaurant\" AND t3.category_name  =  \"Moroccan\";",
+      "single_database_pass": true,
+      "test_suite_pass": false,
+      "single_database_false_positive": true
+    },
+    {
+      "id": "spider_train_others_1190",
+      "db_id": "yelp",
+      "question": "find the total checkins in Moroccan restaurant in \" Los Angeles \" on Friday",
+      "generated_sql": "SELECT SUM(c.count) FROM checkin c JOIN business b ON c.business_id = b.business_id JOIN category cat ON b.business_id = cat.business_id WHERE cat.category_name = 'Moroccan' AND b.city = 'Los Angeles' AND c.day = 'Friday'",
+      "gold_sql": "SELECT SUM ( t4.count ) FROM category AS t2 JOIN business AS t1 ON t2.business_id  =  t1.business_id JOIN category AS t3 ON t3.business_id  =  t1.business_id JOIN checkin AS t4 ON t4.business_id  =  t1.business_id WHERE t1.city  =  \"Los Angeles\" AND t2.category_name  =  \"Moroccan\" AND t3.category_name  =  \"restaurant\" AND t4.day  =  \"Friday\";",
+      "single_database_pass": true,
+      "test_suite_pass": false,
+      "single_database_false_positive": true
+    },
+    {
+      "id": "spider_train_others_1238",
+      "db_id": "yelp",
+      "question": "Find all Italian restaurant in the Meadowood neighbourhood of Madison",
+      "generated_sql": "SELECT b.* FROM business b JOIN neighbourhood n ON b.business_id = n.business_id WHERE n.neighbourhood_name = 'Meadowood' AND b.city = 'Madison' AND b.name LIKE '%Italian%'",
+      "gold_sql": "SELECT t1.name FROM category AS t3 JOIN business AS t1 ON t3.business_id  =  t1.business_id JOIN category AS t4 ON t4.business_id  =  t1.business_id JOIN neighbourhood AS t2 ON t2.business_id  =  t1.business_id WHERE t1.city  =  \"Madison\" AND t3.category_name  =  \"Italian\" AND t4.category_name  =  \"restaurant\" AND t2.neighbourhood_name  =  \"Meadowood\";",
+      "single_database_pass": true,
+      "test_suite_pass": false,
+      "single_database_false_positive": true
+    },
+    {
+      "id": "spider_train_others_1192",
+      "db_id": "yelp",
+      "question": "find the total checkins in Italian Delis in each state on Sunday",
+      "generated_sql": "SELECT b.state, SUM(c.count) AS total_checkins FROM business b JOIN category cat ON b.business_id = cat.business_id JOIN checkin c ON b.business_id = c.business_id WHERE cat.category_name = 'Italian Delis' AND c.day = 'Sunday' GROUP BY b.state;",
+      "gold_sql": "SELECT t1.state  ,  SUM ( t4.count ) FROM category AS t2 JOIN business AS t1 ON t2.business_id  =  t1.business_id JOIN category AS t3 ON t3.business_id  =  t1.business_id JOIN checkin AS t4 ON t4.business_id  =  t1.business_id WHERE t2.category_name  =  \"Italian\" AND t3.category_name  =  \"Delis\" AND t4.day  =  \"Sunday\" GROUP BY t1.state;",
+      "single_database_pass": true,
+      "test_suite_pass": false,
+      "single_database_false_positive": true
+    }
+  ]
+}

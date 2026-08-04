@@ -1,0 +1,2622 @@
+{
+  "method": "lexical + embedding-3 table similarity + top-k seeds + foreign-key paths",
+  "top_k": 4,
+  "lexical_weight": 0.5,
+  "semantic_weight": 0.5,
+  "gold_sql_used_for_per_case_selection": false,
+  "case_count": 30,
+  "cases": [
+    {
+      "id": "spider_dev_0507",
+      "db_id": "student_transcripts_tracking",
+      "question": "what are all the addresses including line 1 and line 2?",
+      "seed_tables": [
+        "Addresses",
+        "Students",
+        "Sections",
+        "Departments"
+      ],
+      "selected_tables": [
+        "Addresses",
+        "Courses",
+        "Degree_Programs",
+        "Departments",
+        "Sections",
+        "Student_Enrolment",
+        "Student_Enrolment_Courses",
+        "Students"
+      ],
+      "selected_schema": "CREATE TABLE Addresses (\n    address_id INTEGER PRIMARY KEY,\n    line_1 VARCHAR(255),\n    line_2 VARCHAR(255),\n    line_3 VARCHAR(255),\n    city VARCHAR(255),\n    zip_postcode VARCHAR(20),\n    state_province_county VARCHAR(255),\n    country VARCHAR(255),\n    other_address_details VARCHAR(255)\n);\n\nCREATE TABLE Courses (\n    course_id INTEGER PRIMARY KEY,\n    course_name VARCHAR(255),\n    course_description VARCHAR(255),\n    other_details VARCHAR(255)\n);\n\nCREATE TABLE Degree_Programs (\n    degree_program_id INTEGER PRIMARY KEY,\n    department_id INTEGER NOT NULL,\n    degree_summary_name VARCHAR(255),\n    degree_summary_description VARCHAR(255),\n    other_details VARCHAR(255),\n    FOREIGN KEY (department_id) REFERENCES Departments(department_id)\n);\n\nCREATE TABLE Departments (\n    department_id INTEGER PRIMARY KEY,\n    department_name VARCHAR(255),\n    department_description VARCHAR(255),\n    other_details VARCHAR(255)\n);\n\nCREATE TABLE Sections (\n    section_id INTEGER PRIMARY KEY,\n    course_id INTEGER NOT NULL,\n    section_name VARCHAR(255),\n    section_description VARCHAR(255),\n    other_details VARCHAR(255),\n    FOREIGN KEY (course_id) REFERENCES Courses(course_id)\n);\n\nCREATE TABLE Student_Enrolment (\n    student_enrolment_id INTEGER PRIMARY KEY,\n    degree_program_id INTEGER NOT NULL,\n    semester_id INTEGER NOT NULL,\n    student_id INTEGER NOT NULL,\n    other_details VARCHAR(255),\n    FOREIGN KEY (student_id) REFERENCES Students(student_id),\n    FOREIGN KEY (degree_program_id) REFERENCES Degree_Programs(degree_program_id)\n);\n\nCREATE TABLE Student_Enrolment_Courses (\n    student_course_id INTEGER PRIMARY KEY,\n    course_id INTEGER NOT NULL,\n    student_enrolment_id INTEGER NOT NULL,\n    FOREIGN KEY (student_enrolment_id) REFERENCES Student_Enrolment(student_enrolment_id),\n    FOREIGN KEY (course_id) REFERENCES Courses(course_id)\n);\n\nCREATE TABLE Students (\n    student_id INTEGER PRIMARY KEY,\n    current_address_id INTEGER NOT NULL,\n    permanent_address_id INTEGER NOT NULL,\n    first_name VARCHAR(80),\n    middle_name VARCHAR(40),\n    last_name VARCHAR(40),\n    cell_mobile_number VARCHAR(40),\n    email_address VARCHAR(40),\n    ssn VARCHAR(40),\n    date_first_registered DATETIME,\n    date_left DATETIME,\n    other_student_details VARCHAR(255),\n    FOREIGN KEY (permanent_address_id) REFERENCES Addresses(address_id),\n    FOREIGN KEY (current_address_id) REFERENCES Addresses(address_id)\n);",
+      "ranked_tables": [
+        {
+          "table": "Addresses",
+          "score": 88.673,
+          "lexical_score": 100.0,
+          "semantic_cosine": 0.77345,
+          "semantic_score": 77.345,
+          "description": "Database table addresses. Columns: address id, line 1, line 2, line 3, city, zip postcode, state province county, country, other address details."
+        },
+        {
+          "table": "Students",
+          "score": 60.501,
+          "lexical_score": 57.12,
+          "semantic_cosine": 0.638815,
+          "semantic_score": 63.881,
+          "description": "Database table students. Columns: student id, current address id, permanent address id, first name, middle name, last name, cell mobile number, email address, ssn, date first registered, date left, other student details."
+        },
+        {
+          "table": "Sections",
+          "score": 46.712,
+          "lexical_score": 37.5,
+          "semantic_cosine": 0.559233,
+          "semantic_score": 55.923,
+          "description": "Database table sections. Columns: section id, course id, section name, section description, other details."
+        },
+        {
+          "table": "Departments",
+          "score": 46.487,
+          "lexical_score": 35.294,
+          "semantic_cosine": 0.576802,
+          "semantic_score": 57.68,
+          "description": "Database table departments. Columns: department id, department name, department description, other details."
+        },
+        {
+          "table": "Transcripts",
+          "score": 46.422,
+          "lexical_score": 32.416,
+          "semantic_cosine": 0.604281,
+          "semantic_score": 60.428,
+          "description": "Database table transcripts. Columns: transcript id, transcript date, other details."
+        },
+        {
+          "table": "Student_Enrolment",
+          "score": 45.069,
+          "lexical_score": 36.146,
+          "semantic_cosine": 0.539915,
+          "semantic_score": 53.992,
+          "description": "Database table student enrolment. Columns: student enrolment id, degree program id, semester id, student id, other details."
+        },
+        {
+          "table": "Transcript_Contents",
+          "score": 44.405,
+          "lexical_score": 33.67,
+          "semantic_cosine": 0.551395,
+          "semantic_score": 55.14,
+          "description": "Database table transcript contents. Columns: student course id, transcript id."
+        },
+        {
+          "table": "Student_Enrolment_Courses",
+          "score": 43.788,
+          "lexical_score": 34.877,
+          "semantic_cosine": 0.526997,
+          "semantic_score": 52.7,
+          "description": "Database table student enrolment courses. Columns: student course id, course id, student enrolment id."
+        },
+        {
+          "table": "Courses",
+          "score": 42.971,
+          "lexical_score": 32.051,
+          "semantic_cosine": 0.538902,
+          "semantic_score": 53.89,
+          "description": "Database table courses. Columns: course id, course name, course description, other details."
+        },
+        {
+          "table": "Degree_Programs",
+          "score": 42.843,
+          "lexical_score": 33.791,
+          "semantic_cosine": 0.51896,
+          "semantic_score": 51.896,
+          "description": "Database table degree programs. Columns: degree program id, department id, degree summary name, degree summary description, other details."
+        },
+        {
+          "table": "Semesters",
+          "score": 40.903,
+          "lexical_score": 26.667,
+          "semantic_cosine": 0.551381,
+          "semantic_score": 55.138,
+          "description": "Database table semesters. Columns: semester id, semester name, semester description, other details."
+        }
+      ]
+    },
+    {
+      "id": "spider_dev_0517",
+      "db_id": "student_transcripts_tracking",
+      "question": "How many departments offer any degree?",
+      "seed_tables": [
+        "Departments",
+        "Degree_Programs",
+        "Student_Enrolment",
+        "Semesters"
+      ],
+      "selected_tables": [
+        "Degree_Programs",
+        "Departments",
+        "Semesters",
+        "Student_Enrolment"
+      ],
+      "selected_schema": "CREATE TABLE Degree_Programs (\n    degree_program_id INTEGER PRIMARY KEY,\n    department_id INTEGER NOT NULL,\n    degree_summary_name VARCHAR(255),\n    degree_summary_description VARCHAR(255),\n    other_details VARCHAR(255),\n    FOREIGN KEY (department_id) REFERENCES Departments(department_id)\n);\n\nCREATE TABLE Departments (\n    department_id INTEGER PRIMARY KEY,\n    department_name VARCHAR(255),\n    department_description VARCHAR(255),\n    other_details VARCHAR(255)\n);\n\nCREATE TABLE Semesters (\n    semester_id INTEGER PRIMARY KEY,\n    semester_name VARCHAR(255),\n    semester_description VARCHAR(255),\n    other_details VARCHAR(255)\n);\n\nCREATE TABLE Student_Enrolment (\n    student_enrolment_id INTEGER PRIMARY KEY,\n    degree_program_id INTEGER NOT NULL,\n    semester_id INTEGER NOT NULL,\n    student_id INTEGER NOT NULL,\n    other_details VARCHAR(255),\n    FOREIGN KEY (semester_id) REFERENCES Semesters(semester_id),\n    FOREIGN KEY (degree_program_id) REFERENCES Degree_Programs(degree_program_id)\n);",
+      "ranked_tables": [
+        {
+          "table": "Departments",
+          "score": 75.043,
+          "lexical_score": 100.0,
+          "semantic_cosine": 0.500864,
+          "semantic_score": 50.086,
+          "description": "Database table departments. Columns: department id, department name, department description, other details."
+        },
+        {
+          "table": "Degree_Programs",
+          "score": 69.486,
+          "lexical_score": 84.821,
+          "semantic_cosine": 0.541504,
+          "semantic_score": 54.15,
+          "description": "Database table degree programs. Columns: degree program id, department id, degree summary name, degree summary description, other details."
+        },
+        {
+          "table": "Student_Enrolment",
+          "score": 54.715,
+          "lexical_score": 63.381,
+          "semantic_cosine": 0.460495,
+          "semantic_score": 46.049,
+          "description": "Database table student enrolment. Columns: student enrolment id, degree program id, semester id, student id, other details."
+        },
+        {
+          "table": "Semesters",
+          "score": 48.456,
+          "lexical_score": 49.889,
+          "semantic_cosine": 0.470238,
+          "semantic_score": 47.024,
+          "description": "Database table semesters. Columns: semester id, semester name, semester description, other details."
+        },
+        {
+          "table": "Student_Enrolment_Courses",
+          "score": 46.26,
+          "lexical_score": 50.581,
+          "semantic_cosine": 0.4194,
+          "semantic_score": 41.94,
+          "description": "Database table student enrolment courses. Columns: student course id, course id, student enrolment id."
+        },
+        {
+          "table": "Courses",
+          "score": 45.675,
+          "lexical_score": 46.455,
+          "semantic_cosine": 0.448954,
+          "semantic_score": 44.895,
+          "description": "Database table courses. Columns: course id, course name, course description, other details."
+        },
+        {
+          "table": "Students",
+          "score": 44.109,
+          "lexical_score": 50.688,
+          "semantic_cosine": 0.375308,
+          "semantic_score": 37.531,
+          "description": "Database table students. Columns: student id, current address id, permanent address id, first name, middle name, last name, cell mobile number, email address, ssn, date first registered, date left, other student details."
+        },
+        {
+          "table": "Sections",
+          "score": 43.889,
+          "lexical_score": 44.102,
+          "semantic_cosine": 0.43676,
+          "semantic_score": 43.676,
+          "description": "Database table sections. Columns: section id, course id, section name, section description, other details."
+        },
+        {
+          "table": "Transcripts",
+          "score": 41.05,
+          "lexical_score": 42.536,
+          "semantic_cosine": 0.395644,
+          "semantic_score": 39.564,
+          "description": "Database table transcripts. Columns: transcript id, transcript date, other details."
+        },
+        {
+          "table": "Transcript_Contents",
+          "score": 39.693,
+          "lexical_score": 38.364,
+          "semantic_cosine": 0.410228,
+          "semantic_score": 41.023,
+          "description": "Database table transcript contents. Columns: student course id, transcript id."
+        },
+        {
+          "table": "Addresses",
+          "score": 39.273,
+          "lexical_score": 48.577,
+          "semantic_cosine": 0.299687,
+          "semantic_score": 29.969,
+          "description": "Database table addresses. Columns: address id, line 1, line 2, line 3, city, zip postcode, state province county, country, other address details."
+        }
+      ]
+    },
+    {
+      "id": "spider_dev_0559",
+      "db_id": "student_transcripts_tracking",
+      "question": "Whose permanent address is different from his or her current address? List his or her first name.",
+      "seed_tables": [
+        "Addresses",
+        "Students",
+        "Student_Enrolment",
+        "Departments"
+      ],
+      "selected_tables": [
+        "Addresses",
+        "Degree_Programs",
+        "Departments",
+        "Student_Enrolment",
+        "Students"
+      ],
+      "selected_schema": "CREATE TABLE Addresses (\n    address_id INTEGER PRIMARY KEY,\n    line_1 VARCHAR(255),\n    line_2 VARCHAR(255),\n    line_3 VARCHAR(255),\n    city VARCHAR(255),\n    zip_postcode VARCHAR(20),\n    state_province_county VARCHAR(255),\n    country VARCHAR(255),\n    other_address_details VARCHAR(255)\n);\n\nCREATE TABLE Degree_Programs (\n    degree_program_id INTEGER PRIMARY KEY,\n    department_id INTEGER NOT NULL,\n    degree_summary_name VARCHAR(255),\n    degree_summary_description VARCHAR(255),\n    other_details VARCHAR(255),\n    FOREIGN KEY (department_id) REFERENCES Departments(department_id)\n);\n\nCREATE TABLE Departments (\n    department_id INTEGER PRIMARY KEY,\n    department_name VARCHAR(255),\n    department_description VARCHAR(255),\n    other_details VARCHAR(255)\n);\n\nCREATE TABLE Student_Enrolment (\n    student_enrolment_id INTEGER PRIMARY KEY,\n    degree_program_id INTEGER NOT NULL,\n    semester_id INTEGER NOT NULL,\n    student_id INTEGER NOT NULL,\n    other_details VARCHAR(255),\n    FOREIGN KEY (student_id) REFERENCES Students(student_id),\n    FOREIGN KEY (degree_program_id) REFERENCES Degree_Programs(degree_program_id)\n);\n\nCREATE TABLE Students (\n    student_id INTEGER PRIMARY KEY,\n    current_address_id INTEGER NOT NULL,\n    permanent_address_id INTEGER NOT NULL,\n    first_name VARCHAR(80),\n    middle_name VARCHAR(40),\n    last_name VARCHAR(40),\n    cell_mobile_number VARCHAR(40),\n    email_address VARCHAR(40),\n    ssn VARCHAR(40),\n    date_first_registered DATETIME,\n    date_left DATETIME,\n    other_student_details VARCHAR(255),\n    FOREIGN KEY (permanent_address_id) REFERENCES Addresses(address_id),\n    FOREIGN KEY (current_address_id) REFERENCES Addresses(address_id)\n);",
+      "ranked_tables": [
+        {
+          "table": "Addresses",
+          "score": 76.937,
+          "lexical_score": 99.475,
+          "semantic_cosine": 0.543988,
+          "semantic_score": 54.399,
+          "description": "Database table addresses. Columns: address id, line 1, line 2, line 3, city, zip postcode, state province county, country, other address details."
+        },
+        {
+          "table": "Students",
+          "score": 68.292,
+          "lexical_score": 78.571,
+          "semantic_cosine": 0.580132,
+          "semantic_score": 58.013,
+          "description": "Database table students. Columns: student id, current address id, permanent address id, first name, middle name, last name, cell mobile number, email address, ssn, date first registered, date left, other student details."
+        },
+        {
+          "table": "Student_Enrolment",
+          "score": 57.354,
+          "lexical_score": 66.488,
+          "semantic_cosine": 0.482199,
+          "semantic_score": 48.22,
+          "description": "Database table student enrolment. Columns: student enrolment id, degree program id, semester id, student id, other details."
+        },
+        {
+          "table": "Departments",
+          "score": 56.646,
+          "lexical_score": 67.303,
+          "semantic_cosine": 0.459883,
+          "semantic_score": 45.988,
+          "description": "Database table departments. Columns: department id, department name, department description, other details."
+        },
+        {
+          "table": "Student_Enrolment_Courses",
+          "score": 53.079,
+          "lexical_score": 59.866,
+          "semantic_cosine": 0.462921,
+          "semantic_score": 46.292,
+          "description": "Database table student enrolment courses. Columns: student course id, course id, student enrolment id."
+        },
+        {
+          "table": "Courses",
+          "score": 52.855,
+          "lexical_score": 60.481,
+          "semantic_cosine": 0.452286,
+          "semantic_score": 45.229,
+          "description": "Database table courses. Columns: course id, course name, course description, other details."
+        },
+        {
+          "table": "Semesters",
+          "score": 52.213,
+          "lexical_score": 56.838,
+          "semantic_cosine": 0.475888,
+          "semantic_score": 47.589,
+          "description": "Database table semesters. Columns: semester id, semester name, semester description, other details."
+        },
+        {
+          "table": "Transcripts",
+          "score": 52.026,
+          "lexical_score": 53.618,
+          "semantic_cosine": 0.504339,
+          "semantic_score": 50.434,
+          "description": "Database table transcripts. Columns: transcript id, transcript date, other details."
+        },
+        {
+          "table": "Degree_Programs",
+          "score": 49.99,
+          "lexical_score": 58.432,
+          "semantic_cosine": 0.415478,
+          "semantic_score": 41.548,
+          "description": "Database table degree programs. Columns: degree program id, department id, degree summary name, degree summary description, other details."
+        },
+        {
+          "table": "Transcript_Contents",
+          "score": 49.239,
+          "lexical_score": 51.897,
+          "semantic_cosine": 0.465817,
+          "semantic_score": 46.582,
+          "description": "Database table transcript contents. Columns: student course id, transcript id."
+        },
+        {
+          "table": "Sections",
+          "score": 46.709,
+          "lexical_score": 52.147,
+          "semantic_cosine": 0.412701,
+          "semantic_score": 41.27,
+          "description": "Database table sections. Columns: section id, course id, section name, section description, other details."
+        }
+      ]
+    },
+    {
+      "id": "spider_dev_0527",
+      "db_id": "student_transcripts_tracking",
+      "question": "List the section_name in reversed lexicographical order.",
+      "seed_tables": [
+        "Sections",
+        "Semesters",
+        "Departments",
+        "Degree_Programs"
+      ],
+      "selected_tables": [
+        "Courses",
+        "Degree_Programs",
+        "Departments",
+        "Sections",
+        "Semesters",
+        "Student_Enrolment",
+        "Student_Enrolment_Courses"
+      ],
+      "selected_schema": "CREATE TABLE Courses (\n    course_id INTEGER PRIMARY KEY,\n    course_name VARCHAR(255),\n    course_description VARCHAR(255),\n    other_details VARCHAR(255)\n);\n\nCREATE TABLE Degree_Programs (\n    degree_program_id INTEGER PRIMARY KEY,\n    department_id INTEGER NOT NULL,\n    degree_summary_name VARCHAR(255),\n    degree_summary_description VARCHAR(255),\n    other_details VARCHAR(255),\n    FOREIGN KEY (department_id) REFERENCES Departments(department_id)\n);\n\nCREATE TABLE Departments (\n    department_id INTEGER PRIMARY KEY,\n    department_name VARCHAR(255),\n    department_description VARCHAR(255),\n    other_details VARCHAR(255)\n);\n\nCREATE TABLE Sections (\n    section_id INTEGER PRIMARY KEY,\n    course_id INTEGER NOT NULL,\n    section_name VARCHAR(255),\n    section_description VARCHAR(255),\n    other_details VARCHAR(255),\n    FOREIGN KEY (course_id) REFERENCES Courses(course_id)\n);\n\nCREATE TABLE Semesters (\n    semester_id INTEGER PRIMARY KEY,\n    semester_name VARCHAR(255),\n    semester_description VARCHAR(255),\n    other_details VARCHAR(255)\n);\n\nCREATE TABLE Student_Enrolment (\n    student_enrolment_id INTEGER PRIMARY KEY,\n    degree_program_id INTEGER NOT NULL,\n    semester_id INTEGER NOT NULL,\n    student_id INTEGER NOT NULL,\n    other_details VARCHAR(255),\n    FOREIGN KEY (semester_id) REFERENCES Semesters(semester_id),\n    FOREIGN KEY (degree_program_id) REFERENCES Degree_Programs(degree_program_id)\n);\n\nCREATE TABLE Student_Enrolment_Courses (\n    student_course_id INTEGER PRIMARY KEY,\n    course_id INTEGER NOT NULL,\n    student_enrolment_id INTEGER NOT NULL,\n    FOREIGN KEY (student_enrolment_id) REFERENCES Student_Enrolment(student_enrolment_id),\n    FOREIGN KEY (course_id) REFERENCES Courses(course_id)\n);",
+      "ranked_tables": [
+        {
+          "table": "Sections",
+          "score": 80.38,
+          "lexical_score": 100.0,
+          "semantic_cosine": 0.607605,
+          "semantic_score": 60.761,
+          "description": "Database table sections. Columns: section id, course id, section name, section description, other details."
+        },
+        {
+          "table": "Semesters",
+          "score": 55.522,
+          "lexical_score": 53.5,
+          "semantic_cosine": 0.575443,
+          "semantic_score": 57.544,
+          "description": "Database table semesters. Columns: semester id, semester name, semester description, other details."
+        },
+        {
+          "table": "Departments",
+          "score": 51.845,
+          "lexical_score": 47.0,
+          "semantic_cosine": 0.5669,
+          "semantic_score": 56.69,
+          "description": "Database table departments. Columns: department id, department name, department description, other details."
+        },
+        {
+          "table": "Degree_Programs",
+          "score": 51.651,
+          "lexical_score": 50.545,
+          "semantic_cosine": 0.527566,
+          "semantic_score": 52.757,
+          "description": "Database table degree programs. Columns: degree program id, department id, degree summary name, degree summary description, other details."
+        },
+        {
+          "table": "Transcripts",
+          "score": 51.266,
+          "lexical_score": 44.627,
+          "semantic_cosine": 0.57905,
+          "semantic_score": 57.905,
+          "description": "Database table transcripts. Columns: transcript id, transcript date, other details."
+        },
+        {
+          "table": "Courses",
+          "score": 50.988,
+          "lexical_score": 49.182,
+          "semantic_cosine": 0.52795,
+          "semantic_score": 52.795,
+          "description": "Database table courses. Columns: course id, course name, course description, other details."
+        },
+        {
+          "table": "Student_Enrolment",
+          "score": 50.71,
+          "lexical_score": 48.589,
+          "semantic_cosine": 0.52832,
+          "semantic_score": 52.832,
+          "description": "Database table student enrolment. Columns: student enrolment id, degree program id, semester id, student id, other details."
+        },
+        {
+          "table": "Student_Enrolment_Courses",
+          "score": 48.851,
+          "lexical_score": 46.456,
+          "semantic_cosine": 0.512458,
+          "semantic_score": 51.246,
+          "description": "Database table student enrolment courses. Columns: student course id, course id, student enrolment id."
+        },
+        {
+          "table": "Students",
+          "score": 47.903,
+          "lexical_score": 46.651,
+          "semantic_cosine": 0.491549,
+          "semantic_score": 49.155,
+          "description": "Database table students. Columns: student id, current address id, permanent address id, first name, middle name, last name, cell mobile number, email address, ssn, date first registered, date left, other student details."
+        },
+        {
+          "table": "Transcript_Contents",
+          "score": 47.661,
+          "lexical_score": 41.877,
+          "semantic_cosine": 0.534443,
+          "semantic_score": 53.444,
+          "description": "Database table transcript contents. Columns: student course id, transcript id."
+        },
+        {
+          "table": "Addresses",
+          "score": 46.477,
+          "lexical_score": 43.929,
+          "semantic_cosine": 0.490241,
+          "semantic_score": 49.024,
+          "description": "Database table addresses. Columns: address id, line 1, line 2, line 3, city, zip postcode, state province county, country, other address details."
+        }
+      ]
+    },
+    {
+      "id": "spider_dev_0521",
+      "db_id": "student_transcripts_tracking",
+      "question": "How many degrees does the engineering department offer?",
+      "seed_tables": [
+        "Departments",
+        "Degree_Programs",
+        "Student_Enrolment",
+        "Semesters"
+      ],
+      "selected_tables": [
+        "Degree_Programs",
+        "Departments",
+        "Semesters",
+        "Student_Enrolment"
+      ],
+      "selected_schema": "CREATE TABLE Degree_Programs (\n    degree_program_id INTEGER PRIMARY KEY,\n    department_id INTEGER NOT NULL,\n    degree_summary_name VARCHAR(255),\n    degree_summary_description VARCHAR(255),\n    other_details VARCHAR(255),\n    FOREIGN KEY (department_id) REFERENCES Departments(department_id)\n);\n\nCREATE TABLE Departments (\n    department_id INTEGER PRIMARY KEY,\n    department_name VARCHAR(255),\n    department_description VARCHAR(255),\n    other_details VARCHAR(255)\n);\n\nCREATE TABLE Semesters (\n    semester_id INTEGER PRIMARY KEY,\n    semester_name VARCHAR(255),\n    semester_description VARCHAR(255),\n    other_details VARCHAR(255)\n);\n\nCREATE TABLE Student_Enrolment (\n    student_enrolment_id INTEGER PRIMARY KEY,\n    degree_program_id INTEGER NOT NULL,\n    semester_id INTEGER NOT NULL,\n    student_id INTEGER NOT NULL,\n    other_details VARCHAR(255),\n    FOREIGN KEY (semester_id) REFERENCES Semesters(semester_id),\n    FOREIGN KEY (degree_program_id) REFERENCES Degree_Programs(degree_program_id)\n);",
+      "ranked_tables": [
+        {
+          "table": "Departments",
+          "score": 72.66,
+          "lexical_score": 100.0,
+          "semantic_cosine": 0.453191,
+          "semantic_score": 45.319,
+          "description": "Database table departments. Columns: department id, department name, department description, other details."
+        },
+        {
+          "table": "Degree_Programs",
+          "score": 68.305,
+          "lexical_score": 84.821,
+          "semantic_cosine": 0.517894,
+          "semantic_score": 51.789,
+          "description": "Database table degree programs. Columns: degree program id, department id, degree summary name, degree summary description, other details."
+        },
+        {
+          "table": "Student_Enrolment",
+          "score": 54.91,
+          "lexical_score": 63.381,
+          "semantic_cosine": 0.464392,
+          "semantic_score": 46.439,
+          "description": "Database table student enrolment. Columns: student enrolment id, degree program id, semester id, student id, other details."
+        },
+        {
+          "table": "Semesters",
+          "score": 47.892,
+          "lexical_score": 49.889,
+          "semantic_cosine": 0.458959,
+          "semantic_score": 45.896,
+          "description": "Database table semesters. Columns: semester id, semester name, semester description, other details."
+        },
+        {
+          "table": "Student_Enrolment_Courses",
+          "score": 47.545,
+          "lexical_score": 51.187,
+          "semantic_cosine": 0.439024,
+          "semantic_score": 43.902,
+          "description": "Database table student enrolment courses. Columns: student course id, course id, student enrolment id."
+        },
+        {
+          "table": "Courses",
+          "score": 46.151,
+          "lexical_score": 47.667,
+          "semantic_cosine": 0.446352,
+          "semantic_score": 44.635,
+          "description": "Database table courses. Columns: course id, course name, course description, other details."
+        },
+        {
+          "table": "Sections",
+          "score": 44.402,
+          "lexical_score": 45.314,
+          "semantic_cosine": 0.434891,
+          "semantic_score": 43.489,
+          "description": "Database table sections. Columns: section id, course id, section name, section description, other details."
+        },
+        {
+          "table": "Students",
+          "score": 44.053,
+          "lexical_score": 50.688,
+          "semantic_cosine": 0.374183,
+          "semantic_score": 37.418,
+          "description": "Database table students. Columns: student id, current address id, permanent address id, first name, middle name, last name, cell mobile number, email address, ssn, date first registered, date left, other student details."
+        },
+        {
+          "table": "Transcript_Contents",
+          "score": 40.454,
+          "lexical_score": 39.778,
+          "semantic_cosine": 0.411292,
+          "semantic_score": 41.129,
+          "description": "Database table transcript contents. Columns: student course id, transcript id."
+        },
+        {
+          "table": "Transcripts",
+          "score": 39.627,
+          "lexical_score": 42.536,
+          "semantic_cosine": 0.367184,
+          "semantic_score": 36.718,
+          "description": "Database table transcripts. Columns: transcript id, transcript date, other details."
+        },
+        {
+          "table": "Addresses",
+          "score": 38.208,
+          "lexical_score": 48.577,
+          "semantic_cosine": 0.278395,
+          "semantic_score": 27.84,
+          "description": "Database table addresses. Columns: address id, line 1, line 2, line 3, city, zip postcode, state province county, country, other address details."
+        }
+      ]
+    },
+    {
+      "id": "spider_dev_0565",
+      "db_id": "student_transcripts_tracking",
+      "question": "When is the first transcript released? List the date and details.",
+      "seed_tables": [
+        "Transcripts",
+        "Transcript_Contents",
+        "Students",
+        "Semesters"
+      ],
+      "selected_tables": [
+        "Semesters",
+        "Student_Enrolment",
+        "Student_Enrolment_Courses",
+        "Students",
+        "Transcript_Contents",
+        "Transcripts"
+      ],
+      "selected_schema": "CREATE TABLE Semesters (\n    semester_id INTEGER PRIMARY KEY,\n    semester_name VARCHAR(255),\n    semester_description VARCHAR(255),\n    other_details VARCHAR(255)\n);\n\nCREATE TABLE Student_Enrolment (\n    student_enrolment_id INTEGER PRIMARY KEY,\n    degree_program_id INTEGER NOT NULL,\n    semester_id INTEGER NOT NULL,\n    student_id INTEGER NOT NULL,\n    other_details VARCHAR(255),\n    FOREIGN KEY (student_id) REFERENCES Students(student_id),\n    FOREIGN KEY (semester_id) REFERENCES Semesters(semester_id)\n);\n\nCREATE TABLE Student_Enrolment_Courses (\n    student_course_id INTEGER PRIMARY KEY,\n    course_id INTEGER NOT NULL,\n    student_enrolment_id INTEGER NOT NULL,\n    FOREIGN KEY (student_enrolment_id) REFERENCES Student_Enrolment(student_enrolment_id)\n);\n\nCREATE TABLE Students (\n    student_id INTEGER PRIMARY KEY,\n    current_address_id INTEGER NOT NULL,\n    permanent_address_id INTEGER NOT NULL,\n    first_name VARCHAR(80),\n    middle_name VARCHAR(40),\n    last_name VARCHAR(40),\n    cell_mobile_number VARCHAR(40),\n    email_address VARCHAR(40),\n    ssn VARCHAR(40),\n    date_first_registered DATETIME,\n    date_left DATETIME,\n    other_student_details VARCHAR(255)\n);\n\nCREATE TABLE Transcript_Contents (\n    student_course_id INTEGER NOT NULL,\n    transcript_id INTEGER NOT NULL,\n    FOREIGN KEY (transcript_id) REFERENCES Transcripts(transcript_id),\n    FOREIGN KEY (student_course_id) REFERENCES Student_Enrolment_Courses(student_course_id)\n);\n\nCREATE TABLE Transcripts (\n    transcript_id INTEGER PRIMARY KEY,\n    transcript_date DATETIME,\n    other_details VARCHAR(255)\n);",
+      "ranked_tables": [
+        {
+          "table": "Transcripts",
+          "score": 82.708,
+          "lexical_score": 100.0,
+          "semantic_cosine": 0.654162,
+          "semantic_score": 65.416,
+          "description": "Database table transcripts. Columns: transcript id, transcript date, other details."
+        },
+        {
+          "table": "Transcript_Contents",
+          "score": 71.567,
+          "lexical_score": 79.532,
+          "semantic_cosine": 0.636013,
+          "semantic_score": 63.601,
+          "description": "Database table transcript contents. Columns: student course id, transcript id."
+        },
+        {
+          "table": "Students",
+          "score": 58.296,
+          "lexical_score": 67.76,
+          "semantic_cosine": 0.488328,
+          "semantic_score": 48.833,
+          "description": "Database table students. Columns: student id, current address id, permanent address id, first name, middle name, last name, cell mobile number, email address, ssn, date first registered, date left, other student details."
+        },
+        {
+          "table": "Semesters",
+          "score": 52.108,
+          "lexical_score": 50.0,
+          "semantic_cosine": 0.542165,
+          "semantic_score": 54.217,
+          "description": "Database table semesters. Columns: semester id, semester name, semester description, other details."
+        },
+        {
+          "table": "Departments",
+          "score": 51.148,
+          "lexical_score": 57.143,
+          "semantic_cosine": 0.451525,
+          "semantic_score": 45.153,
+          "description": "Database table departments. Columns: department id, department name, department description, other details."
+        },
+        {
+          "table": "Student_Enrolment",
+          "score": 47.565,
+          "lexical_score": 42.081,
+          "semantic_cosine": 0.530484,
+          "semantic_score": 53.048,
+          "description": "Database table student enrolment. Columns: student enrolment id, degree program id, semester id, student id, other details."
+        },
+        {
+          "table": "Degree_Programs",
+          "score": 46.974,
+          "lexical_score": 44.048,
+          "semantic_cosine": 0.499001,
+          "semantic_score": 49.9,
+          "description": "Database table degree programs. Columns: degree program id, department id, degree summary name, degree summary description, other details."
+        },
+        {
+          "table": "Courses",
+          "score": 46.21,
+          "lexical_score": 41.984,
+          "semantic_cosine": 0.504356,
+          "semantic_score": 50.436,
+          "description": "Database table courses. Columns: course id, course name, course description, other details."
+        },
+        {
+          "table": "Student_Enrolment_Courses",
+          "score": 44.962,
+          "lexical_score": 39.551,
+          "semantic_cosine": 0.503727,
+          "semantic_score": 50.373,
+          "description": "Database table student enrolment courses. Columns: student course id, course id, student enrolment id."
+        },
+        {
+          "table": "Sections",
+          "score": 44.114,
+          "lexical_score": 39.631,
+          "semantic_cosine": 0.485961,
+          "semantic_score": 48.596,
+          "description": "Database table sections. Columns: section id, course id, section name, section description, other details."
+        },
+        {
+          "table": "Addresses",
+          "score": 38.981,
+          "lexical_score": 41.889,
+          "semantic_cosine": 0.360726,
+          "semantic_score": 36.073,
+          "description": "Database table addresses. Columns: address id, line 1, line 2, line 3, city, zip postcode, state province county, country, other address details."
+        }
+      ]
+    },
+    {
+      "id": "spider_dev_0571",
+      "db_id": "student_transcripts_tracking",
+      "question": "How many times at most can a course enrollment result show in different transcripts? Also show the course enrollment id.",
+      "seed_tables": [
+        "Transcripts",
+        "Transcript_Contents",
+        "Courses",
+        "Student_Enrolment_Courses"
+      ],
+      "selected_tables": [
+        "Courses",
+        "Student_Enrolment_Courses",
+        "Transcript_Contents",
+        "Transcripts"
+      ],
+      "selected_schema": "CREATE TABLE Courses (\n    course_id INTEGER PRIMARY KEY,\n    course_name VARCHAR(255),\n    course_description VARCHAR(255),\n    other_details VARCHAR(255)\n);\n\nCREATE TABLE Student_Enrolment_Courses (\n    student_course_id INTEGER PRIMARY KEY,\n    course_id INTEGER NOT NULL,\n    student_enrolment_id INTEGER NOT NULL,\n    FOREIGN KEY (course_id) REFERENCES Courses(course_id)\n);\n\nCREATE TABLE Transcript_Contents (\n    student_course_id INTEGER NOT NULL,\n    transcript_id INTEGER NOT NULL,\n    FOREIGN KEY (transcript_id) REFERENCES Transcripts(transcript_id),\n    FOREIGN KEY (student_course_id) REFERENCES Student_Enrolment_Courses(student_course_id)\n);\n\nCREATE TABLE Transcripts (\n    transcript_id INTEGER PRIMARY KEY,\n    transcript_date DATETIME,\n    other_details VARCHAR(255)\n);",
+      "ranked_tables": [
+        {
+          "table": "Transcripts",
+          "score": 80.847,
+          "lexical_score": 97.6,
+          "semantic_cosine": 0.640931,
+          "semantic_score": 64.093,
+          "description": "Database table transcripts. Columns: transcript id, transcript date, other details."
+        },
+        {
+          "table": "Transcript_Contents",
+          "score": 80.425,
+          "lexical_score": 88.865,
+          "semantic_cosine": 0.719844,
+          "semantic_score": 71.984,
+          "description": "Database table transcript contents. Columns: student course id, transcript id."
+        },
+        {
+          "table": "Courses",
+          "score": 79.51,
+          "lexical_score": 95.455,
+          "semantic_cosine": 0.635655,
+          "semantic_score": 63.566,
+          "description": "Database table courses. Columns: course id, course name, course description, other details."
+        },
+        {
+          "table": "Student_Enrolment_Courses",
+          "score": 76.744,
+          "lexical_score": 86.874,
+          "semantic_cosine": 0.666132,
+          "semantic_score": 66.613,
+          "description": "Database table student enrolment courses. Columns: student course id, course id, student enrolment id."
+        },
+        {
+          "table": "Student_Enrolment",
+          "score": 66.32,
+          "lexical_score": 69.013,
+          "semantic_cosine": 0.636263,
+          "semantic_score": 63.626,
+          "description": "Database table student enrolment. Columns: student enrolment id, degree program id, semester id, student id, other details."
+        },
+        {
+          "table": "Sections",
+          "score": 61.041,
+          "lexical_score": 61.667,
+          "semantic_cosine": 0.60415,
+          "semantic_score": 60.415,
+          "description": "Database table sections. Columns: section id, course id, section name, section description, other details."
+        },
+        {
+          "table": "Departments",
+          "score": 57.099,
+          "lexical_score": 63.158,
+          "semantic_cosine": 0.510402,
+          "semantic_score": 51.04,
+          "description": "Database table departments. Columns: department id, department name, department description, other details."
+        },
+        {
+          "table": "Degree_Programs",
+          "score": 55.373,
+          "lexical_score": 50.929,
+          "semantic_cosine": 0.598166,
+          "semantic_score": 59.817,
+          "description": "Database table degree programs. Columns: degree program id, department id, degree summary name, degree summary description, other details."
+        },
+        {
+          "table": "Semesters",
+          "score": 55.041,
+          "lexical_score": 50.0,
+          "semantic_cosine": 0.600811,
+          "semantic_score": 60.081,
+          "description": "Database table semesters. Columns: semester id, semester name, semester description, other details."
+        },
+        {
+          "table": "Students",
+          "score": 53.017,
+          "lexical_score": 52.311,
+          "semantic_cosine": 0.537225,
+          "semantic_score": 53.723,
+          "description": "Database table students. Columns: student id, current address id, permanent address id, first name, middle name, last name, cell mobile number, email address, ssn, date first registered, date left, other student details."
+        },
+        {
+          "table": "Addresses",
+          "score": 46.763,
+          "lexical_score": 51.538,
+          "semantic_cosine": 0.419872,
+          "semantic_score": 41.987,
+          "description": "Database table addresses. Columns: address id, line 1, line 2, line 3, city, zip postcode, state province county, country, other address details."
+        }
+      ]
+    },
+    {
+      "id": "spider_dev_0537",
+      "db_id": "student_transcripts_tracking",
+      "question": "Find the kind of program which most number of students are enrolled in?",
+      "seed_tables": [
+        "Student_Enrolment",
+        "Students",
+        "Student_Enrolment_Courses",
+        "Degree_Programs"
+      ],
+      "selected_tables": [
+        "Degree_Programs",
+        "Student_Enrolment",
+        "Student_Enrolment_Courses",
+        "Students"
+      ],
+      "selected_schema": "CREATE TABLE Degree_Programs (\n    degree_program_id INTEGER PRIMARY KEY,\n    department_id INTEGER NOT NULL,\n    degree_summary_name VARCHAR(255),\n    degree_summary_description VARCHAR(255),\n    other_details VARCHAR(255)\n);\n\nCREATE TABLE Student_Enrolment (\n    student_enrolment_id INTEGER PRIMARY KEY,\n    degree_program_id INTEGER NOT NULL,\n    semester_id INTEGER NOT NULL,\n    student_id INTEGER NOT NULL,\n    other_details VARCHAR(255),\n    FOREIGN KEY (student_id) REFERENCES Students(student_id),\n    FOREIGN KEY (degree_program_id) REFERENCES Degree_Programs(degree_program_id)\n);\n\nCREATE TABLE Student_Enrolment_Courses (\n    student_course_id INTEGER PRIMARY KEY,\n    course_id INTEGER NOT NULL,\n    student_enrolment_id INTEGER NOT NULL,\n    FOREIGN KEY (student_enrolment_id) REFERENCES Student_Enrolment(student_enrolment_id)\n);\n\nCREATE TABLE Students (\n    student_id INTEGER PRIMARY KEY,\n    current_address_id INTEGER NOT NULL,\n    permanent_address_id INTEGER NOT NULL,\n    first_name VARCHAR(80),\n    middle_name VARCHAR(40),\n    last_name VARCHAR(40),\n    cell_mobile_number VARCHAR(40),\n    email_address VARCHAR(40),\n    ssn VARCHAR(40),\n    date_first_registered DATETIME,\n    date_left DATETIME,\n    other_student_details VARCHAR(255)\n);",
+      "ranked_tables": [
+        {
+          "table": "Student_Enrolment",
+          "score": 75.086,
+          "lexical_score": 96.291,
+          "semantic_cosine": 0.538817,
+          "semantic_score": 53.882,
+          "description": "Database table student enrolment. Columns: student enrolment id, degree program id, semester id, student id, other details."
+        },
+        {
+          "table": "Students",
+          "score": 70.012,
+          "lexical_score": 97.183,
+          "semantic_cosine": 0.428415,
+          "semantic_score": 42.842,
+          "description": "Database table students. Columns: student id, current address id, permanent address id, first name, middle name, last name, cell mobile number, email address, ssn, date first registered, date left, other student details."
+        },
+        {
+          "table": "Student_Enrolment_Courses",
+          "score": 68.124,
+          "lexical_score": 83.692,
+          "semantic_cosine": 0.52556,
+          "semantic_score": 52.556,
+          "description": "Database table student enrolment courses. Columns: student course id, course id, student enrolment id."
+        },
+        {
+          "table": "Degree_Programs",
+          "score": 61.89,
+          "lexical_score": 75.423,
+          "semantic_cosine": 0.483568,
+          "semantic_score": 48.357,
+          "description": "Database table degree programs. Columns: degree program id, department id, degree summary name, degree summary description, other details."
+        },
+        {
+          "table": "Transcript_Contents",
+          "score": 51.95,
+          "lexical_score": 56.053,
+          "semantic_cosine": 0.478479,
+          "semantic_score": 47.848,
+          "description": "Database table transcript contents. Columns: student course id, transcript id."
+        },
+        {
+          "table": "Semesters",
+          "score": 48.371,
+          "lexical_score": 50.0,
+          "semantic_cosine": 0.467422,
+          "semantic_score": 46.742,
+          "description": "Database table semesters. Columns: semester id, semester name, semester description, other details."
+        },
+        {
+          "table": "Courses",
+          "score": 46.036,
+          "lexical_score": 43.778,
+          "semantic_cosine": 0.482949,
+          "semantic_score": 48.295,
+          "description": "Database table courses. Columns: course id, course name, course description, other details."
+        },
+        {
+          "table": "Departments",
+          "score": 42.597,
+          "lexical_score": 47.059,
+          "semantic_cosine": 0.381353,
+          "semantic_score": 38.135,
+          "description": "Database table departments. Columns: department id, department name, department description, other details."
+        },
+        {
+          "table": "Sections",
+          "score": 42.297,
+          "lexical_score": 43.413,
+          "semantic_cosine": 0.41182,
+          "semantic_score": 41.182,
+          "description": "Database table sections. Columns: section id, course id, section name, section description, other details."
+        },
+        {
+          "table": "Transcripts",
+          "score": 39.324,
+          "lexical_score": 38.577,
+          "semantic_cosine": 0.400705,
+          "semantic_score": 40.071,
+          "description": "Database table transcripts. Columns: transcript id, transcript date, other details."
+        },
+        {
+          "table": "Addresses",
+          "score": 30.6,
+          "lexical_score": 36.599,
+          "semantic_cosine": 0.246007,
+          "semantic_score": 24.601,
+          "description": "Database table addresses. Columns: address id, line 1, line 2, line 3, city, zip postcode, state province county, country, other address details."
+        }
+      ]
+    },
+    {
+      "id": "spider_dev_0551",
+      "db_id": "student_transcripts_tracking",
+      "question": "Show the date and id of the transcript with at least 2 course results.",
+      "seed_tables": [
+        "Transcripts",
+        "Transcript_Contents",
+        "Courses",
+        "Student_Enrolment_Courses"
+      ],
+      "selected_tables": [
+        "Courses",
+        "Student_Enrolment_Courses",
+        "Transcript_Contents",
+        "Transcripts"
+      ],
+      "selected_schema": "CREATE TABLE Courses (\n    course_id INTEGER PRIMARY KEY,\n    course_name VARCHAR(255),\n    course_description VARCHAR(255),\n    other_details VARCHAR(255)\n);\n\nCREATE TABLE Student_Enrolment_Courses (\n    student_course_id INTEGER PRIMARY KEY,\n    course_id INTEGER NOT NULL,\n    student_enrolment_id INTEGER NOT NULL,\n    FOREIGN KEY (course_id) REFERENCES Courses(course_id)\n);\n\nCREATE TABLE Transcript_Contents (\n    student_course_id INTEGER NOT NULL,\n    transcript_id INTEGER NOT NULL,\n    FOREIGN KEY (transcript_id) REFERENCES Transcripts(transcript_id),\n    FOREIGN KEY (student_course_id) REFERENCES Student_Enrolment_Courses(student_course_id)\n);\n\nCREATE TABLE Transcripts (\n    transcript_id INTEGER PRIMARY KEY,\n    transcript_date DATETIME,\n    other_details VARCHAR(255)\n);",
+      "ranked_tables": [
+        {
+          "table": "Transcripts",
+          "score": 87.667,
+          "lexical_score": 100.0,
+          "semantic_cosine": 0.753342,
+          "semantic_score": 75.334,
+          "description": "Database table transcripts. Columns: transcript id, transcript date, other details."
+        },
+        {
+          "table": "Transcript_Contents",
+          "score": 84.453,
+          "lexical_score": 88.35,
+          "semantic_cosine": 0.805555,
+          "semantic_score": 80.556,
+          "description": "Database table transcript contents. Columns: student course id, transcript id."
+        },
+        {
+          "table": "Courses",
+          "score": 82.043,
+          "lexical_score": 95.455,
+          "semantic_cosine": 0.686304,
+          "semantic_score": 68.63,
+          "description": "Database table courses. Columns: course id, course name, course description, other details."
+        },
+        {
+          "table": "Student_Enrolment_Courses",
+          "score": 72.364,
+          "lexical_score": 77.298,
+          "semantic_cosine": 0.674305,
+          "semantic_score": 67.431,
+          "description": "Database table student enrolment courses. Columns: student course id, course id, student enrolment id."
+        },
+        {
+          "table": "Students",
+          "score": 65.095,
+          "lexical_score": 68.727,
+          "semantic_cosine": 0.614639,
+          "semantic_score": 61.464,
+          "description": "Database table students. Columns: student id, current address id, permanent address id, first name, middle name, last name, cell mobile number, email address, ssn, date first registered, date left, other student details."
+        },
+        {
+          "table": "Sections",
+          "score": 61.597,
+          "lexical_score": 59.314,
+          "semantic_cosine": 0.638808,
+          "semantic_score": 63.881,
+          "description": "Database table sections. Columns: section id, course id, section name, section description, other details."
+        },
+        {
+          "table": "Departments",
+          "score": 56.708,
+          "lexical_score": 57.143,
+          "semantic_cosine": 0.562731,
+          "semantic_score": 56.273,
+          "description": "Database table departments. Columns: department id, department name, department description, other details."
+        },
+        {
+          "table": "Semesters",
+          "score": 55.618,
+          "lexical_score": 46.154,
+          "semantic_cosine": 0.65082,
+          "semantic_score": 65.082,
+          "description": "Database table semesters. Columns: semester id, semester name, semester description, other details."
+        },
+        {
+          "table": "Student_Enrolment",
+          "score": 55.522,
+          "lexical_score": 45.33,
+          "semantic_cosine": 0.657131,
+          "semantic_score": 65.713,
+          "description": "Database table student enrolment. Columns: student enrolment id, degree program id, semester id, student id, other details."
+        },
+        {
+          "table": "Addresses",
+          "score": 54.666,
+          "lexical_score": 60.735,
+          "semantic_cosine": 0.485978,
+          "semantic_score": 48.598,
+          "description": "Database table addresses. Columns: address id, line 1, line 2, line 3, city, zip postcode, state province county, country, other address details."
+        },
+        {
+          "table": "Degree_Programs",
+          "score": 53.524,
+          "lexical_score": 44.359,
+          "semantic_cosine": 0.62688,
+          "semantic_score": 62.688,
+          "description": "Database table degree programs. Columns: degree program id, department id, degree summary name, degree summary description, other details."
+        }
+      ]
+    },
+    {
+      "id": "spider_dev_0575",
+      "db_id": "student_transcripts_tracking",
+      "question": "Find the semester when both Master students and Bachelor students got enrolled in.",
+      "seed_tables": [
+        "Semesters",
+        "Student_Enrolment",
+        "Students",
+        "Student_Enrolment_Courses"
+      ],
+      "selected_tables": [
+        "Semesters",
+        "Student_Enrolment",
+        "Student_Enrolment_Courses",
+        "Students"
+      ],
+      "selected_schema": "CREATE TABLE Semesters (\n    semester_id INTEGER PRIMARY KEY,\n    semester_name VARCHAR(255),\n    semester_description VARCHAR(255),\n    other_details VARCHAR(255)\n);\n\nCREATE TABLE Student_Enrolment (\n    student_enrolment_id INTEGER PRIMARY KEY,\n    degree_program_id INTEGER NOT NULL,\n    semester_id INTEGER NOT NULL,\n    student_id INTEGER NOT NULL,\n    other_details VARCHAR(255),\n    FOREIGN KEY (student_id) REFERENCES Students(student_id),\n    FOREIGN KEY (semester_id) REFERENCES Semesters(semester_id)\n);\n\nCREATE TABLE Student_Enrolment_Courses (\n    student_course_id INTEGER PRIMARY KEY,\n    course_id INTEGER NOT NULL,\n    student_enrolment_id INTEGER NOT NULL,\n    FOREIGN KEY (student_enrolment_id) REFERENCES Student_Enrolment(student_enrolment_id)\n);\n\nCREATE TABLE Students (\n    student_id INTEGER PRIMARY KEY,\n    current_address_id INTEGER NOT NULL,\n    permanent_address_id INTEGER NOT NULL,\n    first_name VARCHAR(80),\n    middle_name VARCHAR(40),\n    last_name VARCHAR(40),\n    cell_mobile_number VARCHAR(40),\n    email_address VARCHAR(40),\n    ssn VARCHAR(40),\n    date_first_registered DATETIME,\n    date_left DATETIME,\n    other_student_details VARCHAR(255)\n);",
+      "ranked_tables": [
+        {
+          "table": "Semesters",
+          "score": 81.528,
+          "lexical_score": 100.0,
+          "semantic_cosine": 0.630551,
+          "semantic_score": 63.055,
+          "description": "Database table semesters. Columns: semester id, semester name, semester description, other details."
+        },
+        {
+          "table": "Student_Enrolment",
+          "score": 80.48,
+          "lexical_score": 97.147,
+          "semantic_cosine": 0.638134,
+          "semantic_score": 63.813,
+          "description": "Database table student enrolment. Columns: student enrolment id, degree program id, semester id, student id, other details."
+        },
+        {
+          "table": "Students",
+          "score": 75.078,
+          "lexical_score": 98.85,
+          "semantic_cosine": 0.513059,
+          "semantic_score": 51.306,
+          "description": "Database table students. Columns: student id, current address id, permanent address id, first name, middle name, last name, cell mobile number, email address, ssn, date first registered, date left, other student details."
+        },
+        {
+          "table": "Student_Enrolment_Courses",
+          "score": 73.272,
+          "lexical_score": 84.191,
+          "semantic_cosine": 0.623524,
+          "semantic_score": 62.352,
+          "description": "Database table student enrolment courses. Columns: student course id, course id, student enrolment id."
+        },
+        {
+          "table": "Transcript_Contents",
+          "score": 56.509,
+          "lexical_score": 57.436,
+          "semantic_cosine": 0.555819,
+          "semantic_score": 55.582,
+          "description": "Database table transcript contents. Columns: student course id, transcript id."
+        },
+        {
+          "table": "Courses",
+          "score": 52.826,
+          "lexical_score": 52.839,
+          "semantic_cosine": 0.528137,
+          "semantic_score": 52.814,
+          "description": "Database table courses. Columns: course id, course name, course description, other details."
+        },
+        {
+          "table": "Sections",
+          "score": 51.219,
+          "lexical_score": 51.19,
+          "semantic_cosine": 0.512487,
+          "semantic_score": 51.249,
+          "description": "Database table sections. Columns: section id, course id, section name, section description, other details."
+        },
+        {
+          "table": "Departments",
+          "score": 51.065,
+          "lexical_score": 53.922,
+          "semantic_cosine": 0.482084,
+          "semantic_score": 48.208,
+          "description": "Database table departments. Columns: department id, department name, department description, other details."
+        },
+        {
+          "table": "Degree_Programs",
+          "score": 50.883,
+          "lexical_score": 47.773,
+          "semantic_cosine": 0.539929,
+          "semantic_score": 53.993,
+          "description": "Database table degree programs. Columns: degree program id, department id, degree summary name, degree summary description, other details."
+        },
+        {
+          "table": "Transcripts",
+          "score": 48.459,
+          "lexical_score": 49.396,
+          "semantic_cosine": 0.475223,
+          "semantic_score": 47.522,
+          "description": "Database table transcripts. Columns: transcript id, transcript date, other details."
+        },
+        {
+          "table": "Addresses",
+          "score": 37.247,
+          "lexical_score": 39.346,
+          "semantic_cosine": 0.351482,
+          "semantic_score": 35.148,
+          "description": "Database table addresses. Columns: address id, line 1, line 2, line 3, city, zip postcode, state province county, country, other address details."
+        }
+      ]
+    },
+    {
+      "id": "spider_dev_0964",
+      "db_id": "dog_kennels",
+      "question": "What are the arriving date and the departing date of all the dogs?",
+      "seed_tables": [
+        "Dogs",
+        "Treatments",
+        "Treatment_Types",
+        "Professionals"
+      ],
+      "selected_tables": [
+        "Dogs",
+        "Professionals",
+        "Treatment_Types",
+        "Treatments"
+      ],
+      "selected_schema": "CREATE TABLE Dogs (\n    dog_id INTEGER PRIMARY KEY,\n    owner_id INTEGER NOT NULL,\n    abandoned_yn VARCHAR(1),\n    breed_code VARCHAR(10) NOT NULL,\n    size_code VARCHAR(10) NOT NULL,\n    name VARCHAR(50),\n    age VARCHAR(20),\n    date_of_birth DATETIME,\n    gender VARCHAR(1),\n    weight VARCHAR(20),\n    date_arrived DATETIME,\n    date_adopted DATETIME,\n    date_departed DATETIME\n);\n\nCREATE TABLE Professionals (\n    professional_id INTEGER PRIMARY KEY,\n    role_code VARCHAR(10) NOT NULL,\n    first_name VARCHAR(50),\n    street VARCHAR(50),\n    city VARCHAR(50),\n    state VARCHAR(20),\n    zip_code VARCHAR(20),\n    last_name VARCHAR(50),\n    email_address VARCHAR(50),\n    home_phone VARCHAR(20),\n    cell_number VARCHAR(20)\n);\n\nCREATE TABLE Treatment_Types (\n    treatment_type_code VARCHAR(10) PRIMARY KEY,\n    treatment_type_description VARCHAR(80)\n);\n\nCREATE TABLE Treatments (\n    treatment_id INTEGER PRIMARY KEY,\n    dog_id INTEGER NOT NULL,\n    professional_id INTEGER NOT NULL,\n    treatment_type_code VARCHAR(10) NOT NULL,\n    date_of_treatment DATETIME,\n    cost_of_treatment DECIMAL(19,4),\n    FOREIGN KEY (dog_id) REFERENCES Dogs(dog_id),\n    FOREIGN KEY (professional_id) REFERENCES Professionals(professional_id),\n    FOREIGN KEY (treatment_type_code) REFERENCES Treatment_Types(treatment_type_code)\n);",
+      "ranked_tables": [
+        {
+          "table": "Dogs",
+          "score": 76.676,
+          "lexical_score": 99.144,
+          "semantic_cosine": 0.542086,
+          "semantic_score": 54.209,
+          "description": "Database table dogs. Columns: dog id, owner id, abandoned yn, breed code, size code, name, age, date of birth, gender, weight, date arrived, date adopted, date departed."
+        },
+        {
+          "table": "Treatments",
+          "score": 61.122,
+          "lexical_score": 70.388,
+          "semantic_cosine": 0.518554,
+          "semantic_score": 51.855,
+          "description": "Database table treatments. Columns: treatment id, dog id, professional id, treatment type code, date of treatment, cost of treatment."
+        },
+        {
+          "table": "Treatment_Types",
+          "score": 42.649,
+          "lexical_score": 46.154,
+          "semantic_cosine": 0.391436,
+          "semantic_score": 39.144,
+          "description": "Database table treatment types. Columns: treatment type code, treatment type description."
+        },
+        {
+          "table": "Professionals",
+          "score": 40.614,
+          "lexical_score": 49.881,
+          "semantic_cosine": 0.313476,
+          "semantic_score": 31.348,
+          "description": "Database table professionals. Columns: professional id, role code, first name, street, city, state, zip code, last name, email address, home phone, cell number."
+        },
+        {
+          "table": "Charges",
+          "score": 39.911,
+          "lexical_score": 42.857,
+          "semantic_cosine": 0.369641,
+          "semantic_score": 36.964,
+          "description": "Database table charges. Columns: charge id, charge type, charge amount."
+        },
+        {
+          "table": "Owners",
+          "score": 39.749,
+          "lexical_score": 45.119,
+          "semantic_cosine": 0.343795,
+          "semantic_score": 34.379,
+          "description": "Database table owners. Columns: owner id, first name, last name, street, city, state, zip code, email address, home phone, cell number."
+        },
+        {
+          "table": "Breeds",
+          "score": 36.602,
+          "lexical_score": 25.0,
+          "semantic_cosine": 0.482041,
+          "semantic_score": 48.204,
+          "description": "Database table breeds. Columns: breed code, breed name."
+        },
+        {
+          "table": "Sizes",
+          "score": 31.567,
+          "lexical_score": 25.0,
+          "semantic_cosine": 0.381334,
+          "semantic_score": 38.133,
+          "description": "Database table sizes. Columns: size code, size description."
+        }
+      ]
+    },
+    {
+      "id": "spider_dev_0972",
+      "db_id": "dog_kennels",
+      "question": "Which owners live in the state whose name contains the substring 'North'? List his first name, last name and email.",
+      "seed_tables": [
+        "Owners",
+        "Professionals",
+        "Dogs",
+        "Treatments"
+      ],
+      "selected_tables": [
+        "Dogs",
+        "Owners",
+        "Professionals",
+        "Treatments"
+      ],
+      "selected_schema": "CREATE TABLE Dogs (\n    dog_id INTEGER PRIMARY KEY,\n    owner_id INTEGER NOT NULL,\n    abandoned_yn VARCHAR(1),\n    breed_code VARCHAR(10) NOT NULL,\n    size_code VARCHAR(10) NOT NULL,\n    name VARCHAR(50),\n    age VARCHAR(20),\n    date_of_birth DATETIME,\n    gender VARCHAR(1),\n    weight VARCHAR(20),\n    date_arrived DATETIME,\n    date_adopted DATETIME,\n    date_departed DATETIME,\n    FOREIGN KEY (owner_id) REFERENCES Owners(owner_id),\n    FOREIGN KEY (owner_id) REFERENCES Owners(owner_id)\n);\n\nCREATE TABLE Owners (\n    owner_id INTEGER PRIMARY KEY,\n    first_name VARCHAR(50),\n    last_name VARCHAR(50),\n    street VARCHAR(50),\n    city VARCHAR(50),\n    state VARCHAR(20),\n    zip_code VARCHAR(20),\n    email_address VARCHAR(50),\n    home_phone VARCHAR(20),\n    cell_number VARCHAR(20)\n);\n\nCREATE TABLE Professionals (\n    professional_id INTEGER PRIMARY KEY,\n    role_code VARCHAR(10) NOT NULL,\n    first_name VARCHAR(50),\n    street VARCHAR(50),\n    city VARCHAR(50),\n    state VARCHAR(20),\n    zip_code VARCHAR(20),\n    last_name VARCHAR(50),\n    email_address VARCHAR(50),\n    home_phone VARCHAR(20),\n    cell_number VARCHAR(20)\n);\n\nCREATE TABLE Treatments (\n    treatment_id INTEGER PRIMARY KEY,\n    dog_id INTEGER NOT NULL,\n    professional_id INTEGER NOT NULL,\n    treatment_type_code VARCHAR(10) NOT NULL,\n    date_of_treatment DATETIME,\n    cost_of_treatment DECIMAL(19,4),\n    FOREIGN KEY (dog_id) REFERENCES Dogs(dog_id),\n    FOREIGN KEY (professional_id) REFERENCES Professionals(professional_id)\n);",
+      "ranked_tables": [
+        {
+          "table": "Owners",
+          "score": 79.967,
+          "lexical_score": 100.0,
+          "semantic_cosine": 0.599346,
+          "semantic_score": 59.935,
+          "description": "Database table owners. Columns: owner id, first name, last name, street, city, state, zip code, email address, home phone, cell number."
+        },
+        {
+          "table": "Professionals",
+          "score": 58.248,
+          "lexical_score": 69.048,
+          "semantic_cosine": 0.474483,
+          "semantic_score": 47.448,
+          "description": "Database table professionals. Columns: professional id, role code, first name, street, city, state, zip code, last name, email address, home phone, cell number."
+        },
+        {
+          "table": "Dogs",
+          "score": 51.455,
+          "lexical_score": 57.0,
+          "semantic_cosine": 0.459091,
+          "semantic_score": 45.909,
+          "description": "Database table dogs. Columns: dog id, owner id, abandoned yn, breed code, size code, name, age, date of birth, gender, weight, date arrived, date adopted, date departed."
+        },
+        {
+          "table": "Treatments",
+          "score": 50.015,
+          "lexical_score": 58.81,
+          "semantic_cosine": 0.412209,
+          "semantic_score": 41.221,
+          "description": "Database table treatments. Columns: treatment id, dog id, professional id, treatment type code, date of treatment, cost of treatment."
+        },
+        {
+          "table": "Treatment_Types",
+          "score": 47.97,
+          "lexical_score": 57.143,
+          "semantic_cosine": 0.387971,
+          "semantic_score": 38.797,
+          "description": "Database table treatment types. Columns: treatment type code, treatment type description."
+        },
+        {
+          "table": "Sizes",
+          "score": 46.814,
+          "lexical_score": 50.0,
+          "semantic_cosine": 0.436279,
+          "semantic_score": 43.628,
+          "description": "Database table sizes. Columns: size code, size description."
+        },
+        {
+          "table": "Charges",
+          "score": 40.408,
+          "lexical_score": 38.077,
+          "semantic_cosine": 0.427397,
+          "semantic_score": 42.74,
+          "description": "Database table charges. Columns: charge id, charge type, charge amount."
+        },
+        {
+          "table": "Breeds",
+          "score": 39.288,
+          "lexical_score": 28.571,
+          "semantic_cosine": 0.500053,
+          "semantic_score": 50.005,
+          "description": "Database table breeds. Columns: breed code, breed name."
+        }
+      ]
+    },
+    {
+      "id": "spider_dev_0992",
+      "db_id": "dog_kennels",
+      "question": "How much does the most expensive charge type costs?",
+      "seed_tables": [
+        "Charges",
+        "Dogs",
+        "Treatments",
+        "Owners"
+      ],
+      "selected_tables": [
+        "Charges",
+        "Dogs",
+        "Owners",
+        "Treatments"
+      ],
+      "selected_schema": "CREATE TABLE Charges (\n    charge_id INTEGER PRIMARY KEY,\n    charge_type VARCHAR(10),\n    charge_amount DECIMAL(19,4)\n);\n\nCREATE TABLE Dogs (\n    dog_id INTEGER PRIMARY KEY,\n    owner_id INTEGER NOT NULL,\n    abandoned_yn VARCHAR(1),\n    breed_code VARCHAR(10) NOT NULL,\n    size_code VARCHAR(10) NOT NULL,\n    name VARCHAR(50),\n    age VARCHAR(20),\n    date_of_birth DATETIME,\n    gender VARCHAR(1),\n    weight VARCHAR(20),\n    date_arrived DATETIME,\n    date_adopted DATETIME,\n    date_departed DATETIME,\n    FOREIGN KEY (owner_id) REFERENCES Owners(owner_id),\n    FOREIGN KEY (owner_id) REFERENCES Owners(owner_id)\n);\n\nCREATE TABLE Owners (\n    owner_id INTEGER PRIMARY KEY,\n    first_name VARCHAR(50),\n    last_name VARCHAR(50),\n    street VARCHAR(50),\n    city VARCHAR(50),\n    state VARCHAR(20),\n    zip_code VARCHAR(20),\n    email_address VARCHAR(50),\n    home_phone VARCHAR(20),\n    cell_number VARCHAR(20)\n);\n\nCREATE TABLE Treatments (\n    treatment_id INTEGER PRIMARY KEY,\n    dog_id INTEGER NOT NULL,\n    professional_id INTEGER NOT NULL,\n    treatment_type_code VARCHAR(10) NOT NULL,\n    date_of_treatment DATETIME,\n    cost_of_treatment DECIMAL(19,4),\n    FOREIGN KEY (dog_id) REFERENCES Dogs(dog_id)\n);",
+      "ranked_tables": [
+        {
+          "table": "Charges",
+          "score": 81.037,
+          "lexical_score": 100.0,
+          "semantic_cosine": 0.620734,
+          "semantic_score": 62.073,
+          "description": "Database table charges. Columns: charge id, charge type, charge amount."
+        },
+        {
+          "table": "Dogs",
+          "score": 45.91,
+          "lexical_score": 66.667,
+          "semantic_cosine": 0.251522,
+          "semantic_score": 25.152,
+          "description": "Database table dogs. Columns: dog id, owner id, abandoned yn, breed code, size code, name, age, date of birth, gender, weight, date arrived, date adopted, date departed."
+        },
+        {
+          "table": "Treatments",
+          "score": 45.073,
+          "lexical_score": 53.15,
+          "semantic_cosine": 0.369957,
+          "semantic_score": 36.996,
+          "description": "Database table treatments. Columns: treatment id, dog id, professional id, treatment type code, date of treatment, cost of treatment."
+        },
+        {
+          "table": "Owners",
+          "score": 41.472,
+          "lexical_score": 51.25,
+          "semantic_cosine": 0.316931,
+          "semantic_score": 31.693,
+          "description": "Database table owners. Columns: owner id, first name, last name, street, city, state, zip code, email address, home phone, cell number."
+        },
+        {
+          "table": "Sizes",
+          "score": 39.889,
+          "lexical_score": 46.154,
+          "semantic_cosine": 0.336239,
+          "semantic_score": 33.624,
+          "description": "Database table sizes. Columns: size code, size description."
+        },
+        {
+          "table": "Professionals",
+          "score": 38.04,
+          "lexical_score": 47.083,
+          "semantic_cosine": 0.289978,
+          "semantic_score": 28.998,
+          "description": "Database table professionals. Columns: professional id, role code, first name, street, city, state, zip code, last name, email address, home phone, cell number."
+        },
+        {
+          "table": "Treatment_Types",
+          "score": 34.199,
+          "lexical_score": 33.333,
+          "semantic_cosine": 0.350659,
+          "semantic_score": 35.066,
+          "description": "Database table treatment types. Columns: treatment type code, treatment type description."
+        },
+        {
+          "table": "Breeds",
+          "score": 32.966,
+          "lexical_score": 36.364,
+          "semantic_cosine": 0.295688,
+          "semantic_score": 29.569,
+          "description": "Database table breeds. Columns: breed code, breed name."
+        }
+      ]
+    },
+    {
+      "id": "spider_dev_0924",
+      "db_id": "dog_kennels",
+      "question": "Which dogs have not cost their owner more than 1000 for treatment ? List the dog names .",
+      "seed_tables": [
+        "Treatments",
+        "Dogs",
+        "Treatment_Types",
+        "Owners"
+      ],
+      "selected_tables": [
+        "Dogs",
+        "Owners",
+        "Treatment_Types",
+        "Treatments"
+      ],
+      "selected_schema": "CREATE TABLE Dogs (\n    dog_id INTEGER PRIMARY KEY,\n    owner_id INTEGER NOT NULL,\n    abandoned_yn VARCHAR(1),\n    breed_code VARCHAR(10) NOT NULL,\n    size_code VARCHAR(10) NOT NULL,\n    name VARCHAR(50),\n    age VARCHAR(20),\n    date_of_birth DATETIME,\n    gender VARCHAR(1),\n    weight VARCHAR(20),\n    date_arrived DATETIME,\n    date_adopted DATETIME,\n    date_departed DATETIME,\n    FOREIGN KEY (owner_id) REFERENCES Owners(owner_id),\n    FOREIGN KEY (owner_id) REFERENCES Owners(owner_id)\n);\n\nCREATE TABLE Owners (\n    owner_id INTEGER PRIMARY KEY,\n    first_name VARCHAR(50),\n    last_name VARCHAR(50),\n    street VARCHAR(50),\n    city VARCHAR(50),\n    state VARCHAR(20),\n    zip_code VARCHAR(20),\n    email_address VARCHAR(50),\n    home_phone VARCHAR(20),\n    cell_number VARCHAR(20)\n);\n\nCREATE TABLE Treatment_Types (\n    treatment_type_code VARCHAR(10) PRIMARY KEY,\n    treatment_type_description VARCHAR(80)\n);\n\nCREATE TABLE Treatments (\n    treatment_id INTEGER PRIMARY KEY,\n    dog_id INTEGER NOT NULL,\n    professional_id INTEGER NOT NULL,\n    treatment_type_code VARCHAR(10) NOT NULL,\n    date_of_treatment DATETIME,\n    cost_of_treatment DECIMAL(19,4),\n    FOREIGN KEY (dog_id) REFERENCES Dogs(dog_id),\n    FOREIGN KEY (treatment_type_code) REFERENCES Treatment_Types(treatment_type_code)\n);",
+      "ranked_tables": [
+        {
+          "table": "Treatments",
+          "score": 79.34,
+          "lexical_score": 100.0,
+          "semantic_cosine": 0.586806,
+          "semantic_score": 58.681,
+          "description": "Database table treatments. Columns: treatment id, dog id, professional id, treatment type code, date of treatment, cost of treatment."
+        },
+        {
+          "table": "Dogs",
+          "score": 75.412,
+          "lexical_score": 100.0,
+          "semantic_cosine": 0.508233,
+          "semantic_score": 50.823,
+          "description": "Database table dogs. Columns: dog id, owner id, abandoned yn, breed code, size code, name, age, date of birth, gender, weight, date arrived, date adopted, date departed."
+        },
+        {
+          "table": "Treatment_Types",
+          "score": 71.28,
+          "lexical_score": 100.0,
+          "semantic_cosine": 0.425591,
+          "semantic_score": 42.559,
+          "description": "Database table treatment types. Columns: treatment type code, treatment type description."
+        },
+        {
+          "table": "Owners",
+          "score": 66.604,
+          "lexical_score": 95.0,
+          "semantic_cosine": 0.382082,
+          "semantic_score": 38.208,
+          "description": "Database table owners. Columns: owner id, first name, last name, street, city, state, zip code, email address, home phone, cell number."
+        },
+        {
+          "table": "Breeds",
+          "score": 46.943,
+          "lexical_score": 44.444,
+          "semantic_cosine": 0.494426,
+          "semantic_score": 49.443,
+          "description": "Database table breeds. Columns: breed code, breed name."
+        },
+        {
+          "table": "Charges",
+          "score": 42.166,
+          "lexical_score": 42.333,
+          "semantic_cosine": 0.419984,
+          "semantic_score": 41.998,
+          "description": "Database table charges. Columns: charge id, charge type, charge amount."
+        },
+        {
+          "table": "Professionals",
+          "score": 38.15,
+          "lexical_score": 46.19,
+          "semantic_cosine": 0.301092,
+          "semantic_score": 30.109,
+          "description": "Database table professionals. Columns: professional id, role code, first name, street, city, state, zip code, last name, email address, home phone, cell number."
+        },
+        {
+          "table": "Sizes",
+          "score": 30.23,
+          "lexical_score": 25.0,
+          "semantic_cosine": 0.354602,
+          "semantic_score": 35.46,
+          "description": "Database table sizes. Columns: size code, size description."
+        }
+      ]
+    },
+    {
+      "id": "spider_dev_0982",
+      "db_id": "dog_kennels",
+      "question": "How many professionals did not operate any treatment on dogs?",
+      "seed_tables": [
+        "Treatments",
+        "Treatment_Types",
+        "Dogs",
+        "Professionals"
+      ],
+      "selected_tables": [
+        "Dogs",
+        "Professionals",
+        "Treatment_Types",
+        "Treatments"
+      ],
+      "selected_schema": "CREATE TABLE Dogs (\n    dog_id INTEGER PRIMARY KEY,\n    owner_id INTEGER NOT NULL,\n    abandoned_yn VARCHAR(1),\n    breed_code VARCHAR(10) NOT NULL,\n    size_code VARCHAR(10) NOT NULL,\n    name VARCHAR(50),\n    age VARCHAR(20),\n    date_of_birth DATETIME,\n    gender VARCHAR(1),\n    weight VARCHAR(20),\n    date_arrived DATETIME,\n    date_adopted DATETIME,\n    date_departed DATETIME\n);\n\nCREATE TABLE Professionals (\n    professional_id INTEGER PRIMARY KEY,\n    role_code VARCHAR(10) NOT NULL,\n    first_name VARCHAR(50),\n    street VARCHAR(50),\n    city VARCHAR(50),\n    state VARCHAR(20),\n    zip_code VARCHAR(20),\n    last_name VARCHAR(50),\n    email_address VARCHAR(50),\n    home_phone VARCHAR(20),\n    cell_number VARCHAR(20)\n);\n\nCREATE TABLE Treatment_Types (\n    treatment_type_code VARCHAR(10) PRIMARY KEY,\n    treatment_type_description VARCHAR(80)\n);\n\nCREATE TABLE Treatments (\n    treatment_id INTEGER PRIMARY KEY,\n    dog_id INTEGER NOT NULL,\n    professional_id INTEGER NOT NULL,\n    treatment_type_code VARCHAR(10) NOT NULL,\n    date_of_treatment DATETIME,\n    cost_of_treatment DECIMAL(19,4),\n    FOREIGN KEY (dog_id) REFERENCES Dogs(dog_id),\n    FOREIGN KEY (professional_id) REFERENCES Professionals(professional_id),\n    FOREIGN KEY (treatment_type_code) REFERENCES Treatment_Types(treatment_type_code)\n);",
+      "ranked_tables": [
+        {
+          "table": "Treatments",
+          "score": 78.476,
+          "lexical_score": 100.0,
+          "semantic_cosine": 0.569525,
+          "semantic_score": 56.952,
+          "description": "Database table treatments. Columns: treatment id, dog id, professional id, treatment type code, date of treatment, cost of treatment."
+        },
+        {
+          "table": "Treatment_Types",
+          "score": 71.48,
+          "lexical_score": 100.0,
+          "semantic_cosine": 0.429595,
+          "semantic_score": 42.959,
+          "description": "Database table treatment types. Columns: treatment type code, treatment type description."
+        },
+        {
+          "table": "Dogs",
+          "score": 67.444,
+          "lexical_score": 93.377,
+          "semantic_cosine": 0.415101,
+          "semantic_score": 41.51,
+          "description": "Database table dogs. Columns: dog id, owner id, abandoned yn, breed code, size code, name, age, date of birth, gender, weight, date arrived, date adopted, date departed."
+        },
+        {
+          "table": "Professionals",
+          "score": 64.398,
+          "lexical_score": 95.0,
+          "semantic_cosine": 0.337955,
+          "semantic_score": 33.796,
+          "description": "Database table professionals. Columns: professional id, role code, first name, street, city, state, zip code, last name, email address, home phone, cell number."
+        },
+        {
+          "table": "Owners",
+          "score": 43.157,
+          "lexical_score": 56.905,
+          "semantic_cosine": 0.294083,
+          "semantic_score": 29.408,
+          "description": "Database table owners. Columns: owner id, first name, last name, street, city, state, zip code, email address, home phone, cell number."
+        },
+        {
+          "table": "Breeds",
+          "score": 42.135,
+          "lexical_score": 42.857,
+          "semantic_cosine": 0.414134,
+          "semantic_score": 41.413,
+          "description": "Database table breeds. Columns: breed code, breed name."
+        },
+        {
+          "table": "Charges",
+          "score": 33.738,
+          "lexical_score": 34.718,
+          "semantic_cosine": 0.327578,
+          "semantic_score": 32.758,
+          "description": "Database table charges. Columns: charge id, charge type, charge amount."
+        },
+        {
+          "table": "Sizes",
+          "score": 30.174,
+          "lexical_score": 28.571,
+          "semantic_cosine": 0.31777,
+          "semantic_score": 31.777,
+          "description": "Database table sizes. Columns: size code, size description."
+        }
+      ]
+    },
+    {
+      "id": "spider_dev_0952",
+      "db_id": "dog_kennels",
+      "question": "List pairs of the owner's first name and the dogs's name.",
+      "seed_tables": [
+        "Dogs",
+        "Owners",
+        "Treatments",
+        "Professionals"
+      ],
+      "selected_tables": [
+        "Dogs",
+        "Owners",
+        "Professionals",
+        "Treatments"
+      ],
+      "selected_schema": "CREATE TABLE Dogs (\n    dog_id INTEGER PRIMARY KEY,\n    owner_id INTEGER NOT NULL,\n    abandoned_yn VARCHAR(1),\n    breed_code VARCHAR(10) NOT NULL,\n    size_code VARCHAR(10) NOT NULL,\n    name VARCHAR(50),\n    age VARCHAR(20),\n    date_of_birth DATETIME,\n    gender VARCHAR(1),\n    weight VARCHAR(20),\n    date_arrived DATETIME,\n    date_adopted DATETIME,\n    date_departed DATETIME,\n    FOREIGN KEY (owner_id) REFERENCES Owners(owner_id),\n    FOREIGN KEY (owner_id) REFERENCES Owners(owner_id)\n);\n\nCREATE TABLE Owners (\n    owner_id INTEGER PRIMARY KEY,\n    first_name VARCHAR(50),\n    last_name VARCHAR(50),\n    street VARCHAR(50),\n    city VARCHAR(50),\n    state VARCHAR(20),\n    zip_code VARCHAR(20),\n    email_address VARCHAR(50),\n    home_phone VARCHAR(20),\n    cell_number VARCHAR(20)\n);\n\nCREATE TABLE Professionals (\n    professional_id INTEGER PRIMARY KEY,\n    role_code VARCHAR(10) NOT NULL,\n    first_name VARCHAR(50),\n    street VARCHAR(50),\n    city VARCHAR(50),\n    state VARCHAR(20),\n    zip_code VARCHAR(20),\n    last_name VARCHAR(50),\n    email_address VARCHAR(50),\n    home_phone VARCHAR(20),\n    cell_number VARCHAR(20)\n);\n\nCREATE TABLE Treatments (\n    treatment_id INTEGER PRIMARY KEY,\n    dog_id INTEGER NOT NULL,\n    professional_id INTEGER NOT NULL,\n    treatment_type_code VARCHAR(10) NOT NULL,\n    date_of_treatment DATETIME,\n    cost_of_treatment DECIMAL(19,4),\n    FOREIGN KEY (dog_id) REFERENCES Dogs(dog_id),\n    FOREIGN KEY (professional_id) REFERENCES Professionals(professional_id)\n);",
+      "ranked_tables": [
+        {
+          "table": "Dogs",
+          "score": 80.873,
+          "lexical_score": 100.0,
+          "semantic_cosine": 0.617459,
+          "semantic_score": 61.746,
+          "description": "Database table dogs. Columns: dog id, owner id, abandoned yn, breed code, size code, name, age, date of birth, gender, weight, date arrived, date adopted, date departed."
+        },
+        {
+          "table": "Owners",
+          "score": 77.935,
+          "lexical_score": 100.0,
+          "semantic_cosine": 0.558692,
+          "semantic_score": 55.869,
+          "description": "Database table owners. Columns: owner id, first name, last name, street, city, state, zip code, email address, home phone, cell number."
+        },
+        {
+          "table": "Treatments",
+          "score": 55.42,
+          "lexical_score": 54.762,
+          "semantic_cosine": 0.560775,
+          "semantic_score": 56.077,
+          "description": "Database table treatments. Columns: treatment id, dog id, professional id, treatment type code, date of treatment, cost of treatment."
+        },
+        {
+          "table": "Professionals",
+          "score": 49.7,
+          "lexical_score": 55.333,
+          "semantic_cosine": 0.440668,
+          "semantic_score": 44.067,
+          "description": "Database table professionals. Columns: professional id, role code, first name, street, city, state, zip code, last name, email address, home phone, cell number."
+        },
+        {
+          "table": "Breeds",
+          "score": 43.977,
+          "lexical_score": 25.0,
+          "semantic_cosine": 0.629534,
+          "semantic_score": 62.953,
+          "description": "Database table breeds. Columns: breed code, breed name."
+        },
+        {
+          "table": "Sizes",
+          "score": 43.282,
+          "lexical_score": 40.0,
+          "semantic_cosine": 0.465641,
+          "semantic_score": 46.564,
+          "description": "Database table sizes. Columns: size code, size description."
+        },
+        {
+          "table": "Charges",
+          "score": 42.331,
+          "lexical_score": 40.0,
+          "semantic_cosine": 0.446628,
+          "semantic_score": 44.663,
+          "description": "Database table charges. Columns: charge id, charge type, charge amount."
+        },
+        {
+          "table": "Treatment_Types",
+          "score": 36.142,
+          "lexical_score": 28.571,
+          "semantic_cosine": 0.437129,
+          "semantic_score": 43.713,
+          "description": "Database table treatment types. Columns: treatment type code, treatment type description."
+        }
+      ]
+    },
+    {
+      "id": "spider_dev_0954",
+      "db_id": "dog_kennels",
+      "question": "List the names of the dogs of the rarest breed and the treatment dates of them.",
+      "seed_tables": [
+        "Breeds",
+        "Treatments",
+        "Dogs",
+        "Treatment_Types"
+      ],
+      "selected_tables": [
+        "Breeds",
+        "Dogs",
+        "Treatment_Types",
+        "Treatments"
+      ],
+      "selected_schema": "CREATE TABLE Breeds (\n    breed_code VARCHAR(10) PRIMARY KEY,\n    breed_name VARCHAR(80)\n);\n\nCREATE TABLE Dogs (\n    dog_id INTEGER PRIMARY KEY,\n    owner_id INTEGER NOT NULL,\n    abandoned_yn VARCHAR(1),\n    breed_code VARCHAR(10) NOT NULL,\n    size_code VARCHAR(10) NOT NULL,\n    name VARCHAR(50),\n    age VARCHAR(20),\n    date_of_birth DATETIME,\n    gender VARCHAR(1),\n    weight VARCHAR(20),\n    date_arrived DATETIME,\n    date_adopted DATETIME,\n    date_departed DATETIME,\n    FOREIGN KEY (breed_code) REFERENCES Breeds(breed_code)\n);\n\nCREATE TABLE Treatment_Types (\n    treatment_type_code VARCHAR(10) PRIMARY KEY,\n    treatment_type_description VARCHAR(80)\n);\n\nCREATE TABLE Treatments (\n    treatment_id INTEGER PRIMARY KEY,\n    dog_id INTEGER NOT NULL,\n    professional_id INTEGER NOT NULL,\n    treatment_type_code VARCHAR(10) NOT NULL,\n    date_of_treatment DATETIME,\n    cost_of_treatment DECIMAL(19,4),\n    FOREIGN KEY (dog_id) REFERENCES Dogs(dog_id),\n    FOREIGN KEY (treatment_type_code) REFERENCES Treatment_Types(treatment_type_code)\n);",
+      "ranked_tables": [
+        {
+          "table": "Breeds",
+          "score": 80.996,
+          "lexical_score": 100.0,
+          "semantic_cosine": 0.619928,
+          "semantic_score": 61.993,
+          "description": "Database table breeds. Columns: breed code, breed name."
+        },
+        {
+          "table": "Treatments",
+          "score": 80.617,
+          "lexical_score": 100.0,
+          "semantic_cosine": 0.612346,
+          "semantic_score": 61.235,
+          "description": "Database table treatments. Columns: treatment id, dog id, professional id, treatment type code, date of treatment, cost of treatment."
+        },
+        {
+          "table": "Dogs",
+          "score": 78.507,
+          "lexical_score": 100.0,
+          "semantic_cosine": 0.570143,
+          "semantic_score": 57.014,
+          "description": "Database table dogs. Columns: dog id, owner id, abandoned yn, breed code, size code, name, age, date of birth, gender, weight, date arrived, date adopted, date departed."
+        },
+        {
+          "table": "Treatment_Types",
+          "score": 76.177,
+          "lexical_score": 100.0,
+          "semantic_cosine": 0.523538,
+          "semantic_score": 52.354,
+          "description": "Database table treatment types. Columns: treatment type code, treatment type description."
+        },
+        {
+          "table": "Charges",
+          "score": 45.65,
+          "lexical_score": 50.583,
+          "semantic_cosine": 0.407167,
+          "semantic_score": 40.717,
+          "description": "Database table charges. Columns: charge id, charge type, charge amount."
+        },
+        {
+          "table": "Professionals",
+          "score": 43.175,
+          "lexical_score": 50.0,
+          "semantic_cosine": 0.363497,
+          "semantic_score": 36.35,
+          "description": "Database table professionals. Columns: professional id, role code, first name, street, city, state, zip code, last name, email address, home phone, cell number."
+        },
+        {
+          "table": "Owners",
+          "score": 42.289,
+          "lexical_score": 45.833,
+          "semantic_cosine": 0.387457,
+          "semantic_score": 38.746,
+          "description": "Database table owners. Columns: owner id, first name, last name, street, city, state, zip code, email address, home phone, cell number."
+        },
+        {
+          "table": "Sizes",
+          "score": 33.969,
+          "lexical_score": 25.0,
+          "semantic_cosine": 0.429381,
+          "semantic_score": 42.938,
+          "description": "Database table sizes. Columns: size code, size description."
+        }
+      ]
+    },
+    {
+      "id": "spider_dev_0926",
+      "db_id": "dog_kennels",
+      "question": "Which first names are used for professionals or owners but are not used as dog names?",
+      "seed_tables": [
+        "Dogs",
+        "Owners",
+        "Professionals",
+        "Treatments"
+      ],
+      "selected_tables": [
+        "Dogs",
+        "Owners",
+        "Professionals",
+        "Treatments"
+      ],
+      "selected_schema": "CREATE TABLE Dogs (\n    dog_id INTEGER PRIMARY KEY,\n    owner_id INTEGER NOT NULL,\n    abandoned_yn VARCHAR(1),\n    breed_code VARCHAR(10) NOT NULL,\n    size_code VARCHAR(10) NOT NULL,\n    name VARCHAR(50),\n    age VARCHAR(20),\n    date_of_birth DATETIME,\n    gender VARCHAR(1),\n    weight VARCHAR(20),\n    date_arrived DATETIME,\n    date_adopted DATETIME,\n    date_departed DATETIME,\n    FOREIGN KEY (owner_id) REFERENCES Owners(owner_id),\n    FOREIGN KEY (owner_id) REFERENCES Owners(owner_id)\n);\n\nCREATE TABLE Owners (\n    owner_id INTEGER PRIMARY KEY,\n    first_name VARCHAR(50),\n    last_name VARCHAR(50),\n    street VARCHAR(50),\n    city VARCHAR(50),\n    state VARCHAR(20),\n    zip_code VARCHAR(20),\n    email_address VARCHAR(50),\n    home_phone VARCHAR(20),\n    cell_number VARCHAR(20)\n);\n\nCREATE TABLE Professionals (\n    professional_id INTEGER PRIMARY KEY,\n    role_code VARCHAR(10) NOT NULL,\n    first_name VARCHAR(50),\n    street VARCHAR(50),\n    city VARCHAR(50),\n    state VARCHAR(20),\n    zip_code VARCHAR(20),\n    last_name VARCHAR(50),\n    email_address VARCHAR(50),\n    home_phone VARCHAR(20),\n    cell_number VARCHAR(20)\n);\n\nCREATE TABLE Treatments (\n    treatment_id INTEGER PRIMARY KEY,\n    dog_id INTEGER NOT NULL,\n    professional_id INTEGER NOT NULL,\n    treatment_type_code VARCHAR(10) NOT NULL,\n    date_of_treatment DATETIME,\n    cost_of_treatment DECIMAL(19,4),\n    FOREIGN KEY (dog_id) REFERENCES Dogs(dog_id),\n    FOREIGN KEY (professional_id) REFERENCES Professionals(professional_id)\n);",
+      "ranked_tables": [
+        {
+          "table": "Dogs",
+          "score": 72.685,
+          "lexical_score": 100.0,
+          "semantic_cosine": 0.453696,
+          "semantic_score": 45.37,
+          "description": "Database table dogs. Columns: dog id, owner id, abandoned yn, breed code, size code, name, age, date of birth, gender, weight, date arrived, date adopted, date departed."
+        },
+        {
+          "table": "Owners",
+          "score": 69.734,
+          "lexical_score": 100.0,
+          "semantic_cosine": 0.394687,
+          "semantic_score": 39.469,
+          "description": "Database table owners. Columns: owner id, first name, last name, street, city, state, zip code, email address, home phone, cell number."
+        },
+        {
+          "table": "Professionals",
+          "score": 68.877,
+          "lexical_score": 100.0,
+          "semantic_cosine": 0.377539,
+          "semantic_score": 37.754,
+          "description": "Database table professionals. Columns: professional id, role code, first name, street, city, state, zip code, last name, email address, home phone, cell number."
+        },
+        {
+          "table": "Treatments",
+          "score": 55.34,
+          "lexical_score": 66.667,
+          "semantic_cosine": 0.440127,
+          "semantic_score": 44.013,
+          "description": "Database table treatments. Columns: treatment id, dog id, professional id, treatment type code, date of treatment, cost of treatment."
+        },
+        {
+          "table": "Breeds",
+          "score": 46.044,
+          "lexical_score": 44.444,
+          "semantic_cosine": 0.476441,
+          "semantic_score": 47.644,
+          "description": "Database table breeds. Columns: breed code, breed name."
+        },
+        {
+          "table": "Sizes",
+          "score": 42.366,
+          "lexical_score": 50.0,
+          "semantic_cosine": 0.347327,
+          "semantic_score": 34.733,
+          "description": "Database table sizes. Columns: size code, size description."
+        },
+        {
+          "table": "Treatment_Types",
+          "score": 32.425,
+          "lexical_score": 33.333,
+          "semantic_cosine": 0.315164,
+          "semantic_score": 31.516,
+          "description": "Database table treatment types. Columns: treatment type code, treatment type description."
+        },
+        {
+          "table": "Charges",
+          "score": 28.945,
+          "lexical_score": 26.111,
+          "semantic_cosine": 0.317795,
+          "semantic_score": 31.779,
+          "description": "Database table charges. Columns: charge id, charge type, charge amount."
+        }
+      ]
+    },
+    {
+      "id": "spider_dev_0934",
+      "db_id": "dog_kennels",
+      "question": "What is the name of the breed with the most dogs?",
+      "seed_tables": [
+        "Breeds",
+        "Dogs",
+        "Treatments",
+        "Treatment_Types"
+      ],
+      "selected_tables": [
+        "Breeds",
+        "Dogs",
+        "Treatment_Types",
+        "Treatments"
+      ],
+      "selected_schema": "CREATE TABLE Breeds (\n    breed_code VARCHAR(10) PRIMARY KEY,\n    breed_name VARCHAR(80)\n);\n\nCREATE TABLE Dogs (\n    dog_id INTEGER PRIMARY KEY,\n    owner_id INTEGER NOT NULL,\n    abandoned_yn VARCHAR(1),\n    breed_code VARCHAR(10) NOT NULL,\n    size_code VARCHAR(10) NOT NULL,\n    name VARCHAR(50),\n    age VARCHAR(20),\n    date_of_birth DATETIME,\n    gender VARCHAR(1),\n    weight VARCHAR(20),\n    date_arrived DATETIME,\n    date_adopted DATETIME,\n    date_departed DATETIME,\n    FOREIGN KEY (breed_code) REFERENCES Breeds(breed_code)\n);\n\nCREATE TABLE Treatment_Types (\n    treatment_type_code VARCHAR(10) PRIMARY KEY,\n    treatment_type_description VARCHAR(80)\n);\n\nCREATE TABLE Treatments (\n    treatment_id INTEGER PRIMARY KEY,\n    dog_id INTEGER NOT NULL,\n    professional_id INTEGER NOT NULL,\n    treatment_type_code VARCHAR(10) NOT NULL,\n    date_of_treatment DATETIME,\n    cost_of_treatment DECIMAL(19,4),\n    FOREIGN KEY (dog_id) REFERENCES Dogs(dog_id),\n    FOREIGN KEY (treatment_type_code) REFERENCES Treatment_Types(treatment_type_code)\n);",
+      "ranked_tables": [
+        {
+          "table": "Breeds",
+          "score": 74.475,
+          "lexical_score": 100.0,
+          "semantic_cosine": 0.489499,
+          "semantic_score": 48.95,
+          "description": "Database table breeds. Columns: breed code, breed name."
+        },
+        {
+          "table": "Dogs",
+          "score": 70.631,
+          "lexical_score": 100.0,
+          "semantic_cosine": 0.412618,
+          "semantic_score": 41.262,
+          "description": "Database table dogs. Columns: dog id, owner id, abandoned yn, breed code, size code, name, age, date of birth, gender, weight, date arrived, date adopted, date departed."
+        },
+        {
+          "table": "Treatments",
+          "score": 51.652,
+          "lexical_score": 65.268,
+          "semantic_cosine": 0.380353,
+          "semantic_score": 38.035,
+          "description": "Database table treatments. Columns: treatment id, dog id, professional id, treatment type code, date of treatment, cost of treatment."
+        },
+        {
+          "table": "Treatment_Types",
+          "score": 35.291,
+          "lexical_score": 42.857,
+          "semantic_cosine": 0.277255,
+          "semantic_score": 27.725,
+          "description": "Database table treatment types. Columns: treatment type code, treatment type description."
+        },
+        {
+          "table": "Owners",
+          "score": 31.837,
+          "lexical_score": 39.091,
+          "semantic_cosine": 0.245826,
+          "semantic_score": 24.583,
+          "description": "Database table owners. Columns: owner id, first name, last name, street, city, state, zip code, email address, home phone, cell number."
+        },
+        {
+          "table": "Charges",
+          "score": 31.725,
+          "lexical_score": 40.5,
+          "semantic_cosine": 0.229506,
+          "semantic_score": 22.951,
+          "description": "Database table charges. Columns: charge id, charge type, charge amount."
+        },
+        {
+          "table": "Professionals",
+          "score": 29.072,
+          "lexical_score": 39.091,
+          "semantic_cosine": 0.190531,
+          "semantic_score": 19.053,
+          "description": "Database table professionals. Columns: professional id, role code, first name, street, city, state, zip code, last name, email address, home phone, cell number."
+        },
+        {
+          "table": "Sizes",
+          "score": 25.574,
+          "lexical_score": 25.0,
+          "semantic_cosine": 0.261472,
+          "semantic_score": 26.147,
+          "description": "Database table sizes. Columns: size code, size description."
+        }
+      ]
+    },
+    {
+      "id": "spider_dev_0940",
+      "db_id": "dog_kennels",
+      "question": "Which owner has paid the largest amount of money in total for their dogs? Show the owner id and zip code.",
+      "seed_tables": [
+        "Dogs",
+        "Owners",
+        "Treatments",
+        "Charges"
+      ],
+      "selected_tables": [
+        "Charges",
+        "Dogs",
+        "Owners",
+        "Treatments"
+      ],
+      "selected_schema": "CREATE TABLE Charges (\n    charge_id INTEGER PRIMARY KEY,\n    charge_type VARCHAR(10),\n    charge_amount DECIMAL(19,4)\n);\n\nCREATE TABLE Dogs (\n    dog_id INTEGER PRIMARY KEY,\n    owner_id INTEGER NOT NULL,\n    abandoned_yn VARCHAR(1),\n    breed_code VARCHAR(10) NOT NULL,\n    size_code VARCHAR(10) NOT NULL,\n    name VARCHAR(50),\n    age VARCHAR(20),\n    date_of_birth DATETIME,\n    gender VARCHAR(1),\n    weight VARCHAR(20),\n    date_arrived DATETIME,\n    date_adopted DATETIME,\n    date_departed DATETIME,\n    FOREIGN KEY (owner_id) REFERENCES Owners(owner_id),\n    FOREIGN KEY (owner_id) REFERENCES Owners(owner_id)\n);\n\nCREATE TABLE Owners (\n    owner_id INTEGER PRIMARY KEY,\n    first_name VARCHAR(50),\n    last_name VARCHAR(50),\n    street VARCHAR(50),\n    city VARCHAR(50),\n    state VARCHAR(20),\n    zip_code VARCHAR(20),\n    email_address VARCHAR(50),\n    home_phone VARCHAR(20),\n    cell_number VARCHAR(20)\n);\n\nCREATE TABLE Treatments (\n    treatment_id INTEGER PRIMARY KEY,\n    dog_id INTEGER NOT NULL,\n    professional_id INTEGER NOT NULL,\n    treatment_type_code VARCHAR(10) NOT NULL,\n    date_of_treatment DATETIME,\n    cost_of_treatment DECIMAL(19,4),\n    FOREIGN KEY (dog_id) REFERENCES Dogs(dog_id)\n);",
+      "ranked_tables": [
+        {
+          "table": "Dogs",
+          "score": 76.214,
+          "lexical_score": 100.0,
+          "semantic_cosine": 0.524276,
+          "semantic_score": 52.428,
+          "description": "Database table dogs. Columns: dog id, owner id, abandoned yn, breed code, size code, name, age, date of birth, gender, weight, date arrived, date adopted, date departed."
+        },
+        {
+          "table": "Owners",
+          "score": 73.817,
+          "lexical_score": 100.0,
+          "semantic_cosine": 0.476336,
+          "semantic_score": 47.634,
+          "description": "Database table owners. Columns: owner id, first name, last name, street, city, state, zip code, email address, home phone, cell number."
+        },
+        {
+          "table": "Treatments",
+          "score": 60.881,
+          "lexical_score": 69.667,
+          "semantic_cosine": 0.520946,
+          "semantic_score": 52.095,
+          "description": "Database table treatments. Columns: treatment id, dog id, professional id, treatment type code, date of treatment, cost of treatment."
+        },
+        {
+          "table": "Charges",
+          "score": 58.204,
+          "lexical_score": 71.419,
+          "semantic_cosine": 0.449886,
+          "semantic_score": 44.989,
+          "description": "Database table charges. Columns: charge id, charge type, charge amount."
+        },
+        {
+          "table": "Professionals",
+          "score": 49.856,
+          "lexical_score": 63.556,
+          "semantic_cosine": 0.361556,
+          "semantic_score": 36.156,
+          "description": "Database table professionals. Columns: professional id, role code, first name, street, city, state, zip code, last name, email address, home phone, cell number."
+        },
+        {
+          "table": "Treatment_Types",
+          "score": 43.988,
+          "lexical_score": 53.333,
+          "semantic_cosine": 0.346438,
+          "semantic_score": 34.644,
+          "description": "Database table treatment types. Columns: treatment type code, treatment type description."
+        },
+        {
+          "table": "Breeds",
+          "score": 40.512,
+          "lexical_score": 33.333,
+          "semantic_cosine": 0.476902,
+          "semantic_score": 47.69,
+          "description": "Database table breeds. Columns: breed code, breed name."
+        },
+        {
+          "table": "Sizes",
+          "score": 33.235,
+          "lexical_score": 28.571,
+          "semantic_cosine": 0.378988,
+          "semantic_score": 37.899,
+          "description": "Database table sizes. Columns: size code, size description."
+        }
+      ]
+    },
+    {
+      "id": "spider_dev_0087",
+      "db_id": "car_1",
+      "question": "How many continents are there?",
+      "seed_tables": [
+        "continents",
+        "countries",
+        "car_makers",
+        "model_list"
+      ],
+      "selected_tables": [
+        "car_makers",
+        "continents",
+        "countries",
+        "model_list"
+      ],
+      "selected_schema": "CREATE TABLE car_makers (\n    Id INTEGER PRIMARY KEY,\n    Maker TEXT,\n    FullName TEXT,\n    Country TEXT,\n    FOREIGN KEY (Country) REFERENCES countries(CountryId)\n);\n\nCREATE TABLE continents (\n    ContId INTEGER PRIMARY KEY,\n    Continent TEXT\n);\n\nCREATE TABLE countries (\n    CountryId INTEGER PRIMARY KEY,\n    CountryName TEXT,\n    Continent INTEGER,\n    FOREIGN KEY (Continent) REFERENCES continents(ContId)\n);\n\nCREATE TABLE model_list (\n    ModelId INTEGER PRIMARY KEY,\n    Maker INTEGER,\n    Model TEXT,\n    FOREIGN KEY (Maker) REFERENCES car_makers(Id)\n);",
+      "ranked_tables": [
+        {
+          "table": "continents",
+          "score": 76.392,
+          "lexical_score": 94.231,
+          "semantic_cosine": 0.585529,
+          "semantic_score": 58.553,
+          "description": "Database table continents. Columns: cont id, continent."
+        },
+        {
+          "table": "countries",
+          "score": 58.805,
+          "lexical_score": 67.5,
+          "semantic_cosine": 0.501105,
+          "semantic_score": 50.11,
+          "description": "Database table countries. Columns: country id, country name, continent."
+        },
+        {
+          "table": "car_makers",
+          "score": 32.569,
+          "lexical_score": 27.965,
+          "semantic_cosine": 0.371724,
+          "semantic_score": 37.172,
+          "description": "Database table car makers. Columns: id, maker, full name, country."
+        },
+        {
+          "table": "model_list",
+          "score": 30.591,
+          "lexical_score": 28.571,
+          "semantic_cosine": 0.326116,
+          "semantic_score": 32.612,
+          "description": "Database table model list. Columns: model id, maker, model."
+        },
+        {
+          "table": "cars_data",
+          "score": 30.562,
+          "lexical_score": 29.22,
+          "semantic_cosine": 0.319041,
+          "semantic_score": 31.904,
+          "description": "Database table cars data. Columns: id, mpg, cylinders, edispl, horsepower, weight, accelerate, year."
+        },
+        {
+          "table": "car_names",
+          "score": 27.502,
+          "lexical_score": 20.641,
+          "semantic_cosine": 0.343622,
+          "semantic_score": 34.362,
+          "description": "Database table car names. Columns: make id, model, make."
+        }
+      ]
+    },
+    {
+      "id": "spider_dev_0135",
+      "db_id": "car_1",
+      "question": "What is the average horsepower of the cars before 1980?",
+      "seed_tables": [
+        "cars_data",
+        "car_names",
+        "car_makers",
+        "model_list"
+      ],
+      "selected_tables": [
+        "car_makers",
+        "car_names",
+        "cars_data",
+        "model_list"
+      ],
+      "selected_schema": "CREATE TABLE car_makers (\n    Id INTEGER PRIMARY KEY,\n    Maker TEXT,\n    FullName TEXT,\n    Country TEXT\n);\n\nCREATE TABLE car_names (\n    MakeId INTEGER PRIMARY KEY,\n    Model TEXT,\n    Make TEXT,\n    FOREIGN KEY (Model) REFERENCES model_list(Model)\n);\n\nCREATE TABLE cars_data (\n    Id INTEGER PRIMARY KEY,\n    MPG TEXT,\n    Cylinders INTEGER,\n    Edispl REAL,\n    Horsepower TEXT,\n    Weight INTEGER,\n    Accelerate REAL,\n    Year INTEGER,\n    FOREIGN KEY (Id) REFERENCES car_names(MakeId)\n);\n\nCREATE TABLE model_list (\n    ModelId INTEGER PRIMARY KEY,\n    Maker INTEGER,\n    Model TEXT,\n    FOREIGN KEY (Maker) REFERENCES car_makers(Id)\n);",
+      "ranked_tables": [
+        {
+          "table": "cars_data",
+          "score": 66.098,
+          "lexical_score": 82.414,
+          "semantic_cosine": 0.497817,
+          "semantic_score": 49.782,
+          "description": "Database table cars data. Columns: id, mpg, cylinders, edispl, horsepower, weight, accelerate, year."
+        },
+        {
+          "table": "car_names",
+          "score": 55.773,
+          "lexical_score": 68.182,
+          "semantic_cosine": 0.433631,
+          "semantic_score": 43.363,
+          "description": "Database table car names. Columns: make id, model, make."
+        },
+        {
+          "table": "car_makers",
+          "score": 54.14,
+          "lexical_score": 65.5,
+          "semantic_cosine": 0.427798,
+          "semantic_score": 42.78,
+          "description": "Database table car makers. Columns: id, maker, full name, country."
+        },
+        {
+          "table": "model_list",
+          "score": 34.956,
+          "lexical_score": 41.136,
+          "semantic_cosine": 0.287769,
+          "semantic_score": 28.777,
+          "description": "Database table model list. Columns: model id, maker, model."
+        },
+        {
+          "table": "countries",
+          "score": 33.48,
+          "lexical_score": 40.0,
+          "semantic_cosine": 0.269594,
+          "semantic_score": 26.959,
+          "description": "Database table countries. Columns: country id, country name, continent."
+        },
+        {
+          "table": "continents",
+          "score": 25.413,
+          "lexical_score": 27.333,
+          "semantic_cosine": 0.234923,
+          "semantic_score": 23.492,
+          "description": "Database table continents. Columns: cont id, continent."
+        }
+      ]
+    },
+    {
+      "id": "spider_dev_0119",
+      "db_id": "car_1",
+      "question": "What is the smallest weight of the car produced with 8 cylinders on 1974 ?",
+      "seed_tables": [
+        "cars_data",
+        "car_names",
+        "car_makers",
+        "model_list"
+      ],
+      "selected_tables": [
+        "car_makers",
+        "car_names",
+        "cars_data",
+        "model_list"
+      ],
+      "selected_schema": "CREATE TABLE car_makers (\n    Id INTEGER PRIMARY KEY,\n    Maker TEXT,\n    FullName TEXT,\n    Country TEXT\n);\n\nCREATE TABLE car_names (\n    MakeId INTEGER PRIMARY KEY,\n    Model TEXT,\n    Make TEXT,\n    FOREIGN KEY (Model) REFERENCES model_list(Model)\n);\n\nCREATE TABLE cars_data (\n    Id INTEGER PRIMARY KEY,\n    MPG TEXT,\n    Cylinders INTEGER,\n    Edispl REAL,\n    Horsepower TEXT,\n    Weight INTEGER,\n    Accelerate REAL,\n    Year INTEGER,\n    FOREIGN KEY (Id) REFERENCES car_names(MakeId)\n);\n\nCREATE TABLE model_list (\n    ModelId INTEGER PRIMARY KEY,\n    Maker INTEGER,\n    Model TEXT,\n    FOREIGN KEY (Maker) REFERENCES car_makers(Id)\n);",
+      "ranked_tables": [
+        {
+          "table": "cars_data",
+          "score": 71.311,
+          "lexical_score": 87.833,
+          "semantic_cosine": 0.547897,
+          "semantic_score": 54.79,
+          "description": "Database table cars data. Columns: id, mpg, cylinders, edispl, horsepower, weight, accelerate, year."
+        },
+        {
+          "table": "car_names",
+          "score": 64.296,
+          "lexical_score": 75.0,
+          "semantic_cosine": 0.535921,
+          "semantic_score": 53.592,
+          "description": "Database table car names. Columns: make id, model, make."
+        },
+        {
+          "table": "car_makers",
+          "score": 59.121,
+          "lexical_score": 65.5,
+          "semantic_cosine": 0.527421,
+          "semantic_score": 52.742,
+          "description": "Database table car makers. Columns: id, maker, full name, country."
+        },
+        {
+          "table": "model_list",
+          "score": 45.146,
+          "lexical_score": 47.5,
+          "semantic_cosine": 0.427917,
+          "semantic_score": 42.792,
+          "description": "Database table model list. Columns: model id, maker, model."
+        },
+        {
+          "table": "continents",
+          "score": 39.502,
+          "lexical_score": 45.0,
+          "semantic_cosine": 0.340035,
+          "semantic_score": 34.003,
+          "description": "Database table continents. Columns: cont id, continent."
+        },
+        {
+          "table": "countries",
+          "score": 39.209,
+          "lexical_score": 42.471,
+          "semantic_cosine": 0.359469,
+          "semantic_score": 35.947,
+          "description": "Database table countries. Columns: country id, country name, continent."
+        }
+      ]
+    },
+    {
+      "id": "spider_dev_0137",
+      "db_id": "car_1",
+      "question": "What is the average edispl of the cars of model volvo?",
+      "seed_tables": [
+        "model_list",
+        "car_names",
+        "cars_data",
+        "car_makers"
+      ],
+      "selected_tables": [
+        "car_makers",
+        "car_names",
+        "cars_data",
+        "model_list"
+      ],
+      "selected_schema": "CREATE TABLE car_makers (\n    Id INTEGER PRIMARY KEY,\n    Maker TEXT,\n    FullName TEXT,\n    Country TEXT\n);\n\nCREATE TABLE car_names (\n    MakeId INTEGER PRIMARY KEY,\n    Model TEXT,\n    Make TEXT,\n    FOREIGN KEY (Model) REFERENCES model_list(Model)\n);\n\nCREATE TABLE cars_data (\n    Id INTEGER PRIMARY KEY,\n    MPG TEXT,\n    Cylinders INTEGER,\n    Edispl REAL,\n    Horsepower TEXT,\n    Weight INTEGER,\n    Accelerate REAL,\n    Year INTEGER,\n    FOREIGN KEY (Id) REFERENCES car_names(MakeId)\n);\n\nCREATE TABLE model_list (\n    ModelId INTEGER PRIMARY KEY,\n    Maker INTEGER,\n    Model TEXT,\n    FOREIGN KEY (Maker) REFERENCES car_makers(Id)\n);",
+      "ranked_tables": [
+        {
+          "table": "model_list",
+          "score": 68.913,
+          "lexical_score": 100.0,
+          "semantic_cosine": 0.378252,
+          "semantic_score": 37.825,
+          "description": "Database table model list. Columns: model id, maker, model."
+        },
+        {
+          "table": "car_names",
+          "score": 68.729,
+          "lexical_score": 91.667,
+          "semantic_cosine": 0.4579,
+          "semantic_score": 45.79,
+          "description": "Database table car names. Columns: make id, model, make."
+        },
+        {
+          "table": "cars_data",
+          "score": 62.93,
+          "lexical_score": 82.414,
+          "semantic_cosine": 0.434457,
+          "semantic_score": 43.446,
+          "description": "Database table cars data. Columns: id, mpg, cylinders, edispl, horsepower, weight, accelerate, year."
+        },
+        {
+          "table": "car_makers",
+          "score": 54.778,
+          "lexical_score": 65.5,
+          "semantic_cosine": 0.440558,
+          "semantic_score": 44.056,
+          "description": "Database table car makers. Columns: id, maker, full name, country."
+        },
+        {
+          "table": "countries",
+          "score": 34.71,
+          "lexical_score": 40.0,
+          "semantic_cosine": 0.294197,
+          "semantic_score": 29.42,
+          "description": "Database table countries. Columns: country id, country name, continent."
+        },
+        {
+          "table": "continents",
+          "score": 28.61,
+          "lexical_score": 28.571,
+          "semantic_cosine": 0.286491,
+          "semantic_score": 28.649,
+          "description": "Database table continents. Columns: cont id, continent."
+        }
+      ]
+    },
+    {
+      "id": "spider_dev_0101",
+      "db_id": "car_1",
+      "question": "Find the make and production time of the cars that were produced in the earliest year?",
+      "seed_tables": [
+        "car_names",
+        "car_makers",
+        "cars_data",
+        "model_list"
+      ],
+      "selected_tables": [
+        "car_makers",
+        "car_names",
+        "cars_data",
+        "model_list"
+      ],
+      "selected_schema": "CREATE TABLE car_makers (\n    Id INTEGER PRIMARY KEY,\n    Maker TEXT,\n    FullName TEXT,\n    Country TEXT\n);\n\nCREATE TABLE car_names (\n    MakeId INTEGER PRIMARY KEY,\n    Model TEXT,\n    Make TEXT,\n    FOREIGN KEY (Model) REFERENCES model_list(Model)\n);\n\nCREATE TABLE cars_data (\n    Id INTEGER PRIMARY KEY,\n    MPG TEXT,\n    Cylinders INTEGER,\n    Edispl REAL,\n    Horsepower TEXT,\n    Weight INTEGER,\n    Accelerate REAL,\n    Year INTEGER,\n    FOREIGN KEY (Id) REFERENCES car_names(MakeId)\n);\n\nCREATE TABLE model_list (\n    ModelId INTEGER PRIMARY KEY,\n    Maker INTEGER,\n    Model TEXT,\n    FOREIGN KEY (Maker) REFERENCES car_makers(Id)\n);",
+      "ranked_tables": [
+        {
+          "table": "car_names",
+          "score": 78.582,
+          "lexical_score": 100.0,
+          "semantic_cosine": 0.571633,
+          "semantic_score": 57.163,
+          "description": "Database table car names. Columns: make id, model, make."
+        },
+        {
+          "table": "car_makers",
+          "score": 71.563,
+          "lexical_score": 87.111,
+          "semantic_cosine": 0.560152,
+          "semantic_score": 56.015,
+          "description": "Database table car makers. Columns: id, maker, full name, country."
+        },
+        {
+          "table": "cars_data",
+          "score": 66.048,
+          "lexical_score": 80.333,
+          "semantic_cosine": 0.517639,
+          "semantic_score": 51.764,
+          "description": "Database table cars data. Columns: id, mpg, cylinders, edispl, horsepower, weight, accelerate, year."
+        },
+        {
+          "table": "model_list",
+          "score": 53.488,
+          "lexical_score": 61.111,
+          "semantic_cosine": 0.458656,
+          "semantic_score": 45.866,
+          "description": "Database table model list. Columns: model id, maker, model."
+        },
+        {
+          "table": "continents",
+          "score": 40.167,
+          "lexical_score": 45.659,
+          "semantic_cosine": 0.346759,
+          "semantic_score": 34.676,
+          "description": "Database table continents. Columns: cont id, continent."
+        },
+        {
+          "table": "countries",
+          "score": 39.046,
+          "lexical_score": 42.154,
+          "semantic_cosine": 0.359381,
+          "semantic_score": 35.938,
+          "description": "Database table countries. Columns: country id, country name, continent."
+        }
+      ]
+    },
+    {
+      "id": "spider_dev_0109",
+      "db_id": "car_1",
+      "question": "How many car models are produced by each maker ? Only list the count and the maker full name .",
+      "seed_tables": [
+        "car_makers",
+        "car_names",
+        "model_list",
+        "countries"
+      ],
+      "selected_tables": [
+        "car_makers",
+        "car_names",
+        "countries",
+        "model_list"
+      ],
+      "selected_schema": "CREATE TABLE car_makers (\n    Id INTEGER PRIMARY KEY,\n    Maker TEXT,\n    FullName TEXT,\n    Country TEXT,\n    FOREIGN KEY (Country) REFERENCES countries(CountryId)\n);\n\nCREATE TABLE car_names (\n    MakeId INTEGER PRIMARY KEY,\n    Model TEXT,\n    Make TEXT,\n    FOREIGN KEY (Model) REFERENCES model_list(Model)\n);\n\nCREATE TABLE countries (\n    CountryId INTEGER PRIMARY KEY,\n    CountryName TEXT,\n    Continent INTEGER\n);\n\nCREATE TABLE model_list (\n    ModelId INTEGER PRIMARY KEY,\n    Maker INTEGER,\n    Model TEXT,\n    FOREIGN KEY (Maker) REFERENCES car_makers(Id)\n);",
+      "ranked_tables": [
+        {
+          "table": "car_makers",
+          "score": 84.345,
+          "lexical_score": 100.0,
+          "semantic_cosine": 0.686906,
+          "semantic_score": 68.691,
+          "description": "Database table car makers. Columns: id, maker, full name, country."
+        },
+        {
+          "table": "car_names",
+          "score": 82.389,
+          "lexical_score": 98.333,
+          "semantic_cosine": 0.664457,
+          "semantic_score": 66.446,
+          "description": "Database table car names. Columns: make id, model, make."
+        },
+        {
+          "table": "model_list",
+          "score": 82.387,
+          "lexical_score": 100.0,
+          "semantic_cosine": 0.647734,
+          "semantic_score": 64.773,
+          "description": "Database table model list. Columns: model id, maker, model."
+        },
+        {
+          "table": "countries",
+          "score": 65.696,
+          "lexical_score": 83.333,
+          "semantic_cosine": 0.480588,
+          "semantic_score": 48.059,
+          "description": "Database table countries. Columns: country id, country name, continent."
+        },
+        {
+          "table": "cars_data",
+          "score": 60.235,
+          "lexical_score": 62.643,
+          "semantic_cosine": 0.578266,
+          "semantic_score": 57.827,
+          "description": "Database table cars data. Columns: id, mpg, cylinders, edispl, horsepower, weight, accelerate, year."
+        },
+        {
+          "table": "continents",
+          "score": 57.359,
+          "lexical_score": 68.254,
+          "semantic_cosine": 0.464638,
+          "semantic_score": 46.464,
+          "description": "Database table continents. Columns: cont id, continent."
+        }
+      ]
+    },
+    {
+      "id": "spider_dev_0141",
+      "db_id": "car_1",
+      "question": "Which model has the most version(make) of cars?",
+      "seed_tables": [
+        "car_names",
+        "model_list",
+        "car_makers",
+        "cars_data"
+      ],
+      "selected_tables": [
+        "car_makers",
+        "car_names",
+        "cars_data",
+        "model_list"
+      ],
+      "selected_schema": "CREATE TABLE car_makers (\n    Id INTEGER PRIMARY KEY,\n    Maker TEXT,\n    FullName TEXT,\n    Country TEXT\n);\n\nCREATE TABLE car_names (\n    MakeId INTEGER PRIMARY KEY,\n    Model TEXT,\n    Make TEXT,\n    FOREIGN KEY (Model) REFERENCES model_list(Model)\n);\n\nCREATE TABLE cars_data (\n    Id INTEGER PRIMARY KEY,\n    MPG TEXT,\n    Cylinders INTEGER,\n    Edispl REAL,\n    Horsepower TEXT,\n    Weight INTEGER,\n    Accelerate REAL,\n    Year INTEGER,\n    FOREIGN KEY (Id) REFERENCES car_names(MakeId)\n);\n\nCREATE TABLE model_list (\n    ModelId INTEGER PRIMARY KEY,\n    Maker INTEGER,\n    Model TEXT,\n    FOREIGN KEY (Maker) REFERENCES car_makers(Id)\n);",
+      "ranked_tables": [
+        {
+          "table": "car_names",
+          "score": 80.565,
+          "lexical_score": 100.0,
+          "semantic_cosine": 0.611292,
+          "semantic_score": 61.129,
+          "description": "Database table car names. Columns: make id, model, make."
+        },
+        {
+          "table": "model_list",
+          "score": 78.847,
+          "lexical_score": 100.0,
+          "semantic_cosine": 0.576943,
+          "semantic_score": 57.694,
+          "description": "Database table model list. Columns: model id, maker, model."
+        },
+        {
+          "table": "car_makers",
+          "score": 73.251,
+          "lexical_score": 87.111,
+          "semantic_cosine": 0.593919,
+          "semantic_score": 59.392,
+          "description": "Database table car makers. Columns: id, maker, full name, country."
+        },
+        {
+          "table": "cars_data",
+          "score": 56.212,
+          "lexical_score": 62.097,
+          "semantic_cosine": 0.503279,
+          "semantic_score": 50.328,
+          "description": "Database table cars data. Columns: id, mpg, cylinders, edispl, horsepower, weight, accelerate, year."
+        },
+        {
+          "table": "countries",
+          "score": 41.46,
+          "lexical_score": 40.0,
+          "semantic_cosine": 0.4292,
+          "semantic_score": 42.92,
+          "description": "Database table countries. Columns: country id, country name, continent."
+        },
+        {
+          "table": "continents",
+          "score": 38.933,
+          "lexical_score": 37.5,
+          "semantic_cosine": 0.40367,
+          "semantic_score": 40.367,
+          "description": "Database table continents. Columns: cont id, continent."
+        }
+      ]
+    },
+    {
+      "id": "spider_dev_0105",
+      "db_id": "car_1",
+      "question": "How many car makers are there in each continents? List the continent name and the count.",
+      "seed_tables": [
+        "car_makers",
+        "car_names",
+        "continents",
+        "countries"
+      ],
+      "selected_tables": [
+        "car_makers",
+        "car_names",
+        "continents",
+        "countries",
+        "model_list"
+      ],
+      "selected_schema": "CREATE TABLE car_makers (\n    Id INTEGER PRIMARY KEY,\n    Maker TEXT,\n    FullName TEXT,\n    Country TEXT,\n    FOREIGN KEY (Country) REFERENCES countries(CountryId)\n);\n\nCREATE TABLE car_names (\n    MakeId INTEGER PRIMARY KEY,\n    Model TEXT,\n    Make TEXT,\n    FOREIGN KEY (Model) REFERENCES model_list(Model)\n);\n\nCREATE TABLE continents (\n    ContId INTEGER PRIMARY KEY,\n    Continent TEXT\n);\n\nCREATE TABLE countries (\n    CountryId INTEGER PRIMARY KEY,\n    CountryName TEXT,\n    Continent INTEGER,\n    FOREIGN KEY (Continent) REFERENCES continents(ContId)\n);\n\nCREATE TABLE model_list (\n    ModelId INTEGER PRIMARY KEY,\n    Maker INTEGER,\n    Model TEXT,\n    FOREIGN KEY (Maker) REFERENCES car_makers(Id)\n);",
+      "ranked_tables": [
+        {
+          "table": "car_makers",
+          "score": 82.315,
+          "lexical_score": 97.5,
+          "semantic_cosine": 0.671295,
+          "semantic_score": 67.13,
+          "description": "Database table car makers. Columns: id, maker, full name, country."
+        },
+        {
+          "table": "car_names",
+          "score": 78.679,
+          "lexical_score": 94.444,
+          "semantic_cosine": 0.629136,
+          "semantic_score": 62.914,
+          "description": "Database table car names. Columns: make id, model, make."
+        },
+        {
+          "table": "continents",
+          "score": 78.661,
+          "lexical_score": 98.333,
+          "semantic_cosine": 0.589897,
+          "semantic_score": 58.99,
+          "description": "Database table continents. Columns: cont id, continent."
+        },
+        {
+          "table": "countries",
+          "score": 73.083,
+          "lexical_score": 89.167,
+          "semantic_cosine": 0.569982,
+          "semantic_score": 56.998,
+          "description": "Database table countries. Columns: country id, country name, continent."
+        },
+        {
+          "table": "cars_data",
+          "score": 58.877,
+          "lexical_score": 63.702,
+          "semantic_cosine": 0.540513,
+          "semantic_score": 54.051,
+          "description": "Database table cars data. Columns: id, mpg, cylinders, edispl, horsepower, weight, accelerate, year."
+        },
+        {
+          "table": "model_list",
+          "score": 57.485,
+          "lexical_score": 61.0,
+          "semantic_cosine": 0.539702,
+          "semantic_score": 53.97,
+          "description": "Database table model list. Columns: model id, maker, model."
+        }
+      ]
+    },
+    {
+      "id": "spider_dev_0173",
+      "db_id": "car_1",
+      "question": "What are the name of the countries where there is not a single car maker?",
+      "seed_tables": [
+        "car_makers",
+        "car_names",
+        "countries",
+        "cars_data"
+      ],
+      "selected_tables": [
+        "car_makers",
+        "car_names",
+        "cars_data",
+        "countries",
+        "model_list"
+      ],
+      "selected_schema": "CREATE TABLE car_makers (\n    Id INTEGER PRIMARY KEY,\n    Maker TEXT,\n    FullName TEXT,\n    Country TEXT,\n    FOREIGN KEY (Country) REFERENCES countries(CountryId)\n);\n\nCREATE TABLE car_names (\n    MakeId INTEGER PRIMARY KEY,\n    Model TEXT,\n    Make TEXT,\n    FOREIGN KEY (Model) REFERENCES model_list(Model)\n);\n\nCREATE TABLE cars_data (\n    Id INTEGER PRIMARY KEY,\n    MPG TEXT,\n    Cylinders INTEGER,\n    Edispl REAL,\n    Horsepower TEXT,\n    Weight INTEGER,\n    Accelerate REAL,\n    Year INTEGER,\n    FOREIGN KEY (Id) REFERENCES car_names(MakeId)\n);\n\nCREATE TABLE countries (\n    CountryId INTEGER PRIMARY KEY,\n    CountryName TEXT,\n    Continent INTEGER\n);\n\nCREATE TABLE model_list (\n    ModelId INTEGER PRIMARY KEY,\n    Maker INTEGER,\n    Model TEXT,\n    FOREIGN KEY (Maker) REFERENCES car_makers(Id)\n);",
+      "ranked_tables": [
+        {
+          "table": "car_makers",
+          "score": 78.367,
+          "lexical_score": 100.0,
+          "semantic_cosine": 0.567348,
+          "semantic_score": 56.735,
+          "description": "Database table car makers. Columns: id, maker, full name, country."
+        },
+        {
+          "table": "car_names",
+          "score": 72.674,
+          "lexical_score": 94.444,
+          "semantic_cosine": 0.509037,
+          "semantic_score": 50.904,
+          "description": "Database table car names. Columns: make id, model, make."
+        },
+        {
+          "table": "countries",
+          "score": 71.617,
+          "lexical_score": 100.0,
+          "semantic_cosine": 0.432345,
+          "semantic_score": 43.234,
+          "description": "Database table countries. Columns: country id, country name, continent."
+        },
+        {
+          "table": "cars_data",
+          "score": 50.695,
+          "lexical_score": 63.071,
+          "semantic_cosine": 0.383183,
+          "semantic_score": 38.318,
+          "description": "Database table cars data. Columns: id, mpg, cylinders, edispl, horsepower, weight, accelerate, year."
+        },
+        {
+          "table": "model_list",
+          "score": 49.351,
+          "lexical_score": 61.0,
+          "semantic_cosine": 0.377017,
+          "semantic_score": 37.702,
+          "description": "Database table model list. Columns: model id, maker, model."
+        },
+        {
+          "table": "continents",
+          "score": 46.387,
+          "lexical_score": 57.955,
+          "semantic_cosine": 0.348187,
+          "semantic_score": 34.819,
+          "description": "Database table continents. Columns: cont id, continent."
+        }
+      ]
+    },
+    {
+      "id": "spider_dev_0177",
+      "db_id": "car_1",
+      "question": "What are the id and names of the countries which have more than 3 car makers or produce the 'fiat' model?",
+      "seed_tables": [
+        "car_makers",
+        "car_names",
+        "model_list",
+        "countries"
+      ],
+      "selected_tables": [
+        "car_makers",
+        "car_names",
+        "countries",
+        "model_list"
+      ],
+      "selected_schema": "CREATE TABLE car_makers (\n    Id INTEGER PRIMARY KEY,\n    Maker TEXT,\n    FullName TEXT,\n    Country TEXT,\n    FOREIGN KEY (Country) REFERENCES countries(CountryId)\n);\n\nCREATE TABLE car_names (\n    MakeId INTEGER PRIMARY KEY,\n    Model TEXT,\n    Make TEXT,\n    FOREIGN KEY (Model) REFERENCES model_list(Model)\n);\n\nCREATE TABLE countries (\n    CountryId INTEGER PRIMARY KEY,\n    CountryName TEXT,\n    Continent INTEGER\n);\n\nCREATE TABLE model_list (\n    ModelId INTEGER PRIMARY KEY,\n    Maker INTEGER,\n    Model TEXT,\n    FOREIGN KEY (Maker) REFERENCES car_makers(Id)\n);",
+      "ranked_tables": [
+        {
+          "table": "car_makers",
+          "score": 82.209,
+          "lexical_score": 100.0,
+          "semantic_cosine": 0.644188,
+          "semantic_score": 64.419,
+          "description": "Database table car makers. Columns: id, maker, full name, country."
+        },
+        {
+          "table": "car_names",
+          "score": 80.288,
+          "lexical_score": 98.333,
+          "semantic_cosine": 0.622422,
+          "semantic_score": 62.242,
+          "description": "Database table car names. Columns: make id, model, make."
+        },
+        {
+          "table": "model_list",
+          "score": 76.692,
+          "lexical_score": 100.0,
+          "semantic_cosine": 0.533841,
+          "semantic_score": 53.384,
+          "description": "Database table model list. Columns: model id, maker, model."
+        },
+        {
+          "table": "countries",
+          "score": 75.64,
+          "lexical_score": 100.0,
+          "semantic_cosine": 0.512795,
+          "semantic_score": 51.279,
+          "description": "Database table countries. Columns: country id, country name, continent."
+        },
+        {
+          "table": "cars_data",
+          "score": 59.347,
+          "lexical_score": 68.429,
+          "semantic_cosine": 0.502647,
+          "semantic_score": 50.265,
+          "description": "Database table cars data. Columns: id, mpg, cylinders, edispl, horsepower, weight, accelerate, year."
+        },
+        {
+          "table": "continents",
+          "score": 51.624,
+          "lexical_score": 57.955,
+          "semantic_cosine": 0.452936,
+          "semantic_score": 45.294,
+          "description": "Database table continents. Columns: cont id, continent."
+        }
+      ]
+    }
+  ]
+}

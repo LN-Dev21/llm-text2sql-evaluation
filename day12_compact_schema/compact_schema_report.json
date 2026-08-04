@@ -1,0 +1,60 @@
+{
+  "method": "compact complete schema serialization",
+  "case_count": 180,
+  "full_schema_character_total": 344313,
+  "compact_schema_character_total": 230228,
+  "overall_character_reduction_rate": 0.3313,
+  "all_tables_and_columns_preserved": true,
+  "gold_sql_used": false,
+  "per_database": [
+    {
+      "db_id": "academic",
+      "full_schema_characters": 2196,
+      "compact_schema_characters": 1436,
+      "character_reduction_rate": 0.3461,
+      "table_count": 15
+    },
+    {
+      "db_id": "car_1",
+      "full_schema_characters": 949,
+      "compact_schema_characters": 684,
+      "character_reduction_rate": 0.2792,
+      "table_count": 6
+    },
+    {
+      "db_id": "dog_kennels",
+      "full_schema_characters": 2162,
+      "compact_schema_characters": 1629,
+      "character_reduction_rate": 0.2465,
+      "table_count": 8
+    },
+    {
+      "db_id": "imdb",
+      "full_schema_characters": 2262,
+      "compact_schema_characters": 1462,
+      "character_reduction_rate": 0.3537,
+      "table_count": 16
+    },
+    {
+      "db_id": "scholar",
+      "full_schema_characters": 1708,
+      "compact_schema_characters": 1014,
+      "character_reduction_rate": 0.4063,
+      "table_count": 10
+    },
+    {
+      "db_id": "student_transcripts_tracking",
+      "full_schema_characters": 3069,
+      "compact_schema_characters": 2438,
+      "character_reduction_rate": 0.2056,
+      "table_count": 11
+    },
+    {
+      "db_id": "yelp",
+      "full_schema_characters": 1349,
+      "compact_schema_characters": 948,
+      "character_reduction_rate": 0.2973,
+      "table_count": 7
+    }
+  ]
+}
