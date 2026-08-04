@@ -1,0 +1,4170 @@
+{
+  "experiment": "Spider 1.0 multi-database full-schema zero-shot baseline",
+  "model": "glm-4.5-air",
+  "spider_root": "D:\\SystemDir\\Desktop\\Research project\\Text-to-SQL System\\data\\spider_data",
+  "schema_source": "automatically extracted from each SQLite database",
+  "gold_sql_sent_to_model": false,
+  "metric_note": "This is a local development-time row comparison, not official Spider Test Suite Accuracy. Official evaluation will be integrated separately.",
+  "results": [
+    {
+      "id": "spider_dev_0000",
+      "source_index": 0,
+      "db_id": "concert_singer",
+      "question": "How many singers do we have?",
+      "generated_sql": "SELECT COUNT(*) FROM singer;",
+      "gold_sql": "SELECT count(*) FROM singer",
+      "gold_order_matters": false,
+      "execution_success": true,
+      "preliminary_is_correct": true,
+      "predicted_columns": [
+        "COUNT(*)"
+      ],
+      "predicted_rows": [
+        [
+          6
+        ]
+      ],
+      "gold_columns": [
+        "count(*)"
+      ],
+      "gold_rows": [
+        [
+          6
+        ]
+      ],
+      "error": null,
+      "latency_seconds": 0.741,
+      "finish_reason": "stop",
+      "prompt_tokens": 257,
+      "completion_tokens": 7,
+      "total_tokens": 264
+    },
+    {
+      "id": "spider_dev_0039",
+      "source_index": 39,
+      "db_id": "concert_singer",
+      "question": "what is the name and nation of the singer who have a song having 'Hey' in its name?",
+      "generated_sql": "SELECT Name, Country FROM singer WHERE Song_Name LIKE '%Hey%'",
+      "gold_sql": "SELECT name ,  country FROM singer WHERE song_name LIKE '%Hey%'",
+      "gold_order_matters": false,
+      "execution_success": true,
+      "preliminary_is_correct": true,
+      "predicted_columns": [
+        "Name",
+        "Country"
+      ],
+      "predicted_rows": [
+        [
+          "Justin Brown",
+          "France"
+        ]
+      ],
+      "gold_columns": [
+        "Name",
+        "Country"
+      ],
+      "gold_rows": [
+        [
+          "Justin Brown",
+          "France"
+        ]
+      ],
+      "error": null,
+      "latency_seconds": 0.744,
+      "finish_reason": "stop",
+      "prompt_tokens": 271,
+      "completion_tokens": 14,
+      "total_tokens": 285
+    },
+    {
+      "id": "spider_dev_0006",
+      "source_index": 6,
+      "db_id": "concert_singer",
+      "question": "Show the name and the release year of the song by the youngest singer.",
+      "generated_sql": "SELECT Song_Name, Song_release_year FROM singer WHERE Age = (SELECT MIN(Age) FROM singer);",
+      "gold_sql": "SELECT song_name ,  song_release_year FROM singer ORDER BY age LIMIT 1",
+      "gold_order_matters": true,
+      "execution_success": true,
+      "preliminary_is_correct": true,
+      "predicted_columns": [
+        "Song_Name",
+        "Song_release_year"
+      ],
+      "predicted_rows": [
+        [
+          "Love",
+          "2016"
+        ]
+      ],
+      "gold_columns": [
+        "Song_Name",
+        "Song_release_year"
+      ],
+      "gold_rows": [
+        [
+          "Love",
+          "2016"
+        ]
+      ],
+      "error": null,
+      "latency_seconds": 10.008,
+      "finish_reason": "stop",
+      "prompt_tokens": 265,
+      "completion_tokens": 22,
+      "total_tokens": 287
+    },
+    {
+      "id": "spider_dev_0033",
+      "source_index": 33,
+      "db_id": "concert_singer",
+      "question": "Show the name and theme for all concerts and the number of singers in each concert.",
+      "generated_sql": "SELECT c.concert_Name, c.Theme, COUNT(sic.Singer_ID) AS number_of_singers FROM concert c LEFT JOIN singer_in_concert sic ON c.concert_ID = sic.concert_ID GROUP BY c.concert_ID, c.concert_Name, c.Theme;",
+      "gold_sql": "SELECT T2.concert_name ,  T2.theme ,  count(*) FROM singer_in_concert AS T1 JOIN concert AS T2 ON T1.concert_id  =  T2.concert_id GROUP BY T2.concert_id",
+      "gold_order_matters": false,
+      "execution_success": true,
+      "preliminary_is_correct": true,
+      "predicted_columns": [
+        "concert_Name",
+        "Theme",
+        "number_of_singers"
+      ],
+      "predicted_rows": [
+        [
+          "Auditions",
+          "Free choice",
+          3
+        ],
+        [
+          "Super bootcamp",
+          "Free choice 2",
+          2
+        ],
+        [
+          "Home Visits",
+          "Bleeding Love",
+          1
+        ],
+        [
+          "Week 1",
+          "Wide Awake",
+          1
+        ],
+        [
+          "Week 1",
+          "Happy Tonight",
+          2
+        ],
+        [
+          "Week 2",
+          "Party All Night",
+          1
+        ]
+      ],
+      "gold_columns": [
+        "concert_Name",
+        "Theme",
+        "count(*)"
+      ],
+      "gold_rows": [
+        [
+          "Auditions",
+          "Free choice",
+          3
+        ],
+        [
+          "Super bootcamp",
+          "Free choice 2",
+          2
+        ],
+        [
+          "Home Visits",
+          "Bleeding Love",
+          1
+        ],
+        [
+          "Week 1",
+          "Wide Awake",
+          1
+        ],
+        [
+          "Week 1",
+          "Happy Tonight",
+          2
+        ],
+        [
+          "Week 2",
+          "Party All Night",
+          1
+        ]
+      ],
+      "error": null,
+      "latency_seconds": 2.329,
+      "finish_reason": "stop",
+      "prompt_tokens": 267,
+      "completion_tokens": 57,
+      "total_tokens": 324
+    },
+    {
+      "id": "spider_dev_0041",
+      "source_index": 41,
+      "db_id": "concert_singer",
+      "question": "Find the name and location of the stadiums which some concerts happened in the years of both 2014 and 2015.",
+      "generated_sql": "SELECT s.Name, s.Location FROM stadium s JOIN concert c ON s.Stadium_ID = c.Stadium_ID WHERE c.Year = '2014' OR c.Year = '2015' GROUP BY s.Stadium_ID HAVING COUNT(DISTINCT c.Year) = 2;",
+      "gold_sql": "SELECT T2.name ,  T2.location FROM concert AS T1 JOIN stadium AS T2 ON T1.stadium_id  =  T2.stadium_id WHERE T1.Year  =  2014 INTERSECT SELECT T2.name ,  T2.location FROM concert AS T1 JOIN stadium AS T2 ON T1.stadium_id  =  T2.stadium_id WHERE T1.Year  =  2015",
+      "gold_order_matters": false,
+      "execution_success": true,
+      "preliminary_is_correct": true,
+      "predicted_columns": [
+        "Name",
+        "Location"
+      ],
+      "predicted_rows": [
+        [
+          "Somerset Park",
+          "Ayr United"
+        ]
+      ],
+      "gold_columns": [
+        "Name",
+        "Location"
+      ],
+      "gold_rows": [
+        [
+          "Somerset Park",
+          "Ayr United"
+        ]
+      ],
+      "error": null,
+      "latency_seconds": 2.038,
+      "finish_reason": "stop",
+      "prompt_tokens": 275,
+      "completion_tokens": 58,
+      "total_tokens": 333
+    },
+    {
+      "id": "spider_dev_0045",
+      "source_index": 45,
+      "db_id": "pets_1",
+      "question": "Find the number of pets whose weight is heavier than 10.",
+      "generated_sql": "SELECT COUNT(*) FROM Pets WHERE weight > 10;",
+      "gold_sql": "SELECT count(*) FROM pets WHERE weight  >  10",
+      "gold_order_matters": false,
+      "execution_success": true,
+      "preliminary_is_correct": true,
+      "predicted_columns": [
+        "COUNT(*)"
+      ],
+      "predicted_rows": [
+        [
+          2
+        ]
+      ],
+      "gold_columns": [
+        "count(*)"
+      ],
+      "gold_rows": [
+        [
+          2
+        ]
+      ],
+      "error": null,
+      "latency_seconds": 0.572,
+      "finish_reason": "stop",
+      "prompt_tokens": 217,
+      "completion_tokens": 12,
+      "total_tokens": 229
+    },
+    {
+      "id": "spider_dev_0049",
+      "source_index": 49,
+      "db_id": "pets_1",
+      "question": "Find the maximum weight for each type of pet. List the maximum weight and pet type.",
+      "generated_sql": "SELECT PetType, MAX(weight) FROM Pets GROUP BY PetType;",
+      "gold_sql": "SELECT max(weight) ,  petType FROM pets GROUP BY petType",
+      "gold_order_matters": false,
+      "execution_success": true,
+      "preliminary_is_correct": false,
+      "predicted_columns": [
+        "PetType",
+        "MAX(weight)"
+      ],
+      "predicted_rows": [
+        [
+          "cat",
+          12.0
+        ],
+        [
+          "dog",
+          13.4
+        ]
+      ],
+      "gold_columns": [
+        "max(weight)",
+        "PetType"
+      ],
+      "gold_rows": [
+        [
+          12.0,
+          "cat"
+        ],
+        [
+          13.4,
+          "dog"
+        ]
+      ],
+      "error": null,
+      "latency_seconds": 0.731,
+      "finish_reason": "stop",
+      "prompt_tokens": 222,
+      "completion_tokens": 15,
+      "total_tokens": 237
+    },
+    {
+      "id": "spider_dev_0075",
+      "source_index": 75,
+      "db_id": "pets_1",
+      "question": "Find the first name and age of students who have a pet.",
+      "generated_sql": "SELECT Fname, Age FROM Student WHERE StuID IN (SELECT StuID FROM Has_Pet);",
+      "gold_sql": "SELECT DISTINCT T1.fname ,  T1.age FROM student AS T1 JOIN has_pet AS T2 ON T1.stuid  =  T2.stuid",
+      "gold_order_matters": false,
+      "execution_success": true,
+      "preliminary_is_correct": true,
+      "predicted_columns": [
+        "Fname",
+        "Age"
+      ],
+      "predicted_rows": [
+        [
+          "Linda",
+          18
+        ],
+        [
+          "Tracy",
+          19
+        ]
+      ],
+      "gold_columns": [
+        "Fname",
+        "Age"
+      ],
+      "gold_rows": [
+        [
+          "Linda",
+          18
+        ],
+        [
+          "Tracy",
+          19
+        ]
+      ],
+      "error": null,
+      "latency_seconds": 0.85,
+      "finish_reason": "stop",
+      "prompt_tokens": 217,
+      "completion_tokens": 21,
+      "total_tokens": 238
+    },
+    {
+      "id": "spider_dev_0061",
+      "source_index": 61,
+      "db_id": "pets_1",
+      "question": "Find the major and age of students who do not have a cat pet.",
+      "generated_sql": "SELECT Student.Major, Student.Age FROM Student WHERE Student.StuID NOT IN (SELECT Has_Pet.StuID FROM Has_Pet JOIN Pets ON Has_Pet.PetID = Pets.PetID WHERE Pets.PetType = 'cat');",
+      "gold_sql": "SELECT major ,  age FROM student WHERE stuid NOT IN (SELECT T1.stuid FROM student AS T1 JOIN has_pet AS T2 ON T1.stuid  =  T2.stuid JOIN pets AS T3 ON T3.petid  =  T2.petid WHERE T3.pettype  =  'cat')",
+      "gold_order_matters": false,
+      "execution_success": true,
+      "preliminary_is_correct": true,
+      "predicted_columns": [
+        "Major",
+        "Age"
+      ],
+      "predicted_rows": [
+        [
+          600,
+          19
+        ],
+        [
+          600,
+          21
+        ],
+        [
+          600,
+          20
+        ],
+        [
+          600,
+          26
+        ],
+        [
+          600,
+          18
+        ],
+        [
+          600,
+          18
+        ],
+        [
+          600,
+          20
+        ],
+        [
+          600,
+          19
+        ],
+        [
+          600,
+          17
+        ],
+        [
+          600,
+          22
+        ],
+        [
+          600,
+          20
+        ],
+        [
+          600,
+          18
+        ],
+        [
+          600,
+          16
+        ],
+        [
+          600,
+          17
+        ],
+        [
+          600,
+          27
+        ],
+        [
+          600,
+          20
+        ],
+        [
+          600,
+          18
+        ],
+        [
+          520,
+          22
+        ],
+        [
+          520,
+          19
+        ],
+        [
+          540,
+          17
+        ],
+        [
+          520,
+          20
+        ],
+        [
+          540,
+          18
+        ],
+        [
+          520,
+          18
+        ],
+        [
+          520,
+          19
+        ],
+        [
+          520,
+          18
+        ],
+        [
+          550,
+          20
+        ],
+        [
+          100,
+          17
+        ],
+        [
+          550,
+          21
+        ],
+        [
+          550,
+          20
+        ],
+        [
+          550,
+          20
+        ],
+        [
+          550,
+          18
+        ],
+        [
+          50,
+          18
+        ],
+        [
+          50,
+          26
+        ]
+      ],
+      "gold_columns": [
+        "Major",
+        "Age"
+      ],
+      "gold_rows": [
+        [
+          600,
+          19
+        ],
+        [
+          600,
+          21
+        ],
+        [
+          600,
+          20
+        ],
+        [
+          600,
+          26
+        ],
+        [
+          600,
+          18
+        ],
+        [
+          600,
+          18
+        ],
+        [
+          600,
+          20
+        ],
+        [
+          600,
+          19
+        ],
+        [
+          600,
+          17
+        ],
+        [
+          600,
+          22
+        ],
+        [
+          600,
+          20
+        ],
+        [
+          600,
+          18
+        ],
+        [
+          600,
+          16
+        ],
+        [
+          600,
+          17
+        ],
+        [
+          600,
+          27
+        ],
+        [
+          600,
+          20
+        ],
+        [
+          600,
+          18
+        ],
+        [
+          520,
+          22
+        ],
+        [
+          520,
+          19
+        ],
+        [
+          540,
+          17
+        ],
+        [
+          520,
+          20
+        ],
+        [
+          540,
+          18
+        ],
+        [
+          520,
+          18
+        ],
+        [
+          520,
+          19
+        ],
+        [
+          520,
+          18
+        ],
+        [
+          550,
+          20
+        ],
+        [
+          100,
+          17
+        ],
+        [
+          550,
+          21
+        ],
+        [
+          550,
+          20
+        ],
+        [
+          550,
+          20
+        ],
+        [
+          550,
+          18
+        ],
+        [
+          50,
+          18
+        ],
+        [
+          50,
+          26
+        ]
+      ],
+      "error": null,
+      "latency_seconds": 1.866,
+      "finish_reason": "stop",
+      "prompt_tokens": 219,
+      "completion_tokens": 52,
+      "total_tokens": 271
+    },
+    {
+      "id": "spider_dev_0059",
+      "source_index": 59,
+      "db_id": "pets_1",
+      "question": "Find the first name of students who have both cat and dog pets .",
+      "generated_sql": "SELECT S.Fname FROM Student S JOIN Has_Pet HP1 ON S.StuID = HP1.StuID JOIN Pets P1 ON HP1.PetID = P1.PetID JOIN Has_Pet HP2 ON S.StuID = HP2.StuID JOIN Pets P2 ON HP2.PetID = P2.PetID WHERE P1.PetType = 'cat' AND P2.PetType = 'dog' AND HP1.PetID <> HP2.PetID;",
+      "gold_sql": "select t1.fname from student as t1 join has_pet as t2 on t1.stuid  =  t2.stuid join pets as t3 on t3.petid  =  t2.petid where t3.pettype  =  'cat' intersect select t1.fname from student as t1 join has_pet as t2 on t1.stuid  =  t2.stuid join pets as t3 on t3.petid  =  t2.petid where t3.pettype  =  'dog'",
+      "gold_order_matters": false,
+      "execution_success": true,
+      "preliminary_is_correct": true,
+      "predicted_columns": [
+        "Fname"
+      ],
+      "predicted_rows": [],
+      "gold_columns": [
+        "Fname"
+      ],
+      "gold_rows": [],
+      "error": null,
+      "latency_seconds": 3.41,
+      "finish_reason": "stop",
+      "prompt_tokens": 218,
+      "completion_tokens": 107,
+      "total_tokens": 325
+    },
+    {
+      "id": "spider_dev_0381",
+      "source_index": 381,
+      "db_id": "course_teach",
+      "question": "How many teachers are there?",
+      "generated_sql": "SELECT COUNT(*) FROM teacher;",
+      "gold_sql": "SELECT count(*) FROM teacher",
+      "gold_order_matters": false,
+      "execution_success": true,
+      "preliminary_is_correct": true,
+      "predicted_columns": [
+        "COUNT(*)"
+      ],
+      "predicted_rows": [
+        [
+          7
+        ]
+      ],
+      "gold_columns": [
+        "count(*)"
+      ],
+      "gold_rows": [
+        [
+          7
+        ]
+      ],
+      "error": null,
+      "latency_seconds": 0.475,
+      "finish_reason": "stop",
+      "prompt_tokens": 186,
+      "completion_tokens": 7,
+      "total_tokens": 193
+    },
+    {
+      "id": "spider_dev_0389",
+      "source_index": 389,
+      "db_id": "course_teach",
+      "question": "Show the name of teachers aged either 32 or 33?",
+      "generated_sql": "SELECT Name FROM teacher WHERE Age = '32' OR Age = '33';",
+      "gold_sql": "SELECT Name FROM teacher WHERE Age  =  32 OR Age  =  33",
+      "gold_order_matters": false,
+      "execution_success": true,
+      "preliminary_is_correct": true,
+      "predicted_columns": [
+        "Name"
+      ],
+      "predicted_rows": [
+        [
+          "Joseph Huts"
+        ],
+        [
+          "John Deloor"
+        ]
+      ],
+      "gold_columns": [
+        "Name"
+      ],
+      "gold_rows": [
+        [
+          "Joseph Huts"
+        ],
+        [
+          "John Deloor"
+        ]
+      ],
+      "error": null,
+      "latency_seconds": 0.664,
+      "finish_reason": "stop",
+      "prompt_tokens": 193,
+      "completion_tokens": 17,
+      "total_tokens": 210
+    },
+    {
+      "id": "spider_dev_0393",
+      "source_index": 393,
+      "db_id": "course_teach",
+      "question": "Show different hometown of teachers and the number of teachers from each hometown.",
+      "generated_sql": "SELECT Hometown, COUNT(*) as NumberOfTeachers FROM teacher GROUP BY Hometown;",
+      "gold_sql": "SELECT Hometown ,  COUNT(*) FROM teacher GROUP BY Hometown",
+      "gold_order_matters": false,
+      "execution_success": true,
+      "preliminary_is_correct": true,
+      "predicted_columns": [
+        "Hometown",
+        "NumberOfTeachers"
+      ],
+      "predicted_rows": [
+        [
+          "Blackrod Urban District",
+          1
+        ],
+        [
+          "Bolton County Borough",
+          1
+        ],
+        [
+          "Farnworth Municipal Borough",
+          1
+        ],
+        [
+          "Horwich Urban District",
+          1
+        ],
+        [
+          "Kearsley Urban District",
+          1
+        ],
+        [
+          "Little Lever Urban District",
+          1
+        ],
+        [
+          "Turton Urban District",
+          1
+        ]
+      ],
+      "gold_columns": [
+        "Hometown",
+        "COUNT(*)"
+      ],
+      "gold_rows": [
+        [
+          "Blackrod Urban District",
+          1
+        ],
+        [
+          "Bolton County Borough",
+          1
+        ],
+        [
+          "Farnworth Municipal Borough",
+          1
+        ],
+        [
+          "Horwich Urban District",
+          1
+        ],
+        [
+          "Kearsley Urban District",
+          1
+        ],
+        [
+          "Little Lever Urban District",
+          1
+        ],
+        [
+          "Turton Urban District",
+          1
+        ]
+      ],
+      "error": null,
+      "latency_seconds": 0.717,
+      "finish_reason": "stop",
+      "prompt_tokens": 194,
+      "completion_tokens": 17,
+      "total_tokens": 211
+    },
+    {
+      "id": "spider_dev_0399",
+      "source_index": 399,
+      "db_id": "course_teach",
+      "question": "Show names of teachers and the courses they are arranged to teach.",
+      "generated_sql": "SELECT t.Name, c.Course FROM teacher t JOIN course_arrange ca ON t.Teacher_ID = ca.Teacher_ID JOIN course c ON ca.Course_ID = c.Course_ID;",
+      "gold_sql": "SELECT T3.Name ,  T2.Course FROM course_arrange AS T1 JOIN course AS T2 ON T1.Course_ID  =  T2.Course_ID JOIN teacher AS T3 ON T1.Teacher_ID  =  T3.Teacher_ID",
+      "gold_order_matters": false,
+      "execution_success": true,
+      "preliminary_is_correct": true,
+      "predicted_columns": [
+        "Name",
+        "Course"
+      ],
+      "predicted_rows": [
+        [
+          "Kearsley Brown",
+          "Math"
+        ],
+        [
+          "Vicente Carretero",
+          "Math"
+        ],
+        [
+          "Gustaaf Deloor",
+          "Science"
+        ],
+        [
+          "Anne Walker",
+          "History"
+        ],
+        [
+          "Anne Walker",
+          "Bible"
+        ],
+        [
+          "Lucy Wong",
+          "Music"
+        ]
+      ],
+      "gold_columns": [
+        "Name",
+        "Course"
+      ],
+      "gold_rows": [
+        [
+          "Kearsley Brown",
+          "Math"
+        ],
+        [
+          "Vicente Carretero",
+          "Math"
+        ],
+        [
+          "Gustaaf Deloor",
+          "Science"
+        ],
+        [
+          "Anne Walker",
+          "History"
+        ],
+        [
+          "Anne Walker",
+          "Bible"
+        ],
+        [
+          "Lucy Wong",
+          "Music"
+        ]
+      ],
+      "error": null,
+      "latency_seconds": 2.047,
+      "finish_reason": "stop",
+      "prompt_tokens": 193,
+      "completion_tokens": 37,
+      "total_tokens": 230
+    },
+    {
+      "id": "spider_dev_0407",
+      "source_index": 407,
+      "db_id": "course_teach",
+      "question": "Show names of teachers that teach at least two courses.",
+      "generated_sql": "SELECT t.Name FROM teacher t JOIN course_arrange ca ON t.Teacher_ID = ca.Teacher_ID GROUP BY t.Teacher_ID HAVING COUNT(ca.Course_ID) >= 2;",
+      "gold_sql": "SELECT T2.Name FROM course_arrange AS T1 JOIN teacher AS T2 ON T1.Teacher_ID  =  T2.Teacher_ID GROUP BY T2.Name HAVING COUNT(*)  >=  2",
+      "gold_order_matters": false,
+      "execution_success": true,
+      "preliminary_is_correct": true,
+      "predicted_columns": [
+        "Name"
+      ],
+      "predicted_rows": [
+        [
+          "Anne Walker"
+        ]
+      ],
+      "gold_columns": [
+        "Name"
+      ],
+      "gold_rows": [
+        [
+          "Anne Walker"
+        ]
+      ],
+      "error": null,
+      "latency_seconds": 1.998,
+      "finish_reason": "stop",
+      "prompt_tokens": 191,
+      "completion_tokens": 39,
+      "total_tokens": 230
+    },
+    {
+      "id": "spider_dev_0702",
+      "source_index": 702,
+      "db_id": "world_1",
+      "question": "What are the names of all the countries that became independent after 1950?",
+      "generated_sql": "SELECT Name FROM country WHERE IndepYear > 1950;",
+      "gold_sql": "SELECT Name FROM country WHERE IndepYear  >  1950",
+      "gold_order_matters": false,
+      "execution_success": true,
+      "preliminary_is_correct": true,
+      "predicted_columns": [
+        "Name"
+      ],
+      "predicted_rows": [
+        [
+          "Angola"
+        ],
+        [
+          "United Arab Emirates"
+        ],
+        [
+          "Armenia"
+        ],
+        [
+          "Antigua and Barbuda"
+        ],
+        [
+          "Azerbaijan"
+        ],
+        [
+          "Burundi"
+        ],
+        [
+          "Benin"
+        ],
+        [
+          "Burkina Faso"
+        ],
+        [
+          "Bangladesh"
+        ],
+        [
+          "Bahrain"
+        ],
+        [
+          "Bahamas"
+        ],
+        [
+          "Bosnia and Herzegovina"
+        ],
+        [
+          "Belarus"
+        ],
+        [
+          "Belize"
+        ],
+        [
+          "Barbados"
+        ],
+        [
+          "Brunei"
+        ],
+        [
+          "Botswana"
+        ],
+        [
+          "Central African Republic"
+        ],
+        [
+          "Côte d’Ivoire"
+        ],
+        [
+          "Cameroon"
+        ],
+        [
+          "Congo, The Democratic Republic of the"
+        ],
+        [
+          "Congo"
+        ],
+        [
+          "Comoros"
+        ],
+        [
+          "Cape Verde"
+        ],
+        [
+          "Cyprus"
+        ],
+        [
+          "Czech Republic"
+        ],
+        [
+          "Germany"
+        ],
+        [
+          "Djibouti"
+        ],
+        [
+          "Dominica"
+        ],
+        [
+          "Algeria"
+        ],
+        [
+          "Eritrea"
+        ],
+        [
+          "Estonia"
+        ],
+        [
+          "Fiji Islands"
+        ],
+        [
+          "Micronesia, Federated States of"
+        ],
+        [
+          "Gabon"
+        ],
+        [
+          "Georgia"
+        ],
+        [
+          "Ghana"
+        ],
+        [
+          "Guinea"
+        ],
+        [
+          "Gambia"
+        ],
+        [
+          "Guinea-Bissau"
+        ],
+        [
+          "Equatorial Guinea"
+        ],
+        [
+          "Grenada"
+        ],
+        [
+          "Guyana"
+        ],
+        [
+          "Croatia"
+        ],
+        [
+          "Jamaica"
+        ],
+        [
+          "Kazakstan"
+        ],
+        [
+          "Kenya"
+        ],
+        [
+          "Kyrgyzstan"
+        ],
+        [
+          "Cambodia"
+        ],
+        [
+          "Kiribati"
+        ],
+        [
+          "Saint Kitts and Nevis"
+        ],
+        [
+          "Kuwait"
+        ],
+        [
+          "Laos"
+        ],
+        [
+          "Libyan Arab Jamahiriya"
+        ],
+        [
+          "Saint Lucia"
+        ],
+        [
+          "Lesotho"
+        ],
+        [
+          "Lithuania"
+        ],
+        [
+          "Latvia"
+        ],
+        [
+          "Morocco"
+        ],
+        [
+          "Moldova"
+        ],
+        [
+          "Madagascar"
+        ],
+        [
+          "Maldives"
+        ],
+        [
+          "Marshall Islands"
+        ],
+        [
+          "Macedonia"
+        ],
+        [
+          "Mali"
+        ],
+        [
+          "Malta"
+        ],
+        [
+          "Mozambique"
+        ],
+        [
+          "Mauritania"
+        ],
+        [
+          "Mauritius"
+        ],
+        [
+          "Malawi"
+        ],
+        [
+          "Malaysia"
+        ],
+        [
+          "Namibia"
+        ],
+        [
+          "Niger"
+        ],
+        [
+          "Nigeria"
+        ],
+        [
+          "Nauru"
+        ],
+        [
+          "Oman"
+        ],
+        [
+          "Palau"
+        ],
+        [
+          "Papua New Guinea"
+        ],
+        [
+          "Qatar"
+        ],
+        [
+          "Russian Federation"
+        ],
+        [
+          "Rwanda"
+        ],
+        [
+          "Sudan"
+        ],
+        [
+          "Senegal"
+        ],
+        [
+          "Singapore"
+        ],
+        [
+          "Solomon Islands"
+        ],
+        [
+          "Sierra Leone"
+        ],
+        [
+          "Somalia"
+        ],
+        [
+          "Sao Tome and Principe"
+        ],
+        [
+          "Suriname"
+        ],
+        [
+          "Slovakia"
+        ],
+        [
+          "Slovenia"
+        ],
+        [
+          "Swaziland"
+        ],
+        [
+          "Seychelles"
+        ],
+        [
+          "Chad"
+        ],
+        [
+          "Togo"
+        ],
+        [
+          "Tajikistan"
+        ],
+        [
+          "Turkmenistan"
+        ],
+        [
+          "Tonga"
+        ],
+        [
+          "Trinidad and Tobago"
+        ],
+        [
+          "Tunisia"
+        ],
+        [
+          "Tuvalu"
+        ],
+        [
+          "Tanzania"
+        ],
+        [
+          "Uganda"
+        ],
+        [
+          "Ukraine"
+        ],
+        [
+          "Uzbekistan"
+        ],
+        [
+          "Saint Vincent and the Grenadines"
+        ],
+        [
+          "Vanuatu"
+        ],
+        [
+          "Samoa"
+        ],
+        [
+          "Zambia"
+        ],
+        [
+          "Zimbabwe"
+        ]
+      ],
+      "gold_columns": [
+        "Name"
+      ],
+      "gold_rows": [
+        [
+          "Angola"
+        ],
+        [
+          "United Arab Emirates"
+        ],
+        [
+          "Armenia"
+        ],
+        [
+          "Antigua and Barbuda"
+        ],
+        [
+          "Azerbaijan"
+        ],
+        [
+          "Burundi"
+        ],
+        [
+          "Benin"
+        ],
+        [
+          "Burkina Faso"
+        ],
+        [
+          "Bangladesh"
+        ],
+        [
+          "Bahrain"
+        ],
+        [
+          "Bahamas"
+        ],
+        [
+          "Bosnia and Herzegovina"
+        ],
+        [
+          "Belarus"
+        ],
+        [
+          "Belize"
+        ],
+        [
+          "Barbados"
+        ],
+        [
+          "Brunei"
+        ],
+        [
+          "Botswana"
+        ],
+        [
+          "Central African Republic"
+        ],
+        [
+          "Côte d’Ivoire"
+        ],
+        [
+          "Cameroon"
+        ],
+        [
+          "Congo, The Democratic Republic of the"
+        ],
+        [
+          "Congo"
+        ],
+        [
+          "Comoros"
+        ],
+        [
+          "Cape Verde"
+        ],
+        [
+          "Cyprus"
+        ],
+        [
+          "Czech Republic"
+        ],
+        [
+          "Germany"
+        ],
+        [
+          "Djibouti"
+        ],
+        [
+          "Dominica"
+        ],
+        [
+          "Algeria"
+        ],
+        [
+          "Eritrea"
+        ],
+        [
+          "Estonia"
+        ],
+        [
+          "Fiji Islands"
+        ],
+        [
+          "Micronesia, Federated States of"
+        ],
+        [
+          "Gabon"
+        ],
+        [
+          "Georgia"
+        ],
+        [
+          "Ghana"
+        ],
+        [
+          "Guinea"
+        ],
+        [
+          "Gambia"
+        ],
+        [
+          "Guinea-Bissau"
+        ],
+        [
+          "Equatorial Guinea"
+        ],
+        [
+          "Grenada"
+        ],
+        [
+          "Guyana"
+        ],
+        [
+          "Croatia"
+        ],
+        [
+          "Jamaica"
+        ],
+        [
+          "Kazakstan"
+        ],
+        [
+          "Kenya"
+        ],
+        [
+          "Kyrgyzstan"
+        ],
+        [
+          "Cambodia"
+        ],
+        [
+          "Kiribati"
+        ],
+        [
+          "Saint Kitts and Nevis"
+        ],
+        [
+          "Kuwait"
+        ],
+        [
+          "Laos"
+        ],
+        [
+          "Libyan Arab Jamahiriya"
+        ],
+        [
+          "Saint Lucia"
+        ],
+        [
+          "Lesotho"
+        ],
+        [
+          "Lithuania"
+        ],
+        [
+          "Latvia"
+        ],
+        [
+          "Morocco"
+        ],
+        [
+          "Moldova"
+        ],
+        [
+          "Madagascar"
+        ],
+        [
+          "Maldives"
+        ],
+        [
+          "Marshall Islands"
+        ],
+        [
+          "Macedonia"
+        ],
+        [
+          "Mali"
+        ],
+        [
+          "Malta"
+        ],
+        [
+          "Mozambique"
+        ],
+        [
+          "Mauritania"
+        ],
+        [
+          "Mauritius"
+        ],
+        [
+          "Malawi"
+        ],
+        [
+          "Malaysia"
+        ],
+        [
+          "Namibia"
+        ],
+        [
+          "Niger"
+        ],
+        [
+          "Nigeria"
+        ],
+        [
+          "Nauru"
+        ],
+        [
+          "Oman"
+        ],
+        [
+          "Palau"
+        ],
+        [
+          "Papua New Guinea"
+        ],
+        [
+          "Qatar"
+        ],
+        [
+          "Russian Federation"
+        ],
+        [
+          "Rwanda"
+        ],
+        [
+          "Sudan"
+        ],
+        [
+          "Senegal"
+        ],
+        [
+          "Singapore"
+        ],
+        [
+          "Solomon Islands"
+        ],
+        [
+          "Sierra Leone"
+        ],
+        [
+          "Somalia"
+        ],
+        [
+          "Sao Tome and Principe"
+        ],
+        [
+          "Suriname"
+        ],
+        [
+          "Slovakia"
+        ],
+        [
+          "Slovenia"
+        ],
+        [
+          "Swaziland"
+        ],
+        [
+          "Seychelles"
+        ],
+        [
+          "Chad"
+        ],
+        [
+          "Togo"
+        ],
+        [
+          "Tajikistan"
+        ],
+        [
+          "Turkmenistan"
+        ],
+        [
+          "Tonga"
+        ],
+        [
+          "Trinidad and Tobago"
+        ],
+        [
+          "Tunisia"
+        ],
+        [
+          "Tuvalu"
+        ],
+        [
+          "Tanzania"
+        ],
+        [
+          "Uganda"
+        ],
+        [
+          "Ukraine"
+        ],
+        [
+          "Uzbekistan"
+        ],
+        [
+          "Saint Vincent and the Grenadines"
+        ],
+        [
+          "Vanuatu"
+        ],
+        [
+          "Samoa"
+        ],
+        [
+          "Zambia"
+        ],
+        [
+          "Zimbabwe"
+        ]
+      ],
+      "error": null,
+      "latency_seconds": 0.833,
+      "finish_reason": "stop",
+      "prompt_tokens": 388,
+      "completion_tokens": 14,
+      "total_tokens": 402
+    },
+    {
+      "id": "spider_dev_0726",
+      "source_index": 726,
+      "db_id": "world_1",
+      "question": "What is the total surface area of the continents Asia and Europe?",
+      "generated_sql": "SELECT Continent, SUM(SurfaceArea) AS TotalSurfaceArea FROM country WHERE Continent IN ('Asia', 'Europe') GROUP BY Continent;",
+      "gold_sql": "SELECT sum(SurfaceArea) FROM country WHERE Continent  =  \"Asia\" OR Continent  =  \"Europe\"",
+      "gold_order_matters": false,
+      "execution_success": true,
+      "preliminary_is_correct": false,
+      "predicted_columns": [
+        "Continent",
+        "TotalSurfaceArea"
+      ],
+      "predicted_rows": [
+        [
+          "Asia",
+          31881005.0
+        ],
+        [
+          "Europe",
+          23049133.9
+        ]
+      ],
+      "gold_columns": [
+        "sum(SurfaceArea)"
+      ],
+      "gold_rows": [
+        [
+          54930138.9
+        ]
+      ],
+      "error": null,
+      "latency_seconds": 2.261,
+      "finish_reason": "stop",
+      "prompt_tokens": 385,
+      "completion_tokens": 28,
+      "total_tokens": 413
+    },
+    {
+      "id": "spider_dev_0800",
+      "source_index": 800,
+      "db_id": "world_1",
+      "question": "What are the names and areas of countries with the top 5 largest area?",
+      "generated_sql": "SELECT Name, SurfaceArea FROM country ORDER BY SurfaceArea DESC LIMIT 5;",
+      "gold_sql": "SELECT Name ,  SurfaceArea FROM country ORDER BY SurfaceArea DESC LIMIT 5",
+      "gold_order_matters": true,
+      "execution_success": true,
+      "preliminary_is_correct": true,
+      "predicted_columns": [
+        "Name",
+        "SurfaceArea"
+      ],
+      "predicted_rows": [
+        [
+          "Russian Federation",
+          17075400.0
+        ],
+        [
+          "Antarctica",
+          13120000.0
+        ],
+        [
+          "Canada",
+          9970610.0
+        ],
+        [
+          "China",
+          9572900.0
+        ],
+        [
+          "United States",
+          9363520.0
+        ]
+      ],
+      "gold_columns": [
+        "Name",
+        "SurfaceArea"
+      ],
+      "gold_rows": [
+        [
+          "Russian Federation",
+          17075400.0
+        ],
+        [
+          "Antarctica",
+          13120000.0
+        ],
+        [
+          "Canada",
+          9970610.0
+        ],
+        [
+          "China",
+          9572900.0
+        ],
+        [
+          "United States",
+          9363520.0
+        ]
+      ],
+      "error": null,
+      "latency_seconds": 1.666,
+      "finish_reason": "stop",
+      "prompt_tokens": 388,
+      "completion_tokens": 17,
+      "total_tokens": 405
+    },
+    {
+      "id": "spider_dev_0778",
+      "source_index": 778,
+      "db_id": "world_1",
+      "question": "What are the country codes for countries that do not speak English?",
+      "generated_sql": "SELECT DISTINCT CountryCode FROM countrylanguage WHERE Language != 'English';",
+      "gold_sql": "SELECT CountryCode FROM countrylanguage EXCEPT SELECT CountryCode FROM countrylanguage WHERE LANGUAGE  =  \"English\"",
+      "gold_order_matters": false,
+      "execution_success": true,
+      "preliminary_is_correct": false,
+      "predicted_columns": [
+        "CountryCode"
+      ],
+      "predicted_rows": [
+        [
+          "ABW"
+        ],
+        [
+          "AFG"
+        ],
+        [
+          "AGO"
+        ],
+        [
+          "ALB"
+        ],
+        [
+          "AND"
+        ],
+        [
+          "ANT"
+        ],
+        [
+          "ARE"
+        ],
+        [
+          "ARG"
+        ],
+        [
+          "ARM"
+        ],
+        [
+          "ASM"
+        ],
+        [
+          "ATG"
+        ],
+        [
+          "AUS"
+        ],
+        [
+          "AUT"
+        ],
+        [
+          "AZE"
+        ],
+        [
+          "BDI"
+        ],
+        [
+          "BEL"
+        ],
+        [
+          "BEN"
+        ],
+        [
+          "BFA"
+        ],
+        [
+          "BGD"
+        ],
+        [
+          "BGR"
+        ],
+        [
+          "BHR"
+        ],
+        [
+          "BHS"
+        ],
+        [
+          "BIH"
+        ],
+        [
+          "BLR"
+        ],
+        [
+          "BLZ"
+        ],
+        [
+          "BOL"
+        ],
+        [
+          "BRA"
+        ],
+        [
+          "BRB"
+        ],
+        [
+          "BRN"
+        ],
+        [
+          "BTN"
+        ],
+        [
+          "BWA"
+        ],
+        [
+          "CAF"
+        ],
+        [
+          "CAN"
+        ],
+        [
+          "CCK"
+        ],
+        [
+          "CHE"
+        ],
+        [
+          "CHL"
+        ],
+        [
+          "CHN"
+        ],
+        [
+          "CIV"
+        ],
+        [
+          "CMR"
+        ],
+        [
+          "COD"
+        ],
+        [
+          "COG"
+        ],
+        [
+          "COK"
+        ],
+        [
+          "COL"
+        ],
+        [
+          "COM"
+        ],
+        [
+          "CPV"
+        ],
+        [
+          "CRI"
+        ],
+        [
+          "CUB"
+        ],
+        [
+          "CXR"
+        ],
+        [
+          "CYP"
+        ],
+        [
+          "CZE"
+        ],
+        [
+          "DEU"
+        ],
+        [
+          "DJI"
+        ],
+        [
+          "DMA"
+        ],
+        [
+          "DNK"
+        ],
+        [
+          "DOM"
+        ],
+        [
+          "DZA"
+        ],
+        [
+          "ECU"
+        ],
+        [
+          "EGY"
+        ],
+        [
+          "ERI"
+        ],
+        [
+          "ESH"
+        ],
+        [
+          "ESP"
+        ],
+        [
+          "EST"
+        ],
+        [
+          "ETH"
+        ],
+        [
+          "FIN"
+        ],
+        [
+          "FJI"
+        ],
+        [
+          "FRA"
+        ],
+        [
+          "FRO"
+        ],
+        [
+          "FSM"
+        ],
+        [
+          "GAB"
+        ],
+        [
+          "GBR"
+        ],
+        [
+          "GEO"
+        ],
+        [
+          "GHA"
+        ],
+        [
+          "GIB"
+        ],
+        [
+          "GIN"
+        ],
+        [
+          "GLP"
+        ],
+        [
+          "GMB"
+        ],
+        [
+          "GNB"
+        ],
+        [
+          "GNQ"
+        ],
+        [
+          "GRC"
+        ],
+        [
+          "GRD"
+        ],
+        [
+          "GRL"
+        ],
+        [
+          "GTM"
+        ],
+        [
+          "GUF"
+        ],
+        [
+          "GUM"
+        ],
+        [
+          "GUY"
+        ],
+        [
+          "HKG"
+        ],
+        [
+          "HND"
+        ],
+        [
+          "HRV"
+        ],
+        [
+          "HTI"
+        ],
+        [
+          "HUN"
+        ],
+        [
+          "IDN"
+        ],
+        [
+          "IND"
+        ],
+        [
+          "IRL"
+        ],
+        [
+          "IRN"
+        ],
+        [
+          "IRQ"
+        ],
+        [
+          "ISL"
+        ],
+        [
+          "ISR"
+        ],
+        [
+          "ITA"
+        ],
+        [
+          "JAM"
+        ],
+        [
+          "JOR"
+        ],
+        [
+          "JPN"
+        ],
+        [
+          "KAZ"
+        ],
+        [
+          "KEN"
+        ],
+        [
+          "KGZ"
+        ],
+        [
+          "KHM"
+        ],
+        [
+          "KIR"
+        ],
+        [
+          "KNA"
+        ],
+        [
+          "KOR"
+        ],
+        [
+          "KWT"
+        ],
+        [
+          "LAO"
+        ],
+        [
+          "LBN"
+        ],
+        [
+          "LBR"
+        ],
+        [
+          "LBY"
+        ],
+        [
+          "LCA"
+        ],
+        [
+          "LIE"
+        ],
+        [
+          "LKA"
+        ],
+        [
+          "LSO"
+        ],
+        [
+          "LTU"
+        ],
+        [
+          "LUX"
+        ],
+        [
+          "LVA"
+        ],
+        [
+          "MAC"
+        ],
+        [
+          "MAR"
+        ],
+        [
+          "MCO"
+        ],
+        [
+          "MDA"
+        ],
+        [
+          "MDG"
+        ],
+        [
+          "MDV"
+        ],
+        [
+          "MEX"
+        ],
+        [
+          "MHL"
+        ],
+        [
+          "MKD"
+        ],
+        [
+          "MLI"
+        ],
+        [
+          "MLT"
+        ],
+        [
+          "MMR"
+        ],
+        [
+          "MNG"
+        ],
+        [
+          "MNP"
+        ],
+        [
+          "MOZ"
+        ],
+        [
+          "MRT"
+        ],
+        [
+          "MTQ"
+        ],
+        [
+          "MUS"
+        ],
+        [
+          "MWI"
+        ],
+        [
+          "MYS"
+        ],
+        [
+          "MYT"
+        ],
+        [
+          "NAM"
+        ],
+        [
+          "NCL"
+        ],
+        [
+          "NER"
+        ],
+        [
+          "NGA"
+        ],
+        [
+          "NIC"
+        ],
+        [
+          "NIU"
+        ],
+        [
+          "NLD"
+        ],
+        [
+          "NOR"
+        ],
+        [
+          "NPL"
+        ],
+        [
+          "NRU"
+        ],
+        [
+          "NZL"
+        ],
+        [
+          "OMN"
+        ],
+        [
+          "PAK"
+        ],
+        [
+          "PAN"
+        ],
+        [
+          "PCN"
+        ],
+        [
+          "PER"
+        ],
+        [
+          "PHL"
+        ],
+        [
+          "PLW"
+        ],
+        [
+          "PNG"
+        ],
+        [
+          "POL"
+        ],
+        [
+          "PRI"
+        ],
+        [
+          "PRK"
+        ],
+        [
+          "PRT"
+        ],
+        [
+          "PRY"
+        ],
+        [
+          "PSE"
+        ],
+        [
+          "PYF"
+        ],
+        [
+          "QAT"
+        ],
+        [
+          "REU"
+        ],
+        [
+          "ROM"
+        ],
+        [
+          "RUS"
+        ],
+        [
+          "RWA"
+        ],
+        [
+          "SAU"
+        ],
+        [
+          "SDN"
+        ],
+        [
+          "SEN"
+        ],
+        [
+          "SGP"
+        ],
+        [
+          "SJM"
+        ],
+        [
+          "SLB"
+        ],
+        [
+          "SLE"
+        ],
+        [
+          "SLV"
+        ],
+        [
+          "SMR"
+        ],
+        [
+          "SOM"
+        ],
+        [
+          "SPM"
+        ],
+        [
+          "STP"
+        ],
+        [
+          "SUR"
+        ],
+        [
+          "SVK"
+        ],
+        [
+          "SVN"
+        ],
+        [
+          "SWE"
+        ],
+        [
+          "SWZ"
+        ],
+        [
+          "SYC"
+        ],
+        [
+          "SYR"
+        ],
+        [
+          "TCD"
+        ],
+        [
+          "TGO"
+        ],
+        [
+          "THA"
+        ],
+        [
+          "TJK"
+        ],
+        [
+          "TKL"
+        ],
+        [
+          "TKM"
+        ],
+        [
+          "TMP"
+        ],
+        [
+          "TON"
+        ],
+        [
+          "TTO"
+        ],
+        [
+          "TUN"
+        ],
+        [
+          "TUR"
+        ],
+        [
+          "TUV"
+        ],
+        [
+          "TWN"
+        ],
+        [
+          "TZA"
+        ],
+        [
+          "UGA"
+        ],
+        [
+          "UKR"
+        ],
+        [
+          "URY"
+        ],
+        [
+          "USA"
+        ],
+        [
+          "UZB"
+        ],
+        [
+          "VAT"
+        ],
+        [
+          "VCT"
+        ],
+        [
+          "VEN"
+        ],
+        [
+          "VIR"
+        ],
+        [
+          "VNM"
+        ],
+        [
+          "VUT"
+        ],
+        [
+          "WLF"
+        ],
+        [
+          "WSM"
+        ],
+        [
+          "YEM"
+        ],
+        [
+          "YUG"
+        ],
+        [
+          "ZAF"
+        ],
+        [
+          "ZMB"
+        ],
+        [
+          "ZWE"
+        ]
+      ],
+      "gold_columns": [
+        "CountryCode"
+      ],
+      "gold_rows": [
+        [
+          "AFG"
+        ],
+        [
+          "AGO"
+        ],
+        [
+          "ALB"
+        ],
+        [
+          "AND"
+        ],
+        [
+          "ARE"
+        ],
+        [
+          "ARG"
+        ],
+        [
+          "ARM"
+        ],
+        [
+          "AUT"
+        ],
+        [
+          "AZE"
+        ],
+        [
+          "BDI"
+        ],
+        [
+          "BEL"
+        ],
+        [
+          "BEN"
+        ],
+        [
+          "BFA"
+        ],
+        [
+          "BGD"
+        ],
+        [
+          "BGR"
+        ],
+        [
+          "BHS"
+        ],
+        [
+          "BIH"
+        ],
+        [
+          "BLR"
+        ],
+        [
+          "BOL"
+        ],
+        [
+          "BRA"
+        ],
+        [
+          "BTN"
+        ],
+        [
+          "BWA"
+        ],
+        [
+          "CAF"
+        ],
+        [
+          "CHE"
+        ],
+        [
+          "CHL"
+        ],
+        [
+          "CHN"
+        ],
+        [
+          "CIV"
+        ],
+        [
+          "CMR"
+        ],
+        [
+          "COD"
+        ],
+        [
+          "COG"
+        ],
+        [
+          "COL"
+        ],
+        [
+          "COM"
+        ],
+        [
+          "CPV"
+        ],
+        [
+          "CRI"
+        ],
+        [
+          "CUB"
+        ],
+        [
+          "CYP"
+        ],
+        [
+          "CZE"
+        ],
+        [
+          "DEU"
+        ],
+        [
+          "DJI"
+        ],
+        [
+          "DMA"
+        ],
+        [
+          "DOM"
+        ],
+        [
+          "DZA"
+        ],
+        [
+          "ECU"
+        ],
+        [
+          "EGY"
+        ],
+        [
+          "ERI"
+        ],
+        [
+          "ESH"
+        ],
+        [
+          "ESP"
+        ],
+        [
+          "EST"
+        ],
+        [
+          "ETH"
+        ],
+        [
+          "FIN"
+        ],
+        [
+          "FJI"
+        ],
+        [
+          "FRA"
+        ],
+        [
+          "FRO"
+        ],
+        [
+          "FSM"
+        ],
+        [
+          "GAB"
+        ],
+        [
+          "GEO"
+        ],
+        [
+          "GHA"
+        ],
+        [
+          "GIN"
+        ],
+        [
+          "GLP"
+        ],
+        [
+          "GMB"
+        ],
+        [
+          "GNB"
+        ],
+        [
+          "GNQ"
+        ],
+        [
+          "GRC"
+        ],
+        [
+          "GRD"
+        ],
+        [
+          "GRL"
+        ],
+        [
+          "GTM"
+        ],
+        [
+          "GUF"
+        ],
+        [
+          "GUY"
+        ],
+        [
+          "HND"
+        ],
+        [
+          "HRV"
+        ],
+        [
+          "HTI"
+        ],
+        [
+          "HUN"
+        ],
+        [
+          "IDN"
+        ],
+        [
+          "IND"
+        ],
+        [
+          "IRN"
+        ],
+        [
+          "IRQ"
+        ],
+        [
+          "ISR"
+        ],
+        [
+          "ITA"
+        ],
+        [
+          "JAM"
+        ],
+        [
+          "JOR"
+        ],
+        [
+          "KAZ"
+        ],
+        [
+          "KEN"
+        ],
+        [
+          "KGZ"
+        ],
+        [
+          "KHM"
+        ],
+        [
+          "KIR"
+        ],
+        [
+          "KOR"
+        ],
+        [
+          "LAO"
+        ],
+        [
+          "LBN"
+        ],
+        [
+          "LBR"
+        ],
+        [
+          "LBY"
+        ],
+        [
+          "LIE"
+        ],
+        [
+          "LKA"
+        ],
+        [
+          "LTU"
+        ],
+        [
+          "LUX"
+        ],
+        [
+          "LVA"
+        ],
+        [
+          "MAR"
+        ],
+        [
+          "MDA"
+        ],
+        [
+          "MDG"
+        ],
+        [
+          "MEX"
+        ],
+        [
+          "MKD"
+        ],
+        [
+          "MLI"
+        ],
+        [
+          "MMR"
+        ],
+        [
+          "MNG"
+        ],
+        [
+          "MOZ"
+        ],
+        [
+          "MRT"
+        ],
+        [
+          "MTQ"
+        ],
+        [
+          "MUS"
+        ],
+        [
+          "MWI"
+        ],
+        [
+          "MYT"
+        ],
+        [
+          "NAM"
+        ],
+        [
+          "NCL"
+        ],
+        [
+          "NER"
+        ],
+        [
+          "NGA"
+        ],
+        [
+          "NIC"
+        ],
+        [
+          "NLD"
+        ],
+        [
+          "NPL"
+        ],
+        [
+          "OMN"
+        ],
+        [
+          "PAK"
+        ],
+        [
+          "PAN"
+        ],
+        [
+          "PCN"
+        ],
+        [
+          "PER"
+        ],
+        [
+          "PHL"
+        ],
+        [
+          "PNG"
+        ],
+        [
+          "POL"
+        ],
+        [
+          "PRK"
+        ],
+        [
+          "PRT"
+        ],
+        [
+          "PRY"
+        ],
+        [
+          "PSE"
+        ],
+        [
+          "PYF"
+        ],
+        [
+          "QAT"
+        ],
+        [
+          "REU"
+        ],
+        [
+          "ROM"
+        ],
+        [
+          "RUS"
+        ],
+        [
+          "RWA"
+        ],
+        [
+          "SAU"
+        ],
+        [
+          "SDN"
+        ],
+        [
+          "SEN"
+        ],
+        [
+          "SGP"
+        ],
+        [
+          "SJM"
+        ],
+        [
+          "SLB"
+        ],
+        [
+          "SLE"
+        ],
+        [
+          "SLV"
+        ],
+        [
+          "SMR"
+        ],
+        [
+          "SOM"
+        ],
+        [
+          "SPM"
+        ],
+        [
+          "STP"
+        ],
+        [
+          "SUR"
+        ],
+        [
+          "SVK"
+        ],
+        [
+          "SVN"
+        ],
+        [
+          "SWE"
+        ],
+        [
+          "SWZ"
+        ],
+        [
+          "SYR"
+        ],
+        [
+          "TCD"
+        ],
+        [
+          "TGO"
+        ],
+        [
+          "THA"
+        ],
+        [
+          "TJK"
+        ],
+        [
+          "TKM"
+        ],
+        [
+          "TMP"
+        ],
+        [
+          "TUN"
+        ],
+        [
+          "TUR"
+        ],
+        [
+          "TWN"
+        ],
+        [
+          "TZA"
+        ],
+        [
+          "UGA"
+        ],
+        [
+          "UKR"
+        ],
+        [
+          "URY"
+        ],
+        [
+          "UZB"
+        ],
+        [
+          "VAT"
+        ],
+        [
+          "VEN"
+        ],
+        [
+          "VNM"
+        ],
+        [
+          "WLF"
+        ],
+        [
+          "YEM"
+        ],
+        [
+          "YUG"
+        ],
+        [
+          "ZMB"
+        ]
+      ],
+      "error": null,
+      "latency_seconds": 0.597,
+      "finish_reason": "stop",
+      "prompt_tokens": 385,
+      "completion_tokens": 14,
+      "total_tokens": 399
+    },
+    {
+      "id": "spider_dev_0755",
+      "source_index": 755,
+      "db_id": "world_1",
+      "question": "Which countries have either English or Dutch as an official language?",
+      "generated_sql": "SELECT DISTINCT c.Name FROM country c JOIN countrylanguage cl ON c.Code = cl.CountryCode WHERE cl.IsOfficial = 'T' AND (cl.Language = 'English' OR cl.Language = 'Dutch')",
+      "gold_sql": "SELECT * FROM country AS T1 JOIN countrylanguage AS T2 ON T1.Code  =  T2.CountryCode WHERE T2.Language  =  \"English\" AND IsOfficial  =  \"T\" UNION SELECT * FROM country AS T1 JOIN countrylanguage AS T2 ON T1.Code  =  T2.CountryCode WHERE T2.Language  =  \"Dutch\" AND IsOfficial  =  \"T\"",
+      "gold_order_matters": false,
+      "execution_success": true,
+      "preliminary_is_correct": false,
+      "predicted_columns": [
+        "Name"
+      ],
+      "predicted_rows": [
+        [
+          "Aruba"
+        ],
+        [
+          "Anguilla"
+        ],
+        [
+          "Netherlands Antilles"
+        ],
+        [
+          "American Samoa"
+        ],
+        [
+          "Antigua and Barbuda"
+        ],
+        [
+          "Australia"
+        ],
+        [
+          "Belgium"
+        ],
+        [
+          "Belize"
+        ],
+        [
+          "Bermuda"
+        ],
+        [
+          "Barbados"
+        ],
+        [
+          "Canada"
+        ],
+        [
+          "Cocos (Keeling) Islands"
+        ],
+        [
+          "Christmas Island"
+        ],
+        [
+          "Cayman Islands"
+        ],
+        [
+          "Falkland Islands"
+        ],
+        [
+          "United Kingdom"
+        ],
+        [
+          "Gibraltar"
+        ],
+        [
+          "Guam"
+        ],
+        [
+          "Hong Kong"
+        ],
+        [
+          "Ireland"
+        ],
+        [
+          "Saint Kitts and Nevis"
+        ],
+        [
+          "Saint Lucia"
+        ],
+        [
+          "Lesotho"
+        ],
+        [
+          "Marshall Islands"
+        ],
+        [
+          "Malta"
+        ],
+        [
+          "Northern Mariana Islands"
+        ],
+        [
+          "Montserrat"
+        ],
+        [
+          "Norfolk Island"
+        ],
+        [
+          "Niue"
+        ],
+        [
+          "Netherlands"
+        ],
+        [
+          "Nauru"
+        ],
+        [
+          "New Zealand"
+        ],
+        [
+          "Palau"
+        ],
+        [
+          "Saint Helena"
+        ],
+        [
+          "Seychelles"
+        ],
+        [
+          "Turks and Caicos Islands"
+        ],
+        [
+          "Tokelau"
+        ],
+        [
+          "Tonga"
+        ],
+        [
+          "Tuvalu"
+        ],
+        [
+          "United States Minor Outlying Islands"
+        ],
+        [
+          "United States"
+        ],
+        [
+          "Saint Vincent and the Grenadines"
+        ],
+        [
+          "Virgin Islands, British"
+        ],
+        [
+          "Virgin Islands, U.S."
+        ],
+        [
+          "Vanuatu"
+        ],
+        [
+          "Samoa"
+        ],
+        [
+          "South Africa"
+        ],
+        [
+          "Zimbabwe"
+        ]
+      ],
+      "gold_columns": [
+        "Code",
+        "Name",
+        "Continent",
+        "Region",
+        "SurfaceArea",
+        "IndepYear",
+        "Population",
+        "LifeExpectancy",
+        "GNP",
+        "GNPOld",
+        "LocalName",
+        "GovernmentForm",
+        "HeadOfState",
+        "Capital",
+        "Code2",
+        "CountryCode",
+        "Language",
+        "IsOfficial",
+        "Percentage"
+      ],
+      "gold_rows": [
+        [
+          "ABW",
+          "Aruba",
+          "North America",
+          "Caribbean",
+          193.0,
+          null,
+          103000,
+          78.4,
+          828.0,
+          793.0,
+          "Aruba",
+          "Nonmetropolitan Territory of The Netherlands",
+          "Beatrix",
+          129,
+          "AW",
+          "ABW",
+          "Dutch",
+          "T",
+          5.3
+        ],
+        [
+          "AIA",
+          "Anguilla",
+          "North America",
+          "Caribbean",
+          96.0,
+          null,
+          8000,
+          76.1,
+          63.2,
+          null,
+          "Anguilla",
+          "Dependent Territory of the UK",
+          "Elisabeth II",
+          62,
+          "AI",
+          "AIA",
+          "English",
+          "T",
+          0.0
+        ],
+        [
+          "ANT",
+          "Netherlands Antilles",
+          "North America",
+          "Caribbean",
+          800.0,
+          null,
+          217000,
+          74.7,
+          1941.0,
+          null,
+          "Nederlandse Antillen",
+          "Nonmetropolitan Territory of The Netherlands",
+          "Beatrix",
+          33,
+          "AN",
+          "ANT",
+          "Dutch",
+          "T",
+          0.0
+        ],
+        [
+          "ASM",
+          "American Samoa",
+          "Oceania",
+          "Polynesia",
+          199.0,
+          null,
+          68000,
+          75.1,
+          334.0,
+          null,
+          "Amerika Samoa",
+          "US Territory",
+          "George W. Bush",
+          54,
+          "AS",
+          "ASM",
+          "English",
+          "T",
+          3.1
+        ],
+        [
+          "ATG",
+          "Antigua and Barbuda",
+          "North America",
+          "Caribbean",
+          442.0,
+          1981,
+          68000,
+          70.5,
+          612.0,
+          584.0,
+          "Antigua and Barbuda",
+          "Constitutional Monarchy",
+          "Elisabeth II",
+          63,
+          "AG",
+          "ATG",
+          "English",
+          "T",
+          0.0
+        ],
+        [
+          "AUS",
+          "Australia",
+          "Oceania",
+          "Australia and New Zealand",
+          7741220.0,
+          1901,
+          18886000,
+          79.8,
+          351182.0,
+          392911.0,
+          "Australia",
+          "Constitutional Monarchy, Federation",
+          "Elisabeth II",
+          135,
+          "AU",
+          "AUS",
+          "English",
+          "T",
+          81.2
+        ],
+        [
+          "BEL",
+          "Belgium",
+          "Europe",
+          "Western Europe",
+          30518.0,
+          1830,
+          10239000,
+          77.8,
+          249704.0,
+          243948.0,
+          "België/Belgique",
+          "Constitutional Monarchy, Federation",
+          "Albert II",
+          179,
+          "BE",
+          "BEL",
+          "Dutch",
+          "T",
+          59.2
+        ],
+        [
+          "BLZ",
+          "Belize",
+          "North America",
+          "Central America",
+          22696.0,
+          1981,
+          241000,
+          70.9,
+          630.0,
+          616.0,
+          "Belize",
+          "Constitutional Monarchy",
+          "Elisabeth II",
+          185,
+          "BZ",
+          "BLZ",
+          "English",
+          "T",
+          50.8
+        ],
+        [
+          "BMU",
+          "Bermuda",
+          "North America",
+          "North America",
+          53.0,
+          null,
+          65000,
+          76.9,
+          2328.0,
+          2190.0,
+          "Bermuda",
+          "Dependent Territory of the UK",
+          "Elisabeth II",
+          191,
+          "BM",
+          "BMU",
+          "English",
+          "T",
+          100.0
+        ],
+        [
+          "BRB",
+          "Barbados",
+          "North America",
+          "Caribbean",
+          430.0,
+          1966,
+          270000,
+          73.0,
+          2223.0,
+          2186.0,
+          "Barbados",
+          "Constitutional Monarchy",
+          "Elisabeth II",
+          174,
+          "BB",
+          "BRB",
+          "English",
+          "T",
+          0.0
+        ],
+        [
+          "CAN",
+          "Canada",
+          "North America",
+          "North America",
+          9970610.0,
+          1867,
+          31147000,
+          79.4,
+          598862.0,
+          625626.0,
+          "Canada",
+          "Constitutional Monarchy, Federation",
+          "Elisabeth II",
+          1822,
+          "CA",
+          "CAN",
+          "English",
+          "T",
+          60.4
+        ],
+        [
+          "CCK",
+          "Cocos (Keeling) Islands",
+          "Oceania",
+          "Australia and New Zealand",
+          14.0,
+          null,
+          600,
+          null,
+          0.0,
+          null,
+          "Cocos (Keeling) Islands",
+          "Territory of Australia",
+          "Elisabeth II",
+          2317,
+          "CC",
+          "CCK",
+          "English",
+          "T",
+          0.0
+        ],
+        [
+          "CXR",
+          "Christmas Island",
+          "Oceania",
+          "Australia and New Zealand",
+          135.0,
+          null,
+          2500,
+          null,
+          0.0,
+          null,
+          "Christmas Island",
+          "Territory of Australia",
+          "Elisabeth II",
+          1791,
+          "CX",
+          "CXR",
+          "English",
+          "T",
+          0.0
+        ],
+        [
+          "CYM",
+          "Cayman Islands",
+          "North America",
+          "Caribbean",
+          264.0,
+          null,
+          38000,
+          78.9,
+          1263.0,
+          1186.0,
+          "Cayman Islands",
+          "Dependent Territory of the UK",
+          "Elisabeth II",
+          553,
+          "KY",
+          "CYM",
+          "English",
+          "T",
+          0.0
+        ],
+        [
+          "FLK",
+          "Falkland Islands",
+          "South America",
+          "South America",
+          12173.0,
+          null,
+          2000,
+          null,
+          0.0,
+          null,
+          "Falkland Islands",
+          "Dependent Territory of the UK",
+          "Elisabeth II",
+          763,
+          "FK",
+          "FLK",
+          "English",
+          "T",
+          0.0
+        ],
+        [
+          "GBR",
+          "United Kingdom",
+          "Europe",
+          "British Islands",
+          242900.0,
+          1066,
+          59623400,
+          77.7,
+          1378330.0,
+          1296830.0,
+          "United Kingdom",
+          "Constitutional Monarchy",
+          "Elisabeth II",
+          456,
+          "GB",
+          "GBR",
+          "English",
+          "T",
+          97.3
+        ],
+        [
+          "GIB",
+          "Gibraltar",
+          "Europe",
+          "Southern Europe",
+          6.0,
+          null,
+          25000,
+          79.0,
+          258.0,
+          null,
+          "Gibraltar",
+          "Dependent Territory of the UK",
+          "Elisabeth II",
+          915,
+          "GI",
+          "GIB",
+          "English",
+          "T",
+          88.9
+        ],
+        [
+          "GUM",
+          "Guam",
+          "Oceania",
+          "Micronesia",
+          549.0,
+          null,
+          168000,
+          77.8,
+          1197.0,
+          1136.0,
+          "Guam",
+          "US Territory",
+          "George W. Bush",
+          921,
+          "GU",
+          "GUM",
+          "English",
+          "T",
+          37.5
+        ],
+        [
+          "HKG",
+          "Hong Kong",
+          "Asia",
+          "Eastern Asia",
+          1075.0,
+          null,
+          6782000,
+          79.5,
+          166448.0,
+          173610.0,
+          "Xianggang/Hong Kong",
+          "Special Administrative Region of China",
+          "Jiang Zemin",
+          937,
+          "HK",
+          "HKG",
+          "English",
+          "T",
+          2.2
+        ],
+        [
+          "IRL",
+          "Ireland",
+          "Europe",
+          "British Islands",
+          70273.0,
+          1921,
+          3775100,
+          76.8,
+          75921.0,
+          73132.0,
+          "Ireland/Éire",
+          "Republic",
+          "Mary McAleese",
+          1447,
+          "IE",
+          "IRL",
+          "English",
+          "T",
+          98.4
+        ],
+        [
+          "KNA",
+          "Saint Kitts and Nevis",
+          "North America",
+          "Caribbean",
+          261.0,
+          1983,
+          38000,
+          70.7,
+          299.0,
+          null,
+          "Saint Kitts and Nevis",
+          "Constitutional Monarchy",
+          "Elisabeth II",
+          3064,
+          "KN",
+          "KNA",
+          "English",
+          "T",
+          0.0
+        ],
+        [
+          "LCA",
+          "Saint Lucia",
+          "North America",
+          "Caribbean",
+          622.0,
+          1979,
+          154000,
+          72.3,
+          571.0,
+          null,
+          "Saint Lucia",
+          "Constitutional Monarchy",
+          "Elisabeth II",
+          3065,
+          "LC",
+          "LCA",
+          "English",
+          "T",
+          20.0
+        ],
+        [
+          "LSO",
+          "Lesotho",
+          "Africa",
+          "Southern Africa",
+          30355.0,
+          1966,
+          2153000,
+          50.8,
+          1061.0,
+          1161.0,
+          "Lesotho",
+          "Constitutional Monarchy",
+          "Letsie III",
+          2437,
+          "LS",
+          "LSO",
+          "English",
+          "T",
+          0.0
+        ],
+        [
+          "MHL",
+          "Marshall Islands",
+          "Oceania",
+          "Micronesia",
+          181.0,
+          1990,
+          64000,
+          65.5,
+          97.0,
+          null,
+          "Marshall Islands/Majol",
+          "Republic",
+          "Kessai Note",
+          2507,
+          "MH",
+          "MHL",
+          "English",
+          "T",
+          0.0
+        ],
+        [
+          "MLT",
+          "Malta",
+          "Europe",
+          "Southern Europe",
+          316.0,
+          1964,
+          380200,
+          77.9,
+          3512.0,
+          3338.0,
+          "Malta",
+          "Republic",
+          "Guido de Marco",
+          2484,
+          "MT",
+          "MLT",
+          "English",
+          "T",
+          2.1
+        ],
+        [
+          "MNP",
+          "Northern Mariana Islands",
+          "Oceania",
+          "Micronesia",
+          464.0,
+          null,
+          78000,
+          75.5,
+          0.0,
+          null,
+          "Northern Mariana Islands",
+          "Commonwealth of the US",
+          "George W. Bush",
+          2913,
+          "MP",
+          "MNP",
+          "English",
+          "T",
+          4.8
+        ],
+        [
+          "MSR",
+          "Montserrat",
+          "North America",
+          "Caribbean",
+          102.0,
+          null,
+          11000,
+          78.0,
+          109.0,
+          null,
+          "Montserrat",
+          "Dependent Territory of the UK",
+          "Elisabeth II",
+          2697,
+          "MS",
+          "MSR",
+          "English",
+          "T",
+          0.0
+        ],
+        [
+          "NFK",
+          "Norfolk Island",
+          "Oceania",
+          "Australia and New Zealand",
+          36.0,
+          null,
+          2000,
+          null,
+          0.0,
+          null,
+          "Norfolk Island",
+          "Territory of Australia",
+          "Elisabeth II",
+          2806,
+          "NF",
+          "NFK",
+          "English",
+          "T",
+          0.0
+        ],
+        [
+          "NIU",
+          "Niue",
+          "Oceania",
+          "Polynesia",
+          260.0,
+          null,
+          2000,
+          null,
+          0.0,
+          null,
+          "Niue",
+          "Nonmetropolitan Territory of New Zealand",
+          "Elisabeth II",
+          2805,
+          "NU",
+          "NIU",
+          "English",
+          "T",
+          0.0
+        ],
+        [
+          "NLD",
+          "Netherlands",
+          "Europe",
+          "Western Europe",
+          41526.0,
+          1581,
+          15864000,
+          78.3,
+          371362.0,
+          360478.0,
+          "Nederland",
+          "Constitutional Monarchy",
+          "Beatrix",
+          5,
+          "NL",
+          "NLD",
+          "Dutch",
+          "T",
+          95.6
+        ],
+        [
+          "NRU",
+          "Nauru",
+          "Oceania",
+          "Micronesia",
+          21.0,
+          1968,
+          12000,
+          60.8,
+          197.0,
+          null,
+          "Naoero/Nauru",
+          "Republic",
+          "Bernard Dowiyogo",
+          2728,
+          "NR",
+          "NRU",
+          "English",
+          "T",
+          7.5
+        ],
+        [
+          "NZL",
+          "New Zealand",
+          "Oceania",
+          "Australia and New Zealand",
+          270534.0,
+          1907,
+          3862000,
+          77.8,
+          54669.0,
+          64960.0,
+          "New Zealand/Aotearoa",
+          "Constitutional Monarchy",
+          "Elisabeth II",
+          3499,
+          "NZ",
+          "NZL",
+          "English",
+          "T",
+          87.0
+        ],
+        [
+          "PLW",
+          "Palau",
+          "Oceania",
+          "Micronesia",
+          459.0,
+          1994,
+          19000,
+          68.6,
+          105.0,
+          null,
+          "Belau/Palau",
+          "Republic",
+          "Kuniwo Nakamura",
+          2881,
+          "PW",
+          "PLW",
+          "English",
+          "T",
+          3.2
+        ],
+        [
+          "SHN",
+          "Saint Helena",
+          "Africa",
+          "Western Africa",
+          314.0,
+          null,
+          6000,
+          76.8,
+          0.0,
+          null,
+          "Saint Helena",
+          "Dependent Territory of the UK",
+          "Elisabeth II",
+          3063,
+          "SH",
+          "SHN",
+          "English",
+          "T",
+          0.0
+        ],
+        [
+          "SYC",
+          "Seychelles",
+          "Africa",
+          "Eastern Africa",
+          455.0,
+          1976,
+          77000,
+          70.4,
+          536.0,
+          539.0,
+          "Sesel/Seychelles",
+          "Republic",
+          "France-Albert René",
+          3206,
+          "SC",
+          "SYC",
+          "English",
+          "T",
+          3.8
+        ],
+        [
+          "TCA",
+          "Turks and Caicos Islands",
+          "North America",
+          "Caribbean",
+          430.0,
+          null,
+          17000,
+          73.3,
+          96.0,
+          null,
+          "The Turks and Caicos Islands",
+          "Dependent Territory of the UK",
+          "Elisabeth II",
+          3423,
+          "TC",
+          "TCA",
+          "English",
+          "T",
+          0.0
+        ],
+        [
+          "TKL",
+          "Tokelau",
+          "Oceania",
+          "Polynesia",
+          12.0,
+          null,
+          2000,
+          null,
+          0.0,
+          null,
+          "Tokelau",
+          "Nonmetropolitan Territory of New Zealand",
+          "Elisabeth II",
+          3333,
+          "TK",
+          "TKL",
+          "English",
+          "T",
+          0.0
+        ],
+        [
+          "TON",
+          "Tonga",
+          "Oceania",
+          "Polynesia",
+          650.0,
+          1970,
+          99000,
+          67.9,
+          146.0,
+          170.0,
+          "Tonga",
+          "Monarchy",
+          "Taufa'ahau Tupou IV",
+          3334,
+          "TO",
+          "TON",
+          "English",
+          "T",
+          0.0
+        ],
+        [
+          "TUV",
+          "Tuvalu",
+          "Oceania",
+          "Polynesia",
+          26.0,
+          1978,
+          12000,
+          66.3,
+          6.0,
+          null,
+          "Tuvalu",
+          "Constitutional Monarchy",
+          "Elisabeth II",
+          3424,
+          "TV",
+          "TUV",
+          "English",
+          "T",
+          0.0
+        ],
+        [
+          "UMI",
+          "United States Minor Outlying Islands",
+          "Oceania",
+          "Micronesia/Caribbean",
+          16.0,
+          null,
+          0,
+          null,
+          0.0,
+          null,
+          "United States Minor Outlying Islands",
+          "Dependent Territory of the US",
+          "George W. Bush",
+          null,
+          "UM",
+          "UMI",
+          "English",
+          "T",
+          0.0
+        ],
+        [
+          "USA",
+          "United States",
+          "North America",
+          "North America",
+          9363520.0,
+          1776,
+          278357000,
+          77.1,
+          8510700.0,
+          8110900.0,
+          "United States",
+          "Federal Republic",
+          "George W. Bush",
+          3813,
+          "US",
+          "USA",
+          "English",
+          "T",
+          86.2
+        ],
+        [
+          "VCT",
+          "Saint Vincent and the Grenadines",
+          "North America",
+          "Caribbean",
+          388.0,
+          1979,
+          114000,
+          72.3,
+          285.0,
+          null,
+          "Saint Vincent and the Grenadines",
+          "Constitutional Monarchy",
+          "Elisabeth II",
+          3066,
+          "VC",
+          "VCT",
+          "English",
+          "T",
+          0.0
+        ],
+        [
+          "VGB",
+          "Virgin Islands, British",
+          "North America",
+          "Caribbean",
+          151.0,
+          null,
+          21000,
+          75.4,
+          612.0,
+          573.0,
+          "British Virgin Islands",
+          "Dependent Territory of the UK",
+          "Elisabeth II",
+          537,
+          "VG",
+          "VGB",
+          "English",
+          "T",
+          0.0
+        ],
+        [
+          "VIR",
+          "Virgin Islands, U.S.",
+          "North America",
+          "Caribbean",
+          347.0,
+          null,
+          93000,
+          78.1,
+          0.0,
+          null,
+          "Virgin Islands of the United States",
+          "US Territory",
+          "George W. Bush",
+          4067,
+          "VI",
+          "VIR",
+          "English",
+          "T",
+          81.7
+        ],
+        [
+          "VUT",
+          "Vanuatu",
+          "Oceania",
+          "Melanesia",
+          12189.0,
+          1980,
+          190000,
+          60.6,
+          261.0,
+          246.0,
+          "Vanuatu",
+          "Republic",
+          "John Bani",
+          3537,
+          "VU",
+          "VUT",
+          "English",
+          "T",
+          28.3
+        ],
+        [
+          "WSM",
+          "Samoa",
+          "Oceania",
+          "Polynesia",
+          2831.0,
+          1962,
+          180000,
+          69.2,
+          141.0,
+          157.0,
+          "Samoa",
+          "Parlementary Monarchy",
+          "Malietoa Tanumafili II",
+          3169,
+          "WS",
+          "WSM",
+          "English",
+          "T",
+          0.6
+        ],
+        [
+          "ZAF",
+          "South Africa",
+          "Africa",
+          "Southern Africa",
+          1221037.0,
+          1910,
+          40377000,
+          51.1,
+          116729.0,
+          129092.0,
+          "South Africa",
+          "Republic",
+          "Thabo Mbeki",
+          716,
+          "ZA",
+          "ZAF",
+          "English",
+          "T",
+          8.5
+        ],
+        [
+          "ZWE",
+          "Zimbabwe",
+          "Africa",
+          "Eastern Africa",
+          390757.0,
+          1980,
+          11669000,
+          37.8,
+          5951.0,
+          8670.0,
+          "Zimbabwe",
+          "Republic",
+          "Robert G. Mugabe",
+          4068,
+          "ZW",
+          "ZWE",
+          "English",
+          "T",
+          2.2
+        ]
+      ],
+      "error": null,
+      "latency_seconds": 2.222,
+      "finish_reason": "stop",
+      "prompt_tokens": 384,
+      "completion_tokens": 43,
+      "total_tokens": 427
+    }
+  ],
+  "summary": {
+    "dataset_size": 20,
+    "completed": 20,
+    "execution_success_count": 20,
+    "preliminary_correct_count": 16,
+    "execution_success_rate": 1.0,
+    "preliminary_execution_accuracy": 0.8,
+    "average_latency_seconds": 1.838,
+    "total_tokens": 5913
+  }
+}

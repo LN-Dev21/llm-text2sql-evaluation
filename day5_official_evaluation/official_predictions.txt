@@ -1,0 +1,20 @@
+SELECT COUNT(*) FROM singer;
+SELECT Name, Country FROM singer WHERE Song_Name LIKE '%Hey%'
+SELECT Song_Name, Song_release_year FROM singer WHERE Age = (SELECT MIN(Age) FROM singer);
+SELECT c.concert_Name, c.Theme, COUNT(sic.Singer_ID) AS number_of_singers FROM concert c LEFT JOIN singer_in_concert sic ON c.concert_ID = sic.concert_ID GROUP BY c.concert_ID, c.concert_Name, c.Theme;
+SELECT s.Name, s.Location FROM stadium s JOIN concert c ON s.Stadium_ID = c.Stadium_ID WHERE c.Year = '2014' OR c.Year = '2015' GROUP BY s.Stadium_ID HAVING COUNT(DISTINCT c.Year) = 2;
+SELECT COUNT(*) FROM Pets WHERE weight > 10;
+SELECT PetType, MAX(weight) FROM Pets GROUP BY PetType;
+SELECT Fname, Age FROM Student WHERE StuID IN (SELECT StuID FROM Has_Pet);
+SELECT Student.Major, Student.Age FROM Student WHERE Student.StuID NOT IN (SELECT Has_Pet.StuID FROM Has_Pet JOIN Pets ON Has_Pet.PetID = Pets.PetID WHERE Pets.PetType = 'cat');
+SELECT S.Fname FROM Student S JOIN Has_Pet HP1 ON S.StuID = HP1.StuID JOIN Pets P1 ON HP1.PetID = P1.PetID JOIN Has_Pet HP2 ON S.StuID = HP2.StuID JOIN Pets P2 ON HP2.PetID = P2.PetID WHERE P1.PetType = 'cat' AND P2.PetType = 'dog' AND HP1.PetID <> HP2.PetID;
+SELECT COUNT(*) FROM teacher;
+SELECT Name FROM teacher WHERE Age = '32' OR Age = '33';
+SELECT Hometown, COUNT(*) as NumberOfTeachers FROM teacher GROUP BY Hometown;
+SELECT t.Name, c.Course FROM teacher t JOIN course_arrange ca ON t.Teacher_ID = ca.Teacher_ID JOIN course c ON ca.Course_ID = c.Course_ID;
+SELECT t.Name FROM teacher t JOIN course_arrange ca ON t.Teacher_ID = ca.Teacher_ID GROUP BY t.Teacher_ID HAVING COUNT(ca.Course_ID) >= 2;
+SELECT Name FROM country WHERE IndepYear > 1950;
+SELECT Continent, SUM(SurfaceArea) AS TotalSurfaceArea FROM country WHERE Continent IN ('Asia', 'Europe') GROUP BY Continent;
+SELECT Name, SurfaceArea FROM country ORDER BY SurfaceArea DESC LIMIT 5;
+SELECT DISTINCT CountryCode FROM countrylanguage WHERE Language != 'English';
+SELECT DISTINCT c.Name FROM country c JOIN countrylanguage cl ON c.Code = cl.CountryCode WHERE cl.IsOfficial = 'T' AND (cl.Language = 'English' OR cl.Language = 'Dutch')

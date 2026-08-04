@@ -1,0 +1,19 @@
+{
+  "evaluator_repository": "https://github.com/taoyds/test-suite-sql-eval",
+  "evaluator_file": "D:\\SystemDir\\Desktop\\Research project\\Text-to-SQL System\\third_party\\test-suite-sql-eval\\evaluation.py",
+  "database_root": "D:\\SystemDir\\Desktop\\Research project\\Text-to-SQL System\\data\\test_suite_databases\\database",
+  "database_instance_counts": {
+    "concert_singer": 32,
+    "course_teach": 25,
+    "pets_1": 27,
+    "world_1": 46
+  },
+  "uses_multiple_test_databases": true,
+  "keep_distinct": false,
+  "metric_label": "Spider Test Suite Accuracy",
+  "case_count": 20,
+  "gold_file": "D:\\SystemDir\\Desktop\\Research project\\Text-to-SQL System\\day5_official_evaluation\\official_gold.txt",
+  "prediction_file": "D:\\SystemDir\\Desktop\\Research project\\Text-to-SQL System\\day5_official_evaluation\\official_predictions.txt",
+  "output_file": "D:\\SystemDir\\Desktop\\Research project\\Text-to-SQL System\\day5_official_evaluation\\official_test_suite_output.txt",
+  "return_code": 0
+}

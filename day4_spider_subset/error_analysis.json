@@ -1,0 +1,211 @@
+{
+  "input_file": "D:\\SystemDir\\Desktop\\Research project\\Text-to-SQL System\\day4_spider_subset\\spider_baseline_results.json",
+  "case_count": 20,
+  "strict_correct_count": 16,
+  "strict_accuracy": 0.8,
+  "column_permutation_aware_correct_count": 17,
+  "column_permutation_aware_single_database_accuracy": 0.85,
+  "important_note": "Column-permutation-aware comparison follows a key behavior of the official execution evaluator, but this still runs only the original SQLite database and is not official Test Suite Accuracy.",
+  "cases": [
+    {
+      "id": "spider_dev_0000",
+      "db_id": "concert_singer",
+      "question": "How many singers do we have?",
+      "generated_sql": "SELECT COUNT(*) FROM singer;",
+      "gold_sql": "SELECT count(*) FROM singer",
+      "strict_result_match": true,
+      "column_permutation_aware_match": true,
+      "category": "strict_result_match"
+    },
+    {
+      "id": "spider_dev_0039",
+      "db_id": "concert_singer",
+      "question": "what is the name and nation of the singer who have a song having 'Hey' in its name?",
+      "generated_sql": "SELECT Name, Country FROM singer WHERE Song_Name LIKE '%Hey%'",
+      "gold_sql": "SELECT name ,  country FROM singer WHERE song_name LIKE '%Hey%'",
+      "strict_result_match": true,
+      "column_permutation_aware_match": true,
+      "category": "strict_result_match"
+    },
+    {
+      "id": "spider_dev_0006",
+      "db_id": "concert_singer",
+      "question": "Show the name and the release year of the song by the youngest singer.",
+      "generated_sql": "SELECT Song_Name, Song_release_year FROM singer WHERE Age = (SELECT MIN(Age) FROM singer);",
+      "gold_sql": "SELECT song_name ,  song_release_year FROM singer ORDER BY age LIMIT 1",
+      "strict_result_match": true,
+      "column_permutation_aware_match": true,
+      "category": "strict_result_match"
+    },
+    {
+      "id": "spider_dev_0033",
+      "db_id": "concert_singer",
+      "question": "Show the name and theme for all concerts and the number of singers in each concert.",
+      "generated_sql": "SELECT c.concert_Name, c.Theme, COUNT(sic.Singer_ID) AS number_of_singers FROM concert c LEFT JOIN singer_in_concert sic ON c.concert_ID = sic.concert_ID GROUP BY c.concert_ID, c.concert_Name, c.Theme;",
+      "gold_sql": "SELECT T2.concert_name ,  T2.theme ,  count(*) FROM singer_in_concert AS T1 JOIN concert AS T2 ON T1.concert_id  =  T2.concert_id GROUP BY T2.concert_id",
+      "strict_result_match": true,
+      "column_permutation_aware_match": true,
+      "category": "strict_result_match"
+    },
+    {
+      "id": "spider_dev_0041",
+      "db_id": "concert_singer",
+      "question": "Find the name and location of the stadiums which some concerts happened in the years of both 2014 and 2015.",
+      "generated_sql": "SELECT s.Name, s.Location FROM stadium s JOIN concert c ON s.Stadium_ID = c.Stadium_ID WHERE c.Year = '2014' OR c.Year = '2015' GROUP BY s.Stadium_ID HAVING COUNT(DISTINCT c.Year) = 2;",
+      "gold_sql": "SELECT T2.name ,  T2.location FROM concert AS T1 JOIN stadium AS T2 ON T1.stadium_id  =  T2.stadium_id WHERE T1.Year  =  2014 INTERSECT SELECT T2.name ,  T2.location FROM concert AS T1 JOIN stadium AS T2 ON T1.stadium_id  =  T2.stadium_id WHERE T1.Year  =  2015",
+      "strict_result_match": true,
+      "column_permutation_aware_match": true,
+      "category": "strict_result_match"
+    },
+    {
+      "id": "spider_dev_0045",
+      "db_id": "pets_1",
+      "question": "Find the number of pets whose weight is heavier than 10.",
+      "generated_sql": "SELECT COUNT(*) FROM Pets WHERE weight > 10;",
+      "gold_sql": "SELECT count(*) FROM pets WHERE weight  >  10",
+      "strict_result_match": true,
+      "column_permutation_aware_match": true,
+      "category": "strict_result_match"
+    },
+    {
+      "id": "spider_dev_0049",
+      "db_id": "pets_1",
+      "question": "Find the maximum weight for each type of pet. List the maximum weight and pet type.",
+      "generated_sql": "SELECT PetType, MAX(weight) FROM Pets GROUP BY PetType;",
+      "gold_sql": "SELECT max(weight) ,  petType FROM pets GROUP BY petType",
+      "strict_result_match": false,
+      "column_permutation_aware_match": true,
+      "category": "column_permutation_equivalent"
+    },
+    {
+      "id": "spider_dev_0075",
+      "db_id": "pets_1",
+      "question": "Find the first name and age of students who have a pet.",
+      "generated_sql": "SELECT Fname, Age FROM Student WHERE StuID IN (SELECT StuID FROM Has_Pet);",
+      "gold_sql": "SELECT DISTINCT T1.fname ,  T1.age FROM student AS T1 JOIN has_pet AS T2 ON T1.stuid  =  T2.stuid",
+      "strict_result_match": true,
+      "column_permutation_aware_match": true,
+      "category": "strict_result_match"
+    },
+    {
+      "id": "spider_dev_0061",
+      "db_id": "pets_1",
+      "question": "Find the major and age of students who do not have a cat pet.",
+      "generated_sql": "SELECT Student.Major, Student.Age FROM Student WHERE Student.StuID NOT IN (SELECT Has_Pet.StuID FROM Has_Pet JOIN Pets ON Has_Pet.PetID = Pets.PetID WHERE Pets.PetType = 'cat');",
+      "gold_sql": "SELECT major ,  age FROM student WHERE stuid NOT IN (SELECT T1.stuid FROM student AS T1 JOIN has_pet AS T2 ON T1.stuid  =  T2.stuid JOIN pets AS T3 ON T3.petid  =  T2.petid WHERE T3.pettype  =  'cat')",
+      "strict_result_match": true,
+      "column_permutation_aware_match": true,
+      "category": "strict_result_match"
+    },
+    {
+      "id": "spider_dev_0059",
+      "db_id": "pets_1",
+      "question": "Find the first name of students who have both cat and dog pets .",
+      "generated_sql": "SELECT S.Fname FROM Student S JOIN Has_Pet HP1 ON S.StuID = HP1.StuID JOIN Pets P1 ON HP1.PetID = P1.PetID JOIN Has_Pet HP2 ON S.StuID = HP2.StuID JOIN Pets P2 ON HP2.PetID = P2.PetID WHERE P1.PetType = 'cat' AND P2.PetType = 'dog' AND HP1.PetID <> HP2.PetID;",
+      "gold_sql": "select t1.fname from student as t1 join has_pet as t2 on t1.stuid  =  t2.stuid join pets as t3 on t3.petid  =  t2.petid where t3.pettype  =  'cat' intersect select t1.fname from student as t1 join has_pet as t2 on t1.stuid  =  t2.stuid join pets as t3 on t3.petid  =  t2.petid where t3.pettype  =  'dog'",
+      "strict_result_match": true,
+      "column_permutation_aware_match": true,
+      "category": "strict_result_match"
+    },
+    {
+      "id": "spider_dev_0381",
+      "db_id": "course_teach",
+      "question": "How many teachers are there?",
+      "generated_sql": "SELECT COUNT(*) FROM teacher;",
+      "gold_sql": "SELECT count(*) FROM teacher",
+      "strict_result_match": true,
+      "column_permutation_aware_match": true,
+      "category": "strict_result_match"
+    },
+    {
+      "id": "spider_dev_0389",
+      "db_id": "course_teach",
+      "question": "Show the name of teachers aged either 32 or 33?",
+      "generated_sql": "SELECT Name FROM teacher WHERE Age = '32' OR Age = '33';",
+      "gold_sql": "SELECT Name FROM teacher WHERE Age  =  32 OR Age  =  33",
+      "strict_result_match": true,
+      "column_permutation_aware_match": true,
+      "category": "strict_result_match"
+    },
+    {
+      "id": "spider_dev_0393",
+      "db_id": "course_teach",
+      "question": "Show different hometown of teachers and the number of teachers from each hometown.",
+      "generated_sql": "SELECT Hometown, COUNT(*) as NumberOfTeachers FROM teacher GROUP BY Hometown;",
+      "gold_sql": "SELECT Hometown ,  COUNT(*) FROM teacher GROUP BY Hometown",
+      "strict_result_match": true,
+      "column_permutation_aware_match": true,
+      "category": "strict_result_match"
+    },
+    {
+      "id": "spider_dev_0399",
+      "db_id": "course_teach",
+      "question": "Show names of teachers and the courses they are arranged to teach.",
+      "generated_sql": "SELECT t.Name, c.Course FROM teacher t JOIN course_arrange ca ON t.Teacher_ID = ca.Teacher_ID JOIN course c ON ca.Course_ID = c.Course_ID;",
+      "gold_sql": "SELECT T3.Name ,  T2.Course FROM course_arrange AS T1 JOIN course AS T2 ON T1.Course_ID  =  T2.Course_ID JOIN teacher AS T3 ON T1.Teacher_ID  =  T3.Teacher_ID",
+      "strict_result_match": true,
+      "column_permutation_aware_match": true,
+      "category": "strict_result_match"
+    },
+    {
+      "id": "spider_dev_0407",
+      "db_id": "course_teach",
+      "question": "Show names of teachers that teach at least two courses.",
+      "generated_sql": "SELECT t.Name FROM teacher t JOIN course_arrange ca ON t.Teacher_ID = ca.Teacher_ID GROUP BY t.Teacher_ID HAVING COUNT(ca.Course_ID) >= 2;",
+      "gold_sql": "SELECT T2.Name FROM course_arrange AS T1 JOIN teacher AS T2 ON T1.Teacher_ID  =  T2.Teacher_ID GROUP BY T2.Name HAVING COUNT(*)  >=  2",
+      "strict_result_match": true,
+      "column_permutation_aware_match": true,
+      "category": "strict_result_match"
+    },
+    {
+      "id": "spider_dev_0702",
+      "db_id": "world_1",
+      "question": "What are the names of all the countries that became independent after 1950?",
+      "generated_sql": "SELECT Name FROM country WHERE IndepYear > 1950;",
+      "gold_sql": "SELECT Name FROM country WHERE IndepYear  >  1950",
+      "strict_result_match": true,
+      "column_permutation_aware_match": true,
+      "category": "strict_result_match"
+    },
+    {
+      "id": "spider_dev_0726",
+      "db_id": "world_1",
+      "question": "What is the total surface area of the continents Asia and Europe?",
+      "generated_sql": "SELECT Continent, SUM(SurfaceArea) AS TotalSurfaceArea FROM country WHERE Continent IN ('Asia', 'Europe') GROUP BY Continent;",
+      "gold_sql": "SELECT sum(SurfaceArea) FROM country WHERE Continent  =  \"Asia\" OR Continent  =  \"Europe\"",
+      "strict_result_match": false,
+      "column_permutation_aware_match": false,
+      "category": "row_count_mismatch"
+    },
+    {
+      "id": "spider_dev_0800",
+      "db_id": "world_1",
+      "question": "What are the names and areas of countries with the top 5 largest area?",
+      "generated_sql": "SELECT Name, SurfaceArea FROM country ORDER BY SurfaceArea DESC LIMIT 5;",
+      "gold_sql": "SELECT Name ,  SurfaceArea FROM country ORDER BY SurfaceArea DESC LIMIT 5",
+      "strict_result_match": true,
+      "column_permutation_aware_match": true,
+      "category": "strict_result_match"
+    },
+    {
+      "id": "spider_dev_0778",
+      "db_id": "world_1",
+      "question": "What are the country codes for countries that do not speak English?",
+      "generated_sql": "SELECT DISTINCT CountryCode FROM countrylanguage WHERE Language != 'English';",
+      "gold_sql": "SELECT CountryCode FROM countrylanguage EXCEPT SELECT CountryCode FROM countrylanguage WHERE LANGUAGE  =  \"English\"",
+      "strict_result_match": false,
+      "column_permutation_aware_match": false,
+      "category": "row_count_mismatch"
+    },
+    {
+      "id": "spider_dev_0755",
+      "db_id": "world_1",
+      "question": "Which countries have either English or Dutch as an official language?",
+      "generated_sql": "SELECT DISTINCT c.Name FROM country c JOIN countrylanguage cl ON c.Code = cl.CountryCode WHERE cl.IsOfficial = 'T' AND (cl.Language = 'English' OR cl.Language = 'Dutch')",
+      "gold_sql": "SELECT * FROM country AS T1 JOIN countrylanguage AS T2 ON T1.Code  =  T2.CountryCode WHERE T2.Language  =  \"English\" AND IsOfficial  =  \"T\" UNION SELECT * FROM country AS T1 JOIN countrylanguage AS T2 ON T1.Code  =  T2.CountryCode WHERE T2.Language  =  \"Dutch\" AND IsOfficial  =  \"T\"",
+      "strict_result_match": false,
+      "column_permutation_aware_match": false,
+      "category": "column_count_mismatch"
+    }
+  ]
+}

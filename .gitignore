@@ -1,31 +1,33 @@
-# Python虚拟环境
+# Python virtual environments
 .venv/
 **/.venv/
 
-# Python缓存
+# Python caches
 __pycache__/
 **/__pycache__/
 *.py[cod]
 
-# 密钥和环境变量
+# Secrets and environment files
 .env
 .env.*
 !.env.example
 
-# IDE配置
+# IDE settings
 .idea/
 .vscode/
 
-# 可由代码重新生成的SQLite数据库
+# Generated SQLite files in local demos
 *.db
 *.sqlite
 *.sqlite3
 
-# Word临时锁文件
+# External datasets and third-party evaluation repositories
+/data/
+/third_party/
+
+# Local documents and operating-system files
 ~$*.docx
-
-# 系统文件
-.DS_Store
-
-
 /llm-text2sql-evaluation.docx
+.DS_Store
+Thumbs.db
+
