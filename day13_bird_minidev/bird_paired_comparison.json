@@ -1,0 +1,30 @@
+{
+  "dataset": "BIRD Mini-Dev SQLite",
+  "case_count": 500,
+  "metric_status": "local preliminary comparison; official EX follows",
+  "full_schema": {
+    "execution_success_count": 409,
+    "preliminary_correct_count": 201,
+    "total_tokens": 420203,
+    "schema_character_total": 1389351
+  },
+  "compact_schema": {
+    "execution_success_count": 398,
+    "preliminary_correct_count": 201,
+    "total_tokens": 373819,
+    "schema_character_total": 968361
+  },
+  "paired_correctness": {
+    "both_correct": 176,
+    "full_only_correct": 25,
+    "compact_only_correct": 25,
+    "both_wrong": 274,
+    "discordant_count": 50,
+    "mcnemar_exact_two_sided_p": 1.0
+  },
+  "efficiency": {
+    "token_reduction_count": 46384,
+    "token_reduction_rate": 0.110385,
+    "schema_character_reduction_rate": 0.303012
+  }
+}

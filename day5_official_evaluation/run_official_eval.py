@@ -23,6 +23,7 @@ DEFAULT_GOLD = DAY_DIR / "official_gold.txt"
 DEFAULT_PREDICTIONS = DAY_DIR / "official_predictions.txt"
 DEFAULT_OUTPUT = DAY_DIR / "official_single_db_output.txt"
 DEFAULT_METADATA = DAY_DIR / "official_eval_metadata.json"
+MISSING_PREDICTION_SQL = "SELECT FROM"
 
 
 def load_completed_results(path: Path) -> list[dict[str, Any]]:
@@ -33,9 +34,6 @@ def load_completed_results(path: Path) -> list[dict[str, Any]]:
         raise ValueError("结果文件中没有模型预测。")
     if expected is not None and len(results) != expected:
         raise ValueError(f"实验尚未完成：预期 {expected} 条，实际 {len(results)} 条。")
-    for item in results:
-        if not item.get("generated_sql"):
-            raise ValueError(f"{item.get('id')} 没有生成 SQL。")
     return results
 
 
@@ -51,9 +49,11 @@ def write_official_inputs(
     gold_lines = [
         f"{sql_to_single_line(item['gold_sql'])}\t{item['db_id']}" for item in results
     ]
-    prediction_lines = [sql_to_single_line(item["generated_sql"]) for item in results]
-    if any(not line for line in prediction_lines):
-        raise ValueError("至少一条模型预测在单行化后为空。")
+    prediction_lines = [
+        sql_to_single_line(item.get("generated_sql") or "")
+        or MISSING_PREDICTION_SQL
+        for item in results
+    ]
     gold_path.write_text("\n".join(gold_lines) + "\n", encoding="utf-8")
     prediction_path.write_text(
         "\n".join(prediction_lines) + "\n", encoding="utf-8"
@@ -106,6 +106,10 @@ def main() -> None:
         raise SystemExit(f"找不到数据库根目录：{args.database_root}")
 
     results = load_completed_results(args.results)
+    missing_prediction_count = sum(
+        not sql_to_single_line(item.get("generated_sql") or "")
+        for item in results
+    )
     args.gold.parent.mkdir(parents=True, exist_ok=True)
     write_official_inputs(results, args.gold, args.predictions)
     instance_counts = inspect_database_instances(results, args.database_root)
@@ -155,6 +159,11 @@ def main() -> None:
             else "official evaluator on original single databases (not Test Suite Accuracy)"
         ),
         "case_count": len(results),
+        "missing_prediction_count": missing_prediction_count,
+        "missing_prediction_policy": (
+            f"Empty model outputs are serialized as invalid SQL "
+            f"'{MISSING_PREDICTION_SQL}' and counted as wrong."
+        ),
         "gold_file": str(args.gold.resolve()),
         "prediction_file": str(args.predictions.resolve()),
         "output_file": str(args.output.resolve()),
@@ -171,6 +180,7 @@ def main() -> None:
     print(console_output)
     print("\n评测类型：" + metadata["metric_label"])
     print(f"保留 DISTINCT：{args.keep_distinct}")
+    print(f"空预测（按错误计）：{missing_prediction_count}")
     print("数据库实例数：" + json.dumps(instance_counts, ensure_ascii=False))
     print(f"输出文件：{args.output.resolve()}")
     if completed.returncode != 0:

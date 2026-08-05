@@ -1,0 +1,111 @@
+{
+  "dataset": "BIRD Mini-Dev SQLite",
+  "source": "https://github.com/bird-bench/mini_dev",
+  "license": "CC BY-SA 4.0",
+  "role": "one-time cross-benchmark confirmation after method freeze",
+  "case_count": 500,
+  "database_count": 11,
+  "difficulty_distribution": {
+    "challenging": 102,
+    "moderate": 250,
+    "simple": 148
+  },
+  "full_schema_character_total_per_database": 28345,
+  "compact_schema_character_total_per_database": 19881,
+  "schema_character_reduction_rate": 0.2986,
+  "configuration_frozen_before_api_generation": true,
+  "model": "glm-4.5-air",
+  "official_evidence_provided_to_both_methods": true,
+  "gold_sql_sent_to_model": false,
+  "retry_policy": "retry only API failures with an empty SQL output",
+  "database_profiles": [
+    {
+      "db_id": "california_schools",
+      "question_count": 30,
+      "table_count": 3,
+      "full_schema_characters": 2320,
+      "compact_schema_characters": 1826,
+      "character_reduction_rate": 0.2129
+    },
+    {
+      "db_id": "card_games",
+      "question_count": 52,
+      "table_count": 6,
+      "full_schema_characters": 3240,
+      "compact_schema_characters": 2232,
+      "character_reduction_rate": 0.3111
+    },
+    {
+      "db_id": "codebase_community",
+      "question_count": 49,
+      "table_count": 8,
+      "full_schema_characters": 2515,
+      "compact_schema_characters": 1852,
+      "character_reduction_rate": 0.2636
+    },
+    {
+      "db_id": "debit_card_specializing",
+      "question_count": 30,
+      "table_count": 5,
+      "full_schema_characters": 767,
+      "compact_schema_characters": 572,
+      "character_reduction_rate": 0.2542
+    },
+    {
+      "db_id": "european_football_2",
+      "question_count": 51,
+      "table_count": 7,
+      "full_schema_characters": 7148,
+      "compact_schema_characters": 5657,
+      "character_reduction_rate": 0.2086
+    },
+    {
+      "db_id": "financial",
+      "question_count": 32,
+      "table_count": 8,
+      "full_schema_characters": 2246,
+      "compact_schema_characters": 1271,
+      "character_reduction_rate": 0.4341
+    },
+    {
+      "db_id": "formula_1",
+      "question_count": 66,
+      "table_count": 13,
+      "full_schema_characters": 4385,
+      "compact_schema_characters": 2611,
+      "character_reduction_rate": 0.4046
+    },
+    {
+      "db_id": "student_club",
+      "question_count": 48,
+      "table_count": 8,
+      "full_schema_characters": 1757,
+      "compact_schema_characters": 1269,
+      "character_reduction_rate": 0.2777
+    },
+    {
+      "db_id": "superhero",
+      "question_count": 52,
+      "table_count": 10,
+      "full_schema_characters": 1920,
+      "compact_schema_characters": 1156,
+      "character_reduction_rate": 0.3979
+    },
+    {
+      "db_id": "thrombosis_prediction",
+      "question_count": 50,
+      "table_count": 3,
+      "full_schema_characters": 1314,
+      "compact_schema_characters": 968,
+      "character_reduction_rate": 0.2633
+    },
+    {
+      "db_id": "toxicology",
+      "question_count": 40,
+      "table_count": 4,
+      "full_schema_characters": 733,
+      "compact_schema_characters": 467,
+      "character_reduction_rate": 0.3629
+    }
+  ]
+}

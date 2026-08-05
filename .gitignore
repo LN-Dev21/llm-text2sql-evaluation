@@ -32,3 +32,11 @@ __pycache__/
 Thumbs.db
 
 day8_hybrid_schema_linking/embedding_cache.json
+
+# Day 13 smoke-test outputs and reproducible evaluator inputs
+day13_bird_minidev/bird_full_schema_results.json
+day13_bird_minidev/bird_compact_schema_results.json
+day13_bird_minidev/official_evaluation/full_predictions.json
+day13_bird_minidev/official_evaluation/compact_predictions.json
+day13_bird_minidev/official_evaluation/difficulty.jsonl
+day13_bird_minidev/official_evaluation/official_gold.sql

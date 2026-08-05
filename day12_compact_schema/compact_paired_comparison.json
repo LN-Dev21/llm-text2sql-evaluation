@@ -1,0 +1,76 @@
+{
+  "experiment": "compact complete-schema versus full-schema paired comparison",
+  "case_count": 150,
+  "primary_metric": "Spider Test Suite Accuracy",
+  "full_schema": {
+    "correct": 47,
+    "accuracy": 0.3133,
+    "total_tokens": 85485
+  },
+  "compact_schema": {
+    "correct": 46,
+    "accuracy": 0.3067,
+    "total_tokens": 75508
+  },
+  "efficiency_change": {
+    "token_reduction_rate": 0.1167,
+    "token_reduction_count": 9977
+  },
+  "paired_transitions": {
+    "both_correct": 41,
+    "full_schema_only_correct": 6,
+    "compact_schema_only_correct": 5,
+    "both_wrong": 98,
+    "full_schema_only_ids": [
+      "spider_train_others_1244",
+      "spider_train_others_1260",
+      "spider_train_others_1299",
+      "spider_train_others_1518",
+      "spider_train_others_1476",
+      "spider_train_others_1211"
+    ],
+    "compact_schema_only_ids": [
+      "spider_train_others_1420",
+      "spider_train_others_1438",
+      "spider_train_others_1485",
+      "spider_train_others_1499",
+      "spider_train_others_1531"
+    ]
+  },
+  "mcnemar_exact_two_sided_p": 1.0,
+  "statistical_conclusion_at_alpha_0_05": "no statistically significant difference",
+  "predeclared_criteria": {
+    "minimum_test_suite_correct": 43,
+    "minimum_token_reduction_rate": 0.25,
+    "accuracy_requirement_met": true,
+    "token_requirement_met": false,
+    "overall_requirement_met": false
+  },
+  "by_database": [
+    {
+      "db_id": "academic",
+      "case_count": 38,
+      "full_correct": 8,
+      "compact_correct": 6
+    },
+    {
+      "db_id": "imdb",
+      "case_count": 38,
+      "full_correct": 6,
+      "compact_correct": 8
+    },
+    {
+      "db_id": "scholar",
+      "case_count": 37,
+      "full_correct": 27,
+      "compact_correct": 27
+    },
+    {
+      "db_id": "yelp",
+      "case_count": 37,
+      "full_correct": 6,
+      "compact_correct": 5
+    }
+  ],
+  "methodological_note": "Four API-timeout cases with empty outputs were retried once by resume; all non-empty model outputs were kept unchanged."
+}

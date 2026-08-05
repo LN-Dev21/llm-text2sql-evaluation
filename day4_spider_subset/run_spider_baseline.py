@@ -38,7 +38,11 @@ def clean_sql(text: str) -> str:
     return value
 
 
-def execute_readonly(db_path: Path, sql: str) -> dict[str, Any]:
+def execute_readonly(
+    db_path: Path,
+    sql: str,
+    query_timeout_seconds: float | None = None,
+) -> dict[str, Any]:
     if not re.match(r"^\s*(SELECT|WITH)\b", sql, flags=re.I):
         return {
             "success": False,
@@ -46,9 +50,27 @@ def execute_readonly(db_path: Path, sql: str) -> dict[str, Any]:
             "rows": [],
             "error": "只允许执行 SELECT 或 WITH 查询。",
         }
+    if query_timeout_seconds is not None and query_timeout_seconds <= 0:
+        raise ValueError("query_timeout_seconds must be positive or None")
+    timed_out = False
+    deadline = (
+        time.monotonic() + query_timeout_seconds
+        if query_timeout_seconds is not None
+        else None
+    )
+
+    def interrupt_long_query() -> int:
+        nonlocal timed_out
+        if deadline is not None and time.monotonic() >= deadline:
+            timed_out = True
+            return 1
+        return 0
+
     try:
         uri = f"{db_path.resolve().as_uri()}?mode=ro"
         with sqlite3.connect(uri, uri=True) as connection:
+            if deadline is not None:
+                connection.set_progress_handler(interrupt_long_query, 10_000)
             cursor = connection.execute(sql)
             return {
                 "success": True,
@@ -57,11 +79,18 @@ def execute_readonly(db_path: Path, sql: str) -> dict[str, Any]:
                 "error": None,
             }
     except Exception as exc:
+        if timed_out:
+            error = (
+                f"QueryTimeoutError: execution exceeded "
+                f"{query_timeout_seconds:g} seconds."
+            )
+        else:
+            error = f"{type(exc).__name__}: {exc}"
         return {
             "success": False,
             "columns": [],
             "rows": [],
-            "error": f"{type(exc).__name__}: {exc}",
+            "error": error,
         }
 
 

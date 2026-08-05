@@ -1,0 +1,21 @@
+{
+  "evaluator_repository": "https://github.com/taoyds/test-suite-sql-eval",
+  "evaluator_file": "D:\\SystemDir\\Desktop\\Research project\\Text-to-SQL System\\third_party\\test-suite-sql-eval\\evaluation.py",
+  "database_root": "D:\\SystemDir\\Desktop\\Research project\\Text-to-SQL System\\data\\test_suite_databases\\database",
+  "database_instance_counts": {
+    "academic": 412,
+    "imdb": 201,
+    "scholar": 208,
+    "yelp": 283
+  },
+  "uses_multiple_test_databases": true,
+  "keep_distinct": false,
+  "metric_label": "Spider Test Suite Accuracy",
+  "case_count": 150,
+  "missing_prediction_count": 0,
+  "missing_prediction_policy": "Empty model outputs are serialized as invalid SQL 'SELECT FROM' and counted as wrong.",
+  "gold_file": "D:\\SystemDir\\Desktop\\Research project\\Text-to-SQL System\\day12_compact_schema\\compact_test_suite_gold.txt",
+  "prediction_file": "D:\\SystemDir\\Desktop\\Research project\\Text-to-SQL System\\day12_compact_schema\\compact_test_suite_predictions.txt",
+  "output_file": "D:\\SystemDir\\Desktop\\Research project\\Text-to-SQL System\\day12_compact_schema\\compact_test_suite_output.txt",
+  "return_code": 0
+}
